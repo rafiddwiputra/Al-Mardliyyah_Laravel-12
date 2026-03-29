@@ -1,0 +1,27 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('legalitas_pondok', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('nama_dokumen', 100)->nullable();
+            $table->string('nomor_dokumen', 100)->nullable();
+            $table->string('tahun', 10)->nullable();
+            $table->string('file_dokumen', 255)->nullable();
+
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('legalitas_pondok');
+    }
+};
