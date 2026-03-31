@@ -2,18 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
-// ================= ROUTE ADMIN PANEL =================
-Route::prefix('admin')->group(function () {
-    
-    Route::get('/dashboard', function () {
-        return view('pages.admin.dashboard');
-    })->name('admin.dashboard');
+// ================= ROUTE AUTH =================
+Route::get('/register', function () {
+    return view('pages.auth.register');
+})->name('register');
 
-    // Kamu bisa menambah route lain di sini nanti, contoh:
-    // Route::get('/berita', ...);
-});
+Route::get('/login', function () {
+    return view('pages.auth.login');
+})->name('login');
 
-// Route default (halaman awal)
+// ================= DEFAULT =================
 Route::get('/', function () {
     return view('welcome');
 });
