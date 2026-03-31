@@ -148,4 +148,8 @@
 
 </div>
 
+<<<<<<< HEAD
 @endsection
+=======
+@endsection
+>>>>>>> fc134fe (Menambahkan auth pages (register n login))
