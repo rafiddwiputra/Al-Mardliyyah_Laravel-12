@@ -86,119 +86,95 @@
 <section id="sejarah" class="py-24 bg-[#FAFAFA] scroll-mt-20">
     <div class="max-w-4xl mx-auto px-6">
         
-        {{-- Header Sejarah --}}
         <div class="text-center mb-20">
             <h2 class="text-3xl font-bold text-[#1e4d2b] mb-3">Sejarah Pondok</h2>
             <p class="text-gray-500 text-lg">Lebih dari 40 tahun pengabdian dalam dunia pendidikan Islam</p>
         </div>
 
-        {{-- TIMELINE CONTAINER --}}
         <div class="relative">
-            {{-- Garis Vertical --}}
             <div class="absolute left-6 top-0 h-full w-[2px] bg-[#1e4d2b]/20"></div>
 
             <div class="space-y-10">
-                @php
-                    $timelines = [
-                        [
-                            'year' => '1985', 
-                            'title' => 'Pendirian Pondok', 
-                            'desc' => 'Pondok Pesantren Al-Mardliyyah didirikan dengan santri perdana sebanyak 30 orang di atas lahan seluas 2 hektar'
-                        ],
-                        [
-                            'year' => '1992', 
-                            'title' => 'Pembangunan Masjid Utama', 
-                            'desc' => 'Diresmikan masjid utama dengan kapasitas 500 jamaah sebagai pusat kegiatan ibadah dan pembelajaran'
-                        ],
-                        [
-                            'year' => '2000', 
-                            'title' => 'Penambahan Program Tahfidz', 
-                            'desc' => 'Diluncurkan program Tahfidz Al-Qur\'an intensif dengan target hafalan 30 juz dalam 3 tahun'
-                        ],
-                        [
-                            'year' => '2010', 
-                            'title' => 'Perluasan Fasilitas', 
-                            'desc' => 'Pembangunan asrama baru, ruang kelas modern, dan perpustakaan digital untuk mendukung pembelajaran'
-                        ],
-                        [
-                            'year' => '2018', 
-                            'title' => 'Akreditasi A', 
-                            'desc' => 'Meraih akreditasi A dari Kementrian Agama dan berbagai prestasi di tingkat nasional.'
-                        ],
-                        [
-                            'year' => '2026', 
-                            'title' => 'Santri Lebih dari 1000', 
-                            'desc' => 'Berkembang menjadi salah satu pesantren terbesar di wilayah Kota Madiun dengan lebih dari 1000 santri aktif'
-                        ],
-                    ];
-                @endphp
+                {{-- HAPUS BLOK @php $timelines = [...] @endphp YANG LAMA DI SINI --}}
 
-               @foreach($timelines as $item)
-<div class="relative flex items-start gap-12 group">
-    {{-- Titik Lingkaran Hijau --}}
-    <div class="z-10 w-12 h-12 flex items-center justify-center bg-transparent shrink-0">
-        <div class="w-6 h-6 rounded-full bg-[#1e4d2b] border-4 border-white shadow-sm transition-transform group-hover:scale-125 duration-300"></div>
-    </div>
+                @foreach($timelines as $item)
+                <div class="relative flex items-start gap-12 group">
+                    <div class="z-10 w-12 h-12 flex items-center justify-center bg-transparent shrink-0">
+                        <div class="w-6 h-6 rounded-full bg-[#1e4d2b] border-4 border-white shadow-sm transition-transform group-hover:scale-125 duration-300"></div>
+                    </div>
 
-    {{-- KONTEN CARD (Dibungkus Link agar bisa diklik) --}}
-    <a href="{{ route('profile.sejarah.detail', ['tahun' => $item['year']]) }}" class="flex-1 block">
-        <div class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
-            {{-- Tahun (Warna Emas) --}}
-            <h3 class="text-2xl font-bold text-[#c9a76d] mb-1">
-                {{ $item['year'] }}
-            </h3>
-            
-            {{-- Judul Kegiatan (Warna Hijau) --}}
-            <h4 class="text-lg font-bold text-[#1e4d2b] mb-3">
-                {{ $item['title'] }}
-            </h4>
-            
-            {{-- Deskripsi Singkat --}}
-            <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                {{ $item['desc'] }}
-            </p>
+                    {{-- Link ke Detail menggunakan ID atau Tahun dari Database --}}
+                    <a href="{{ route('profile.sejarah.detail', $item->tahun) }}" class="flex-1 block">
+                        <div class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                            {{-- Nama kolom disesuaikan dengan Migration kamu (tahun, judul, deskripsi_singkat) --}}
+                            <h3 class="text-2xl font-bold text-[#c9a76d] mb-1">
+                                {{ $item->tahun }}
+                            </h3>
+                            
+                            <h4 class="text-lg font-bold text-[#1e4d2b] mb-3">
+                                {{ $item->judul }}
+                            </h4>
+                            
+                            <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                {{ $item->deskripsi_singkat }}
+                            </p>
 
-            {{-- Indikator Klik (Opsional agar user tahu ini bisa diklik) --}}
-            <div class="text-[#1e4d2b] text-xs font-bold flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                Baca selengkapnya <span>→</span>
-            </div>
-        </div>
-    </a>
-</div>
-@endforeach
-
+                            <div class="text-[#1e4d2b] text-xs font-bold flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                Baca selengkapnya <span>→</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                @endforeach
             </div>
         </div>
     </div>
 </section>
 
-{{-- ================= PIMPINAN ================= --}}
+{{-- ================= PIMPINAN SECTION ================= --}}
 <section id="pimpinan" class="py-24 bg-white scroll-mt-20">
     <div class="max-w-6xl mx-auto px-6 text-center">
-        <div class="inline-block bg-[#e2ede5] text-[#1e4d2b] px-5 py-2 rounded-lg mb-4 text-sm font-bold uppercase tracking-wider">
-            Kepemimpinan
-        </div>
-        <h2 class="text-3xl font-bold text-[#1e4d2b] mb-4">Pimpinan Pondok</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto mb-16 leading-relaxed">
-            Pimpinan Pondok Pesantren Al-Mardliyyah merupakan sosok yang berperan penting dalam membimbing karakter santri.
-        </p>
+        {{-- ... header section (judul/badge) tetap seperti kode kamu ... --}}
 
-        <div class="grid md:grid-cols-3 gap-10">
-            @for ($i = 1; $i <= 3; $i++)
-            <div class="bg-[#FAFAFA] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100">
-                <div class="h-64 overflow-hidden">
-                    <img src="{{ asset('images/pimpinan1.jpg') }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Pimpinan">
+        {{-- Pastikan class grid-cols-1, md:grid-cols-3, dan gap-10 ini ada --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            @foreach ($pimpinans as $p)
+            <div class="bg-[#FAFAFA] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 flex flex-col">
+                
+                {{-- FOTO (Pastikan tingginya dibatasi dengan h-64 atau h-72) --}}
+                <div class="h-64 md:h-72 overflow-hidden shrink-0">
+                    <img src="{{ asset($p->foto) }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="{{ $p->nama }}">
                 </div>
-                <div class="p-6 text-left">
-                    <p class="text-xs text-gray-400 mb-2 font-medium">Pengurus Utama</p>
-                    <h3 class="text-[#1e4d2b] font-bold text-xl mb-3">KH. Ahmad Fauzi</h3>
-                    <p class="text-gray-600 text-sm mb-6 line-clamp-2">Memimpin pesantren dengan visi membentuk generasi Qur’ani yang unggul.</p>
-                    <a href="#" class="text-[#1e4d2b] font-bold text-sm flex items-center gap-2 hover:gap-4 transition-all">
-                        Baca Profil Lengkap <span>→</span>
-                    </a>
+
+                <div class="p-8 text-left flex flex-col flex-grow">
+                    {{-- TANGGAL & KALENDER --}}
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="{{ asset('images/calendar.png') }}" alt="Calendar" class="w-4 h-4 shrink-0">
+                        <span class="text-xs text-gray-500 font-medium">
+                            {{ $p->created_at->translatedFormat('d F Y') }}
+                        </span>
+                    </div>
+
+                    {{-- JABATAN & NAMA --}}
+                    <p class="text-[10px] text-[#c9a76d] font-bold uppercase mb-2 tracking-widest">{{ $p->jabatan }}</p>
+                    <h3 class="text-[#1e4d2b] font-bold text-xl mb-4 leading-tight min-h-[3rem] line-clamp-2">
+                        {{ $p->nama }}
+                    </h3>
+                    
+                    {{-- DESKRIPSI (Line clamp agar tinggi kartu sama) --}}
+                    <p class="text-gray-600 text-sm mb-8 leading-relaxed line-clamp-3 flex-grow">
+                        {{ $p->deskripsi }}
+                    </p>
+
+                    <div class="mt-auto pt-4 border-t border-gray-100">
+                        <a href="{{ route('profile.pimpinan.detail', $p->id) }}" 
+                           class="text-[#1e4d2b] font-bold text-sm flex items-center gap-2 hover:gap-4 transition-all group-hover:text-[#c9a76d]">
+                            Baca Selengkapnya <span>→</span>
+                        </a>
+                    </div>
                 </div>
             </div>
-            @endfor
+            @endforeach
         </div>
     </div>
 </section>
@@ -238,36 +214,26 @@
 {{-- ================= FASILITAS PONDOK ================= --}}
 <section id="fasilitas" class="py-24 bg-white scroll-mt-20">
     <div class="max-w-6xl mx-auto px-6 text-center">
-        {{-- Badge --}}
         <div class="inline-block bg-[#e2ede5] text-[#1e4d2b] px-5 py-1.5 rounded-md mb-4 text-xs font-bold uppercase tracking-wider">
             Fasilitas
         </div>
         <h2 class="text-3xl font-bold text-[#1e4d2b] mb-4">Fasilitas Pondok</h2>
         <p class="text-gray-500 max-w-2xl mx-auto mb-16 text-sm">Fasilitas lengkap dan modern untuk mendukung pembelajaran optimal</p>
 
-        {{-- Grid Fasilitas --}}
-        <div class="grid md:grid-cols-3 gap-8">
-            @php
-                $fasilitas = [
-                    ['name' => 'Asrama Santri', 'desc' => 'Asrama nyaman dengan kapasitas 500 santri'],
-                    ['name' => 'Masjid Utama', 'desc' => 'Masjid megah dengan kapasitas 500 jamaah'],
-                    ['name' => 'Ruang Kelas Modern', 'desc' => '24 ruang ber-AC dengan fasilitas multimedia'],
-                    ['name' => 'Perpustakaan', 'desc' => 'Koleksi lebih dari 5000 buku dan kitab'],
-                    ['name' => 'Lapangan Olahraga', 'desc' => 'Lapangan futsal, basket, dan voli'],
-                    ['name' => 'Laboratorium Komputer', 'desc' => '40 unit komputer dengan internet berkecepatan tinggi'],
-                ];
-            @endphp
-
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($fasilitas as $f)
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-1 flex flex-col hover:shadow-md transition duration-300">
-                {{-- Placeholder Gambar Fasilitas --}}
+                {{-- GAMBAR FASILITAS --}}
                 <div class="w-full h-48 bg-gray-100 rounded-t-lg mb-6 overflow-hidden">
-                    {{-- Ganti src jika sudah ada gambarnya --}}
-                    <div class="w-full h-full bg-gray-50"></div> 
+                    <img src="{{ asset($f->gambar) }}" 
+                         alt="{{ $f->nama_fasilitas }}" 
+                         class="w-full h-full object-cover">
                 </div>
+
+                {{-- KONTEN --}}
                 <div class="px-5 pb-8 text-left">
-                    <h3 class="text-[#1e4d2b] font-bold text-lg mb-1">{{ $f['name'] }}</h3>
-                    <p class="text-gray-500 text-xs leading-relaxed">{{ $f['desc'] }}</p>
+                    <h3 class="text-[#1e4d2b] font-bold text-lg mb-1">{{ $f->nama_fasilitas }}</h3>
+                    <p class="text-gray-500 text-xs leading-relaxed">{{ $f->deskripsi }}</p>
                 </div>
             </div>
             @endforeach
@@ -279,57 +245,48 @@
 <section id="video" class="py-24 bg-[#FAFAFA] scroll-mt-20">
     <div class="max-w-6xl mx-auto px-6 text-center">
         
-        {{-- Badge Video --}}
         <div class="inline-block bg-[#e2ede5] text-[#1e4d2b] px-6 py-1.5 rounded-md mb-4 text-xs font-bold uppercase tracking-wider">
             Video
         </div>
 
-        {{-- Judul & Deskripsi --}}
-        <h2 class="text-3xl font-bold text-[#1e4d2b] mb-4">Vidio Profil Pondok</h2>
-        <p class="text-gray-500 max-w-2xl mx-auto mb-12 text-sm">Lihat profil Pondok Pesantren Al-Mardliyyah melalui vidio berikut</p>
+        @if($video)
+        <h2 class="text-3xl font-bold text-[#1e4d2b] mb-4">{{ $video->judul }}</h2>
+        <p class="text-gray-500 max-w-2xl mx-auto mb-12 text-sm">{{ $video->deskripsi }}</p>
 
-       {{-- CARD VIDEO --}}
-<div class="max-w-3xl mx-auto">
-    {{-- Tambahkan 'group' pada pembungkus utama agar hover terdeteksi --}}
-    <a href="https://www.youtube.com/watch?v=VIDEO_ID_KAMU" target="_blank" rel="noopener noreferrer" class="block">
-        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden group cursor-pointer transition-transform hover:-translate-y-1">
-            
-            {{-- THUMBNAIL VIDEO --}}
-            <div class="relative w-full aspect-video overflow-hidden">
-                <img src="{{ asset('images/video-pondok.png') }}" 
-                     alt="Thumbnail Vidio Profil" 
-                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                
-                {{-- OVERLAY LOGO YOUTUBE (Muncul saat Hover) --}}
-                <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    {{-- Ikon YouTube menggunakan SVG agar tajam --}}
-                    <div class="w-20 h-20 transition-transform duration-300 group-hover:scale-110">
-                        <svg viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z" />
-                            <path d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="white" />
-                        </svg>
+        <div class="max-w-3xl mx-auto">
+            <a href="{{ $video->link_yt }}" target="_blank" rel="noopener noreferrer" class="block">
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden group cursor-pointer transition-transform hover:-translate-y-1">
+                    
+                    <div class="relative w-full aspect-video overflow-hidden">
+                        {{-- Thumbnail dari database --}}
+                        <img src="{{ asset($video->thumbnail) }}" 
+                             alt="Thumbnail Video" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        
+                        <div class="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                            <div class="w-20 h-20 transition-transform duration-300 group-hover:scale-110">
+                                <svg viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z" />
+                                    <path d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="white" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-8 text-left">
+                        <h3 class="text-xl font-bold text-[#1e4d2b] mb-3">{{ $video->judul }}</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-6">{{ $video->deskripsi }}</p>
+                        <div class="inline-flex items-center text-[#1e4d2b] text-sm font-bold gap-2 group-hover:text-[#c9a76d] transition-colors">
+                            Klik untuk menonton <span class="transition-transform group-hover:translate-x-2">→</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            {{-- KONTEN TEKS VIDEO --}}
-            <div class="p-8 text-left">
-                <h3 class="text-xl font-bold text-[#1e4d2b] mb-3">
-                    Profil Pondok Pesantren Al-Mardliyyah
-                </h3>
-                <p class="text-gray-500 text-sm leading-relaxed mb-6">
-                    Video singkat yang menampilkan kegiatan, fasilitas, dan kehidupan santri di pondok pesantren.
-                </p>
-                
-                <div class="inline-flex items-center text-[#1e4d2b] text-sm font-bold gap-2 group-hover:text-[#c9a76d] transition-colors">
-                    Klik untuk menonton 
-                    <span class="transition-transform group-hover:translate-x-2">→</span>
-                </div>
-            </div>
-
+            </a>
         </div>
-    </a>
-</div>
+        @else
+        <p class="text-gray-400">Video profil belum tersedia.</p>
+        @endif
+    </div>
 </section>
 
 <!-- Scroll Spy Script untuk update activeTab berdasarkan scroll -->

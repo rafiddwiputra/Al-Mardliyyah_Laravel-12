@@ -1,6 +1,8 @@
 @extends('layouts.app')
+
 @section('content')
 
+<!-- HERO -->
 <div class="bg-[#1E5631] text-white py-24">
     <div class="max-w-6xl mx-auto px-6">
 
@@ -58,11 +60,11 @@
             </div>
 
         <!-- DESKRIPSI -->
-        @foreach ($sejarah['deskripsi'] as $paragraf)
-            <p class="text-[#1E5631] text-sm mb-4 leading-relaxed text-justify">
-                {{ $paragraf }}
-            </p>
-        @endforeach
+        @foreach ($sejarah->konten_detail as $paragraf)
+    <p class="text-[#1E5631] text-sm mb-4 leading-relaxed text-justify">
+        {{ $paragraf }}
+    </p>
+@endforeach
 
         <!-- BUTTON -->
         <div class="flex justify-center mt-10">

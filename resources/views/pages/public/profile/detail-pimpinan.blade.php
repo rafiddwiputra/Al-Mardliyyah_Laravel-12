@@ -50,19 +50,18 @@
                 <span>{{ $pimpinan['tanggal'] }}</span>
             </div>
 
-            {{-- FOTO PIMPINAN (Framing Megah) --}}
-            <div class="rounded-2xl overflow-hidden shadow-2xl mb-12 border border-gray-100 max-w-2xl mx-auto">
-                <img src="{{ asset($pimpinan['gambar']) }}" 
-                     alt="{{ $pimpinan['nama'] }}" 
-                     class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
-            </div>
+           {{-- FOTO PIMPINAN (Framing Megah) --}}
+<div class="rounded-2xl overflow-hidden shadow-2xl mb-12 border border-gray-100 max-w-2xl mx-auto">
+    {{-- Ganti 'gambar' menjadi 'foto' sesuai kolom di database --}}
+    <img src="{{ asset($pimpinan->foto) }}" 
+         alt="{{ $pimpinan->nama }}" 
+         class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+</div>
 
             {{-- BIOGRAFI / DESKRIPSI --}}
             <div class="space-y-6 text-gray-600 leading-relaxed text-lg text-justify">
-                @foreach ($pimpinan['deskripsi'] as $paragraf)
-                    <p>{{ $paragraf }}</p>
-                @endforeach
-            </div>
+    <p>{!! nl2br(e($pimpinan->deskripsi)) !!}</p>
+</div>
 
             {{-- TOMBOL KEMBALI --}}
             <div class="mt-20 flex justify-center border-t border-gray-100 pt-10">
