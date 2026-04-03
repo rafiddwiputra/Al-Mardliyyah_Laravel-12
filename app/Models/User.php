@@ -2,25 +2,22 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
+use App\Models\Public\Kontak;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Hidden;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['nama', 'email', 'password', 'role', 'phone'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Tentukan cast untuk atribut.
      */
     protected function casts(): array
     {
@@ -28,5 +25,21 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Relasi ke tabel Kontak (Data yang dibuat oleh user ini)
+     */
+    public function kontakDibuat(): HasMany
+    {
+        return $this->hasMany(Kontak::class, 'created_by');
+    }
+
+    /**
+     * Relasi ke tabel Kontak (Data yang diupdate oleh user ini)
+     */
+    public function kontakDiupdate(): HasMany
+    {
+        return $this->hasMany(Kontak::class, 'updated_by');
     }
 }

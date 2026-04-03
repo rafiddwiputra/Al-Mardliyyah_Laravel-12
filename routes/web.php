@@ -1,13 +1,10 @@
 <?php
 
 use App\Http\Controllers\Public\ProfileController;
+use App\Http\Controllers\Public\KontakController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
+// Web Routes
 
 // ================= ROUTE DEFAULT =================
 Route::get('/', function () {
@@ -36,9 +33,10 @@ Route::get('/profil/sejarah/{tahun}', [ProfileController::class, 'detailSejarah'
 // Route detail-pimpinan.blade.php
 Route::get('/profil/pimpinan/{id}', [ProfileController::class, 'detailPimpinan'])->name('profile.pimpinan.detail');
 
+// Route kontak.blade.php
+Route::get('/kontak', [KontakController::class, 'index'])->name('kontak');
 
 // ================= ROUTE ADMIN PANEL =================
-// Jangan lupa bagian ini agar sidebar & topbar admin bisa tampil
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
         // Sesuai folder: resources/views/pages/admin/dashboard.blade.php
