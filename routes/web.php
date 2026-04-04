@@ -50,6 +50,11 @@ Route::get('/detail-berita', function () {
 // Route Program-pendidikan
 Route::get('/program-pendidikan', [ProgramPendidikanController::class, 'programPendidikan']);
 
+// Route pendaftaran.blade.php
+Route::get('/pendaftaran', function () {
+    return view('pages.public.pendaftaran.pendaftaran');
+});
+
 // ================= ROUTE ADMIN PANEL =================
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
