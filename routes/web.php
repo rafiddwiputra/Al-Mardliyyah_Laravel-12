@@ -36,6 +36,16 @@ Route::get('/profil/pimpinan/{id}', [ProfileController::class, 'detailPimpinan']
 // Route kontak.blade.php
 Route::get('/kontak', [KontakController::class, 'index'])->name('kontak');
 
+// Route berita.blade.php
+Route::get('/berita', function () {
+    return view('pages.public.berita.berita');
+});
+
+// Route detail-berita.blade.php
+Route::get('/detail-berita', function () {
+    return view('pages.public.berita.detail-berita');
+});
+
 // ================= ROUTE ADMIN PANEL =================
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
