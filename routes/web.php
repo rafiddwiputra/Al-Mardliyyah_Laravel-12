@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Public\ProfileController;
 use App\Http\Controllers\Public\KontakController;
+use App\Http\Controllers\Public\ProgramPendidikanController;
 use Illuminate\Support\Facades\Route;
 
 // Web Routes
@@ -45,6 +46,9 @@ Route::get('/berita', function () {
 Route::get('/detail-berita', function () {
     return view('pages.public.berita.detail-berita');
 });
+
+// Route Program-pendidikan
+Route::get('/program-pendidikan', [ProgramPendidikanController::class, 'programPendidikan']);
 
 // ================= ROUTE ADMIN PANEL =================
 Route::prefix('admin')->group(function () {
