@@ -43,12 +43,12 @@
         </li>
 
         {{-- Galeri --}}
-        <li>
-            <a href="#" class="relative pb-1 hover:text-[#1e4d2b] transition-colors duration-300 group">
-                Galeri
-                <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-[#1e4d2b] transition-all duration-300 group-hover:w-full"></span>
-            </a>
-        </li>
+<li>
+    <a href="{{ route('galeri') }}" class="relative pb-1 group {{ Request::is('galeri*') ? 'text-[#1e4d2b] font-bold' : 'hover:text-[#1e4d2b] transition-colors duration-300' }}">
+        Galeri
+        <span class="absolute left-0 bottom-0 h-0.5 bg-[#1e4d2b] transition-all duration-300 {{ Request::is('galeri*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
+    </a>
+</li>
 
         {{-- Pendaftaran (CEK APAKAH AKTIF) --}}
         <li>

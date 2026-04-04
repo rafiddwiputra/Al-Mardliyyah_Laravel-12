@@ -3,6 +3,7 @@
 use App\Http\Controllers\Public\ProfileController;
 use App\Http\Controllers\Public\KontakController;
 use App\Http\Controllers\Public\ProgramPendidikanController;
+use App\Http\Controllers\Public\GaleriController;
 use Illuminate\Support\Facades\Route;
 
 // Web Routes
@@ -54,6 +55,9 @@ Route::get('/program-pendidikan', [ProgramPendidikanController::class, 'programP
 Route::get('/pendaftaran', function () {
     return view('pages.public.pendaftaran.pendaftaran');
 });
+
+// Route galeri.blade.php
+Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
 
 // ================= ROUTE ADMIN PANEL =================
 Route::prefix('admin')->group(function () {
