@@ -50,13 +50,14 @@
             </a>
         </li>
 
-        {{-- Pendaftaran --}}
-        <li>
-            <a href="{{ route('register') }}" class="relative pb-1 group {{ Request::is('register*') || Request::is('login*') ? 'text-[#1e4d2b] font-bold' : 'hover:text-[#1e4d2b] transition-colors duration-300' }}">
-                Pendaftaran
-                <span class="absolute left-0 bottom-0 h-0.5 bg-[#1e4d2b] transition-all duration-300 {{ Request::is('register*') || Request::is('login*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
-            </a>
-        </li>
+      {{-- Pendaftaran --}}
+<li>
+    <a href="{{ route('pendaftaran') }}" 
+       class="relative pb-1 group {{ Request::is('pendaftaran*') || Request::is('register*') || Request::is('login*') ? 'text-[#1e4d2b] font-bold' : 'hover:text-[#1e4d2b] transition-colors duration-300' }}">
+        Pendaftaran
+        <span class="absolute left-0 bottom-0 h-0.5 bg-[#1e4d2b] transition-all duration-300 {{ Request::is('pendaftaran*') || Request::is('register*') || Request::is('login*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
+    </a>
+</li>
 
         {{-- Kontak --}}
         <li>

@@ -4,8 +4,9 @@ use App\Http\Controllers\Public\ProfileController;
 use App\Http\Controllers\Public\KontakController;
 use App\Http\Controllers\Public\ProgramPendidikanController;
 use App\Http\Controllers\Public\GaleriController;
-use App\Http\Controllers\Public\BeritaController; // << TAMBAHKAN INI (WAJIB)
+use App\Http\Controllers\Public\BeritaController; 
 use App\Http\Controllers\Public\LupaKataSandiController;
+use App\Http\Controllers\Public\PendaftaranController;
 use Illuminate\Support\Facades\Route;
 
 // Web Routes
@@ -47,9 +48,7 @@ Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.de
 Route::get('/program-pendidikan', [ProgramPendidikanController::class, 'programPendidikan'])->name('program');
 
 // Route pendaftaran.blade.php
-Route::get('/pendaftaran', function () {
-    return view('pages.public.pendaftaran.pendaftaran');
-})->name('pendaftaran');
+Route::get('/pendaftaran', [PendaftaranController::class, 'pendaftaran'])->name('pendaftaran');
 
 // Route galeri.blade.php
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
