@@ -9,6 +9,7 @@ use App\Http\Controllers\Public\LupaKataSandiController;
 use App\Http\Controllers\Public\PendaftaranController;
 use App\Http\Controllers\Public\StatusPendaftaranController;
 use App\Http\Controllers\Admin\AdminBeritaController;
+use App\Http\Controllers\Public\BerandaController;
 use Illuminate\Support\Facades\Route;
 
 // Web Routes
@@ -74,6 +75,8 @@ Route::get('/status-pendaftaran/proses', [StatusPendaftaranController::class, 'p
 Route::get('/status-pendaftaran/diterima', [StatusPendaftaranController::class, 'diterima']);
 Route::get('/status-pendaftaran/ditolak', [StatusPendaftaranController::class, 'ditolak']);
 
+// Route beranda.blade.php
+Route::get('/', [BerandaController::class, 'index'])->name('home');
 
 
 // ============================================================= ROUTE ADMIN PANEL  ======================================================
