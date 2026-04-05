@@ -8,6 +8,7 @@ use App\Http\Controllers\Public\BeritaController;
 use App\Http\Controllers\Public\LupaKataSandiController;
 use App\Http\Controllers\Public\PendaftaranController;
 use App\Http\Controllers\Public\StatusPendaftaranController;
+use App\Http\Controllers\Admin\AdminBeritaController;
 use Illuminate\Support\Facades\Route;
 
 // Web Routes
@@ -107,7 +108,26 @@ Route::get('/admin/jadwal/jadwal', function () {
     return view('pages.admin.jadwal.jadwal');
 });
 
+// Route admin berita
+Route::prefix('admin')->group(function () {
 
+    Route::get('admin/berita', function () {
+        return view('pages.admin.berita.berita');
+    });
+
+    Route::get('berita/tambah', function () {
+        return view('pages.admin.berita.berita-tambah');
+    });
+
+    Route::get('berita/edit', function () {
+        return view('pages.admin.berita.berita-edit');
+    });
+
+    Route::get('berita/hapus', function () {
+        return view('pages.admin.berita.berita-hapus');
+    });
+
+});
 
 
 /// ROUTE PIMPINAN
