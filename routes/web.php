@@ -5,6 +5,7 @@ use App\Http\Controllers\Public\KontakController;
 use App\Http\Controllers\Public\ProgramPendidikanController;
 use App\Http\Controllers\Public\GaleriController;
 use App\Http\Controllers\Public\BeritaController; // << TAMBAHKAN INI (WAJIB)
+use App\Http\Controllers\Public\LupaKataSandiController;
 use Illuminate\Support\Facades\Route;
 
 // Web Routes
@@ -42,7 +43,7 @@ Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
 // Route detail.blade.php 
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.detail');
 
-// Route rogram-pendidikan.blade.php
+// Route program-pendidikan.blade.php
 Route::get('/program-pendidikan', [ProgramPendidikanController::class, 'programPendidikan'])->name('program');
 
 // Route pendaftaran.blade.php
@@ -52,6 +53,9 @@ Route::get('/pendaftaran', function () {
 
 // Route galeri.blade.php
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
+
+// Route lupa-sandi.blade.php
+Route::get('/lupa-sandi', [LupaKataSandiController::class, 'lupaSandi']);
 
 
 // ============================================================= ROUTE ADMIN PANEL  ======================================================
