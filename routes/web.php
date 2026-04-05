@@ -99,3 +99,11 @@ Route::get('/admin/biaya', function () {
 Route::get('/admin/jadwal/jadwal', function () {
     return view('pages.admin.jadwal.jadwal');
 });
+
+
+
+
+/// ROUTE PIMPINAN
+Route::get('/pimpinan/laporan', function () {
+    return view('pages.pimpinan.laporan');
+});
