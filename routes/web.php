@@ -84,3 +84,8 @@ Route::get('/admin/data-pendaftar', function () {
 Route::get('/admin/data-pendaftar/detail-data', function () {
     return view('pages.admin.data-pendaftar.detail-data');
 });
+
+//Route admin-galeri.blade.php
+Route::get('/admin/galeri/admin-galeri', function () {
+    return view('pages.admin.galeri.admin-galeri');
+});
