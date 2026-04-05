@@ -28,9 +28,9 @@
 
         {{-- Program Pendidikan --}}
         <li>
-            <a href="#" class="relative pb-1 hover:text-[#1e4d2b] transition-colors duration-300 group">
+            <a href="{{ route('program-pendidikan') }}" class="relative pb-1 hover:text-[#1e4d2b] transition-colors duration-300 group">
                 Program Pendidikan
-                <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-[#1e4d2b] transition-all duration-300 group-hover:w-full"></span>
+                <span class="absolute left-0 bottom-0 h-0.5 bg-[#1e4d2b] transition-all duration-300 {{ Request::is('program-pendidikan') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
             </a>
         </li>
 

@@ -49,7 +49,7 @@ Route::get('/detail-berita', function () {
 });
 
 // Route Program-pendidikan
-Route::get('/program-pendidikan', [ProgramPendidikanController::class, 'programPendidikan']);
+Route::get('/program-pendidikan', [ProgramPendidikanController::class, 'programPendidikan'])->name('program-pendidikan');
 
 // Route pendaftaran.blade.php
 Route::get('/pendaftaran', function () {
