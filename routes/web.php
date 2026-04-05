@@ -94,3 +94,8 @@ Route::get('/admin/galeri/admin-galeri', function () {
 Route::get('/admin/biaya', function () {
     return view('pages.admin.biaya');
 });
+
+//Route jadwal.blade.php
+Route::get('/admin/jadwal/jadwal', function () {
+    return view('pages.admin.jadwal.jadwal');
+});
