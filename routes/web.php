@@ -67,9 +67,20 @@ Route::get('/formulir', function () {
 })->name('formulir');
 
 
+
 // ============================================================= ROUTE ADMIN PANEL  ======================================================
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
         return view('pages.admin.dashboard');
     })->name('admin.dashboard');
+});
+
+//Route data.blade.php
+Route::get('/admin/data-pendaftar', function () {
+    return view('pages.admin.data-pendaftar.data');
+});
+
+//Route detail-data.blade.php
+Route::get('/admin/data-pendaftar/detail-data', function () {
+    return view('pages.admin.data-pendaftar.detail-data');
 });
