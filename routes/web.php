@@ -56,6 +56,16 @@ Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
 // Route lupa-sandi.blade.php
 Route::get('/lupa-sandi', [LupaKataSandiController::class, 'lupaSandi']);
 
+//Route upload.blade.php
+Route::get('/upload-dokumen', function () {
+    return view('pages.public.pendaftaran.upload');
+});
+
+//Route formulir.blade.php
+Route::get('/formulir', function () {
+    return view('pages.public.pendaftaran.formulir');
+})->name('formulir');
+
 
 // ============================================================= ROUTE ADMIN PANEL  ======================================================
 Route::prefix('admin')->group(function () {
