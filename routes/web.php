@@ -89,3 +89,8 @@ Route::get('/admin/data-pendaftar/detail-data', function () {
 Route::get('/admin/galeri/admin-galeri', function () {
     return view('pages.admin.galeri.admin-galeri');
 });
+
+//Route biaya.blade.php
+Route::get('/admin/biaya', function () {
+    return view('pages.admin.biaya');
+});
