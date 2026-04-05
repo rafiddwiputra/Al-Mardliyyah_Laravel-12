@@ -18,7 +18,7 @@
             </a>
         </li>
 
-        {{-- Profil (CEK APAKAH AKTIF) --}}
+        {{-- Profil --}}
         <li>
             <a href="{{ route('profile') }}" class="relative pb-1 group {{ Request::is('profil*') ? 'text-[#1e4d2b] font-bold' : 'hover:text-[#1e4d2b] transition-colors duration-300' }}">
                 Profil
@@ -26,31 +26,31 @@
             </a>
         </li>
 
-        {{-- Program Pendidikan --}}
+        {{-- Program Pendidikan (DISESUAIKAN KE route('program')) --}}
         <li>
-            <a href="{{ route('program-pendidikan') }}" class="relative pb-1 hover:text-[#1e4d2b] transition-colors duration-300 group">
+            <a href="{{ route('program') }}" class="relative pb-1 group {{ Request::is('program-pendidikan*') ? 'text-[#1e4d2b] font-bold' : 'hover:text-[#1e4d2b] transition-colors duration-300' }}">
                 Program Pendidikan
-                <span class="absolute left-0 bottom-0 h-0.5 bg-[#1e4d2b] transition-all duration-300 {{ Request::is('program-pendidikan') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
+                <span class="absolute left-0 bottom-0 h-0.5 bg-[#1e4d2b] transition-all duration-300 {{ Request::is('program-pendidikan*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
             </a>
         </li>
 
-        {{-- Berita --}}
+        {{-- Berita (SEKARANG SUDAH AKTIF) --}}
         <li>
-            <a href="#" class="relative pb-1 hover:text-[#1e4d2b] transition-colors duration-300 group">
+            <a href="{{ route('berita') }}" class="relative pb-1 group {{ Request::is('berita*') ? 'text-[#1e4d2b] font-bold' : 'hover:text-[#1e4d2b] transition-colors duration-300' }}">
                 Berita
-                <span class="absolute left-0 bottom-0 w-0 h-0.5 bg-[#1e4d2b] transition-all duration-300 group-hover:w-full"></span>
+                <span class="absolute left-0 bottom-0 h-0.5 bg-[#1e4d2b] transition-all duration-300 {{ Request::is('berita*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
             </a>
         </li>
 
         {{-- Galeri --}}
-<li>
-    <a href="{{ route('galeri') }}" class="relative pb-1 group {{ Request::is('galeri*') ? 'text-[#1e4d2b] font-bold' : 'hover:text-[#1e4d2b] transition-colors duration-300' }}">
-        Galeri
-        <span class="absolute left-0 bottom-0 h-0.5 bg-[#1e4d2b] transition-all duration-300 {{ Request::is('galeri*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
-    </a>
-</li>
+        <li>
+            <a href="{{ route('galeri') }}" class="relative pb-1 group {{ Request::is('galeri*') ? 'text-[#1e4d2b] font-bold' : 'hover:text-[#1e4d2b] transition-colors duration-300' }}">
+                Galeri
+                <span class="absolute left-0 bottom-0 h-0.5 bg-[#1e4d2b] transition-all duration-300 {{ Request::is('galeri*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
+            </a>
+        </li>
 
-        {{-- Pendaftaran (CEK APAKAH AKTIF) --}}
+        {{-- Pendaftaran --}}
         <li>
             <a href="{{ route('register') }}" class="relative pb-1 group {{ Request::is('register*') || Request::is('login*') ? 'text-[#1e4d2b] font-bold' : 'hover:text-[#1e4d2b] transition-colors duration-300' }}">
                 Pendaftaran
@@ -58,7 +58,7 @@
             </a>
         </li>
 
-        {{-- Kontak (SEKARANG SUDAH DINAMIS) --}}
+        {{-- Kontak --}}
         <li>
             <a href="{{ route('kontak') }}" class="relative pb-1 group {{ Request::is('kontak*') ? 'text-[#1e4d2b] font-bold' : 'hover:text-[#1e4d2b] transition-colors duration-300' }}">
                 Kontak
