@@ -3,6 +3,12 @@
 namespace App\Models;
 
 use App\Models\Public\Kontak;
+use App\Models\Public\Galeri;
+use App\Models\Public\ProgramPendidikan;
+use App\Models\Public\SejarahPondok;
+use App\Models\Public\PimpinanPondok;
+use App\Models\Public\TentangPondok;
+use App\Models\Public\AktivitasSantri;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,7 +23,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * Tentukan cast untuk atribut.
+     * Tentukan cast untuk atribut agar password otomatis di-hash.
      */
     protected function casts(): array
     {
@@ -28,18 +34,30 @@ class User extends Authenticatable
     }
 
     /**
-     * Relasi ke tabel Kontak (Data yang dibuat oleh user ini)
+     * ==========================================
+     * RELASI AUDIT TRAIL (CREATED BY)
+     * Mengetahui data apa saja yang dibuat oleh User ini
+     * ==========================================
      */
-    public function kontakDibuat(): HasMany
-    {
-        return $this->hasMany(Kontak::class, 'created_by');
-    }
+    public function kontakDibuat(): HasMany { return $this->hasMany(Kontak::class, 'created_by'); }
+    public function galeriDibuat(): HasMany { return $this->hasMany(Galeri::class, 'created_by'); }
+    public function programDibuat(): HasMany { return $this->hasMany(ProgramPendidikan::class, 'created_by'); }
+    public function sejarahDibuat(): HasMany { return $this->hasMany(SejarahPondok::class, 'created_by'); }
+    public function pimpinanDibuat(): HasMany { return $this->hasMany(PimpinanPondok::class, 'created_by'); }
+    public function tentangDibuat(): HasMany { return $this->hasMany(TentangPondok::class, 'created_by'); }
+    public function aktivitasDibuat(): HasMany { return $this->hasMany(AktivitasSantri::class, 'created_by'); }
 
     /**
-     * Relasi ke tabel Kontak (Data yang diupdate oleh user ini)
+     * ==========================================
+     * RELASI AUDIT TRAIL (UPDATED BY)
+     * Mengetahui data apa saja yang diubah oleh User ini
+     * ==========================================
      */
-    public function kontakDiupdate(): HasMany
-    {
-        return $this->hasMany(Kontak::class, 'updated_by');
-    }
+    public function kontakDiupdate(): HasMany { return $this->hasMany(Kontak::class, 'updated_by'); }
+    public function galeriDiupdate(): HasMany { return $this->hasMany(Galeri::class, 'updated_by'); }
+    public function programDiupdate(): HasMany { return $this->hasMany(ProgramPendidikan::class, 'updated_by'); }
+    public function sejarahDiupdate(): HasMany { return $this->hasMany(SejarahPondok::class, 'updated_by'); }
+    public function pimpinanDiupdate(): HasMany { return $this->hasMany(PimpinanPondok::class, 'updated_by'); }
+    public function tentangDiupdate(): HasMany { return $this->hasMany(TentangPondok::class, 'updated_by'); }
+    public function aktivitasDiupdate(): HasMany { return $this->hasMany(AktivitasSantri::class, 'updated_by'); }
 }

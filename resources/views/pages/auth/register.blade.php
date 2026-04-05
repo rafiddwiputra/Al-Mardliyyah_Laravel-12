@@ -66,7 +66,8 @@
     {{-- ================= CARD FORM ================= --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 max-w-5xl mx-auto">
 
-        <form>
+        <form action="{{ route('register.store') }}" method="POST">
+            @csrf
 
             {{-- GRID FORM --}}
             <div class="grid md:grid-cols-2 gap-x-12 gap-y-6">
@@ -77,9 +78,10 @@
                         Nama Lengkap <span class="text-red-500">*</span>
                     </label>
 
-                    <input type="text"
+                    <input type="text" name="nama" value="{{ old('nama') }}"
                         class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-green-800 transition"
-                        placeholder="Masukkan nama lengkap">
+                        placeholder="Masukkan nama lengkap" required>
+                    @error('nama') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
 
                 {{-- PASSWORD --}}
@@ -88,9 +90,10 @@
                         Password <span class="text-red-500">*</span>
                     </label>
 
-                    <input type="password"
+                    <input type="password" name="password"
                         class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-green-800 transition"
-                        placeholder="Minimal 8 karakter">
+                        placeholder="Minimal 8 karakter" required>
+                    @error('password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
 
                 {{-- EMAIL --}}
@@ -99,9 +102,10 @@
                         Email <span class="text-red-500">*</span>
                     </label>
 
-                    <input type="email"
+                    <input type="email" name="email" value="{{ old('email') }}"
                         class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-green-800 transition"
-                        placeholder="Email@gmail.com">
+                        placeholder="Email@gmail.com" required>
+                    @error('email') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
 
                 {{-- KONFIRMASI PASSWORD --}}
@@ -110,20 +114,21 @@
                         Konfirmasi Password <span class="text-red-500">*</span>
                     </label>
 
-                    <input type="password"
+                    <input type="password" name="password_confirmation"
                         class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-green-800 transition"
-                        placeholder="Ulangi password">
+                        placeholder="Ulangi password" required>
                 </div>
 
                 {{-- NOMOR HP --}}
                 <div class="space-y-2">
                     <label class="block text-sm font-bold text-gray-800">
-                        Nomor HP <span class="text-red-500">*</span>
+                        Nomor HP (WhatsApp) <span class="text-red-500">*</span>
                     </label>
 
-                    <input type="text"
+                    <input type="text" name="phone" value="{{ old('phone') }}"
                         class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-green-800 transition"
-                        placeholder="08xxxxxxxxxx">
+                        placeholder="08xxxxxxxxxx" required>
+                    @error('phone') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
 
                 {{-- BUTTON & LOGIN --}}

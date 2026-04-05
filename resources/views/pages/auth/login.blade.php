@@ -7,7 +7,6 @@
 <div class="max-w-6xl mx-auto py-12 px-4">
 
     {{-- ================= STEPPER ================= --}}
-    {{-- Mengikuti logika desain: Step 1 & 2 sudah dilewati/aktif --}}
     <div class="flex items-center justify-between mb-16 px-10">
 
         @php
@@ -55,24 +54,31 @@
 
     {{-- ================= HEADER ================= --}}
     <div class="text-center mb-10 mt-10">
-        {{-- Badge --}}
         <span class="bg-[#e2ede5] text-[#1e4d2b] px-8 py-2 rounded-lg text-sm font-bold">
             Login Akun
         </span>
 
-        {{-- Judul --}}
         <h2 class="text-2xl font-normal mt-6 text-gray-800">
             <span class="font-bold">Langkah 2</span> : Masuk ke akun Anda untuk melanjutkan
         </h2>
     </div>
 
     {{-- ================= CARD LOGIN ================= --}}
-    {{-- Card dibuat lebih ramping sesuai desain Figma --}}
     <div class="flex justify-center">
 
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-10 w-full max-w-md">
 
-            <form>
+            {{-- Menampilkan Pesan Error Global jika Login Gagal --}}
+            @if ($errors->any())
+                <div class="mb-4 p-3 rounded-lg bg-red-50 border border-red-200">
+                    <p class="text-xs text-red-600 font-bold text-center">
+                        {{ $errors->first() }}
+                    </p>
+                </div>
+            @endif
+
+            <form action="{{ route('login.authenticate') }}" method="POST">
+                @csrf
 
                 {{-- EMAIL --}}
                 <div class="mb-5 space-y-2">
@@ -80,9 +86,9 @@
                         Email <span class="text-red-500">*</span>
                     </label>
 
-                    <input type="email"
-                        class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-green-800 transition"
-                        placeholder="Masukkan nama lengkap">
+                    <input type="email" name="email" value="{{ old('email') }}"
+                        class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-green-800 transition @error('email') border-red-500 @enderror"
+                        placeholder="Masukkan email Anda" required>
                 </div>
 
                 {{-- PASSWORD --}}
@@ -91,9 +97,9 @@
                         Password <span class="text-red-500">*</span>
                     </label>
 
-                    <input type="password"
-                        class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-green-800 transition"
-                        placeholder="Email@gmail.com">
+                    <input type="password" name="password"
+                        class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-green-800 transition @error('password') border-red-500 @enderror"
+                        placeholder="Masukkan password" required>
                 </div>
 
                 {{-- BUTTON LOGIN --}}
@@ -120,5 +126,3 @@
 </div>
 
 @endsection
-
-

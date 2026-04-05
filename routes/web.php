@@ -10,25 +10,27 @@ use App\Http\Controllers\Public\PendaftaranController;
 use App\Http\Controllers\Public\StatusPendaftaranController;
 use App\Http\Controllers\Admin\AdminBeritaController;
 use App\Http\Controllers\Public\BerandaController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
 // Web Routes
 
-// ================= ROUTE DEFAULT =================
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-
 
 // ================= REGISTER DAN LOGIN (AUTH) =================
 Route::get('/register', function () {
-    return view('pages.auth.register');
+    return view('pages.auth.register'); // Pastikan path file ini benar sesuai folder kamu
 })->name('register');
+
+// Tambahkan Route POST ini agar form bisa mengirim data
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
 Route::get('/login', function () {
     return view('pages.auth.login');
 })->name('login');
 
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // ROUTE PUBLIC =======================================================================================
 
@@ -62,12 +64,12 @@ Route::get('/lupa-sandi', [LupaKataSandiController::class, 'lupaSandi']);
 //Route upload.blade.php
 Route::get('/upload-dokumen', function () {
     return view('pages.public.pendaftaran.upload');
-});
+})->name('upload.dokumen')->middleware('auth');
 
 //Route formulir.blade.php
 Route::get('/formulir', function () {
     return view('pages.public.pendaftaran.formulir');
-})->name('formulir');
+})->name('formulir')->middleware('auth');
 
 // Route Status Pendaftaran
 Route::get('/status-pendaftaran/belum', [StatusPendaftaranController::class, 'belum']);
@@ -80,8 +82,12 @@ Route::get('/', [BerandaController::class, 'index'])->name('home');
 
 
 // ============================================================= ROUTE ADMIN PANEL  ======================================================
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
+        // Cek lagi di sini
+        if (Auth::user()->role !== 'admin' && Auth::user()->role !== 'pimpinan') {
+            return redirect('/')->with('error', 'Anda tidak punya akses ke halaman ini.');
+        }
         return view('pages.admin.dashboard');
     })->name('admin.dashboard');
 });
