@@ -7,6 +7,7 @@ use App\Http\Controllers\Public\GaleriController;
 use App\Http\Controllers\Public\BeritaController; 
 use App\Http\Controllers\Public\LupaKataSandiController;
 use App\Http\Controllers\Public\PendaftaranController;
+use App\Http\Controllers\Public\StatusPendaftaranController;
 use Illuminate\Support\Facades\Route;
 
 // Web Routes
@@ -65,6 +66,12 @@ Route::get('/upload-dokumen', function () {
 Route::get('/formulir', function () {
     return view('pages.public.pendaftaran.formulir');
 })->name('formulir');
+
+// Route Status Pendaftaran
+Route::get('/status-pendaftaran/belum', [StatusPendaftaranController::class, 'belum']);
+Route::get('/status-pendaftaran/proses', [StatusPendaftaranController::class, 'proses']);
+Route::get('/status-pendaftaran/diterima', [StatusPendaftaranController::class, 'diterima']);
+Route::get('/status-pendaftaran/ditolak', [StatusPendaftaranController::class, 'ditolak']);
 
 
 
