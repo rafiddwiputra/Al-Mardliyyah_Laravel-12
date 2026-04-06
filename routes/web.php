@@ -32,7 +32,7 @@ Route::get('/login', function () {
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// ROUTE PUBLIC =======================================================================================
+// =======================================  ROUTE PUBLIC =======================================================================================
 
 // Route profile.blade.php
 Route::get('/profil', [ProfileController::class, 'index'])->name('profile');
@@ -81,90 +81,73 @@ Route::get('/status-pendaftaran/ditolak', [StatusPendaftaranController::class, '
 Route::get('/', [BerandaController::class, 'index'])->name('home');
 
 
-// ============================================================= ROUTE ADMIN PANEL  ======================================================
+// ============================================================= ROUTE ADMIN PANEL ======================================================
 Route::prefix('admin')->middleware(['auth'])->group(function () {
+    
+    // Dashboard
     Route::get('/dashboard', function () {
-        // Cek lagi di sini
         if (Auth::user()->role !== 'admin' && Auth::user()->role !== 'pimpinan') {
             return redirect('/')->with('error', 'Anda tidak punya akses ke halaman ini.');
         }
         return view('pages.admin.dashboard');
     })->name('admin.dashboard');
-});
 
-//Route data.blade.php
-Route::get('/admin/data-pendaftar', function () {
-    return view('pages.admin.data-pendaftar.data');
-});
+    // Data Pendaftar
+    Route::get('/data-pendaftar', function () {
+        return view('pages.admin.data-pendaftar.data');
+    })->name('admin.pendaftar');
 
-//Route detail-data.blade.php
-Route::get('/admin/data-pendaftar/detail-data', function () {
-    return view('pages.admin.data-pendaftar.detail-data');
-});
-
-//Route admin-galeri.blade.php
-Route::get('/admin/galeri/admin-galeri', function () {
-    return view('pages.admin.galeri.admin-galeri');
-});
-
-//Route biaya.blade.php
-Route::get('/admin/biaya', function () {
-    return view('pages.admin.biaya');
-});
-
-//Route jadwal.blade.php
-Route::get('/admin/jadwal/jadwal', function () {
-    return view('pages.admin.jadwal.jadwal');
-});
-
-// Route admin berita
-Route::prefix('admin')->group(function () {
-
-    Route::get('admin/berita', function () {
-        return view('pages.admin.berita.berita');
-    });
-
-    Route::get('berita/tambah', function () {
-        return view('pages.admin.berita.berita-tambah');
-    });
-
-    Route::get('berita/edit', function () {
-        return view('pages.admin.berita.berita-edit');
-    });
-
-    Route::get('berita/hapus', function () {
-        return view('pages.admin.berita.berita-hapus');
-    });
-
-});
-
-// Route admin profil pondok
-Route::get('/admin/profil-pondok', function () {
-    return view('pages.admin.profil-pondok.profil-pondok'); 
-});
-
-//Route admin program pendidikan 
-Route::get('/admin/program-pendidikan', function () {
-    return view('pages.admin.program-pendidikan.program-pendidikan');
-});
-
-//Route admin banner beranda
-Route::get('/admin/banner-beranda', function () {
-    return view('pages.admin.banner-beranda');
-});
-
-//Route admin kontak
-Route::get('/admin/kontak', function () {
-    return view('pages.admin.kontak');
-});
-
-//Route edit profil admin
-Route::get('/admin/profil', function () {
-    return view('pages.admin.edit-profil');
-});
+    Route::get('/data-pendaftar/detail-data', function () {
+        return view('pages.admin.data-pendaftar.detail-data');
+    })->name('admin.pendaftar.detail');
 
 
-/// ROUTE PIMPINAN
-Route::get('/pimpinan/laporan', function () {
-    return view('pages.pimpinan.laporan');
+// ====================================== BERITA =====================================
+// Menampilkan Tabel (Halaman Utama Admin Berita)
+Route::get('/berita', [AdminBeritaController::class, 'index'])->name('admin.berita');
+
+// Memproses Simpan Berita Baru (POST)
+Route::post('/berita/simpan', [AdminBeritaController::class, 'store'])->name('admin.berita.store');
+
+// Memproses Update Data (PUT) - URL: /admin/berita/{id}
+Route::put('/berita/{id}', [AdminBeritaController::class, 'update'])->name('admin.berita.update');
+
+// Menghapus data (DELETE) - URL: /admin/berita/{id}
+Route::delete('/berita/{id}', [AdminBeritaController::class, 'destroy'])->name('admin.berita.destroy');
+
+// ====================================== GELERI =====================================
+
+    // Galeri
+    Route::get('/galeri', function () {
+        return view('pages.admin.galeri.admin-galeri');
+    })->name('admin.galeri');
+
+    // Profil Pondok
+    Route::get('/profil-pondok', function () {
+        return view('pages.admin.profil-pondok.profil-pondok'); 
+    })->name('admin.profil');
+
+    // Program Pendidikan
+    Route::get('/program-pendidikan', function () {
+        return view('pages.admin.program-pendidikan.program-pendidikan');
+    })->name('admin.program');
+
+    // Biaya & Jadwal
+    Route::get('/biaya', function () {
+        return view('pages.admin.biaya');
+    })->name('admin.biaya');
+
+    Route::get('/jadwal', function () {
+        return view('pages.admin.jadwal.jadwal');
+    })->name('admin.jadwal');
+
+    // Banner & Kontak
+    Route::get('/banner-beranda', function () {
+        return view('pages.admin.banner-beranda');
+    })->name('admin.banner');
+
+    Route::get('/kontak', function () {
+        return view('pages.admin.kontak');
+    })->name('admin.kontak');
+
 });

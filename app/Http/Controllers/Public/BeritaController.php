@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-use App\Models\Public\Berita;
+use App\Models\Berita; 
 use Illuminate\Http\Request;
 
 class BeritaController extends Controller
@@ -11,11 +11,11 @@ class BeritaController extends Controller
     public function index()
     {
         $beritas = Berita::where('status', 'publish')
-                        ->orderBy('tanggal_publish', 'desc')
+                        ->orderBy('created_at', 'desc')
                         ->get();
 
         $beritaPopuler = Berita::where('status', 'publish')
-                               ->orderBy('tanggal_publish', 'desc')
+                               ->orderBy('created_at', 'desc')
                                ->take(3)
                                ->get();
 
@@ -24,10 +24,13 @@ class BeritaController extends Controller
 
     public function show($slug)
     {
-        $berita = Berita::where('slug', $slug)->where('status', 'publish')->firstOrFail();
+        $berita = Berita::where('slug', $slug)
+                        ->where('status', 'publish')
+                        ->firstOrFail();
         
         $beritaTerkait = Berita::where('slug', '!=', $slug)
                                 ->where('status', 'publish')
+                                ->orderBy('created_at', 'desc')
                                 ->take(3)
                                 ->get();
 
