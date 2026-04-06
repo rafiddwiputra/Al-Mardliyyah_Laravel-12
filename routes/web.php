@@ -158,6 +158,11 @@ Route::get('/admin/kontak', function () {
     return view('pages.admin.kontak');
 });
 
+//Route edit profil admin
+Route::get('/admin/profil', function () {
+    return view('pages.admin.edit-profil');
+});
+
 
 /// ROUTE PIMPINAN
 Route::get('/pimpinan/laporan', function () {
