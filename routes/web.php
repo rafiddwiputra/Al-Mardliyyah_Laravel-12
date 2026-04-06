@@ -148,6 +148,11 @@ Route::get('/admin/program-pendidikan', function () {
     return view('pages.admin.program-pendidikan.program-pendidikan');
 });
 
+//Route admin banner beranda
+Route::get('/admin/banner-beranda', function () {
+    return view('pages.admin.banner-beranda');
+});
+
 
 /// ROUTE PIMPINAN
 Route::get('/pimpinan/laporan', function () {
