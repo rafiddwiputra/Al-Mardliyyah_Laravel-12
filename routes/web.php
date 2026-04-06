@@ -138,6 +138,16 @@ Route::prefix('admin')->group(function () {
 
 });
 
+// Route admin profil pondok
+Route::get('/admin/profil-pondok', function () {
+    return view('pages.admin.profil-pondok.profil-pondok'); 
+});
+
+//Route admin program pendidikan 
+Route::get('/admin/program-pendidikan', function () {
+    return view('pages.admin.program-pendidikan.program-pendidikan');
+});
+
 
 /// ROUTE PIMPINAN
 Route::get('/pimpinan/laporan', function () {
