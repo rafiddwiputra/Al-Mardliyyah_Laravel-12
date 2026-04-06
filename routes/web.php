@@ -153,6 +153,11 @@ Route::get('/admin/banner-beranda', function () {
     return view('pages.admin.banner-beranda');
 });
 
+//Route admin kontak
+Route::get('/admin/kontak', function () {
+    return view('pages.admin.kontak');
+});
+
 
 /// ROUTE PIMPINAN
 Route::get('/pimpinan/laporan', function () {
