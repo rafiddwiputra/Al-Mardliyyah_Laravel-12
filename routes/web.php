@@ -12,81 +12,124 @@ use App\Http\Controllers\Admin\AdminBeritaController;
 use App\Http\Controllers\Public\BerandaController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Public\RedirectPendaftaranController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth; 
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
-// Web Routes
-
+// ================== DEBUG ==================
+Route::get('/debug-login', function () {
+    return auth()->check() ? 'SUDAH LOGIN' : 'BELUM LOGIN';
+});
 
 // ================= REGISTER DAN LOGIN (AUTH) =================
 Route::get('/register', function () {
-    return view('pages.auth.register'); // Pastikan path file ini benar sesuai folder kamu
-})->name('register');
+    return view('pages.auth.register');
+})->middleware('guest')->name('register'); 
 
-// Tambahkan Route POST ini agar form bisa mengirim data
-Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+Route::post('/register', [RegisterController::class, 'store'])
+    ->name('register.store')
+    ->middleware('guest');
 
 Route::get('/login', function () {
     return view('pages.auth.login');
-})->name('login');
+})->name('login')->middleware('guest');
 
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/login', [LoginController::class, 'authenticate'])
+    ->name('login.authenticate')
+    ->middleware('guest');
 
-// =======================================  ROUTE PUBLIC =======================================================================================
+Route::post('/logout', [LoginController::class, 'logout'])
+    ->name('logout')
+    ->middleware('auth');
 
-// Route profile.blade.php
+// ================= Suatu Kondisi Pendaftaran =================
+Route::get('/redirect-pendaftaran', [RedirectPendaftaranController::class, 'index'])
+    ->name('redirect.pendaftaran');
+
+
+// ================= EMAIL VERIFICATION =================
+
+// Halaman notifikasi verifikasi
+Route::get('/email/verify', function () {
+    return view('pages.auth.verify-email');
+})->middleware(['auth'])->name('verification.notice');
+
+// Proses klik link dari email
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect()->route('formulir')
+        ->with('success', 'Email berhasil diverifikasi! Silakan lengkapi formulir.');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+// Kirim ulang email verifikasi
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Link verifikasi dikirim ulang!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+// ======================================= ROUTE PUBLIC =======================================
+
+// Profile
 Route::get('/profil', [ProfileController::class, 'index'])->name('profile');
-// Route detail-sejarah.blade.php
 Route::get('/profil/sejarah/{tahun}', [ProfileController::class, 'detailSejarah'])->name('profile.sejarah.detail');
-// Route detail-pimpinan.blade.php
 Route::get('/profil/pimpinan/{id}', [ProfileController::class, 'detailPimpinan'])->name('profile.pimpinan.detail');
 
-// Route kontak.blade.php
+// Kontak
 Route::get('/kontak', [KontakController::class, 'index'])->name('kontak');
 
-// Route Berita.blade.php
+// Berita
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
-// Route detail.blade.php 
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.detail');
 
-// Route program-pendidikan.blade.php
+// Program Pendidikan
 Route::get('/program-pendidikan', [ProgramPendidikanController::class, 'programPendidikan'])->name('program');
 
-// Route pendaftaran.blade.php
+// Pendaftaran
 Route::get('/pendaftaran', [PendaftaranController::class, 'pendaftaran'])->name('pendaftaran');
 
-// Route galeri.blade.php
+// Galeri
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
 
-// Route lupa-sandi.blade.php
+// Lupa Password
 Route::get('/lupa-sandi', [LupaKataSandiController::class, 'lupaSandi']);
 
-//Route upload.blade.php
-Route::get('/upload-dokumen', function () {
-    return view('pages.public.pendaftaran.upload');
-})->name('upload.dokumen')->middleware('auth');
 
-//Route formulir.blade.php
-Route::get('/formulir', function () {
-    return view('pages.public.pendaftaran.formulir');
-})->name('formulir')->middleware('auth');
+// ================= PROTECTED (WAJIB VERIFIKASI) =================
+Route::middleware(['auth', 'verified'])->group(function () {
 
-// Route Status Pendaftaran
+    Route::get('/upload-dokumen', function () {
+        return view('pages.public.pendaftaran.upload');
+    })->name('upload.dokumen');
+
+    Route::get('/formulir', function () {
+        return view('pages.public.pendaftaran.formulir');
+    })->name('formulir');
+
+});
+
+
+// Status Pendaftaran
 Route::get('/status-pendaftaran/belum', [StatusPendaftaranController::class, 'belum']);
 Route::get('/status-pendaftaran/proses', [StatusPendaftaranController::class, 'proses']);
 Route::get('/status-pendaftaran/diterima', [StatusPendaftaranController::class, 'diterima']);
 Route::get('/status-pendaftaran/ditolak', [StatusPendaftaranController::class, 'ditolak']);
 
-// Route beranda.blade.php
+
+// Beranda
 Route::get('/', [BerandaController::class, 'index'])->name('home');
 
 
-// ============================================================= ROUTE ADMIN PANEL ======================================================
-Route::prefix('admin')->middleware(['auth'])->group(function () {
-    
+// ================= ADMIN PANEL =================
+Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
+
     // Dashboard
     Route::get('/dashboard', function () {
-        if (Auth::user()->role !== 'admin' && Auth::user()->role !== 'pimpinan') {
+        if (!in_array(Auth::user()->role, ['admin', 'pimpinan'])) {
             return redirect('/')->with('error', 'Anda tidak punya akses ke halaman ini.');
         }
         return view('pages.admin.dashboard');
@@ -102,22 +145,14 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     })->name('admin.pendaftar.detail');
 
 
-// ====================================== BERITA =====================================
-// Menampilkan Tabel (Halaman Utama Admin Berita)
-Route::get('/berita', [AdminBeritaController::class, 'index'])->name('admin.berita');
+    // ================= BERITA =================
+    Route::get('/berita', [AdminBeritaController::class, 'index'])->name('admin.berita');
+    Route::post('/berita/simpan', [AdminBeritaController::class, 'store'])->name('admin.berita.store');
+    Route::put('/berita/{id}', [AdminBeritaController::class, 'update'])->name('admin.berita.update');
+    Route::delete('/berita/{id}', [AdminBeritaController::class, 'destroy'])->name('admin.berita.destroy');
 
-// Memproses Simpan Berita Baru (POST)
-Route::post('/berita/simpan', [AdminBeritaController::class, 'store'])->name('admin.berita.store');
 
-// Memproses Update Data (PUT) - URL: /admin/berita/{id}
-Route::put('/berita/{id}', [AdminBeritaController::class, 'update'])->name('admin.berita.update');
-
-// Menghapus data (DELETE) - URL: /admin/berita/{id}
-Route::delete('/berita/{id}', [AdminBeritaController::class, 'destroy'])->name('admin.berita.destroy');
-
-// ====================================== GELERI =====================================
-
-    // Galeri
+    // ================= GALERI =================
     Route::get('/galeri', function () {
         return view('pages.admin.galeri.admin-galeri');
     })->name('admin.galeri');

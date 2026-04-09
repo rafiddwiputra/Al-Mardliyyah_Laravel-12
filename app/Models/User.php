@@ -15,10 +15,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+
 
 #[Fillable(['nama', 'email', 'password', 'role', 'phone'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable
+// class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
@@ -44,4 +48,7 @@ class User extends Authenticatable
     public function pimpinanDiupdate(): HasMany { return $this->hasMany(PimpinanPondok::class, 'updated_by'); }
     public function tentangDiupdate(): HasMany { return $this->hasMany(TentangPondok::class, 'updated_by'); }
     public function aktivitasDiupdate(): HasMany { return $this->hasMany(AktivitasSantri::class, 'updated_by'); }
+    public function pendaftaran(){
+        return $this->hasOne(\App\Models\Pendaftaran::class);
+    }
 }

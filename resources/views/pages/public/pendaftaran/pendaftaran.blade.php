@@ -162,10 +162,11 @@
         pendidikan Anda di Pondok Pesantren Al-Mardliyyah
     </p>
 
-    <a href="{{ route('register') }}"
+    <a href="{{ route('redirect.pendaftaran') }}"
        class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition-colors shadow-lg active:scale-95">
         Daftar Sekarang
     </a>
+    
 </div>
 
 @endsection
