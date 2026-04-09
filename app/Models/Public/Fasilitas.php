@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fasilitas extends Model
 {
-    // Nama tabel sesuai migration kamu
     protected $table = 'fasilitas_pondok';
 
     protected $fillable = [

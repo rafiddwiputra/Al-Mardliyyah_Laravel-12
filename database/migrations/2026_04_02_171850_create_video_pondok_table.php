@@ -14,12 +14,10 @@ return new class extends Migration
             $table->string('judul', 150);
             $table->text('deskripsi');
 
-            $table->string('thumbnail')->nullable(); // gambar preview
-            $table->string('link_yt'); // link youtube
+            $table->string('thumbnail')->nullable(); 
+            $table->string('link_yt'); 
 
-            $table->boolean('is_active')->default(true); // kontrol aktif
-
-            $table->timestamps(); // created_at & updated_at
+            $table->timestamps(); 
         });
     }
 

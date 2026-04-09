@@ -22,9 +22,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * Tentukan cast untuk atribut agar password otomatis di-hash.
-     */
     protected function casts(): array
     {
         return [
@@ -33,12 +30,6 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * ==========================================
-     * RELASI AUDIT TRAIL (CREATED BY)
-     * Mengetahui data apa saja yang dibuat oleh User ini
-     * ==========================================
-     */
     public function kontakDibuat(): HasMany { return $this->hasMany(Kontak::class, 'created_by'); }
     public function galeriDibuat(): HasMany { return $this->hasMany(Galeri::class, 'created_by'); }
     public function programDibuat(): HasMany { return $this->hasMany(ProgramPendidikan::class, 'created_by'); }
@@ -46,13 +37,6 @@ class User extends Authenticatable
     public function pimpinanDibuat(): HasMany { return $this->hasMany(PimpinanPondok::class, 'created_by'); }
     public function tentangDibuat(): HasMany { return $this->hasMany(TentangPondok::class, 'created_by'); }
     public function aktivitasDibuat(): HasMany { return $this->hasMany(AktivitasSantri::class, 'created_by'); }
-
-    /**
-     * ==========================================
-     * RELASI AUDIT TRAIL (UPDATED BY)
-     * Mengetahui data apa saja yang diubah oleh User ini
-     * ==========================================
-     */
     public function kontakDiupdate(): HasMany { return $this->hasMany(Kontak::class, 'updated_by'); }
     public function galeriDiupdate(): HasMany { return $this->hasMany(Galeri::class, 'updated_by'); }
     public function programDiupdate(): HasMany { return $this->hasMany(ProgramPendidikan::class, 'updated_by'); }

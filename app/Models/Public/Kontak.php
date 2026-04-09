@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Public; // Pastikan folder app/Models/Public memang ada
+namespace App\Models\Public; 
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;

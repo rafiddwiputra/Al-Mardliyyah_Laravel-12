@@ -41,7 +41,7 @@
     <!-- ISI -->
     <div class="max-w-4xl mx-auto px-6">
 
-        <!-- JUDUL SEJARAH -->
+        <!-- Judul Sejarah -->
         <h1 class="text-[#1E5631] font-semibold text-xl mb-3">
             {{ $sejarah['judul'] }}
         </h1>
