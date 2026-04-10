@@ -13,7 +13,8 @@
         <!-- FORM -->
         <div class="p-5">
 
-            <form>
+            <form action="{{ route('program.store') }}" method="POST">
+                @csrf
 
                 <!-- NAMA -->
                 <div class="mb-4">
@@ -21,7 +22,7 @@
                         Nama Program
                     </label>
 
-                    <input type="text"
+                    <input type="text" name="nama_program" required
                         class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
                 </div> 
                 
@@ -31,7 +32,7 @@
                         Deskripsi
                     </label>
 
-                    <textarea rows="4"
+                    <textarea name="deskripsi" rows="4" required
                         class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none"></textarea>
                 </div>
 
@@ -41,13 +42,17 @@
                         Kategori Program
                     </label>
 
-                    <select
+                    <select name="kategori_id" required
                         class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm text-[#1E5631] focus:outline-none focus:ring-1 focus:ring-[#1E5631] bg-white">
 
                         <option value="" disabled selected>Pilih kategori</option>
-                        <option>Lembaga Pendidikan Formal</option>
-                        <option>Lembaga Pendidikan Non Formal</option>
-                        <option>Program Keunggulan</option>
+
+                        {{-- DINAMIS DARI DATABASE --}}
+                        @foreach($kategori as $k)
+                            <option value="{{ $k->id }}">
+                                {{ $k->nama_kategori }}
+                            </option>
+                        @endforeach
 
                     </select>
                 </div>
@@ -67,11 +72,10 @@
 
                         <label class="relative inline-flex items-center cursor-pointer">
 
-                            <input type="checkbox" class="sr-only peer">
+                            <input type="checkbox" name="status" value="aktif" class="sr-only peer">
 
                             <div
                                 class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-[#1E5631] transition">
-
                             </div>
 
                             <div

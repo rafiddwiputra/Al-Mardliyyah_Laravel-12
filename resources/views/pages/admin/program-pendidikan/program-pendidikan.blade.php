@@ -27,137 +27,112 @@
 
     </div>
 
-    <!-- ================= SECTION 1 ================= -->
-    <div class="border border-[#D9D9D9] rounded mb-6 overflow-hidden">
+    {{-- ================= SECTION 1 ================= --}}
+@if(isset($programs['formal']))
+<div class="border border-[#D9D9D9] rounded mb-6 overflow-hidden">
 
-        <div class="bg-gradient-to-r from-[#1E5631] to-[#43C463] px-8 py-5">
-            <h2 class="text-white font-bold text-[18px]">
-                Lembaga Pendidikan Formal
-            </h2>
-        </div>
+    <div class="bg-gradient-to-r from-[#1E5631] to-[#43C463] px-8 py-5">
+        <h2 class="text-white font-bold text-[18px]">
+            Lembaga Pendidikan Formal
+        </h2>
+    </div>
 
-        <div class="divide-y divide-[#D9D9D9]">
+    <div class="divide-y divide-[#D9D9D9]">
 
-            <div class="flex justify-between items-center px-5 py-4">
+        @foreach($programs['formal'] as $program)
+        <div class="flex justify-between items-center px-5 py-4">
 
-                <div>
-                    <h3 class="font-semibold text-[16px] text-black">
-                        SMP Progresif Al-Mardliyiyah
-                    </h3>
+            <div>
+                <h3 class="font-semibold text-[16px] text-black">
+                    {{ $program->nama_program }}
+                </h3>
 
-                    <p class="text-sm text-[#7A7A7A] mt-1">
-                        Sekolah Menengah Kejuruan bidang Kimia
-                    </p>
-                </div>
-
-                <div class="flex gap-3">
-
-                    <button onclick="openEditProgramModal()"
-                        class="bg-[#BFDBFE] text-[#1D4ED8] px-6 py-2 rounded text-sm font-medium">
-                        Edit
-                    </button>
-
-                    <button onclick="openHapusProgramModal()"
-                        class="bg-[#FECACA] text-[#B91C1C] px-6 py-2 rounded text-sm font-medium">
-                        Hapus
-                    </button>
-
-                </div>
-
+                <p class="text-sm text-[#7A7A7A] mt-1">
+                    '{{ addslashes($program->deskripsi) }}',
+                </p>
             </div>
 
-            <div class="flex justify-between items-center px-5 py-4">
+            <div class="flex gap-3">
 
-                <div>
-                    <h3 class="font-semibold text-[16px] text-black">
-                        MTS Al-Mujadaddiyyah
-                    </h3>
+                <button onclick="openEditProgramModal(
+                {{ $program->id }},
+                '{{ $program->nama_program }}',
+                '{{ addslashes($program->deskripsi) }}',
+                {{ $program->kategori_id }},
+                '{{ $program->status }}'
+                )"
+                class="bg-[#BFDBFE] text-[#1D4ED8] px-6 py-2 rounded text-sm font-medium">
+                    Edit
+                </button>
 
-                    <p class="text-sm text-[#7A7A7A] mt-1">
-                        Pendidikan Madrasah Tsanawiyah dengan kurikulum terintegrasi
-                    </p>
-                </div>
-
-                <div class="flex gap-3">
-                    <button class="bg-[#BFDBFE] text-[#1D4ED8] px-6 py-2 rounded text-sm font-medium">
-                        Edit
-                    </button>
-
-                    <button class="bg-[#FECACA] text-[#B91C1C] px-6 py-2 rounded text-sm font-medium">
-                        Hapus
-                    </button>
-                </div>
-
-            </div>
-
-            <div class="flex justify-between items-center px-5 py-4">
-
-                <div>
-                    <h3 class="font-semibold text-[16px] text-black">
-                        MA Al-Mujadaddiyyah
-                    </h3>
-
-                    <p class="text-sm text-[#7A7A7A] mt-1">
-                        Pendidikan Madrasah Aliyah dengan fokus pendidikan Islam
-                    </p>
-                </div>
-
-                <div class="flex gap-3">
-                    <button class="bg-[#BFDBFE] text-[#1D4ED8] px-6 py-2 rounded text-sm font-medium">
-                        Edit
-                    </button>
-
-                    <button class="bg-[#FECACA] text-[#B91C1C] px-6 py-2 rounded text-sm font-medium">
-                        Hapus
-                    </button>
-                </div>
+                <button onclick="openHapusProgramModal({{ $program->id }}, '{{ $program->nama_program }}')"
+                    class="bg-[#FECACA] text-[#B91C1C] px-6 py-2 rounded text-sm font-medium">
+                    Hapus
+                </button>
 
             </div>
 
         </div>
+        @endforeach
 
     </div>
 
-    <!-- ================= SECTION 2 ================= -->
-    <div class="border border-[#D9D9D9] rounded mb-6 overflow-hidden">
+</div>
+@endif
 
-        <div class="bg-gradient-to-r from-[#1E5631] to-[#43C463] px-8 py-5">
-            <h2 class="text-white font-bold text-[18px]">
-                Lembaga Pendidikan Non Formal
-            </h2>
-        </div>
+    {{-- ================= SECTION 2 ================= --}}
+@if(isset($programs['nonformal']))
+<div class="border border-[#D9D9D9] rounded mb-6 overflow-hidden">
 
-        <div class="divide-y divide-[#D9D9D9]">
+    <div class="bg-gradient-to-r from-[#1E5631] to-[#43C463] px-8 py-5">
+        <h2 class="text-white font-bold text-[18px]">
+            Lembaga Pendidikan Non Formal
+        </h2>
+    </div>
 
-            <div class="flex justify-between items-center px-5 py-4">
+    <div class="divide-y divide-[#D9D9D9]">
 
-                <div>
-                    <h3 class="font-semibold text-[16px] text-black">
-                        Madrasah Diniyyah Al-Mardliyiyah
-                    </h3>
+        @foreach($programs['nonformal'] as $program)
+        <div class="flex justify-between items-center px-5 py-4">
 
-                    <p class="text-sm text-[#7A7A7A] mt-1">
-                        Pendidikan Madrasah Tsanawiyah dengan kurikulum terintegrasi
-                    </p>
-                </div>
+            <div>
+                <h3 class="font-semibold text-[16px] text-black">
+                    {{ $program->nama_program }}
+                </h3>
 
-                <div class="flex gap-3">
-                    <button class="bg-[#BFDBFE] text-[#1D4ED8] px-6 py-2 rounded text-sm font-medium">
-                        Edit
-                    </button>
+                <p class="text-sm text-[#7A7A7A] mt-1">
+                    '{{ addslashes($program->deskripsi) }}',
+                </p>
+            </div>
 
-                    <button class="bg-[#FECACA] text-[#B91C1C] px-6 py-2 rounded text-sm font-medium">
-                        Hapus
-                    </button>
-                </div>
+            <div class="flex gap-3">
+                <button onclick="openEditProgramModal(
+                {{ $program->id }},
+                '{{ $program->nama_program }}',
+                '{{ addslashes($program->deskripsi) }}',
+                {{ $program->kategori_id }},
+                '{{ $program->status }}'
+                )"
+                class="bg-[#BFDBFE] text-[#1D4ED8] px-6 py-2 rounded text-sm font-medium">
+                    Edit
+                </button>
 
+                <button onclick="openHapusProgramModal({{ $program->id }}, '{{ $program->nama_program }}')"
+                    class="bg-[#FECACA] text-[#B91C1C] px-6 py-2 rounded text-sm font-medium">
+                    Hapus
+                </button>
             </div>
 
         </div>
+        @endforeach
 
     </div>
 
-    <!-- ================= SECTION 3 ================= -->
+</div>
+@endif
+
+    {{-- ================= SECTION 3 ================= --}}
+    @if(isset($programs['unggulan']))
     <div class="border border-[#D9D9D9] rounded overflow-hidden">
 
         <div class="bg-gradient-to-r from-[#1E5631] to-[#43C463] px-8 py-5">
@@ -168,51 +143,41 @@
 
         <div class="divide-y divide-[#D9D9D9]">
 
+            @foreach($programs['unggulan'] as $program)
             <div class="flex justify-between items-center px-5 py-4">
                 <div>
-                    <h3 class="font-semibold text-[16px] text-black">Tahfidzul Qur'an</h3>
+                    <h3 class="font-semibold text-[16px] text-black">
+                        {{ $program->nama_program }}
+                    </h3>
                     <p class="text-sm text-[#7A7A7A] mt-1">
-                        Program menghafal Al-Qur'an 30 juz
+                        '{{ addslashes($program->deskripsi) }}'
                     </p>
                 </div>
 
                 <div class="flex gap-3">
-                    <button class="bg-[#BFDBFE] text-[#1D4ED8] px-6 py-2 rounded text-sm font-medium">Edit</button>
-                    <button class="bg-[#FECACA] text-[#B91C1C] px-6 py-2 rounded text-sm font-medium">Hapus</button>
+                    <button onclick="openEditProgramModal(
+                        {{ $program->id }},
+                        '{{ $program->nama_program }}',
+                        '{{ addslashes($program->deskripsi) }}',
+                        {{ $program->kategori_id }},
+                        '{{ $program->status }}'
+                        )"
+                        class="bg-[#BFDBFE] text-[#1D4ED8] px-6 py-2 rounded text-sm font-medium">
+                        Edit
+                    </button>
+
+                    <button onclick="openHapusProgramModal({{ $program->id }}, '{{ $program->nama_program }}')"
+                        class="bg-[#FECACA] text-[#B91C1C] px-6 py-2 rounded text-sm font-medium">
+                        Hapus
+                    </button>
                 </div>
             </div>
-
-            <div class="flex justify-between items-center px-5 py-4">
-                <div>
-                    <h3 class="font-semibold text-[16px] text-black">Takhasus Kitab Kuning</h3>
-                    <p class="text-sm text-[#7A7A7A] mt-1">
-                        Pembelajaran kitab klasik Islam
-                    </p>
-                </div>
-
-                <div class="flex gap-3">
-                    <button class="bg-[#BFDBFE] text-[#1D4ED8] px-6 py-2 rounded text-sm font-medium">Edit</button>
-                    <button class="bg-[#FECACA] text-[#B91C1C] px-6 py-2 rounded text-sm font-medium">Hapus</button>
-                </div>
-            </div>
-
-            <div class="flex justify-between items-center px-5 py-4">
-                <div>
-                    <h3 class="font-semibold text-[16px] text-black">Bahasa Inggris</h3>
-                    <p class="text-sm text-[#7A7A7A] mt-1">
-                        Program bahasa Inggris global
-                    </p>
-                </div>
-
-                <div class="flex gap-3">
-                    <button class="bg-[#BFDBFE] text-[#1D4ED8] px-6 py-2 rounded text-sm font-medium">Edit</button>
-                    <button class="bg-[#FECACA] text-[#B91C1C] px-6 py-2 rounded text-sm font-medium">Hapus</button>
-                </div>
-            </div>
+            @endforeach
 
         </div>
 
     </div>
+    @endif
 
 </div>
 
@@ -229,16 +194,33 @@ function closeTambahProgramModal() {
     document.getElementById('modalTambahProgram').classList.add('hidden');
 }
 
-function openEditProgramModal() {
+function openEditProgramModal(id, nama, deskripsi, kategori_id, status) {
+
     document.getElementById('modalEditProgram').classList.remove('hidden');
+
+    document.getElementById('edit_nama').value = nama;
+    document.getElementById('edit_deskripsi').value = deskripsi;
+    document.getElementById('edit_kategori').value = kategori_id;
+
+    let checkbox = document.getElementById('edit_status');
+    checkbox.checked = (status === 'aktif');
+
+    document.getElementById('formEditProgram').action =
+        '/admin/program-pendidikan/' + id;
 }
 
 function closeEditProgramModal() {
     document.getElementById('modalEditProgram').classList.add('hidden');
 }
 
-function openHapusProgramModal() {
+function openHapusProgramModal(id) {
     document.getElementById('modalHapusProgram').classList.remove('hidden');
+
+    document.getElementById('formHapusProgram').action =
+        '/admin/program-pendidikan/' + id;
+
+        // set nama program ke modal
+    document.getElementById('hapus_nama_program').innerText = nama;
 }
 
 function closeHapusProgramModal() {

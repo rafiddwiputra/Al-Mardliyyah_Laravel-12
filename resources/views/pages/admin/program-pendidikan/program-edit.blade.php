@@ -13,17 +13,18 @@
         <!-- FORM -->
         <div class="p-5">
 
-            <form>
+            <form id="formEditProgram" method="POST">
 
+                @csrf
+                @method('PUT')
                 <!-- NAMA -->
                 <div class="mb-4">
                     <label class="block text-sm text-black mb-1">
                         Nama Program
                     </label>
 
-                    <input type="text"
-                        value="SMP Progresif Al-Mardliyiyah"
-                        class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
+                    <input type="text" name="nama_program" id="edit_nama"
+                    class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
                 </div>
 
                 <!-- DESKRIPSI -->
@@ -32,8 +33,8 @@
                         Deskripsi
                     </label>
 
-                    <textarea rows="4"
-                        class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">Sekolah Menengah Kejuruan bidang Kimia</textarea>
+                    <textarea name="deskripsi" id="edit_deskripsi" rows="4"
+                    class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none"></textarea>
                 </div>
 
                 <!-- KATEGORI -->
@@ -42,12 +43,12 @@
                         Kategori Program
                     </label>
 
-                    <select
-                        class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm text-[#1E5631] focus:outline-none focus:ring-1 focus:ring-[#1E5631] bg-white">
-
-                        <option selected>Lembaga Pendidikan Formal</option>
-                        <option>Lembaga Pendidikan Non Formal</option>
-                        <option>Program Keunggulan</option>
+                    <select name="kategori_id" id="edit_kategori"
+                        class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm">
+    
+                        <option value="1">Lembaga Pendidikan Formal</option>
+                        <option value="2">Lembaga Pendidikan Non Formal</option>
+                        <option value="3">Program Keunggulan</option>
 
                     </select>
                 </div>
@@ -67,7 +68,7 @@
 
                         <label class="relative inline-flex items-center cursor-pointer">
 
-                            <input type="checkbox" checked class="sr-only peer">
+                            <input type="checkbox" id="edit_status" name="status" value="aktif" class="sr-only peer">
 
                             <div
                                 class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-[#1E5631] transition">

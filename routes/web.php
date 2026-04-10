@@ -3,6 +3,7 @@
 use App\Http\Controllers\Public\ProfileController;
 use App\Http\Controllers\Public\KontakController;
 use App\Http\Controllers\Public\ProgramPendidikanController;
+use App\Http\Controllers\Admin\AdminProgramController;
 use App\Http\Controllers\Public\GaleriController;
 use App\Http\Controllers\Public\BeritaController; 
 use App\Http\Controllers\Public\LupaKataSandiController;
@@ -163,9 +164,16 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     })->name('admin.profil');
 
     // Program Pendidikan
-    Route::get('/program-pendidikan', function () {
-        return view('pages.admin.program-pendidikan.program-pendidikan');
-    })->name('admin.program');
+    Route::get('/program-pendidikan', [AdminProgramController::class, 'programPendidikan'])
+    ->name('admin.program');
+
+    Route::post('/program-pendidikan', [AdminProgramController::class, 'store'])
+    ->name('program.store');
+
+    Route::put('/program-pendidikan/{id}', [AdminProgramController::class, 'update'])
+    ->name('admin.program.update');
+    
+    Route::delete('/program-pendidikan/{id}', [AdminProgramController::class, 'destroy']);
 
     // Biaya & Jadwal
     Route::get('/biaya', function () {
