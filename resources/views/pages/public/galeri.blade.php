@@ -83,7 +83,7 @@
             </p>
         </div>
         
-        // Grid Aktivitas Santri
+        {{-- Grid Aktivitas Santri --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             @forelse($aktivitas as $akt)
             <div class="bg-white rounded-[2rem] shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-2 group">
@@ -113,7 +113,7 @@
     </div>
 </div>
 
-// Bagian CTA untuk Pendaftaran Santri Baru
+{{-- Bagian CTA untuk Pendaftaran Santri Baru --}}
 <div class="bg-[#1E5631] relative overflow-hidden text-white py-24 text-center">
     <div class="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
     <div class="relative z-10 px-6">
@@ -129,13 +129,13 @@
     </div>
 </div>
 
-// Modal Gambar (termasuk script untuk buka-tutup dengan efek zoom dan transisi halus)
+{{-- Modal Gambar --}}
 <div id="imageModal" onclick="closeModal()" class="fixed inset-0 bg-black/90 hidden z-[9999] items-center justify-center p-4 backdrop-blur-sm transition-all duration-300">
     <button onclick="closeModal()" class="absolute top-8 right-8 text-white/50 hover:text-white text-5xl font-light transition-colors">&times;</button>
     <img id="modalImage" onclick="event.stopPropagation()" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300">
 </div>
 
-// Script untuk membuka dan menutup modal gambar dengan efek zoom dan transisi halus
+{{-- Script untuk membuka dan menutup modal gambar --}}
 <script>
     function openModal(src) {
         const modal = document.getElementById('imageModal');

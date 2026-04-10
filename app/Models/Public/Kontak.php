@@ -10,12 +10,12 @@ class Kontak extends Model
 {
     protected $table = 'kontak';
 
-    protected $fillable = [
+   protected $fillable = [
         'tipe',
         'judul',
         'nilai',
         'link',
-        'keterangan',
+        'icon',
         'created_by',
         'updated_by'
     ];

@@ -48,7 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function pimpinanDiupdate(): HasMany { return $this->hasMany(PimpinanPondok::class, 'updated_by'); }
     public function tentangDiupdate(): HasMany { return $this->hasMany(TentangPondok::class, 'updated_by'); }
     public function aktivitasDiupdate(): HasMany { return $this->hasMany(AktivitasSantri::class, 'updated_by'); }
-    public function pendaftaran(){
-        return $this->hasOne(\App\Models\Pendaftaran::class);
-    }
+    // public function pendaftaran(){
+    //     return $this->hasOne(\App\Models\Pendaftaran::class);
+    // }
 }

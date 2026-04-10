@@ -90,11 +90,14 @@
 
     <!-- LOGOUT -->
     <div class="max-w-2xl mx-auto flex justify-end mt-3">
-        <button class="bg-[#F8CFCF] text-red-600 font-semibold px-6 py-2 rounded-md text-sm">
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit"
+            class="bg-[#F8CFCF] text-red-600 font-semibold px-6 py-2 rounded-md text-sm hover:bg-red-200 transition">
             Log Out
         </button>
-    </div>
-
+    </form>
+</div>
 </div>
 
 @endsection

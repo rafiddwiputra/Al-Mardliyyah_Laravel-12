@@ -2,58 +2,39 @@
 
 @section('content')
 
-{{-- HERO --}}
-<div class="bg-[#1E5631] text-white text-center py-32">
-    <h1 class="text-4xl font-bold mb-4">
-        Pondok Pesantren Al-Mardliyyah
-    </h1>
-
-    <p class="mb-6">
-        Membentuk Generasi Qur’ani yang Berakhlak Mulia dan Berprestasi
-    </p>
-
-    <div class="flex justify-center gap-4">
-        {{-- Link ke halaman pendaftaran --}}
-        <a href="{{ url('/pendaftaran') }}" class="bg-[#C6A75E] text-[#1E5631] px-5 py-2 rounded font-semibold hover:bg-[#b59650] transition">
-            Daftar Sekarang
-        </a>
-
-        {{-- Link ke halaman profil --}}
-        <a href="{{ route('profile') }}" class="border border-white px-5 py-2 rounded hover:bg-white hover:text-[#1E5631] transition">
-            Lihat Profil
-        </a>
+{{-- HERO SECTION --}}
+<section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        {{-- Banner Image Dinamis --}}
+        <img src="{{ asset($profil->banner_image ?? 'images/default-banner.jpg') }}" 
+             class="w-full h-full object-cover" 
+             alt="Background">
+        <div class="absolute inset-0 bg-black/50"></div>
     </div>
-</div>
 
-{{-- MAIN CONTENT --}}
-<div class="bg-[#FAFAFA]">
-
-    {{-- TENTANG --}}
-<section class="py-16">
-    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-start">
-        
-        <div>
-            {{-- Gambar Dinamis --}}
-            <img src="{{ $tentang && $tentang->gambar ? asset($tentang->gambar) : asset('images/pesantren-al-mardliyyah.jpg') }}"
-                alt="Gambar Pondok"
-                class="rounded-lg shadow-md w-full h-auto object-cover">
-        </div>  
-        
-        <div>
-            <h2 class="text-2xl font-bold text-[#1E5631] mb-4 text-left">
-                {{ $tentang->judul ?? 'Tentang Pesantren' }}
-            </h2>
-
-            <div class="text-[#333333] mb-6 text-justify leading-relaxed">
-                {{-- Menggunakan {!! !!} jika deskripsi mengandung baris baru/HTML dari editor --}}
-                {!! nl2br(e($tentang->deskripsi ?? 'Pondok Pesantren Al-Mardliyyah berkomitmen dalam membentuk generasi Qur’ani.')) !!}
-            </div>
-
-            <a href="{{ route('profile') }}" class="inline-block bg-[#1E5631] text-white px-5 py-2 rounded hover:bg-[#17472a] transition">
-                Selengkapnya
-            </a>
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+        <div class="flex justify-center mb-6">
+            {{-- Logo Dinamis --}}
+            <img src="{{ asset($profil->logo ?? 'images/default-logo.png') }}" 
+                 alt="Logo" class="w-40 md:w-56 drop-shadow-2xl">
         </div>
 
+        {{-- Nama Pondok & Tagline Dinamis --}}
+        <h1 class="text-3xl md:text-5xl font-bold text-white mb-4 drop-shadow-md">
+            {{ $profil->nama_pondok ?? 'Pondok Pesantren Al-Mardliyyah' }}
+        </h1>
+        <p class="text-white text-lg md:text-xl mb-10 font-medium opacity-90">
+            {{ $profil->tagline ?? 'Membentuk Generasi Qur’ani yang Berakhlak Mulia dan Berprestasi' }}
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="{{ url('/pendaftaran') }}" class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-xl font-bold shadow-lg">
+                Daftar Sekarang
+            </a>
+            <a href="{{ route('profile') }}" class="border-2 border-white text-white px-8 py-3 rounded-xl font-bold shadow-lg">
+                Lihat Profil
+            </a>
+        </div>
     </div>
 </section>
 

@@ -10,12 +10,11 @@ return new class extends Migration
     {
         Schema::create('kontak', function (Blueprint $table) {
             $table->id();
-
-            $table->string('tipe', 50);
-            $table->string('judul', 100);
-            $table->text('nilai');
-            $table->string('link', 255)->nullable();
-            $table->string('keterangan', 100)->nullable();
+            $table->enum('tipe', ['alamat', 'telepon', 'email', 'sosmed']); 
+            $table->string('judul', 100); 
+            $table->text('nilai');        
+            $table->string('link', 255)->nullable(); 
+            $table->string('icon', 255)->nullable(); 
             $table->foreignId('created_by')
                   ->nullable()
                   ->constrained('users')
@@ -27,8 +26,8 @@ return new class extends Migration
                   ->constrained('users')
                   ->nullOnDelete()
                   ->cascadeOnUpdate();
+
             $table->timestamps();
-            $table->index('tipe');
         });
     }
 
