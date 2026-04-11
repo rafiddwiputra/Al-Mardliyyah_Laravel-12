@@ -14,6 +14,7 @@ use App\Http\Controllers\Public\BerandaController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Public\RedirectPendaftaranController;
+use App\Http\Controllers\Admin\InformasiWebsiteController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -184,10 +185,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
         return view('pages.admin.jadwal.jadwal');
     })->name('admin.jadwal');
 
-    // Banner & Kontak
-    Route::get('/banner-beranda', function () {
-        return view('pages.admin.banner-beranda');
-    })->name('admin.banner');
+    Route::get('/banner-beranda', [InformasiWebsiteController::class, 'index'])->name('admin.banner');
+    Route::post('/banner-beranda', [InformasiWebsiteController::class, 'update'])->name('informasi.update');
 
     Route::get('/kontak', function () {
         return view('pages.admin.kontak');

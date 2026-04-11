@@ -7,15 +7,17 @@
     <!-- HEADER -->
     <div class="mb-6">
         <h1 class="text-2xl font-bold text-[#1E5631]">
-            Banner Beranda
+            Informasi Website
         </h1>
 
         <p class="text-sm text-gray-500">
-            Mengatur tampilan halaman beranda
+            Mengatur tampilan website
         </p>
     </div>
 
     <!-- FORM -->
+    <form action="{{ route('informasi.update') }}" method="POST" enctype="multipart/form-data">
+        @csrf
     <div class="space-y-6">
 
         <!-- SECTION HERO -->
@@ -37,7 +39,8 @@
                     Judul Banner
                 </label>
                 <input type="text"
-                    value="Pondok Pesantren Al-Mardliyiyah"
+                    name="nama_pondok"
+                    value="{{ $profil->nama_pondok ?? 'Pondok Pesantren Al-Mardliyiyah' }}"
                     class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
             </div>
 
@@ -46,8 +49,8 @@
                 <label class="block text-xs text-black mb-1">
                     Deskripsi
                 </label>
-                <textarea rows="3"
-                    class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">Membentuk Generasi Qur'ani yang Berakhlak Mulia dan Berprestasi</textarea>
+                <textarea name="tagline" rows="3"
+                    class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">{{ $profil->tagline ?? 'Membentuk Generasi Qur\'ani yang Berakhlak Mulia dan Berprestasi' }}</textarea>
             </div>
 
             <!-- UPLOAD -->
@@ -63,9 +66,26 @@
                         Upload Gambar (Opsional)
                     </span>
 
-                    <input type="file" class="hidden">
+                    <input type="file" name="banner_image" class="hidden">
                 </label>
             </div>
+
+            <!-- LOGO -->
+<div class="mt-4">
+    <label class="block text-xs text-black mb-2">
+        Logo
+    </label>
+
+    <label
+        class="flex flex-col items-center justify-center w-full h-20 border border-[#D9D9D9] rounded cursor-pointer hover:bg-gray-50 transition text-center">
+
+        <span class="text-[11px] text-gray-400">
+            Upload Logo
+        </span>
+
+        <input type="file" name="logo" class="hidden">
+    </label>
+</div>
 
         </div>
 
@@ -82,15 +102,6 @@
                 </p>
             </div>
 
-            <!-- JUDUL -->
-            <div class="mb-4">
-                <label class="block text-xs text-black mb-1">
-                    Judul
-                </label>
-                <input type="text"
-                    value="Lembaga Pendidikan Islam Terpadu"
-                    class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
-            </div>
 
             <!-- DESKRIPSI -->
             <div>
@@ -98,10 +109,28 @@
                     Deskripsi
                 </label>
 
-                <textarea rows="4"
-                    class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm leading-relaxed focus:outline-none">Pondok Pesantren Al-Mardliyiyah adalah lembaga pendidikan Islam yang menggabungkan kurikulum pesantren tradisional dengan pendidikan formal modern. Kami berkomitmen untuk membentuk generasi yang menguasai ilmu agama, berakhlak mulia, dan berprestasi dalam bidang akademik. Dengan adanya pengajar profesional dan fasilitas yang memadai, kami memastikan setiap santri mendapatkan pendidikan terbaik dalam lingkungan Islami yang kondusif untuk berkembang.</textarea>
+                <textarea 
+                name="deskripsi_lembaga"
+                rows="4"
+                class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm">{{ $profil->deskripsi_lembaga ?? '' }}</textarea>
+
             </div>
 
+            <div class="mt-4">
+    <label class="block text-xs text-black mb-2">
+        Gambar Lembaga
+    </label>
+
+    <label
+        class="flex flex-col items-center justify-center w-full h-24 border border-[#D9D9D9] rounded cursor-pointer hover:bg-gray-50 transition text-center">
+
+        <span class="text-[11px] text-gray-400">
+            Upload Gambar
+        </span>
+
+        <input type="file" name="gambar_lembaga" class="hidden">
+    </label>
+</div>
         </div>
 
         <!-- SECTION VISI MISI -->
@@ -123,7 +152,8 @@
                     Visi
                 </label>
                 <input type="text"
-                    value="Menjadi lembaga pendidikan Islam terpadu yang mencetak generasi Qur'ani, berakhlak mulia, berprestasi, dan bermanfaat bagi masyarakat"
+                    name="visi"
+                    value="{{ $visi->konten ?? '' }}"
                     class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
             </div>
 
@@ -146,47 +176,48 @@
                 <!-- LIST MISI -->
                 <div id="listMisi" class="space-y-2">
 
-                    <!-- ITEM -->
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs text-gray-500 w-4 text-right">1.</span>
+    @forelse($misi as $index => $item)
+    <div class="flex items-center gap-2">
+        <span class="text-xs text-gray-500 w-4 text-right">{{ $index + 1 }}.</span>
 
-                        <input type="text"
-                            value="Memberikan pendidikan yang mengintegrasikan aspek spiritual, intelektual, emosional, dan sosial"
-                            class="flex-1 border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
+        <input type="text"
+            name="misi[]"
+            value="{{ $item->konten }}"
+            class="flex-1 border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
 
-                        <button onclick="hapusMisi(this)" class="text-red-500 text-sm">🗑</button>
-                    </div>
+        <button type="button" onclick="hapusMisi(this)" class="text-red-500 text-sm">🗑</button>
+    </div>
+    @empty
+    <div class="flex items-center gap-2">
+        <span class="text-xs text-gray-500 w-4 text-right">1.</span>
 
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs text-gray-500 w-4 text-right">2.</span>
+        <input type="text"
+            name="misi[]"
+            placeholder="Masukkan misi"
+            class="flex-1 border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
+    </div>
+    @endforelse
 
-                        <input type="text"
-                            value="Meningkatkan mutu pendidikan melalui kurikulum yang relevan dan metode pembelajaran inovatif"
-                            class="flex-1 border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
+</div>
 
-                        <button onclick="hapusMisi(this)" class="text-red-500 text-sm">🗑</button>
-                    </div>
+</div>
 
-                </div>
-
-            </div>
-
-        </div>
+</div>
 
         <!-- BUTTON -->
         <div class="flex justify-end gap-2">
-            <button class="px-4 py-2 border rounded text-gray-600">
+            <button type="button" class="px-4 py-2 border rounded text-gray-600">
                 Batal
             </button>
 
-            <button class="px-4 py-2 bg-[#1E5631] text-white rounded">
+            <button type="submit" class="px-4 py-2 bg-[#1E5631] text-white rounded">
                 Simpan Perubahan
             </button>
         </div>
 
     </div>
-
 </div>
+</form>
 
 <script>
 function tambahMisi() {
@@ -200,6 +231,7 @@ function tambahMisi() {
         <span class="text-xs text-gray-500 w-4 text-right">${jumlah}.</span>
 
         <input type="text"
+            name="misi[]"
             placeholder="Masukkan misi"
             class="flex-1 border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
 

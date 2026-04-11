@@ -5,7 +5,7 @@
     <div class="flex items-center">
     <a href="/" class="flex items-center gap-3 group">
         {{-- Logo Dinamis --}}
-        <img src="{{ asset($profil->logo ?? 'images/logo.jpg') }}" 
+        <img src="{{ $profil && $profil->logo ? asset('storage/'.$profil->logo) : asset('images/logo.jpg') }}"
              alt="Logo Al-Mardliyyah" 
              class="w-12 h-12 md:w-14 md:h-14 object-contain transition-transform group-hover:scale-105">
         

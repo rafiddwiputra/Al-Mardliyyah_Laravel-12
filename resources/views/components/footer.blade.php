@@ -25,8 +25,13 @@
         {{-- BAGIAN 1: BRAND & LOGO (Dinamis dari $profil) --}}
         <div class="space-y-6">
             <div class="flex items-center gap-3">
-                <img src="{{ asset($profil->logo ?? 'images/logo.jpg') }}" alt="Logo" class="w-12 h-12 object-contain rounded-lg">
-                <h2 class="font-bold text-xl uppercase tracking-wider">{{ $profil->nama_pondok ?? 'Al-Mardliyyah' }}</h2>
+            <img 
+            src="{{ $profil && $profil->logo ? asset('storage/'.$profil->logo) : asset('images/logo.jpg') }}" 
+            class="w-14 h-14 object-contain bg-white p-1 rounded">
+
+            <h2 class="font-bold text-xl uppercase tracking-wider">
+            {{ $profil->nama_pondok ?? 'Al-Mardliyyah' }}
+            </h2>
             </div>
             <p class="text-sm leading-relaxed text-gray-200">
                 {{ $profil->tagline ?? 'Institusi pendidikan islam modern yang berkomitmen menghadirkan generasi cendekiawan berakhlak karimah.' }}

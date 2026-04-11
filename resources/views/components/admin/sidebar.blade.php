@@ -63,7 +63,7 @@
             Pengaturan Website
         </div>
         <div class="ml-6 border-l-2 border-white/30 space-y-1">
-            <a href="{{ route('admin.banner') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/banner*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Banner Beranda</a>
+            <a href="{{ route('admin.banner') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/banner*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Informasi Website</a>
             <a href="{{ route('admin.kontak') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/kontak*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Kontak</a>
         </div>
     </div>

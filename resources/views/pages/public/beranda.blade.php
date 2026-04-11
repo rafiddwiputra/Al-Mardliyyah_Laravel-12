@@ -6,7 +6,7 @@
 <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 z-0">
         {{-- Banner Image Dinamis --}}
-        <img src="{{ asset($profil->banner_image ?? 'images/default-banner.jpg') }}" 
+        <img src="{{ $profil && $profil->banner_image ? asset('storage/'.$profil->banner_image) : asset('images/default-banner.jpg') }}" 
              class="w-full h-full object-cover" 
              alt="Background">
         <div class="absolute inset-0 bg-black/50"></div>
@@ -15,7 +15,7 @@
     <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
         <div class="flex justify-center mb-6">
             {{-- Logo Dinamis --}}
-            <img src="{{ asset($profil->logo ?? 'images/default-logo.png') }}" 
+            <img src="{{ $profil && $profil->logo ? asset('storage/'.$profil->logo) : asset('images/default-logo.png') }}"
                  alt="Logo" class="w-40 md:w-56 drop-shadow-2xl">
         </div>
 
@@ -35,6 +35,37 @@
                 Lihat Profil
             </a>
         </div>
+    </div>
+</section>
+
+    {{-- LEMBAGA PENDIDIKAN --}}
+<section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+
+        {{-- GAMBAR --}}
+        <div>
+            <img src="{{ $profil && $profil->gambar_lembaga 
+                ? asset('storage/'.$profil->gambar_lembaga) 
+                : asset('images/lembaga.jpg') }}" 
+                class="rounded-xl shadow-md w-full object-cover">
+        </div>
+
+        {{-- TEKS --}}
+        <div>
+            <h2 class="text-2xl md:text-3xl font-bold text-[#1E5631] mb-4">
+                Lembaga Pendidikan Islam Terpadu
+        </h2>
+
+            <p class="text-gray-600 mb-6 leading-relaxed">
+            {{ $profil->deskripsi_lembaga ?? 'Deskripsi belum diisi' }}
+            </p>
+
+            <a href="{{ route('profile') }}" 
+               class="bg-[#1E5631] text-white px-6 py-2 rounded-lg shadow hover:bg-[#17472a] transition">
+                Selengkapnya
+            </a>
+        </div>
+
     </div>
 </section>
 
