@@ -30,8 +30,7 @@ class AdminProgramController extends Controller
             'nama_program' => $request->nama_program,
             'deskripsi' => $request->deskripsi,
             'status' => $request->has('status') ? 'aktif' : 'nonaktif',
-            'created_by' => auth()->id(),
-            'gambar' => 'default.png',
+            'created_by' => auth()->id()
         ]);
 
         return redirect()->back()->with('success', 'Program berhasil ditambahkan');

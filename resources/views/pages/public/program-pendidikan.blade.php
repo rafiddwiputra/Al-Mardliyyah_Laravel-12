@@ -85,12 +85,6 @@
                 --}}
                 <div class="bg-white rounded-[2rem] shadow-xl border border-gray-50 overflow-hidden flex flex-col md:flex-row items-stretch group hover:shadow-2xl transition-all duration-500">
                     
-                    {{-- BAGIAN GAMBAR (KIRI) --}}
-                    <div class="md:w-2/5 h-64 md:h-auto overflow-hidden">
-                        <img src="{{ Str::startsWith($item->gambar, 'http') ? $item->gambar : asset($item->gambar) }}" 
-                             alt="{{ $item->nama_program }}"
-                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    </div>
 
                     {{-- BAGIAN TEKS (KANAN) --}}
                     <div class="md:w-3/5 p-10 md:p-14 flex flex-col justify-center text-left">
@@ -142,12 +136,6 @@
                 {{-- Card Wrapper: Menggunakan Shadow halus & rounded tinggi sesuai desain --}}
                 <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col group">
                     
-                    {{-- Bagian Gambar: Menempel ke atas card (p-0) --}}
-                    <div class="w-full h-56 overflow-hidden">
-                        <img src="{{ Str::startsWith($item->gambar, 'http') ? $item->gambar : asset($item->gambar) }}" 
-                             alt="{{ $item->nama_program }}"
-                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    </div>
 
                     {{-- Bagian Konten: Rata Tengah (text-center) --}}
                     <div class="p-8 flex flex-col items-center text-center">

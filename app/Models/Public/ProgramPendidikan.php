@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ProgramPendidikan extends Model
 {
     protected $table = 'program_pendidikan';
-    protected $fillable = ['kategori_id', 'nama_program', 'gambar', 'deskripsi', 'status', 'created_by', 'updated_by'];
+    protected $fillable = ['kategori_id', 'nama_program', 'deskripsi', 'status', 'created_by', 'updated_by'];
 
     public function kategori(): BelongsTo
     {
