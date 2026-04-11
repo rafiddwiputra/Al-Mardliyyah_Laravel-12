@@ -3,41 +3,45 @@
 
     <div class="bg-white w-full max-w-sm rounded-xl shadow-lg overflow-hidden">
 
-        <!-- HEADER -->
-        <div class="bg-[#FFFFFF] text-[#B91C1C] text-center py-3 font-semibold border-b border-gray-500">
-            Konfirmasi Hapus
-        </div>
+        <form id="deleteForm" method="POST">
+            @csrf
+            @method('DELETE')
 
-        <!-- BODY -->
-        <div class="p-5 text-center">
-
-            <p class="text-sm text-gray-700 mb-3">
-                Apakah Anda yakin ingin menghapus jadwal ini?
-            </p>
-
-            <p class="text-xs text-gray-500 mb-4">
-                Jadwal:
-                <span class="font-semibold text-gray-800">
-                    Pendaftaran
-                </span>
-            </p>
-
-            <div class="flex gap-3">
-
-                <button onclick="closeModal('deleteModal')"
-                    class="flex-1 border rounded-md py-2 text-sm font-bold text-gray-700 hover:bg-gray-100">
-                    Batal
-                </button>
-
-                <button
-                    class="flex-1 bg-red-200 text-[#B91C1C] rounded-md py-2 text-sm font-medium hover:bg-red-300">
-                    Hapus
-                </button>
-
+            <!-- HEADER -->
+            <div class="bg-[#FFFFFF] text-[#B91C1C] text-center py-3 font-semibold border-b border-gray-500">
+                Konfirmasi Hapus
             </div>
 
-        </div>
+            <!-- BODY -->
+            <div class="p-5 text-center">
 
+                <p class="text-sm text-gray-700 mb-3">
+                    Apakah Anda yakin ingin menghapus jadwal ini?
+                </p>
+
+                <p class="text-xs text-gray-500 mb-4">
+                    Jadwal:
+                    <span class="font-semibold text-gray-800">
+                        Pendaftaran
+                    </span>
+                </p>
+
+                <div class="flex gap-3">
+
+                    <button type="button" onclick="closeModal('deleteModal')"
+                        class="flex-1 border rounded-md py-2 text-sm font-bold text-gray-700 hover:bg-gray-100">
+                        Batal
+                    </button>
+
+                    <button type="submit"
+                        class="flex-1 bg-red-200 text-[#B91C1C] rounded-md py-2 text-sm font-medium hover:bg-red-300">
+                        Hapus
+                    </button>
+
+                </div>
+
+            </div>
+        </form>
     </div>
 
 </div>

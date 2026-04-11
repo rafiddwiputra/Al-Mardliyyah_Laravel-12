@@ -54,14 +54,6 @@
     </button>
 </div>
 
-@php
-$jadwal = [
-    ['nama'=>'Pendaftaran','buka'=>'15 Januari 2026','tutup'=>'15 Februari 2026'],
-    ['nama'=>'Seleksi','buka'=>'15 Februari 2026','tutup'=>'15 Maret 2026'],
-    ['nama'=>'Pengumuman','buka'=>'15 Maret 2026','tutup'=>'15 April 2026'],
-];
-@endphp
-
 <div class="bg-white border rounded-xl overflow-hidden">
 
     <table class="w-full text-sm">
@@ -79,30 +71,40 @@ $jadwal = [
         <!-- BODY -->
         <tbody class="text-gray-700">
 
-            @foreach($jadwal as $item)
+            @foreach($data as $item)
             <tr class="border-t hover:bg-gray-50">
 
                 <td class="px-6 py-4 font-medium">
-                    {{ $item['nama'] }}
+                    {{ $item->judul }}
                 </td>
 
                 <td class="px-6 py-4">
-                    {{ $item['buka'] }}
+                    {{ explode(' - ', $item->deskripsi)[0] ?? '-' }}
                 </td>
 
                 <td class="px-6 py-4">
-                    {{ $item['tutup'] }}
+                    {{ explode(' - ', $item->deskripsi)[1] ?? '-' }}
                 </td>
 
                 <td class="px-6 py-4 text-center">
+
                     <div class="flex justify-center gap-2">
 
-                        <button onclick="openModal('editModal')"
+                        <!-- EDIT -->
+                        <button 
+                            onclick="openEditModal(
+                                {{ $item->id }},
+                                '{{ $item->judul }}',
+                                '{{ explode(' - ', $item->deskripsi)[0] ?? '' }}',
+                                '{{ explode(' - ', $item->deskripsi)[1] ?? '' }}'
+                            )"
                             class="bg-[#BFDBFE] text-[#1D4ED8] px-3 py-1 rounded text-xs font-bold">
                             Edit
                         </button>
 
-                        <button onclick="openModal('deleteModal')"
+                        <!-- DELETE -->
+                        <button 
+                            onclick="openDeleteModal({{ $item->id }})"
                             class="bg-[#FECACA] text-[#B91C1C] px-3 py-1 rounded text-xs font-bold">
                             Hapus
                         </button>
@@ -147,30 +149,37 @@ function toggleStatus(){
     isOpen = !isOpen;
 
     if(isOpen){
-        // ON
         toggle.classList.remove('bg-gray-400');
         toggle.classList.add('bg-[#1E5631]');
-
         circle.classList.remove('ml-0');
         circle.classList.add('ml-auto');
-
         label.innerText = 'Dibuka';
-        label.className = "bg-green-100 font-bold text-green-700 text-xs px-3 py-1 rounded-full";
-
         desc.innerText = 'Formulir pendaftaran tersedia';
     } else {
-        // OFF
         toggle.classList.remove('bg-[#1E5631]');
         toggle.classList.add('bg-gray-400');
-
         circle.classList.remove('ml-auto');
         circle.classList.add('ml-0');
-
         label.innerText = 'Ditutup';
-        label.className = "bg-red-100 font-bold text-red-700 text-xs px-3 py-1 rounded-full";
-
         desc.innerText = 'Formulir pendaftaran ditutup';
     }
+}
+</script>
+
+<script>
+function openEditModal(id, judul, mulai, selesai){
+    document.getElementById('editForm').action = '/admin/jadwal-pendaftaran/' + id;
+
+    document.getElementById('editJudul').value = judul;
+    document.getElementById('editMulai').value = mulai;
+    document.getElementById('editSelesai').value = selesai;
+
+    openModal('editModal');
+}
+
+function openDeleteModal(id){
+    document.getElementById('deleteForm').action = '/admin/jadwal-pendaftaran/' + id;
+    openModal('deleteModal');
 }
 </script>
 

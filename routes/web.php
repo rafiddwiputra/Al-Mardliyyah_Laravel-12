@@ -10,6 +10,7 @@ use App\Http\Controllers\Public\LupaKataSandiController;
 use App\Http\Controllers\Public\PendaftaranController;
 use App\Http\Controllers\Public\StatusPendaftaranController;
 use App\Http\Controllers\Admin\AdminBeritaController;
+use App\Http\Controllers\Admin\AdminJadwalController;
 use App\Http\Controllers\Public\BerandaController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -176,14 +177,10 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     
     Route::delete('/program-pendidikan/{id}', [AdminProgramController::class, 'destroy']);
 
-    // Biaya & Jadwal
+    // Biaya
     Route::get('/biaya', function () {
         return view('pages.admin.biaya');
     })->name('admin.biaya');
-
-    Route::get('/jadwal', function () {
-        return view('pages.admin.jadwal.jadwal');
-    })->name('admin.jadwal');
 
     Route::get('/banner-beranda', [InformasiWebsiteController::class, 'index'])->name('admin.banner');
     Route::post('/banner-beranda', [InformasiWebsiteController::class, 'update'])->name('informasi.update');
@@ -191,5 +188,11 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/kontak', function () {
         return view('pages.admin.kontak');
     })->name('admin.kontak');
+
+    // ================= JADWAL PENDAFTARAN =================
+    Route::get('/jadwal-pendaftaran', [AdminJadwalController::class, 'index'])->name('admin.jadwal');
+    Route::post('/jadwal-pendaftaran', [AdminJadwalController::class, 'store'])->name('admin.jadwal.store');
+    Route::post('/jadwal-pendaftaran/{id}', [AdminJadwalController::class, 'update'])->name('admin.jadwal.update');
+    Route::delete('/jadwal-pendaftaran/{id}', [AdminJadwalController::class, 'destroy'])->name('admin.jadwal.delete');
 
 });
