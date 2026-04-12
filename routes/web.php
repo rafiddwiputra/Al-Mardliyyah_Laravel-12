@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\AdminGaleriController;
 use App\Http\Controllers\Admin\AdminProfilController;
 use App\Http\Controllers\Admin\AdminKontakController;
 use App\Http\Controllers\Admin\AdminBiayaController;
+use App\Http\Controllers\Admin\AdminEditProfilController;
 
 // ================== DEBUG ==================
 Route::get('/debug-login', function () {
@@ -212,14 +213,12 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::post('/jadwal-pendaftaran', [AdminJadwalController::class, 'store'])->name('admin.jadwal.store');
     Route::post('/jadwal-pendaftaran/{id}', [AdminJadwalController::class, 'update'])->name('admin.jadwal.update');
     Route::delete('/jadwal-pendaftaran/{id}', [AdminJadwalController::class, 'destroy'])->name('admin.jadwal.delete');
-    
 
+    // ================= EDIT PROFIL ADMIN =================
+    Route::get('/profil', [AdminEditProfilController::class, 'index'])->name('admin.profil');
+    Route::post('/profil', [AdminEditProfilController::class, 'update'])->name('admin.profil.update');
 });
 
-//Route edit profil admin
-Route::get('/admin/profil', function () {
-    return view('pages.admin.edit-profil');
-})->name('admin.profil');
 
 //Route Pimpinan
 Route::get('/pimpinan/laporan', function(){
