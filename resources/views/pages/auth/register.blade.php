@@ -11,11 +11,10 @@
 
         @php
             $steps = [
-                1 => 'Buat Akun',
-                2 => 'Login',
-                3 => 'Isi Formulir',
-                4 => 'Upload Dokumen',
-                5 => 'Status Pendaftaran'
+                1 => 'Buat Akun',              
+                2 => 'Isi Formulir',
+                3 => 'Upload Dokumen',
+                4 => 'Status Pendaftaran'
             ];
         @endphp
 

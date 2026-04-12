@@ -41,7 +41,7 @@ Route::post('/register', [RegisterController::class, 'store'])
     ->middleware('guest');
 
 Route::get('/login', function () {
-    return view('pages.auth.login');
+    return view('pages.auth.login-global'); 
 })->name('login')->middleware('guest');
 
 Route::post('/login', [LoginController::class, 'authenticate'])

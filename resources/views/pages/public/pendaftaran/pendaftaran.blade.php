@@ -173,34 +173,34 @@
 </div>
 
 <div class="bg-[#4F7C5C] text-white py-20 text-center px-6">
-    @if($status)
-        <h3 class="text-2xl font-semibold mb-4">
-            Pendaftaran Santri Baru Telah Dibuka
-        </h3>
-    @else
-        <h3 class="text-2xl font-semibold mb-4 text-red-300">
-            Pendaftaran Saat Ini Ditutup
-        </h3>
-    @endif
+    {{-- Judul tetap dinamis --}}
+    <h3 class="text-2xl font-semibold mb-4">
+        {{ $status ? 'Pendaftaran Santri Baru Telah Dibuka' : 'Pendaftaran Saat Ini Ditutup' }}
+    </h3>
 
     <p class="text-sm mb-8 max-w-xl mx-auto text-gray-200">
-        Bergabunglah dengan ribuan santri kami dan mulai perjalanan
-        pendidikan Anda di Pondok Pesantren Al-Mardliyyah
+        Bergabunglah dengan ribuan santri kami dan mulai perjalanan pendidikan Anda di Pondok Pesantren Al-Mardliyyah
     </p>
 
-    @if($status)
-    <a href="{{ route('redirect.pendaftaran') }}"
-        class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition-colors shadow-lg active:scale-95">
-        Daftar Sekarang
-    </a>
+    @auth
+        {{-- JIKA SUDAH LOGIN: Selalu tampilkan tombol cek status/lanjut --}}
+        <a href="{{ route('formulir') }}"
+           class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition-colors shadow-lg active:scale-95">
+            Lanjutkan Pendaftaran
+        </a>
     @else
-    <button disabled
-        class="bg-gray-400 text-white px-8 py-3 rounded-lg font-bold inline-block cursor-not-allowed">
-        Pendaftaran Ditutup
-    </button>
-    @endif
-    
+        {{-- JIKA BELUM LOGIN: Cek apakah pendaftaran dibuka atau tidak --}}
+        @if($status)
+            <a href="{{ route('register') }}"
+               class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition-colors shadow-lg active:scale-95">
+                Daftar Sekarang
+            </a>
+        @else
+            <button disabled class="bg-gray-400 text-white px-8 py-3 rounded-lg font-bold inline-block cursor-not-allowed">
+                Pendaftaran Ditutup
+            </button>
+        @endif
+    @endauth
 </div>
-
 @endsection
 

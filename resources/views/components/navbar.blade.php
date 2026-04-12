@@ -81,11 +81,45 @@
         </li>
 
         {{-- LOGIN --}}
-        <li>
-            <a href="{{ route('login') }}"
-            class="ml-4 bg-[#1E5631] text-white px-4 py-2 rounded-md text-sm hover:bg-[#174427] transition">
+        {{-- LOGIN / USER MENU --}}
+<li class="flex items-center">
+    @guest
+        {{-- Jika Belum Login, Tampilkan Tombol Login --}}
+        <a href="{{ route('login') }}"
+           class="ml-4 bg-[#1E5631] text-white px-6 py-2 rounded-lg text-sm font-bold hover:bg-[#174427] transition shadow-sm">
             Login
-            </a>
-        </li>
+        </a>
+    @endguest
+
+    @auth
+    {{-- Jika Sudah Login --}}
+    <div class="flex items-center gap-3 ml-4">
+        
+        @php
+            // Logika menentukan tujuan link untuk calon santri
+            $targetRoute = route('home'); // Default
+            
+            if (Auth::user()->role === 'admin' || Auth::user()->role === 'pimpinan') {
+                $targetRoute = route('admin.dashboard');
+            } elseif (Auth::user()->role === 'calon_santri') {
+                // Santri diarahkan ke formulir sebagai 'home base' mereka
+                $targetRoute = route('formulir');
+            }
+        @endphp
+
+        <a href="{{ $targetRoute }}" 
+           class="text-[#1E5631] font-bold text-sm hover:underline whitespace-nowrap">
+            Hai, {{ explode(' ', Auth::user()->name)[0] }}!
+        </a>
+
+        <form action="{{ route('logout') }}" method="POST" class="inline">
+            @csrf
+            <button type="submit" class="text-red-600 font-bold text-xs hover:text-red-800 transition-colors">
+                (Keluar)
+            </button>
+        </form>
+    </div>
+@endauth
+</li>
     </ul>
 </nav>

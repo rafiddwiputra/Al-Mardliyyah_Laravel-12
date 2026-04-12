@@ -1,12 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+<script>
+    // Paksa browser untuk mengaktifkan kembali scrollbar
+    document.body.style.overflow = 'auto';
+    document.documentElement.style.overflow = 'auto';
+</script>
 
 <!-- STEP PROGRESS -->
 <div class="max-w-4xl mx-auto pt-10 mb-12">
 
     @php
-    $labels = ['Buat Akun', 'Login', 'Isi Formulir', 'Upload Dokumen', 'Status Pendaftaran'];
+    $labels = ['Buat Akun','Isi Formulir', 'Upload Dokumen', 'Status Pendaftaran'];
     @endphp
 
     <div class="flex items-center justify-between relative">
@@ -17,7 +22,7 @@
         <!-- GARIS AKTIF -->
         <div class="absolute top-5 left-0 h-1 bg-[#1E5631]" style="width: 50%"></div>
 
-        @foreach([1,2,3,4,5] as $step)
+        @foreach([1,2,3,4] as $step)
         <div class="flex flex-col items-center relative z-10">
 
             <!-- BULATAN -->
