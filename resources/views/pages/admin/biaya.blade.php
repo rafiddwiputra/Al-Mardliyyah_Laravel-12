@@ -12,87 +12,117 @@
         Kelola informasi biaya pendidikan pondok
     </p>
 
-    @php
-    $biaya = [
-        ['id'=>1,'judul'=>'Biaya Pendaftaran','harga'=>'150000'],
-        ['id'=>2,'judul'=>'Biaya Perlengkapan Santri','harga'=>'2500000'],
-        ['id'=>3,'judul'=>'SPP Bulanan','harga'=>'750000'],
-        ['id'=>4,'judul'=>'Biaya Asrama','harga'=>'500000'],
-    ];
-    @endphp
+    <div class="flex justify-end mb-4">
+    <button onclick="showTambah()"
+        class="bg-[#1E5631] text-white px-4 py-2 rounded-md text-sm">
+        + Tambah Biaya
+    </button>
+</div>
+
+    <div id="formTambah" class="hidden mb-6">
+    <form action="{{ route('admin.biaya.store') }}" method="POST">
+        @csrf
+
+        <div class="bg-white rounded-xl shadow p-5">
+
+            <input type="text" name="judul"
+                placeholder="Judul biaya"
+                class="w-full border mb-3 px-3 py-2 text-sm">
+
+            <input type="number" name="deskripsi"
+                placeholder="Nominal biaya"
+                class="w-full border mb-3 px-3 py-2 text-sm">
+
+            <div class="flex gap-2">
+                <button type="submit"
+                    class="bg-[#1E5631] text-white px-4 py-2 rounded text-sm">
+                    Simpan
+                </button>
+
+                <button type="button" onclick="hideTambah()"
+                    class="bg-gray-400 text-white px-4 py-2 rounded text-sm">
+                    Batal
+                </button>
+            </div>
+
+        </div>
+    </form>
+</div>
 
     <!-- GRID -->
     <div class="grid md:grid-cols-2 gap-6 mb-6">
 
         @foreach($biaya as $item)
-        <div class="bg-white rounded-xl shadow p-5 relative">
+<div class="bg-white rounded-xl shadow p-5 relative">
 
-            <!-- GARIS KIRI -->
-            <div class="absolute left-0 top-0 h-full w-1 bg-[#1E5631] rounded-l-xl"></div>
+    <div class="absolute left-0 top-0 h-full w-1 bg-[#1E5631] rounded-l-xl"></div>
 
-            <div class="ml-2">
+    <div class="ml-2">
 
-                <p class="text-sm font-bold text-[#1E5631] mb-1">
-                    {{ $item['judul'] }}
-                </p>
-
-                <!-- TEXT MODE -->
-                <p id="text-{{ $item['id'] }}"
-                   class="text-lg font-bold text-[#C6A75E] mb-4">
-                    RP {{ number_format($item['harga'],0,',','.') }}
-                </p>
-
-                <!-- INPUT MODE -->
-                <input id="input-{{ $item['id'] }}"
-                       type="number"
-                       value="{{ $item['harga'] }}"
-                       class="hidden w-full border border-[#C6A75E] text-[#1E5631] px-3 py-2 mb-4 text-sm">
-
-                <!-- BUTTON -->
-                <div class="flex gap-2">
-
-    <!-- EDIT -->
-    <button id="editBtn-{{ $item['id'] }}"
-        onclick="startEdit({{ $item['id'] }})"
-        class="w-full bg-[#1E5631] font-bold text-white py-2 rounded-md text-sm">
-        Edit
-    </button>
-
-    <!-- SIMPAN -->
-    <button id="saveBtn-{{ $item['id'] }}"
-        onclick="cancelEdit({{ $item['id'] }})"
-        class="hidden w-full bg-[#1E5631] font-bold text-white py-2 rounded-md text-sm">
-        Simpan
-    </button>
-
-    <!-- BATAL -->
-    <button id="cancelBtn-{{ $item['id'] }}"
-        onclick="cancelEdit({{ $item['id'] }})"
-        class="hidden w-full bg-[#D9D9D9] border border-gray-300 font-bold text-[#FFFFFF] py-2 rounded-md text-sm">
-        Batal
-    </button>
-
-</div>
-
-            </div>
-
-        </div>
-        @endforeach
-
-    </div>
-
-    <!-- NOTE -->
-    <div class="bg-[#EBFFE8] border border-[#D9D9D9] rounded-xl p-5">
-
-        <p class="text-xs font-bold text-[#1E5631] mb-4">
-            Catatan: Perubahan biaya akan berlaku untuk pendaftar baru
+        <p class="text-sm font-bold text-[#1E5631] mb-1">
+            {{ $item->judul }}
         </p>
 
-        <button class="bg-[#1E5631] font-bold text-white px-6 py-2 rounded-lg text-sm">
-            Simpan Semua Perubahan
-        </button>
+        <!-- FORM UPDATE -->
+        <form action="{{ route('admin.biaya.update', $item->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            <p id="text-{{ $item->id }}"
+               class="text-lg font-bold text-[#C6A75E] mb-4">
+                Rp {{ number_format($item->deskripsi,0,',','.') }}
+            </p>
+
+            <input id="input-{{ $item->id }}"
+                   type="number"
+                   name="deskripsi"
+                   value="{{ $item->deskripsi }}"
+                   class="hidden w-full border border-[#C6A75E] px-3 py-2 mb-4 text-sm">
+
+            <div class="flex gap-2">
+
+                <button type="button"
+                    id="editBtn-{{ $item->id }}"
+                    onclick="startEdit({{ $item->id }})"
+                    class="w-full bg-[#1E5631] text-white py-2 rounded-md text-sm">
+                    Edit
+                </button>
+
+                <button type="submit"
+                    id="saveBtn-{{ $item->id }}"
+                    class="hidden w-full bg-[#1E5631] text-white py-2 rounded-md text-sm">
+                    Simpan
+                </button>
+
+                <button type="button"
+                    id="cancelBtn-{{ $item->id }}"
+                    onclick="cancelEdit({{ $item->id }})"
+                    class="hidden w-full bg-gray-400 text-white py-2 rounded-md text-sm">
+                    Batal
+                </button>
+
+            </div>
+        </form>
+
+        <!-- FORM DELETE (WAJIB DI LUAR) -->
+        <form action="{{ route('admin.biaya.destroy', $item->id) }}" method="POST"
+            onsubmit="return confirm('Yakin mau hapus data ini?')"
+            class="mt-2">
+            @csrf
+            @method('DELETE')
+
+            <button type="submit"
+                class="w-full bg-red-600 text-white py-2 rounded-md text-sm">
+                Hapus
+            </button>
+        </form>
 
     </div>
+
+</div>
+@endforeach
+
+</div>
 
 </div>
 
@@ -113,6 +143,14 @@ function cancelEdit(id){
     document.getElementById('editBtn-'+id).classList.remove('hidden');
     document.getElementById('saveBtn-'+id).classList.add('hidden');
     document.getElementById('cancelBtn-'+id).classList.add('hidden');
+}
+
+function showTambah() {
+    document.getElementById('formTambah').classList.remove('hidden');
+}
+
+function hideTambah() {
+    document.getElementById('formTambah').classList.add('hidden');
 }
 </script>
 

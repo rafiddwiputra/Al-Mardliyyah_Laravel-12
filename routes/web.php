@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AdminGaleriController;
 use App\Http\Controllers\Admin\AdminProfilController;
 use App\Http\Controllers\Admin\AdminKontakController;
+use App\Http\Controllers\Admin\AdminBiayaController;
 
 // ================== DEBUG ==================
 Route::get('/debug-login', function () {
@@ -187,9 +188,14 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::delete('/program-pendidikan/{id}', [AdminProgramController::class, 'destroy']);
 
     // Biaya
-    Route::get('/biaya', function () {
-        return view('pages.admin.biaya');
-    })->name('admin.biaya');
+    Route::get('/biaya', [AdminBiayaController::class, 'index'])
+     ->name('admin.biaya');
+    Route::put('/biaya/{id}', [AdminBiayaController::class, 'update'])
+    ->name('admin.biaya.update');
+    Route::delete('/biaya/{id}', [AdminBiayaController::class, 'destroy'])
+    ->name('admin.biaya.destroy');
+    Route::post('/biaya', [AdminBiayaController::class, 'store'])
+    ->name('admin.biaya.store');
 
     Route::get('/banner-beranda', [InformasiWebsiteController::class, 'index'])->name('admin.banner');
     Route::post('/banner-beranda', [InformasiWebsiteController::class, 'update'])->name('informasi.update');
