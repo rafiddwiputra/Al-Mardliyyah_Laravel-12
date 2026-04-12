@@ -19,7 +19,7 @@ class AdminEditProfilController extends Controller
     {
         $user = auth()->user();
 
-        $user->name = $request->name;
+        $user->nama = $request->nama;
 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');

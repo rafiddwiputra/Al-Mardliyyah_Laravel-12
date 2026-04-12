@@ -60,7 +60,7 @@
 
                 <!-- NAMA -->
                 <h3 class="text-sm font-semibold text-[#1E5631]">
-                    {{ $user->name }}
+                    {{ $user->nama }}
                 </h3>
 
                 <!-- EMAIL -->
@@ -103,8 +103,8 @@
                     <label class="block text-xs text-black mb-1">
                         Nama Lengkap
                     </label>
-                    <input type="text" name="name"
-                        value="{{ $user->name }}"
+                    <input type="text" name="nama"
+                        value="{{ $user->nama }}"
                         class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
                 </div>
 
