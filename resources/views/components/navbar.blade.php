@@ -79,5 +79,13 @@
                 <span class="absolute left-0 bottom-0 h-0.5 bg-[#1e4d2b] transition-all duration-300 {{ Request::is('kontak*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
             </a>
         </li>
+
+        {{-- LOGIN --}}
+        <li>
+            <a href="{{ route('login') }}"
+            class="ml-4 bg-[#1E5631] text-white px-4 py-2 rounded-md text-sm hover:bg-[#174427] transition">
+            Login
+            </a>
+        </li>
     </ul>
 </nav>
