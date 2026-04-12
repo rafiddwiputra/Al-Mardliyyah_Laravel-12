@@ -22,6 +22,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AdminGaleriController;
 use App\Http\Controllers\Admin\AdminProfilController;
+use App\Http\Controllers\Admin\AdminKontakController;
 
 // ================== DEBUG ==================
 Route::get('/debug-login', function () {
@@ -193,9 +194,11 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/banner-beranda', [InformasiWebsiteController::class, 'index'])->name('admin.banner');
     Route::post('/banner-beranda', [InformasiWebsiteController::class, 'update'])->name('informasi.update');
 
-    Route::get('/kontak', function () {
-        return view('pages.admin.kontak');
-    })->name('admin.kontak');
+    // KONTAK
+    Route::get('/kontak', [AdminKontakController::class, 'index'])->name('admin.kontak');
+    Route::post('/kontak', [AdminKontakController::class, 'store'])->name('admin.kontak.store');
+    Route::put('/kontak/{id}', [AdminKontakController::class, 'update'])->name('admin.kontak.update');
+    Route::delete('/kontak/{id}', [AdminKontakController::class, 'destroy'])->name('admin.kontak.destroy');
 
     // ================= JADWAL PENDAFTARAN =================
     Route::get('/jadwal-pendaftaran', [AdminJadwalController::class, 'index'])->name('admin.jadwal');
