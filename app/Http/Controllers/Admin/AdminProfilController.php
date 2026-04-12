@@ -1,0 +1,157 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\SejarahPondok;
+use App\Models\Public\Fasilitas; // <--- 1. TAMBAHKAN INI
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+
+class AdminProfilController extends Controller
+{
+    public function index()
+    {
+        $sejarahs = SejarahPondok::orderBy('tahun', 'desc')->get();
+        
+        // 2. AMBIL DATA FASILITAS DARI DATABASE
+        $fasilitas = Fasilitas::latest()->get(); 
+        
+        // 3. MASUKKAN $fasilitas KE DALAM compact()
+        return view('pages.admin.profil-pondok.profil-pondok', compact('sejarahs', 'fasilitas'));
+    }
+
+    /* ================= SEJARAH ================= */
+
+    public function storeSejarah(Request $request)
+    {
+        $request->validate([
+            'tahun' => 'required|string|max:10',
+            'judul' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'deskripsi_singkat' => 'nullable|string',
+            'konten_detail' => 'nullable',
+        ]);
+
+        $data = $request->all();
+
+        if ($request->hasFile('gambar')) {
+            $path = public_path('uploads/sejarah');
+            if (!File::isDirectory($path)) {
+                File::makeDirectory($path, 0777, true, true);
+            }
+
+            $file = $request->file('gambar');
+            $namaFile = time() . '_' . $file->getClientOriginalName();
+            $file->move($path, $namaFile);
+            $data['gambar'] = 'uploads/sejarah/' . $namaFile;
+        }
+
+        SejarahPondok::create($data);
+        return redirect()->back()->with('success', 'Peristiwa sejarah berhasil ditambahkan!');
+    }
+
+    public function updateSejarah(Request $request, $id)
+    {
+        $request->validate([
+            'tahun' => 'required|string|max:10',
+            'judul' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $sejarah = SejarahPondok::findOrFail($id);
+        $data = $request->all();
+
+        if ($request->hasFile('gambar')) {
+            if ($sejarah->gambar && File::exists(public_path($sejarah->gambar))) {
+                File::delete(public_path($sejarah->gambar));
+            }
+
+            $file = $request->file('gambar');
+            $namaFile = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/sejarah'), $namaFile);
+            $data['gambar'] = 'uploads/sejarah/' . $namaFile;
+        }
+
+        $sejarah->update($data);
+        return redirect()->back()->with('success', 'Peristiwa sejarah berhasil diperbarui!');
+    }
+
+    public function destroySejarah($id)
+    {
+        $sejarah = SejarahPondok::findOrFail($id);
+        
+        if ($sejarah->gambar && File::exists(public_path($sejarah->gambar))) {
+            File::delete(public_path($sejarah->gambar));
+        }
+
+        $sejarah->delete();
+        return redirect()->back()->with('success', 'Peristiwa sejarah berhasil dihapus!');
+    }
+
+    /* ================= FASILITAS ================= */
+
+    public function storeFasilitas(Request $request)
+    {
+        $request->validate([
+            'nama_fasilitas' => 'required|string|max:100',
+            'gambar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'deskripsi' => 'nullable|string|max:150',
+        ]);
+
+        $data = $request->all();
+
+        if ($request->hasFile('gambar')) {
+            $path = public_path('uploads/fasilitas');
+            if (!File::isDirectory($path)) {
+                File::makeDirectory($path, 0777, true, true);
+            }
+
+            $file = $request->file('gambar');
+            $namaFile = time() . '_' . $file->getClientOriginalName();
+            $file->move($path, $namaFile);
+            $data['gambar'] = 'uploads/fasilitas/' . $namaFile;
+        }
+
+        Fasilitas::create($data);
+        return redirect()->back()->with('success', 'Fasilitas berhasil ditambahkan!');
+    }
+
+    public function updateFasilitas(Request $request, $id)
+    {
+        $request->validate([
+            'nama_fasilitas' => 'required|string|max:100',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'deskripsi' => 'nullable|string|max:150',
+        ]);
+
+        $fasilitas = Fasilitas::findOrFail($id);
+        $data = $request->all();
+
+        if ($request->hasFile('gambar')) {
+            if ($fasilitas->gambar && File::exists(public_path($fasilitas->gambar))) {
+                File::delete(public_path($fasilitas->gambar));
+            }
+
+            $file = $request->file('gambar');
+            $namaFile = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/fasilitas'), $namaFile);
+            $data['gambar'] = 'uploads/fasilitas/' . $namaFile;
+        }
+
+        $fasilitas->update($data);
+        return redirect()->back()->with('success', 'Fasilitas berhasil diperbarui!');
+    }
+
+    public function destroyFasilitas($id)
+    {
+        $fasilitas = Fasilitas::findOrFail($id);
+        
+        if ($fasilitas->gambar && File::exists(public_path($fasilitas->gambar))) {
+            File::delete(public_path($fasilitas->gambar));
+        }
+
+        $fasilitas->delete();
+        return redirect()->back()->with('success', 'Fasilitas berhasil dihapus!');
+    }
+}

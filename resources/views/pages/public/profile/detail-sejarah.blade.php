@@ -60,11 +60,9 @@
             </div>
 
         <!-- DESKRIPSI -->
-        @foreach ($sejarah->konten_detail as $paragraf)
-    <p class="text-[#1E5631] text-sm mb-4 leading-relaxed text-justify">
-        {{ $paragraf }}
-    </p>
-@endforeach
+ <div class="text-[#1E5631] text-sm mb-4 leading-relaxed text-justify whitespace-pre-line">
+    {!! nl2br(e($sejarah->konten_detail)) !!}
+</div>
 
         <!-- BUTTON -->
         <div class="flex justify-center mt-10">

@@ -19,11 +19,10 @@ class ProfileController extends Controller
     {
        
         $timelines = Sejarah::orderBy('tahun', 'asc')->get();
-        $pimpinans = Pimpinan::all(); 
         $fasilitas = Fasilitas::all(); 
         $video = VideoPondok::latest()->first();
         
-        return view('pages.public.profile.index', compact('timelines', 'pimpinans', 'fasilitas', 'video'));
+        return view('pages.public.profile.index', compact('timelines', 'fasilitas', 'video'));
     }
 
     // Halaman detail sejarah berdasarkan tahun
@@ -32,14 +31,6 @@ class ProfileController extends Controller
         $sejarah = Sejarah::where('tahun', $tahun)->firstOrFail();
         
         return view('pages.public.profile.detail-sejarah', compact('sejarah', 'tahun'));
-    }
-
-    // Detail pimpinan berdasarkan ID
-    public function detailPimpinan($id)
-    {
-        $pimpinan = Pimpinan::findOrFail($id);
-        
-        return view('pages.public.profile.detail-pimpinan', compact('pimpinan'));
     }
 
     // Video Pondok

@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Admin\AdminGaleriController;
+use App\Http\Controllers\Admin\AdminProfilController;
 
 // ================== DEBUG ==================
 Route::get('/debug-login', function () {
@@ -156,14 +158,24 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
 
 
     // ================= GALERI =================
-    Route::get('/galeri', function () {
-        return view('pages.admin.galeri.admin-galeri');
-    })->name('admin.galeri');
+    Route::get('/galeri', [AdminGaleriController::class, 'index'])->name('admin.galeri');
+    Route::post('/galeri/store', [AdminGaleriController::class, 'store'])->name('admin.galeri.store');
+    Route::put('/galeri/update/{id}', [AdminGaleriController::class, 'update'])->name('admin.galeri.update');
+    Route::delete('/galeri/destroy/{id}', [AdminGaleriController::class, 'destroy'])->name('admin.galeri.destroy');
+    Route::post('/galeri/kategori', [AdminGaleriController::class, 'storeKategori'])->name('admin.galeri.kategori.store');
 
-    // Profil Pondok
-    Route::get('/profil-pondok', function () {
-        return view('pages.admin.profil-pondok.profil-pondok'); 
-    })->name('admin.profil');
+    // Profil Pondok - Sejarah
+    Route::get('/profil-pondok', [AdminProfilController::class, 'index'])->name('admin.profil.index');
+    Route::post('/profil-pondok/sejarah', [AdminProfilController::class, 'storeSejarah'])->name('admin.profil.sejarah.store');
+    Route::put('/profil-pondok/sejarah/{id}', [AdminProfilController::class, 'updateSejarah'])->name('admin.profil.sejarah.update');
+    Route::delete('/profil-pondok/sejarah/{id}', [AdminProfilController::class, 'destroySejarah'])->name('admin.profil.sejarah.destroy');
+
+    // Profil Pondok - Fasilitas
+    Route::put('/admin/profil-pondok/fasilitas/{id}', [AdminProfilController::class, 'updateFasilitas'])->name('admin.profil.fasilitas.update');
+    Route::delete('/admin/profil-pondok/fasilitas/{id}', [AdminProfilController::class, 'destroyFasilitas'])->name('admin.profil.fasilitas.destroy');
+    Route::post('/admin/profil-pondok/fasilitas/store', [AdminProfilController::class, 'storeFasilitas'])->name('admin.profil.fasilitas.store');
+    Route::put('/profil-pondok/fasilitas/{id}', [AdminProfilController::class, 'updateFasilitas'])->name('admin.profil.fasilitas.update');
+    Route::delete('/profil-pondok/fasilitas/{id}', [AdminProfilController::class, 'destroyFasilitas'])->name('admin.profil.fasilitas.destroy');
 
     // Program Pendidikan
     Route::get('/program-pendidikan', [AdminProgramController::class, 'programPendidikan'])
@@ -196,3 +208,14 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::delete('/jadwal-pendaftaran/{id}', [AdminJadwalController::class, 'destroy'])->name('admin.jadwal.delete');
 
 });
+
+//Route edit profil admin
+Route::get('/admin/profil', function () {
+    return view('pages.admin.edit-profil');
+})->name('admin.profil');
+
+//Route Pimpinan
+Route::get('/pimpinan/laporan', function(){
+    return view('pages.pimpinan.laporan');
+});
+

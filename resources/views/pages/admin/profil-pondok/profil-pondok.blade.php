@@ -26,18 +26,6 @@
                 </span>
             </button>
 
-            <button onclick="showTab('pimpinan')" id="btn-pimpinan">
-                <span class="px-4 py-1 rounded text-sm">
-                    Pimpinan
-                </span>
-            </button>
-
-            <button onclick="showTab('legalitas')" id="btn-legalitas">
-                <span class="px-4 py-1 rounded text-sm">
-                    Legalitas
-                </span>
-            </button>
-
             <button onclick="showTab('fasilitas')" id="btn-fasilitas">
                 <span class="px-4 py-1 rounded text-sm">
                     Fasilitas
@@ -51,14 +39,6 @@
 
             <div id="tab-sejarah">
                 @include('pages.admin.profil-pondok.sejarah')
-            </div>
-
-            <div id="tab-pimpinan" class="hidden">
-                @include('pages.admin.profil-pondok.pimpinan')
-            </div>
-
-            <div id="tab-legalitas" class="hidden">
-                @include('pages.admin.profil-pondok.legalitas')
             </div>
 
             <div id="tab-fasilitas" class="hidden">
@@ -77,41 +57,64 @@
 
 <script>
 function showTab(tab) {
-
     document.querySelectorAll('[id^="tab-"]').forEach(el => el.classList.add('hidden'));
-
     document.querySelectorAll('[id^="btn-"] span').forEach(span => {
         span.classList.remove('bg-[#1E5631]', 'text-white');
     });
-
     document.getElementById('tab-' + tab).classList.remove('hidden');
-
-    document.querySelector('#btn-' + tab + ' span')
-        .classList.add('bg-[#1E5631]', 'text-white');
+    document.querySelector('#btn-' + tab + ' span').classList.add('bg-[#1E5631]', 'text-white');
 }
 
+// --- FUNGSI MODAL FASILITAS (Disederhanakan) ---
+
 function openTambahFasilitasModal() {
-    document.getElementById('modalTambahFasilitas').classList.remove('hidden');
+    openModal('modalTambahFasilitas');
 }
 
 function closeTambahFasilitasModal() {
-    document.getElementById('modalTambahFasilitas').classList.add('hidden');
+    closeModal('modalTambahFasilitas');
 }
 
 function openEditFasilitasModal() {
-    document.getElementById('modalEditFasilitas').classList.remove('hidden');
+    openModal('modalEditFasilitas');
 }
 
 function closeEditFasilitasModal() {
-    document.getElementById('modalEditFasilitas').classList.add('hidden');
+    closeModal('modalEditFasilitas');
 }
 
 function openHapusFasilitasModal() {
-    document.getElementById('modalHapusFasilitas').classList.remove('hidden');
+    openModal('modalHapusFasilitas');
 }
 
 function closeHapusFasilitasModal() {
-    document.getElementById('modalHapusFasilitas').classList.add('hidden');
+    closeModal('modalHapusFasilitas');
+}
+
+// --- FUNGSI CORE MODAL (WAJIB ADA) ---
+
+function openModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex'); // Agar posisi di tengah
+        setTimeout(() => {
+            modal.classList.add('opacity-100');
+        }, 10);
+    } else {
+        console.error("Modal ID " + id + " tidak ditemukan!");
+    }
+}
+
+function closeModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) {
+        modal.classList.remove('opacity-100');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }, 300);
+    }
 }
 </script>
 

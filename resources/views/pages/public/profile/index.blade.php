@@ -62,22 +62,16 @@
             Sejarah
         </button>
 
-        <button @click="scrollTo('pimpinan')"
-           :class="activeTab === 'pimpinan' ? 'bg-[#1e4d2b] text-white shadow-md' : 'text-gray-500 hover:bg-gray-100'"
-           class="px-8 py-2.5 rounded-xl text-sm font-bold transition-all duration-300">
-            Pimpinan
-        </button>
-
-        <button @click="scrollTo('legalitas')"
-           :class="activeTab === 'legalitas' ? 'bg-[#1e4d2b] text-white shadow-md' : 'text-gray-500 hover:bg-gray-100'"
-           class="px-8 py-2.5 rounded-xl text-sm font-bold transition-all duration-300">
-            Legalitas
-        </button>
-
         <button @click="scrollTo('fasilitas')"
            :class="activeTab === 'fasilitas' ? 'bg-[#1e4d2b] text-white shadow-md' : 'text-gray-500 hover:bg-gray-100'"
            class="px-8 py-2.5 rounded-xl text-sm font-bold transition-all duration-300">
             Fasilitas
+        </button>
+
+        <button @click="scrollTo('video')"
+           :class="activeTab === 'video' ? 'bg-[#1e4d2b] text-white shadow-md' : 'text-gray-500 hover:bg-gray-100'"
+           class="px-8 py-2.5 rounded-xl text-sm font-bold transition-all duration-300">
+            Video
         </button>
 
     </div>
@@ -129,91 +123,6 @@
                 </div>
                 @endforeach
             </div>
-        </div>
-    </div>
-</section>
-
-{{-- ================= PIMPINAN SECTION ================= --}}
-<section id="pimpinan" class="py-24 bg-white scroll-mt-32">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-20">
-             <span class="bg-[#e2ede5] text-[#1e4d2b] px-4 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest mb-4 inline-block">Struktur Organisasi</span>
-             <h2 class="text-3xl md:text-4xl font-bold text-[#1e4d2b]">Pimpinan Pondok</h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            @foreach ($pimpinans as $p)
-            <div class="bg-[#FAFAFA] rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group border border-gray-50 flex flex-col">
-                
-                {{-- Foto Pimpinan --}}
-                <div class="h-80 overflow-hidden shrink-0 relative">
-                    <img src="{{ asset($p->foto) }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="{{ $p->nama }}">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                </div>
-
-                <div class="p-8 text-left flex flex-col flex-grow">
-                    <div class="flex items-center gap-3 mb-6">
-                        <img src="{{ asset('images/calendar.png') }}" alt="Calendar" class="w-4 h-4 opacity-40">
-                        <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">
-                            Update: {{ $p->created_at->translatedFormat('d F Y') }}
-                        </span>
-                    </div>
-
-                    <p class="text-[11px] text-[#c9a76d] font-black uppercase mb-2 tracking-[0.2em]">{{ $p->jabatan }}</p>
-                    <h3 class="text-[#1e4d2b] font-bold text-2xl mb-4 leading-tight line-clamp-2">
-                        {{ $p->nama }}
-                    </h3>
-                    
-                    <p class="text-gray-500 text-sm mb-8 leading-relaxed line-clamp-3 flex-grow italic">
-                        "{{ $p->deskripsi }}"
-                    </p>
-
-                    <div class="mt-auto pt-6 border-t border-gray-100">
-                        <a href="{{ route('profile.pimpinan.detail', $p->id) }}" 
-                           class="text-[#1e4d2b] font-bold text-sm flex items-center gap-2 hover:gap-4 transition-all duration-300">
-                            <span>Lihat Biografi</span>
-                            <span>→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-{{-- ================= LEGALITAS SECTION ================= --}}
-<section id="legalitas" class="py-24 bg-[#FAFAFA] scroll-mt-32 border-y border-gray-100">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-20">
-            <div class="inline-block bg-[#1e4d2b] text-white px-5 py-2 rounded-xl mb-4 text-[10px] font-bold uppercase tracking-[0.2em]">
-                Verified
-            </div>
-            <h2 class="text-3xl md:text-4xl font-bold text-[#1e4d2b] mb-4">Legalitas Pondok</h2>
-            <p class="text-gray-500 max-w-2xl mx-auto">Dokumen resmi dan izin operasional sebagai jaminan akuntabilitas lembaga.</p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8 mb-16">
-            {{-- Bagian ini bisa dibuat dinamis jika nanti ada tabel legalitas --}}
-            @for ($i = 1; $i <= 4; $i++)
-            <div class="bg-white p-10 rounded-[2rem] shadow-sm border border-gray-50 flex items-start gap-8 hover:shadow-xl transition-all duration-500 group">
-                <div class="w-16 h-16 bg-[#e2ede5] text-[#1e4d2b] flex items-center justify-center rounded-2xl text-3xl shrink-0 group-hover:bg-[#1e4d2b] group-hover:text-white transition-colors duration-500">
-                    📄
-                </div>
-                <div class="text-left">
-                    <h3 class="text-[#1e4d2b] font-bold text-xl mb-1">Izin Operasional</h3>
-                    <p class="text-[#c9a76d] font-black text-sm uppercase tracking-wider mb-3">No: 123/ABC/2020</p>
-                    <p class="text-gray-500 text-sm leading-relaxed">Terdaftar resmi di Kementerian Agama RI dan memenuhi standar kualifikasi nasional.</p>
-                </div>
-            </div>
-            @endfor
-        </div>
-
-        <div class="bg-[#1e4d2b] p-10 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full translate-x-1/2 -translate-y-1/2"></div>
-            <p class="text-white text-lg md:text-xl font-medium leading-relaxed relative z-10 italic">
-                "Seluruh dokumen legalitas telah terverifikasi dan memenuhi standar pemerintah, menjamin keamanan proses belajar mengajar serta kepercayaan masyarakat luas."
-            </p>
         </div>
     </div>
 </section>
@@ -285,7 +194,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         {{-- List ID section yang akan dipantau --}}
-        const sectionIds = ['sejarah', 'pimpinan', 'legalitas', 'fasilitas'];
+        const sectionIds = ['sejarah', 'fasilitas', 'video'];
         
         const observerOptions = {
             root: null,
