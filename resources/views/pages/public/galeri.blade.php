@@ -122,7 +122,7 @@
             Pendaftaran Santri Baru Al-Mardliyyah telah dibuka. Mari bergabung bersama 
             keluarga besar kami untuk mendalami ilmu agama dan pengetahuan umum.
         </p>
-        <a href="{{ route('register') }}"
+        <a href="{{ url('/pendaftaran') }}"
            class="bg-[#C6A75E] hover:bg-[#b59650] text-[#1E5631] px-10 py-3 rounded-full font-bold transition-all shadow-xl inline-block">
             Daftar Sekarang
         </a>

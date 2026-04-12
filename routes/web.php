@@ -107,13 +107,9 @@ Route::get('/lupa-sandi', [LupaKataSandiController::class, 'lupaSandi']);
 // ================= PROTECTED (WAJIB VERIFIKASI) =================
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::get('/upload-dokumen', function () {
-        return view('pages.public.pendaftaran.upload');
-    })->name('upload.dokumen');
+    Route::get('/upload-dokumen', [PendaftaranController::class, 'uploadDokumen'])->name('upload.dokumen');
 
-    Route::get('/formulir', function () {
-        return view('pages.public.pendaftaran.formulir');
-    })->name('formulir');
+    Route::get('/formulir', [PendaftaranController::class, 'formulir'])->name('formulir');
 
 });
 
@@ -203,9 +199,11 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
 
     // ================= JADWAL PENDAFTARAN =================
     Route::get('/jadwal-pendaftaran', [AdminJadwalController::class, 'index'])->name('admin.jadwal');
+    Route::post('/jadwal-pendaftaran/toggle', [AdminJadwalController::class, 'toggle'])->name('admin.jadwal.toggle');
     Route::post('/jadwal-pendaftaran', [AdminJadwalController::class, 'store'])->name('admin.jadwal.store');
     Route::post('/jadwal-pendaftaran/{id}', [AdminJadwalController::class, 'update'])->name('admin.jadwal.update');
     Route::delete('/jadwal-pendaftaran/{id}', [AdminJadwalController::class, 'destroy'])->name('admin.jadwal.delete');
+    
 
 });
 

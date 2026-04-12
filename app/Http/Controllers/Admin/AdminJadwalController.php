@@ -10,8 +10,10 @@ class AdminJadwalController extends Controller
 {
     public function index()
     {
-        $data = InformasiPendaftaran::latest()->get();
-        return view('pages.admin.jadwal.jadwal', compact('data'));
+        $data = InformasiPendaftaran::all(); // untuk tabel
+        $status = InformasiPendaftaran::first()?->status ?? 0; // status utama
+
+        return view('pages.admin.jadwal.jadwal', compact('data', 'status'));
     }
 
     public function store(Request $request)
@@ -60,5 +62,19 @@ class AdminJadwalController extends Controller
         $data->delete();
 
         return redirect()->route('admin.jadwal')->with('success', 'Data berhasil dihapus!');
+    }
+
+   public function toggle()
+    {
+        $data = InformasiPendaftaran::latest()->first();
+
+        if (!$data) {
+            return back();
+        }
+
+        $data->status = !$data->status;
+        $data->save();
+
+        return redirect()->route('admin.jadwal');
     }
 }

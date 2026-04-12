@@ -26,23 +26,47 @@
 
         <!-- STATUS -->
         <div class="flex items-center gap-3">
-            <span id="statusLabel"
-            class="bg-green-100 font-bold text-green-700 text-xs px-3 py-1 rounded-full">
-                Dibuka
-            </span>
-            <span id="statusDesc"
-            class="text-xs text-[#1E5631]">
-                Formulir pendaftaran dibuka
-            </span>
+
+            @if($status)
+
+                <span class="bg-green-100 font-bold text-green-700 text-xs px-3 py-1 rounded-full">
+                    Dibuka
+                </span>
+
+                <span class="text-xs text-[#1E5631]">
+                    Formulir pendaftaran dibuka
+                </span>
+
+            @else
+
+                <span class="bg-red-100 font-bold text-red-700 text-xs px-3 py-1 rounded-full">
+                    Ditutup
+                </span>
+
+                <span class="text-xs text-red-600">
+                    Formulir pendaftaran ditutup
+                </span>
+
+            @endif
+
         </div>
     </div>
 
-    <!-- TOGGLE (UI ONLY) -->
-    <div onclick="toggleStatus()" id="toggleSwitch"
-     class="w-12 h-6 bg-[#1E5631] rounded-full flex items-center px-1 cursor-pointer transition">
+    <!-- TOGGLE -->
+    <form action="{{ route('admin.jadwal.toggle') }}" method="POST">
+        @csrf
 
-    <div id="toggleCircle"
-         class="w-4 h-4 bg-white rounded-full ml-auto transition"></div>
+        <button type="submit"
+            class="w-12 h-6 rounded-full flex items-center px-1 transition
+            {{ $status ? 'bg-[#1E5631]' : 'bg-gray-400' }}">
+
+            <div class="w-4 h-4 bg-white rounded-full
+                {{ $status ? 'ml-auto' : 'ml-0' }}">
+            </div>
+
+        </button>
+    </form>
+
 </div>
 
 </div>
@@ -91,7 +115,7 @@
                     <div class="flex justify-center gap-2">
 
                         <!-- EDIT -->
-                        <button 
+                        <button type="button"
                             onclick="openEditModal(
                                 {{ $item->id }},
                                 '{{ $item->judul }}',
@@ -103,7 +127,7 @@
                         </button>
 
                         <!-- DELETE -->
-                        <button 
+                        <button type="button"
                             onclick="openDeleteModal({{ $item->id }})"
                             class="bg-[#FECACA] text-[#B91C1C] px-3 py-1 rounded text-xs font-bold">
                             Hapus
@@ -137,34 +161,6 @@ function closeModal(id){
 }
 </script>
 
-<script>
-let isOpen = true;
-
-function toggleStatus(){
-    let toggle = document.getElementById('toggleSwitch');
-    let circle = document.getElementById('toggleCircle');
-    let label = document.getElementById('statusLabel');
-    let desc = document.getElementById('statusDesc');
-
-    isOpen = !isOpen;
-
-    if(isOpen){
-        toggle.classList.remove('bg-gray-400');
-        toggle.classList.add('bg-[#1E5631]');
-        circle.classList.remove('ml-0');
-        circle.classList.add('ml-auto');
-        label.innerText = 'Dibuka';
-        desc.innerText = 'Formulir pendaftaran tersedia';
-    } else {
-        toggle.classList.remove('bg-[#1E5631]');
-        toggle.classList.add('bg-gray-400');
-        circle.classList.remove('ml-auto');
-        circle.classList.add('ml-0');
-        label.innerText = 'Ditutup';
-        desc.innerText = 'Formulir pendaftaran ditutup';
-    }
-}
-</script>
 
 <script>
 function openEditModal(id, judul, mulai, selesai){

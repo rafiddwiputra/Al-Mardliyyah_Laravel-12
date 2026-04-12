@@ -11,7 +11,7 @@
         <p class="text-lg opacity-90 mb-10 max-w-2xl mx-auto leading-relaxed">
             Bergabunglah dengan ribuan santri kami dan mulai perjalanan pendidikan Anda di Pondok Pesantren Al-Mardliyyah
         </p>
-        <a href="{{ route('register') }}" 
+        <a href="{{ url('/pendaftaran') }}" 
            class="bg-[#c9a76d] hover:bg-[#b5955e] text-white font-bold px-10 py-3 rounded-lg shadow-lg transition duration-300 inline-block uppercase tracking-wider text-sm">
             Daftar Sekarang
         </a>
@@ -45,7 +45,7 @@
                 <li><a href="/" class="hover:text-white transition {{ Request::is('/') ? 'font-bold' : '' }}">Beranda</a></li>
                 <li><a href="{{ route('profile') }}" class="hover:text-white transition {{ Request::is('profil*') ? 'font-bold' : '' }}">Profil</a></li>
                 <li><a href="{{ route('berita') }}" class="hover:text-white transition {{ Request::is('berita*') ? 'font-bold' : '' }}">Berita</a></li>
-                <li><a href="{{ route('register') }}" class="hover:text-white transition {{ Request::is('register*') ? 'font-bold' : '' }}">Pendaftaran</a></li>
+                <li><a href="{{ url('/pendaftaran') }}" class="hover:text-white transition {{ Request::is('pendaftaran*') ? 'font-bold' : '' }}">Pendaftaran</a></li>
             </ul>
         </div>
 

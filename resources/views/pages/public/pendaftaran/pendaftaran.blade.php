@@ -2,6 +2,26 @@
 
 @section('content')
 
+@if(!$status)
+<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 overflow-hidden">
+    <div class="bg-white p-6 rounded-lg text-center shadow-lg max-w-sm">
+
+        <h2 class="text-lg font-bold text-red-600 mb-2">
+            Pendaftaran Ditutup
+        </h2>
+
+        <p class="text-sm text-gray-600 mb-4">
+            Maaf, pendaftaran saat ini sedang ditutup.
+        </p>
+
+        <a href="/" class="bg-[#1E5631] text-white px-4 py-2 rounded">
+            Kembali
+        </a>
+
+    </div>
+</div>
+@endif
+
 <div class="bg-[#1E5631] text-white px-20 py-20">
     <p class="text-sm mb-4">Beranda > Pendaftaran</p>
 
@@ -153,19 +173,32 @@
 </div>
 
 <div class="bg-[#4F7C5C] text-white py-20 text-center px-6">
-    <h3 class="text-2xl font-semibold mb-4">
-        Pendaftaran Santri Baru Telah Dibuka
-    </h3>
+    @if($status)
+        <h3 class="text-2xl font-semibold mb-4">
+            Pendaftaran Santri Baru Telah Dibuka
+        </h3>
+    @else
+        <h3 class="text-2xl font-semibold mb-4 text-red-300">
+            Pendaftaran Saat Ini Ditutup
+        </h3>
+    @endif
 
     <p class="text-sm mb-8 max-w-xl mx-auto text-gray-200">
         Bergabunglah dengan ribuan santri kami dan mulai perjalanan
         pendidikan Anda di Pondok Pesantren Al-Mardliyyah
     </p>
 
+    @if($status)
     <a href="{{ route('redirect.pendaftaran') }}"
-       class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition-colors shadow-lg active:scale-95">
+        class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition-colors shadow-lg active:scale-95">
         Daftar Sekarang
     </a>
+    @else
+    <button disabled
+        class="bg-gray-400 text-white px-8 py-3 rounded-lg font-bold inline-block cursor-not-allowed">
+        Pendaftaran Ditutup
+    </button>
+    @endif
     
 </div>
 

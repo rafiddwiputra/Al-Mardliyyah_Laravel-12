@@ -10,7 +10,7 @@ class RedirectPendaftaranController extends Controller
     {
         // 1. Kalau belum login
         if (!auth()->check()) {
-            return redirect()->route('register');
+            return redirect('/pendaftaran');
         }
 
         $user = auth()->user();

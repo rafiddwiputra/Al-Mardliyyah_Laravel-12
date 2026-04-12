@@ -330,10 +330,19 @@
 
     <!-- BUTTON -->
     <div class="text-center pt-4">
-        <button type="submit"
-            class="bg-[#C6A75E] text-[#FFFFFF] px-8 py-2 rounded-lg font-semibold">
-            Lanjutkan
-        </button>
+
+        @if($status)
+            <button type="submit"
+                class="bg-[#C6A75E] text-white px-8 py-2 rounded-lg font-semibold">
+                Lanjutkan
+            </button>
+        @else
+            <button type="button" disabled
+                class="bg-gray-400 text-white px-8 py-2 rounded-lg font-semibold cursor-not-allowed">
+                Pendaftaran Ditutup
+            </button>
+        @endif
+
     </div>
 
 </form>
