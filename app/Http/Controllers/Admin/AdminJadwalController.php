@@ -8,13 +8,17 @@ use Illuminate\Http\Request;
 
 class AdminJadwalController extends Controller
 {
-    public function index()
-    {
-        $data = InformasiPendaftaran::all(); // untuk tabel
-        $status = InformasiPendaftaran::first()?->status ?? 0; // status utama
+   public function index()
+{
+    // Filter: Hanya ambil data yang deskripsinya punya tanda " - " (format tanggal)
+    // Ini akan menyingkirkan data Biaya yang isinya cuma angka (Contoh: 1000000)
+    $data = InformasiPendaftaran::where('deskripsi', 'like', '% - %')->get(); 
+    
+    // Status tetap ambil dari data terbaru yang punya status
+    $status = InformasiPendaftaran::whereNotNull('status')->latest()->first()?->status ?? 0;
 
-        return view('pages.admin.jadwal.jadwal', compact('data', 'status'));
-    }
+    return view('pages.admin.jadwal.jadwal', compact('data', 'status'));
+}
 
     public function store(Request $request)
     {
