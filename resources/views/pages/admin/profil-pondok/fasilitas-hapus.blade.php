@@ -11,30 +11,27 @@
             @csrf
             @method('DELETE')
 
-            <div class="p-6 text-center">
-                <p class="text-sm text-gray-700 mb-3">
-                    Apakah Anda yakin ingin menghapus fasilitas ini? Foto yang tersimpan juga akan dihapus permanen.
-                </p>
+           <div class="p-6">
+    <p class="text-sm text-gray-600 text-center mb-4">
+        Apakah Anda yakin ingin menghapus fasilitas ini? Foto yang tersimpan juga akan dihapus permanen.
+    </p>
+    
+    <div class="bg-red-50 text-red-600 px-4 py-2 rounded-md mb-6 text-sm text-center">
+        Fasilitas: <strong id="hapus_nama_fasilitas_text"></strong>
+    </div>
 
-                <p class="text-xs text-gray-500 mb-5 bg-red-50 py-2 px-3 rounded-lg border border-red-100">
-                    Fasilitas: 
-                    <span id="hapus_nama_fasilitas" class="font-bold text-red-700 italic">
-                        {{-- Diisi oleh JavaScript --}}
-                    </span>
-                </p>
-
-                <div class="flex gap-3">
-                    <button type="button" onclick="closeHapusFasilitasModal()"
-                        class="flex-1 border border-gray-200 rounded-md py-2 text-sm font-bold text-gray-600 hover:bg-gray-100 transition-colors">
-                        Batal
-                    </button>
-
-                    <button type="submit"
-                        class="flex-1 bg-red-600 text-white rounded-md py-2 text-sm font-medium hover:bg-red-700 shadow-sm transition-all">
-                        Ya, Hapus
-                    </button>
-                </div>
-            </div>
+    <div class="flex justify-center gap-3">
+        <button type="button" onclick="closeHapusFasilitasModal()"
+            class="px-6 py-2 border border-gray-300 rounded-lg text-sm font-bold text-gray-700 hover:bg-gray-50 transition-colors w-full">
+            Batal
+        </button>
+        
+        <button type="submit"
+            class="px-6 py-2 bg-red-600 text-white rounded-lg text-sm font-bold hover:bg-red-700 transition-colors w-full">
+            Ya, Hapus
+        </button>
+    </div>
+</div>
         </form>
     </div>
 </div>
