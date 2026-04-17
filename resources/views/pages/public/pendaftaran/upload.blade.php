@@ -6,7 +6,7 @@
 <div class="max-w-4xl mx-auto pt-10 mb-12">
 
     @php
-    $labels = ['Buat Akun', 'Login', 'Isi Formulir', 'Upload Dokumen', 'Status Pendaftaran'];
+    $labels = ['Buat Akun', 'Isi Formulir', 'Upload Dokumen', 'Status Pendaftaran'];
     @endphp
 
     <div class="flex items-center justify-between relative">
@@ -17,18 +17,18 @@
         <!-- GARIS AKTIF -->
         <div class="absolute top-5 left-0 h-1 bg-[#1E5631]" style="width: 75%"></div>
 
-        @foreach([1,2,3,4,5] as $step)
+        @foreach([1,2,3,4] as $step)
         <div class="flex flex-col items-center relative z-10">
 
             <!-- BULATAN -->
             <div class="w-10 h-10 flex items-center justify-center rounded-full text-sm font-semibold
-                {{ $step <= 4 ? 'bg-[#1E5631] text-white' : 'bg-gray-200 text-gray-400' }}">
+                {{ $step <= 3 ? 'bg-[#1E5631] text-white' : 'bg-gray-200 text-gray-400' }}">
                 {{ $step }}
             </div>
 
             <!-- LABEL -->
             <p class="mt-2 text-xs
-                {{ $step <= 4 ? 'text-[#1E5631] font-medium' : 'text-gray-400' }}">
+                {{ $step <= 3 ? 'text-[#1E5631] font-medium' : 'text-gray-400' }}">
                 {{ $labels[$step-1] }}
             </p>
 
@@ -40,17 +40,17 @@
 </div>
 
 <!-- TITLE -->
-<div class="text-center mb-6">
-    <h2 class="text-2xl font-bold text-[#1E5631]">
+<div class="text-center mb-8">
+    <h2 class="text-3xl font-bold text-[#1E5631]">
         Upload Dokumen Persyaratan
     </h2>
-    <p class="text-sm text-gray-500">
-        Langkah 4 : Lengkapi dokumen yang diperlukan untuk proses verifikasi
+    <p class="text-gray-500">
+        Langkah 3 : Lengkapi dokumen yang diperlukan untuk proses verifikasi
     </p>
 </div>
 
 <!-- CONTENT -->
-<div class="max-w-3xl mx-auto pb-12">
+<div class="max-w-2xl mx-auto pb-12">
 
     <!-- PROGRESS BAR -->
     <div class="bg-white border rounded-xl p-5 mb-6 shadow-sm">
@@ -64,32 +64,31 @@
 
         @php
         $dokumen = [
-    [
-        'judul' => 'Upload foto santri formal 3x4(background warna merah)',
-        'format' => 'Upload pas foto ukuran 3x4 (Format: PDF, Max 1 MB)'
-    ],
-    [
-        'judul' => 'Upload Akta Kelahiran',
-        'format' => 'Upload fotokopi Akta Kelahiran (Format: PDF Max 1 MB)'
-    ],
-    [
-        'judul' => 'Upload Kartu Keluarga',
-        'format' => 'Upload fotokopi Kartu Keluarga (Format: PDF, Max 1 MB)'
-    ],
-    [
-        'judul' => 'Upload KTP Ayah',
-        'format' => 'Upload KTP Ayah (Format: PDF, Max 1 MB)'
-    ],
-    [
-        'judul' => 'Upload KTP Ibu',
-        'format' => 'Upload KTP Ibu (Format: PDF, Max 1 MB)'
-    ],
-    [
-        'judul' => 'Upload sertifikat/piagam penghargaan
-                    (jika pernah mengikuti lomba)',
-        'format' => 'Upload fotokopi sertivikat/piagam penghargaan (Format: PDF, Max 1 MB)'
-    ],
-];
+            [
+                'judul' => 'Upload foto santri formal 3x4 (background merah)',
+                'format' => 'Format: PDF, Max 1 MB'
+            ],
+            [
+                'judul' => 'Upload Akta Kelahiran',
+                'format' => 'Format: PDF, Max 1 MB'
+            ],
+            [
+                'judul' => 'Upload Kartu Keluarga',
+                'format' => 'Format: PDF, Max 1 MB'
+            ],
+            [
+                'judul' => 'Upload KTP Ayah',
+                'format' => 'Format: PDF, Max 1 MB'
+            ],
+            [
+                'judul' => 'Upload KTP Ibu',
+                'format' => 'Format: PDF, Max 1 MB'
+            ],
+            [
+                'judul' => 'Upload Sertifikat/Piagam (Opsional)',
+                'format' => 'Format: PDF, Max 1 MB'
+            ],
+        ];
         @endphp
 
         @foreach($dokumen as $item)
@@ -120,7 +119,7 @@
                 </svg>
 
                 <p class="text-sm text-gray-400">
-                    Klik untuk upload atau drag and drop
+                    Klik untuk upload atau drag & drop
                 </p>
 
                 <input type="file" class="hidden">
@@ -133,7 +132,7 @@
         <!-- BUTTON -->
         <div class="text-center pt-4">
             <a href="/status-pendaftaran"
-                class="bg-[#C6A75E] text-[#FFFFFF] px-8 py-2 rounded-lg font-semibold inline-block">
+                class="bg-[#C6A75E] text-white px-8 py-2 rounded-lg font-semibold inline-block">
                 Kirim
             </a>
         </div>

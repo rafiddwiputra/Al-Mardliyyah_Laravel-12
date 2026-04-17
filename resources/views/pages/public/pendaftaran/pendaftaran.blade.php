@@ -99,7 +99,7 @@
             Ikuti langkah-langkah berikut untuk menyelesaikan pendaftaran!
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-6 text-left">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-left">
 
             <div class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100">
                 <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">
@@ -119,19 +119,6 @@
                     2
                 </div>
                 <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
-                🔑
-            </div>
-                <h4 class="font-semibold text-[#1E5631] text-sm mb-1">Login</h4>
-                <p class="text-[11px] text-gray-500 leading-relaxed">
-                    Silakan masuk menggunakan email dan kata sandi yang telah didaftarkan.
-                </p>
-            </div>
-
-            <div class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100">
-                <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">
-                    3
-                </div>
-                <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
                 📝
             </div>
                 <h4 class="font-semibold text-[#1E5631] text-sm mb-1">Isi Formulir</h4>
@@ -142,7 +129,7 @@
 
             <div class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100">
                 <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">
-                    4
+                    3
                 </div>
                 <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
                 📤
@@ -155,7 +142,7 @@
 
             <div class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100">
                 <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">
-                    5
+                    4
                 </div>
                 <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
                 🔔
