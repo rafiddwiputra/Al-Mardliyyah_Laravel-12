@@ -71,13 +71,6 @@
 
     </div>
 
-    <!-- LOGOUT BUTTON -->
-    <div class="max-w-5xl mx-auto flex justify-end mt-8 px-6">
-        <button class="bg-[#F8CFCF] text-red-600 font-semibold px-6 py-2 rounded-lg hover:bg-[#f5bcbc] transition">
-            Log Out
-        </button>
-    </div>
-
 </div>
 
 @endsection

@@ -2,10 +2,10 @@
 
 @section('content')
 
-<div class="bg-[#F5F5F5] min-h-[72vh] py-3">
+<div class="bg-[#F5F5F5] min-h-screen pb-20">
 
     <!-- STEP PROGRESS -->
-    <div class="max-w-2xl mx-auto pt-2 mb-4">
+    <div class="max-w-4xl mx-auto pt-10 mb-12">
 
         @php
         $labels = ['Buat Akun', 'Login', 'Isi Formulir', 'Upload Dokumen', 'Status Pendaftaran'];
@@ -13,17 +13,17 @@
 
         <div class="flex items-center justify-between relative">
 
-            <div class="absolute top-3 left-0 w-full h-[2px] bg-gray-200"></div>
-            <div class="absolute top-3 left-0 h-[2px] bg-[#1E5631]" style="width: 100%"></div>
+            <div class="absolute top-5 left-0 w-full h-1 bg-gray-200"></div>
+            <div class="absolute top-5 left-0 h-1 bg-[#1E5631]" style="width: 100%"></div>
 
             @foreach([1,2,3,4,5] as $step)
             <div class="flex flex-col items-center relative z-10">
 
-                <div class="w-7 h-7 flex items-center justify-center rounded-full text-[10px] font-semibold bg-[#1E5631] text-white">
+                <div class="w-10 h-10 flex items-center justify-center rounded-full text-sm font-semibold bg-[#1E5631] text-white">
                     {{ $step }}
                 </div>
 
-                <p class="mt-1 text-[9px] text-[#1E5631] font-medium">
+                <p class="mt-2 text-xs text-[#1E5631] font-medium">
                     {{ $labels[$step-1] }}
                 </p>
 
@@ -35,46 +35,46 @@
     </div>
 
     <!-- TITLE -->
-    <div class="text-center mb-4">
-        <h2 class="text-xl font-bold text-[#1E5631]">
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-[#1E5631]">
             Status Pendaftaran
         </h2>
-        <p class="text-xs text-gray-500">
+        <p class="text-gray-500">
             Informasi Pendaftaran Anda
         </p>
     </div>
 
     <!-- CARD -->
-    <div class="max-w-xl mx-auto bg-white p-4 rounded border border-[#D9D9D9]">
+    <div class="max-w-2xl mx-auto bg-white p-12 rounded border border-[#D9D9D9]">
 
-        <div class="flex justify-center mb-4">
-            <span class="bg-[#F8CFCF] text-red-600 px-4 py-1 rounded text-xs font-medium">
+        <div class="flex justify-center mb-6">
+            <span class="bg-[#F8CFCF] text-red-600 px-6 py-2 rounded text-sm font-semibold">
                 Ditolak
             </span>
         </div>
 
-        <div class="pb-2 border-b">
-            <p class="text-[11px] text-gray-500 mb-1">Nama Calon Santri</p>
-            <p class="text-[#1E5631] text-sm font-medium">Ahmad Fauzan</p>
+        <div class="pb-4 border-b">
+            <p class="text-sm text-gray-500 mb-1">Nama Calon Santri</p>
+            <p class="text-[#1E5631] text-lg font-semibold">Ahmad Fauzan</p>
         </div>
 
-        <div class="py-2 border-b">
-            <p class="text-[11px] text-gray-500 mb-1">Program Pendidikan Pilihan</p>
-            <p class="text-[#1E5631] text-sm font-medium">Progam Tahfidz Al-Qur’an</p>
+        <div class="py-4 border-b">
+            <p class="text-sm text-gray-500 mb-1">Program Pendidikan Pilihan</p>
+            <p class="text-[#1E5631] text-lg font-semibold">Program Tahfidz Al-Qur’an</p>
         </div>
 
-        <div class="py-2 border-b">
-            <p class="text-[11px] text-gray-500 mb-1">Tanggal Pendaftaran</p>
-            <p class="text-[#1E5631] text-sm font-medium">12 Januari 2025</p>
+        <div class="py-4 border-b">
+            <p class="text-sm text-gray-500 mb-1">Tanggal Pendaftaran</p>
+            <p class="text-[#1E5631] text-lg font-semibold">12 Januari 2025</p>
         </div>
 
-        <div class="bg-[#F5F5F5] rounded p-3 mt-3">
-            <p class="text-gray-500 text-xs text-center">
-                Mohon maaf! pendaftaran Anda belum dapat kami proses lebih lanjut. Silahkan hubungan admin untuk informasi lebih lanjut
+        <div class="bg-[#F5F5F5] rounded p-4 mt-6">
+            <p class="text-gray-500 text-sm text-center">
+                Mohon maaf! Pendaftaran Anda belum dapat kami proses lebih lanjut. Silakan hubungi admin untuk informasi lebih lanjut.
             </p>
 
             <div class="flex justify-center mt-6">
-                <button class="bg-[#1E5631] text-white px-5 py-1.5 rounded text-xs font-medium">
+                <button class="bg-[#1E5631] text-white px-6 py-2 rounded text-sm font-semibold">
                     Hubungi Admin
                 </button>
             </div>
@@ -82,17 +82,6 @@
         </div>
 
     </div>
-
-   <div class="max-w-2xl mx-auto flex justify-end mt-3">
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit"
-            class="bg-[#F8CFCF] text-red-600 font-semibold px-6 py-2 rounded-md text-sm hover:bg-red-200 transition">
-            Log Out
-        </button>
-    </form>
-</div>
-
 </div>
 
 @endsection
