@@ -67,7 +67,7 @@
     <div class="bg-white border rounded-xl p-5 mb-6 shadow-sm">
         <p class="text-sm font-semibold text-[#1E5631] mb-3">Progress Upload</p>
         <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
-            <div class="bg-[#1E5631] h-2 rounded-full w-0"></div>
+            <div id="progress-bar" class="bg-[#1E5631] h-2 rounded-full w-0 transition-all duration-300"></div>
         </div>
     </div>
 
@@ -132,8 +132,9 @@
                 <p class="text-sm text-gray-400">
                     Klik untuk upload atau drag & drop
                 </p>
+                <p class="text-sm text-green-600 mt-2 file-name hidden"></p>
 
-                <input type="file" class="hidden">
+                <input type="file" class="hidden file-input">
 
             </label>
 
@@ -151,5 +152,60 @@
     </form>
 
 </div>
+
+<script>
+document.querySelectorAll('.file-input').forEach((input) => {
+    input.addEventListener('change', function() {
+        let fileName = this.files[0]?.name;
+
+        let label = this.closest('label');
+        let text = label.querySelector('.file-name');
+
+        if(fileName){
+            text.textContent = "File: " + fileName;
+            text.classList.remove('hidden');
+        }
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const inputs = document.querySelectorAll('.file-input');
+    const progressBar = document.getElementById('progress-bar');
+
+    function updateProgress() {
+        let total = inputs.length;
+        let uploaded = 0;
+
+        inputs.forEach(input => {
+            if (input.files.length > 0) {
+                uploaded++;
+            }
+        });
+
+        let percent = (uploaded / total) * 100;
+        progressBar.style.width = percent + "%";
+    }
+
+    inputs.forEach((input) => {
+        input.addEventListener('change', function() {
+
+            let fileName = this.files[0]?.name;
+            let label = this.closest('label');
+            let text = label.querySelector('.file-name');
+
+            if(fileName){
+                text.textContent = fileName;
+                text.classList.remove('hidden');
+            }
+
+            // 🔥 update progress setiap upload
+            updateProgress();
+        });
+    });
+
+});
+</script>
 
 @endsection
