@@ -2,42 +2,53 @@
 
 @section('content')
 
-<div class="bg-[#F5F5F5] min-h-screen pb-20">
+<div class="max-w-6xl mx-auto py-12 px-4">
 
-    <!-- STEP PROGRESS -->
-    <div class="max-w-4xl mx-auto pt-10 mb-12">
+<!-- STEP PROGRESS -->
+<div class="flex items-center justify-between mb-16 px-10">
 
-        @php
-        $labels = ['Buat Akun', 'Isi Formulir', 'Upload Dokumen', 'Status Pendaftaran'];
+    @php
+            $steps = [
+                1 => 'Buat Akun',              
+                2 => 'Isi Formulir',
+                3 => 'Upload Dokumen',
+                4 => 'Status Pendaftaran'
+            ];
         @endphp
 
-        <div class="flex items-center justify-between relative">
+        @foreach($steps as $number => $label)
+            <div class="flex flex-col items-center flex-1 relative">
+                
+                {{-- GARIS PENGHUBUNG --}}
+                @if($number != 4)
+                    <div class="absolute top-5 left-1/2 w-full h-[3px] -z-0 
+                        {{ $number < 4 ? 'bg-[#1e4d2b]' : 'bg-gray-200' }}">
+                    </div>
+                @endif
 
-            <!-- GARIS FULL -->
-            <div class="absolute top-5 left-0 w-full h-1 bg-gray-200"></div>
+                {{-- BULATAN --}}
+                <div class="z-10 flex flex-col items-center">
+                    <div class="
+                        w-11 h-11 flex items-center justify-center rounded-full text-lg font-bold shadow-sm
+                        {{ $number <= 4 
+                            ? 'bg-[#1e4d2b] text-white' 
+                            : ($number == 4 
+                                ? 'bg-[#c9a76d] text-white' 
+                                : 'bg-gray-200 text-gray-400') 
+                        }}
+                    ">
+                        {{ $number }}
+                    </div>
 
-            <!-- GARIS AKTIF -->
-            <div class="absolute top-5 left-0 h-1 bg-[#1E5631]" style="width: 100%"></div>
-
-            @foreach([1,2,3,4] as $step)
-            <div class="flex flex-col items-center relative z-10">
-
-                <!-- BULATAN -->
-                <div class="w-10 h-10 flex items-center justify-center rounded-full text-sm font-semibold bg-[#1E5631] text-white">
-                    {{ $step }}
+                    <span class="text-xs mt-3 font-bold text-gray-700 text-center absolute -bottom-8 w-max">
+                        {{ $label }}
+                    </span>
                 </div>
-
-                <!-- LABEL -->
-                <p class="mt-2 text-xs text-[#1E5631] font-medium">
-                    {{ $labels[$step-1] }}
-                </p>
-
             </div>
-            @endforeach
+        @endforeach
 
-        </div>
-
-    </div>
+</div>
+</div>
 
     <!-- TITLE -->
     <div class="text-center mb-8">

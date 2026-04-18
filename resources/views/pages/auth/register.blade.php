@@ -22,7 +22,7 @@
             <div class="flex flex-col items-center flex-1 relative">
                 
                 {{-- GARIS PENGHUBUNG --}}
-                @if($number != 5)
+                @if($number != 4)
                     <div class="absolute top-5 left-1/2 w-full h-[3px] -z-0 
                         {{ $number == 1 ? 'bg-[#1e4d2b]' : 'bg-gray-200' }}">
                     </div>

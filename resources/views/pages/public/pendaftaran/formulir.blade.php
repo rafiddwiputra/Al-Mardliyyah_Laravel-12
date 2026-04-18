@@ -7,41 +7,52 @@
     document.documentElement.style.overflow = 'auto';
 </script>
 
+<div class="max-w-6xl mx-auto py-12 px-4">
+
 <!-- STEP PROGRESS -->
-<div class="max-w-4xl mx-auto pt-10 mb-12">
+<div class="flex items-center justify-between mb-16 px-10">
 
     @php
-    $labels = ['Buat Akun','Isi Formulir', 'Upload Dokumen', 'Status Pendaftaran'];
-    @endphp
+            $steps = [
+                1 => 'Buat Akun',              
+                2 => 'Isi Formulir',
+                3 => 'Upload Dokumen',
+                4 => 'Status Pendaftaran'
+            ];
+        @endphp
 
-    <div class="flex items-center justify-between relative">
+        @foreach($steps as $number => $label)
+            <div class="flex flex-col items-center flex-1 relative">
+                
+                {{-- GARIS PENGHUBUNG --}}
+                @if($number != 4)
+                    <div class="absolute top-5 left-1/2 w-full h-[3px] -z-0 
+                        {{ $number < 3 ? 'bg-[#1e4d2b]' : 'bg-gray-200' }}">
+                    </div>
+                @endif
 
-        <!-- GARIS FULL -->
-        <div class="absolute top-5 left-0 w-full h-1 bg-gray-200"></div>
+                {{-- BULATAN --}}
+                <div class="z-10 flex flex-col items-center">
+                    <div class="
+                        w-11 h-11 flex items-center justify-center rounded-full text-lg font-bold shadow-sm
+                        {{ $number <= 2 
+                            ? 'bg-[#1e4d2b] text-white' 
+                            : ($number == 3 
+                                ? 'bg-[#c9a76d] text-white' 
+                                : 'bg-gray-200 text-gray-400') 
+                        }}
+                    ">
+                        {{ $number }}
+                    </div>
 
-        <!-- GARIS AKTIF -->
-        <div class="absolute top-5 left-0 h-1 bg-[#1E5631]" style="width: 50%"></div>
-
-        @foreach([1,2,3,4] as $step)
-        <div class="flex flex-col items-center relative z-10">
-
-            <!-- BULATAN -->
-            <div class="w-10 h-10 flex items-center justify-center rounded-full text-sm font-semibold
-                {{ $step <= 3 ? 'bg-[#1E5631] text-white' : 'bg-gray-200 text-gray-400' }}">
-                {{ $step }}
+                    <span class="text-xs mt-3 font-bold text-gray-700 text-center absolute -bottom-8 w-max">
+                        {{ $label }}
+                    </span>
+                </div>
             </div>
-
-            <!-- LABEL -->
-            <p class="mt-2 text-xs
-                {{ $step <= 3 ? 'text-[#1E5631] font-medium' : 'text-gray-400' }}">
-                {{ $labels[$step-1] }}
-            </p>
-
-        </div>
         @endforeach
 
-    </div>
-
+</div>
 </div>
 
 <!-- TITLE -->
@@ -56,7 +67,7 @@
 
 <!-- CONTENT -->
  <div class="max-w-xl mx-auto pb-12">
-<form action="/upload-dokumen" method="GET" class="space-y-6">
+<form action="{{ route('upload.dokumen') }}" class="space-y-6">
 
     <!-- EMAIL -->
     <div class="bg-white border rounded-xl p-5">
