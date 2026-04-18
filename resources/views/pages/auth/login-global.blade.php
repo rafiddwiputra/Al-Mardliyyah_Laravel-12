@@ -1,47 +1,68 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-[80vh] flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-2xl shadow-xl border border-gray-100">
-        <div>
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-[#1E5631]">
-                Selamat Datang
-            </h2>
-            <p class="mt-2 text-center text-sm text-gray-600">
-                Silakan masuk ke akun Anda untuk melanjutkan
-            </p>
+{{-- min-h-[90vh] dan pb-32 disamakan agar footer tetap di bawah dan konten agak naik ke atas --}}
+<div class="flex flex-col items-center justify-center min-h-[90vh] bg-white pb-32">
+    
+    {{-- mt-8 mb-8 disamakan agar posisi logo konsisten dengan halaman lupa password --}}
+    <div class="text-center mb-8 mt-8">
+        <img src="{{ asset('images/logo-1.png') }}" alt="Logo Pondok Pesantren Al-Mardliyyah" class="w-36 h-36 mx-auto mb-5 object-contain">
+        
+        <div class="inline-block bg-[#E6F0EB] text-[#1a5336] font-bold px-8 py-2 rounded-md mb-4 text-sm">
+            Login Akun
         </div>
         
-        <form class="mt-8 space-y-6" action="{{ route('login.authenticate') }}" method="POST">
+        <p class="text-gray-700 text-lg font-medium">Masuk ke Akun yang sudah أنت daftarkan sebelumnya</p>
+    </div>
+
+    <div class="w-full max-w-md bg-white border border-gray-300 rounded-xl p-8 shadow-sm">
+        <form method="POST" action="{{ route('login.authenticate') }}">
             @csrf
-            <div class="rounded-md shadow-sm space-y-4">
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input id="email" name="email" type="email" required 
-                        class="appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-lg focus:outline-none focus:ring-[#1E5631] focus:border-[#1E5631] focus:z-10 sm:text-sm" 
-                        placeholder="Masukkan email Anda">
-                </div>
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input id="password" name="password" type="password" required 
-                        class="appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-lg focus:outline-none focus:ring-[#1E5631] focus:border-[#1E5631] focus:z-10 sm:text-sm" 
-                        placeholder="Masukkan password">
-                </div>
+
+            {{-- Input Email --}}
+            <div class="mb-5">
+                <label for="email" class="block text-sm font-bold text-gray-900 mb-2">
+                    Email <span class="text-red-600">*</span>
+                </label>
+                <input type="email" id="email" name="email" value="{{ old('email') }}" 
+                    class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#1a5336] focus:border-[#1a5336] @error('email') border-red-500 @enderror"
+                    placeholder="Masukkan email Anda" required autofocus>
+                @error('email')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
-            <div>
-                <button type="submit" 
-                    class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-lg text-white bg-[#1E5631] hover:bg-[#174427] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1E5631] transition-all">
-                    Login
-                </button>
+            {{-- Input Password --}}
+            <div class="mb-3">
+                <label for="password" class="block text-sm font-bold text-gray-900 mb-2">
+                    Password <span class="text-red-600">*</span>
+                </label>
+                <input type="password" id="password" name="password" 
+                    class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#1a5336] focus:border-[#1a5336] @error('password') border-red-500 @enderror"
+                    placeholder="Masukkan password Anda" required>
+                @error('password')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
-            
-            <div class="text-center">
-                <p class="text-xs text-gray-500">
-                    Belum punya akun? <a href="{{ route('pendaftaran') }}" class="font-bold text-[#1E5631] hover:underline">Daftar Akun</a>
-                </p>
+
+            {{-- Lupa Kata Sandi --}}
+            <div class="flex justify-end mb-6">
+                <a href="{{ route('password.request') }}" class="text-sm font-bold text-[#1a5336] hover:underline">
+                    Lupa Kata Sandi?
+                </a>
             </div>
+
+            {{-- Tombol Login --}}
+            <button type="submit" 
+                class="w-full bg-[#C3A771] text-white font-bold text-lg py-3 rounded-md hover:bg-[#b09664] transition duration-200">
+                Login
+            </button>
         </form>
+
+        {{-- Belum punya akun --}}
+        <div class="mt-8 text-center text-sm text-gray-600">
+            Belum punya akun? <a href="{{ route('register') }}" class="font-bold text-gray-900 hover:underline">Daftar Akun</a>
+        </div>
     </div>
 </div>
 @endsection

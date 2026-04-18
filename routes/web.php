@@ -6,7 +6,7 @@ use App\Http\Controllers\Public\ProgramPendidikanController;
 use App\Http\Controllers\Admin\AdminProgramController;
 use App\Http\Controllers\Public\GaleriController;
 use App\Http\Controllers\Public\BeritaController; 
-use App\Http\Controllers\Public\LupaKataSandiController;
+use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Public\PendaftaranController;
 use App\Http\Controllers\Public\StatusPendaftaranController;
 use App\Http\Controllers\Admin\AdminBeritaController;
@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Http\Controllers\Admin\AdminGaleriController;
 use App\Http\Controllers\Admin\AdminProfilController;
 use App\Http\Controllers\Admin\AdminKontakController;
@@ -66,20 +67,28 @@ Route::get('/email/verify', function () {
 })->middleware(['auth'])->name('verification.notice');
 
 // Proses klik link dari email
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
+Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
+    $user = User::findOrFail($id);
+
+    if (! hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+        abort(403, 'Link verifikasi tidak valid atau sudah rusak.');
+    }
+
+    if (! $user->hasVerifiedEmail()) {
+        $user->markEmailAsVerified();
+    }
+
+    Auth::login($user);
 
     return redirect()->route('formulir')
         ->with('success', 'Email berhasil diverifikasi! Silakan lengkapi formulir.');
-})->middleware(['auth', 'signed'])->name('verification.verify');
 
-// Kirim ulang email verifikasi
+})->middleware(['signed'])->name('verification.verify'); 
+
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
-
     return back()->with('message', 'Link verifikasi dikirim ulang!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
 
 // ======================================= ROUTE PUBLIC =======================================
 
@@ -104,8 +113,23 @@ Route::get('/pendaftaran', [PendaftaranController::class, 'pendaftaran'])->name(
 // Galeri
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
 
-// Lupa Password
-Route::get('/lupa-sandi', [LupaKataSandiController::class, 'lupaSandi']);
+
+// ================= LUPA PASSWORD =================
+Route::get('/forgot-password', [PasswordResetController::class, 'request'])
+    ->middleware('guest')
+    ->name('password.request');
+
+Route::post('/forgot-password', [PasswordResetController::class, 'email'])
+    ->middleware('guest')
+    ->name('password.email');
+
+Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])
+    ->middleware('guest')
+    ->name('password.reset'); 
+
+Route::post('/reset-password', [PasswordResetController::class, 'update'])
+    ->middleware('guest')
+    ->name('password.update');
 
 
 // ================= PROTECTED (WAJIB VERIFIKASI) =================
@@ -226,4 +250,3 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
 Route::get('/pimpinan/laporan', function(){
     return view('pages.pimpinan.laporan');
 });
-
