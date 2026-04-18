@@ -14,17 +14,17 @@
 
     <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
         <div class="flex justify-center mb-6">
-            {{-- Logo Dinamis --}}
-            <img src="{{ $profil && $profil->logo ? asset('storage/'.$profil->logo) : asset('images/default-logo.png') }}"
-                 alt="Logo" class="w-40 md:w-56 drop-shadow-2xl">
+            {{-- Logo Statis --}}
+            <img src="{{ asset('images/logo-pondok.png') }}"
+            alt="Logo" class="w-40 md:w-56 drop-shadow-2xl">
         </div>
 
         {{-- Nama Pondok & Tagline Dinamis --}}
         <h1 class="text-3xl md:text-5xl font-bold text-white mb-4 drop-shadow-md">
-            {{ $profil->nama_pondok ?? 'Pondok Pesantren Al-Mardliyyah' }}
+            Pondok Pesantren Al-Mardliyyah
         </h1>
         <p class="text-white text-lg md:text-xl mb-10 font-medium opacity-90">
-            {{ $profil->tagline ?? 'Membentuk Generasi Qur’ani yang Berakhlak Mulia dan Berprestasi' }}
+            Membentuk Generasi Qur’ani yang Berakhlak Mulia dan Berprestasi
         </p>
 
         <div class="flex flex-wrap justify-center gap-4">
@@ -85,7 +85,8 @@
             <div class="bg-gradient-to-r from-[#1E5631] to-[#2E8B57] text-white p-8 rounded-lg border-l-8 border-[#C6A75E]">
                 <h3 class="text-xl font-semibold mb-4">Visi</h3>
                 <p class="text-justify">
-                  {{ $visi->konten ?? 'Visi Belum Di Isi' }} 
+                Melahirkan kader pemimpin yang sholeh dan berkarakter serta berjiwa interpreneur dalam membangun
+                peradaban islam radhiyatam mardhiyah.
                 </p>
                 </p>
             </div>
@@ -96,26 +97,41 @@
 {{-- MISI --}}
 <section class="py-5">
     <div class="max-w-5xl mx-auto px-6">
+
         <div class="grid md:grid-cols-3 gap-6 text-left">
-            @forelse($misi as $key => $item)
-            <div class="bg-white p-6 rounded-lg shadow hover:shadow-md transition border-t-4 border-[#1E5631]">
+
+            <div class="bg-white p-6 rounded-lg shadow border-t-4 border-[#1E5631]">
                 <div class="w-10 h-10 flex items-center justify-center bg-[#C6A75E] rounded-full mb-4">
-                    {{-- Menggunakan $key+1 agar nomor mulai dari 1 --}}
-                    <span class="text-[#1E5631] font-bold">{{ $key + 1 }}</span>
+                    <span class="text-[#1E5631] font-bold">1</span>
                 </div>
-                <h4 class="text-[#1E5631] font-semibold mb-2">
-                    {{-- Jika kamu ingin judul misi dinamis, bisa tambah kolom judul di migration. 
-                         Untuk sekarang, kita buat kontennya saja --}}
-                    Misi {{ $key + 1 }}
-                </h4>
-                <p class="text-[#333333] text-sm text-justify leading-relaxed">
-                    {{ $item->konten }}
+                <h4 class="text-[#1E5631] font-semibold mb-2">Misi 1</h4>
+                <p class="text-sm text-justify">
+                    Menjadi pusat pembelajaran Al-Qur'an dan mempersiapkan kader hafidzul Qur'an yang beriman bertaqwa serta berakhlakul.
                 </p>
             </div>
-            @empty
-            <div class="col-span-3 text-center text-gray-400 italic">Data misi belum diisi.</div>
-            @endforelse
+
+            <div class="bg-white p-6 rounded-lg shadow border-t-4 border-[#1E5631]">
+                <div class="w-10 h-10 flex items-center justify-center bg-[#C6A75E] rounded-full mb-4">
+                    <span class="text-[#1E5631] font-bold">2</span>
+                </div>
+                <h4 class="text-[#1E5631] font-semibold mb-2">Misi 2</h4>
+                <p class="text-sm text-justify">
+                    Menguasai talakuhfiddin, pengetahuan dan memiliki daya saing serta mampu mengembangkan diri di tengah masyarakat karimah.
+                </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow border-t-4 border-[#1E5631]">
+                <div class="w-10 h-10 flex items-center justify-center bg-[#C6A75E] rounded-full mb-4">
+                    <span class="text-[#1E5631] font-bold">3</span>
+                </div>
+                <h4 class="text-[#1E5631] font-semibold mb-2">Misi 3</h4>
+                <p class="text-sm text-justify">
+                    Mendidik santri yang alim hikmah dan ilmiah.
+                </p>
+            </div>
+
         </div>
+
     </div>
 </section>
 

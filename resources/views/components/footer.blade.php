@@ -22,19 +22,19 @@
 <footer class="bg-[#1e4d2b] text-white py-16 px-12 mt-auto w-full">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         
-        {{-- BAGIAN 1: BRAND & LOGO (Dinamis dari $profil) --}}
+        {{-- BAGIAN 1: BRAND & LOGO Statis --}}
         <div class="space-y-6">
             <div class="flex items-center gap-3">
             <img 
-            src="{{ $profil && $profil->logo ? asset('storage/'.$profil->logo) : asset('images/logo.jpg') }}" 
+            src="{{ asset('images/logo-pondok.png') }}"  
             class="w-14 h-14 object-contain bg-white p-1 rounded">
 
             <h2 class="font-bold text-xl uppercase tracking-wider">
-            {{ $profil->nama_pondok ?? 'Al-Mardliyyah' }}
+            Pondok Pesantren Al-Mardliyyah
             </h2>
             </div>
             <p class="text-sm leading-relaxed text-gray-200">
-                {{ $profil->tagline ?? 'Institusi pendidikan islam modern yang berkomitmen menghadirkan generasi cendekiawan berakhlak karimah.' }}
+                Membentuk Generasi Qur'ani yang Berakhlak Mulia dan Berprestasi
             </p>
         </div>
 

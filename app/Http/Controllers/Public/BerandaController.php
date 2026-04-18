@@ -25,12 +25,6 @@ class BerandaController extends Controller
         // 2. Data Tentang Pondok
         $tentang = TentangPondok::first();
 
-        // 3. Visi & Misi
-        $visi = VisiMisi::where('tipe', 'visi')->first();
-        $misi = VisiMisi::where('tipe', 'misi')
-                        ->orderBy('urutan', 'asc')
-                        ->get();
-
         // 4. Program Pendidikan (Ambil 3 terbaru)
         $programs = ProgramPendidikan::where('status', 'aktif')
                                      ->latest()
@@ -53,9 +47,7 @@ class BerandaController extends Controller
         // Kirim semua variabel ke view
         return view('pages.public.beranda', compact(
             'profil', 
-            'tentang', 
-            'visi', 
-            'misi', 
+            'tentang',  
             'programs', 
             'galeris', 
             'beritas',

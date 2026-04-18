@@ -4,8 +4,8 @@
     {{-- BAGIAN LOGO & NAMA PONDOK --}}
     <div class="flex items-center">
     <a href="/" class="flex items-center gap-3 group">
-        {{-- Logo Dinamis --}}
-        <img src="{{ $profil && $profil->logo ? asset('storage/'.$profil->logo) : asset('images/logo.jpg') }}"
+        {{-- Logo Statis --}}
+        <img src="{{ asset('images/logo-pondok.png') }}"
              alt="Logo Al-Mardliyyah" 
              class="w-12 h-12 md:w-14 md:h-14 object-contain transition-transform group-hover:scale-105">
         
@@ -15,7 +15,7 @@
                 Pondok Pesantren
             </span>
             <span class="text-gray-700 font-medium text-sm md:text-lg leading-tight">
-                {{ $profil->nama_pondok ?? 'Al-Mardliyyah' }}
+                Al-Mardliyyah
             </span>
         </div>
     </a>

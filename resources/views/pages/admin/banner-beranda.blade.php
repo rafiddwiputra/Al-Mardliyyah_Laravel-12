@@ -33,26 +33,6 @@
                 </p>
             </div>
 
-            <!-- JUDUL -->
-            <div class="mb-4">
-                <label class="block text-xs text-black mb-1">
-                    Judul Banner
-                </label>
-                <input type="text"
-                    name="nama_pondok"
-                    value="{{ $profil->nama_pondok ?? 'Pondok Pesantren Al-Mardliyiyah' }}"
-                    class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
-            </div>
-
-            <!-- DESKRIPSI -->
-            <div class="mb-4">
-                <label class="block text-xs text-black mb-1">
-                    Deskripsi
-                </label>
-                <textarea name="tagline" rows="3"
-                    class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">{{ $profil->tagline ?? 'Membentuk Generasi Qur\'ani yang Berakhlak Mulia dan Berprestasi' }}</textarea>
-            </div>
-
             <!-- UPLOAD -->
             <div>
                 <label class="block text-xs text-black mb-2">
@@ -60,32 +40,21 @@
                 </label>
 
                 <label
-                    class="flex flex-col items-center justify-center w-full h-20 border border-[#D9D9D9] rounded cursor-pointer hover:bg-gray-50 transition text-center">
+                class="flex flex-col items-center justify-center w-full h-32 border border-[#D9D9D9] rounded cursor-pointer hover:bg-gray-50 transition text-center">
 
-                    <span class="text-[11px] text-gray-400">
-                        Upload Gambar (Opsional)
-                    </span>
+                <span class="text-[11px] text-gray-400 upload-text">
+                    Upload Gambar (Opsional)
+                </span>
 
-                    <input type="file" name="banner_image" class="hidden">
+                <!-- NAMA FILE -->
+                <p class="text-xs text-green-600 mt-2 file-name hidden"></p>
+
+                <!-- PREVIEW GAMBAR -->
+                <img class="preview-image hidden mt-2 max-h-20 rounded">
+
+                <input type="file" name="banner_image" class="hidden file-input">
                 </label>
             </div>
-
-            <!-- LOGO -->
-<div class="mt-4">
-    <label class="block text-xs text-black mb-2">
-        Logo
-    </label>
-
-    <label
-        class="flex flex-col items-center justify-center w-full h-20 border border-[#D9D9D9] rounded cursor-pointer hover:bg-gray-50 transition text-center">
-
-        <span class="text-[11px] text-gray-400">
-            Upload Logo
-        </span>
-
-        <input type="file" name="logo" class="hidden">
-    </label>
-</div>
 
         </div>
 
@@ -122,87 +91,23 @@
     </label>
 
     <label
-        class="flex flex-col items-center justify-center w-full h-24 border border-[#D9D9D9] rounded cursor-pointer hover:bg-gray-50 transition text-center">
+    class="flex flex-col items-center justify-center w-full h-32 border border-[#D9D9D9] rounded cursor-pointer hover:bg-gray-50 transition text-center">
 
-        <span class="text-[11px] text-gray-400">
-            Upload Gambar
-        </span>
+    <span class="text-[11px] text-gray-400 upload-text">
+        Upload Gambar
+    </span>
 
-        <input type="file" name="gambar_lembaga" class="hidden">
-    </label>
+    <!-- NAMA FILE -->
+    <p class="text-xs text-green-600 mt-2 file-name hidden"></p>
+
+    <!-- PREVIEW GAMBAR -->
+    <img class="preview-image hidden mt-2 max-h-20 rounded">
+
+    <input type="file" name="gambar_lembaga" class="hidden file-input">
+</label>
 </div>
         </div>
 
-        <!-- SECTION VISI MISI -->
-        <div class="border border-[#D9D9D9] rounded p-5">
-
-            <!-- TITLE -->
-            <div class="mb-4">
-                <h2 class="text-sm font-semibold text-[#1E5631]">
-                    Visi & Misi
-                </h2>
-                <p class="text-xs text-gray-500">
-                    Mengatur visi dan misi Pondok Pesantren
-                </p>
-            </div>
-
-            <!-- VISI -->
-            <div class="mb-5">
-                <label class="block text-xs text-black mb-1">
-                    Visi
-                </label>
-                <input type="text"
-                    name="visi"
-                    value="{{ $visi->konten ?? '' }}"
-                    class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
-            </div>
-
-            <!-- MISI -->
-            <div>
-
-                <!-- HEADER MISI -->
-                <div class="flex justify-between items-center mb-2">
-                    <label class="text-xs text-black">
-                        Misi
-                    </label>
-
-                    <button type="button"
-                        onclick="tambahMisi()"
-                        class="bg-[#1E5631] text-white text-xs px-3 py-1 rounded">
-                        + Tambah
-                    </button>
-                </div>
-
-                <!-- LIST MISI -->
-                <div id="listMisi" class="space-y-2">
-
-    @forelse($misi as $index => $item)
-    <div class="flex items-center gap-2">
-        <span class="text-xs text-gray-500 w-4 text-right">{{ $index + 1 }}.</span>
-
-        <input type="text"
-            name="misi[]"
-            value="{{ $item->konten }}"
-            class="flex-1 border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
-
-        <button type="button" onclick="hapusMisi(this)" class="text-red-500 text-sm">🗑</button>
-    </div>
-    @empty
-    <div class="flex items-center gap-2">
-        <span class="text-xs text-gray-500 w-4 text-right">1.</span>
-
-        <input type="text"
-            name="misi[]"
-            placeholder="Masukkan misi"
-            class="flex-1 border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
-    </div>
-    @endforelse
-
-</div>
-
-</div>
-
-</div>
 
         <!-- BUTTON -->
         <div class="flex justify-end gap-2">
@@ -250,6 +155,36 @@ function hapusMisi(btn) {
         item.querySelector('span').innerText = (index + 1) + '.';
     });
 }
+
+document.querySelectorAll('.file-input').forEach(input => {
+    input.addEventListener('change', function() {
+
+        const file = this.files[0];
+        if(!file) return;
+
+        const label = this.closest('label');
+
+        const fileNameText = label.querySelector('.file-name');
+        const previewImage = label.querySelector('.preview-image');
+        const uploadText = label.querySelector('.upload-text');
+
+        // tampilkan nama file
+        fileNameText.textContent = "File: " + file.name;
+        fileNameText.classList.remove('hidden');
+
+        // sembunyikan text upload
+        uploadText.classList.add('hidden');
+
+        // tampilkan preview gambar
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImage.src = e.target.result;
+            previewImage.classList.remove('hidden');
+        }
+        reader.readAsDataURL(file);
+    });
+});
+
 </script>
 
 @endsection
