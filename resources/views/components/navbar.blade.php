@@ -80,46 +80,56 @@
             </a>
         </li>
 
-        {{-- LOGIN --}}
-        {{-- LOGIN / USER MENU --}}
+    {{-- LOGIN / USER MENU --}}
 <li class="flex items-center">
     @guest
-        {{-- Jika Belum Login, Tampilkan Tombol Login --}}
+        {{-- Jika Belum Login --}}
         <a href="{{ route('login') }}"
-           class="ml-4 bg-[#1E5631] text-white px-6 py-2 rounded-lg text-sm font-bold hover:bg-[#174427] transition shadow-sm">
-            Login
-        </a>
+   class="ml-4 bg-[#1E5631] text-white px-8 py-2.5 rounded-xl 
+          text-sm font-bold uppercase tracking-widest shadow-md
+          {{-- Efek Hover & Aktif --}}
+          transition-all duration-300 ease-in-out
+          hover:bg-[#174427] hover:scale-105 hover:shadow-lg hover:-translate-y-0.5
+          active:scale-95 active:shadow-inner flex items-center justify-center">
+    Login
+</a>
     @endguest
 
     @auth
     {{-- Jika Sudah Login --}}
-    <div class="flex items-center gap-3 ml-4">
+    <div class="flex items-center gap-4 ml-4">
         
         @php
-            // Logika menentukan tujuan link untuk calon santri
-            $targetRoute = route('home'); // Default
+            $targetRoute = route('home');
             
             if (Auth::user()->role === 'admin' || Auth::user()->role === 'pimpinan') {
                 $targetRoute = route('admin.dashboard');
             } elseif (Auth::user()->role === 'calon_santri') {
-                // Santri diarahkan ke formulir sebagai 'home base' mereka
                 $targetRoute = route('formulir');
             }
         @endphp
 
+        {{-- Username tetap simpel namun rapi --}}
         <a href="{{ $targetRoute }}" 
-           class="text-[#1E5631] font-bold text-sm hover:underline whitespace-nowrap">
+           class="text-[#1E5631] font-bold text-sm hover:text-[#174427] whitespace-nowrap">
             Hai, {{ explode(' ', Auth::user()->name)[0] }}!
         </a>
 
+        {{-- TOMBOL KELUAR SESUAI FIGMA --}}
         <form action="{{ route('logout') }}" method="POST" class="inline">
             @csrf
-            <button type="submit" class="text-red-600 font-bold text-xs hover:text-red-800 transition-colors">
-                (Keluar)
-            </button>
+            <button type="submit" 
+    class="bg-[#B91C1C] text-white font-bold text-xs px-7 py-2.5 rounded-xl 
+           tracking-widest uppercase shadow-md 
+           {{-- Efek Hover & Aktif --}}
+           transition-all duration-300 ease-in-out
+           hover:bg-[#991B1B] hover:scale-105 hover:shadow-lg hover:-translate-y-0.5
+           active:scale-95 active:shadow-inner">
+    KELUAR
+</button>
         </form>
     </div>
-@endauth
+    @endauth
 </li>
     </ul>
 </nav>

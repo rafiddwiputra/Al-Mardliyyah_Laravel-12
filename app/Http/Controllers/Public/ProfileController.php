@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Public\Sejarah;    
+use Illuminate\Http\Request;   
 use App\Models\Public\Pimpinan;   
 use App\Models\Public\Fasilitas;  
 use App\Models\Public\VideoPondok; 
@@ -18,19 +17,10 @@ class ProfileController extends Controller
     public function index()
     {
        
-        $timelines = Sejarah::orderBy('tahun', 'asc')->get();
         $fasilitas = Fasilitas::all(); 
-        $video = VideoPondok::latest()->first();
+        $videos = VideoPondok::latest()->get();
         
-        return view('pages.public.profile.index', compact('timelines', 'fasilitas', 'video'));
-    }
-
-    // Halaman detail sejarah berdasarkan tahun
-    public function detailSejarah($tahun)
-    {
-        $sejarah = Sejarah::where('tahun', $tahun)->firstOrFail();
-        
-        return view('pages.public.profile.detail-sejarah', compact('sejarah', 'tahun'));
+        return view('pages.public.profile.index', compact( 'fasilitas', 'videos'));
     }
 
     // Video Pondok

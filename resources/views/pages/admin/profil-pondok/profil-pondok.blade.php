@@ -2,6 +2,12 @@
 
 @section('content')
 
+@if(session('success'))
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+        {{ session('success') }}
+    </div>
+@endif
+
 <div class="mb-6 text-left">
     <h1 class="text-2xl font-bold text-[#1E5631]">Kelola Profil Pondok</h1>
     <p class="text-sm text-gray-500 mt-1">Kelola informasi profil dan sejarah pesantren</p>
@@ -11,11 +17,9 @@
     
     <div class="border-b border-[#D9D9D9] py-6 bg-white">
         <div class="flex justify-center items-center gap-8">
-            <button onclick="showTab('sejarah')" id="btn-sejarah" class="focus:outline-none">
-                <span class="bg-[#1E5631] text-white px-6 py-1.5 rounded text-sm transition-all duration-300">Sejarah</span>
-            </button>
+            {{-- Sejarah sudah hilang --}}
             <button onclick="showTab('fasilitas')" id="btn-fasilitas" class="focus:outline-none">
-                <span class="px-6 py-1.5 rounded text-sm transition-all duration-300">Fasilitas</span>
+                <span class="bg-[#1E5631] text-white px-6 py-1.5 rounded text-sm transition-all duration-300">Fasilitas</span>
             </button>
             <button onclick="showTab('video')" id="btn-video" class="focus:outline-none">
                 <span class="px-6 py-1.5 rounded text-sm transition-all duration-300">Video</span>
@@ -23,11 +27,8 @@
         </div>
     </div>
 
-    <div id="tab-sejarah" class="p-8">
-        @include('pages.admin.profil-pondok.sejarah')
-    </div>
-
-    <div id="tab-fasilitas" class="hidden p-8">
+    {{-- Tab Fasilitas otomatis terbuka --}}
+    <div id="tab-fasilitas" class="p-8">
         @include('pages.admin.profil-pondok.fasilitas')
     </div>
 
@@ -41,13 +42,13 @@
 @include('pages.admin.profil-pondok.fasilitas-edit')
 @include('pages.admin.profil-pondok.fasilitas-hapus')
 
-{{-- @include('pages.admin.profil-pondok.video-tambah') --}}
+@include('pages.admin.profil-pondok.video-tambah')
 {{-- @include('pages.admin.profil-pondok.video-edit') --}}
 {{-- @include('pages.admin.profil-pondok.video-hapus') --}}
 
-{{-- BEST PRACTICE: Jika layouts.admin memiliki @stack('scripts'), 
+<!-- {{-- BEST PRACTICE: Jika layouts.admin memiliki @stack('scripts'), 
      lebih baik <script> ini dipindah ke dalam @push('scripts'). 
-     Tapi jika tidak, diletakkan di akhir @section sudah cukup aman. --}}
+     Tapi jika tidak, diletakkan di akhir @section sudah cukup aman. --}} -->
 <script>
 // --- FUNGSI TAB ---
 function showTab(tab) {
@@ -115,13 +116,20 @@ function closeEditFasilitasModal() {
 }
 
 // HAPUS FASILITAS
-function openHapusFasilitasModal(id) {
+function openHapusFasilitasModal(id, nama) {
     const form = document.getElementById('formHapusFasilitas');
     if(form && id) {
         form.action = "/admin/profil-pondok/fasilitas/" + id;
     }
-    
+    const textNama = document.getElementById('hapus_nama_fasilitas_text');
+    if(textNama) {
+        textNama.innerText = nama;
+    }
     openModal('modalHapusFasilitas');
+}
+
+function closeHapusFasilitasModal() {
+    closeModal('modalHapusFasilitas');
 }
 
 // --- LOGIKA MODAL VIDEO ---

@@ -11,7 +11,7 @@
             @csrf
             @method('DELETE')
 
-           <div class="p-6">
+          <div class="p-6">
     <p class="text-sm text-gray-600 text-center mb-4">
         Apakah Anda yakin ingin menghapus fasilitas ini? Foto yang tersimpan juga akan dihapus permanen.
     </p>

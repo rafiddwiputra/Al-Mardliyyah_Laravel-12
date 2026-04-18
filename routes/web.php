@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\AdminProfilController;
 use App\Http\Controllers\Admin\AdminKontakController;
 use App\Http\Controllers\Admin\AdminBiayaController;
 use App\Http\Controllers\Admin\AdminEditProfilController;
+use App\Http\Controllers\Admin\AdminVideoPondokController;
 
 // ================== DEBUG ==================
 Route::get('/debug-login', function () {
@@ -166,9 +167,6 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
 
     // Profil Pondok - Sejarah
     Route::get('/profil-pondok', [AdminProfilController::class, 'index'])->name('admin.profil.index');
-    Route::post('/profil-pondok/sejarah', [AdminProfilController::class, 'storeSejarah'])->name('admin.profil.sejarah.store');
-    Route::put('/profil-pondok/sejarah/{id}', [AdminProfilController::class, 'updateSejarah'])->name('admin.profil.sejarah.update');
-    Route::delete('/profil-pondok/sejarah/{id}', [AdminProfilController::class, 'destroySejarah'])->name('admin.profil.sejarah.destroy');
 
     // Profil Pondok - Fasilitas
     Route::put('/admin/profil-pondok/fasilitas/{id}', [AdminProfilController::class, 'updateFasilitas'])->name('admin.profil.fasilitas.update');
@@ -176,6 +174,9 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::post('/admin/profil-pondok/fasilitas/store', [AdminProfilController::class, 'storeFasilitas'])->name('admin.profil.fasilitas.store');
     Route::put('/profil-pondok/fasilitas/{id}', [AdminProfilController::class, 'updateFasilitas'])->name('admin.profil.fasilitas.update');
     Route::delete('/profil-pondok/fasilitas/{id}', [AdminProfilController::class, 'destroyFasilitas'])->name('admin.profil.fasilitas.destroy');
+
+    // Profil Pondok - Video
+   Route::post('/admin/profil-pondok/video/store', [AdminVideoPondokController::class, 'store'])->name('admin.video.store');
 
     // Program Pendidikan
     Route::get('/program-pendidikan', [AdminProgramController::class, 'programPendidikan'])

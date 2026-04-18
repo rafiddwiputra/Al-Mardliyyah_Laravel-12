@@ -43,7 +43,7 @@
     Edit
 </button>
 
-    <button onclick="openHapusFasilitasModal('{{ $item->id }}', '{{ $item->nama_fasilitas }}')" 
+   <button onclick="openHapusFasilitasModal('{{ $item->id }}', '{{ $item->nama_fasilitas }}')" 
     class="bg-red-100 text-red-600 px-4 py-1.5 rounded font-bold hover:bg-red-200 transition-colors focus:outline-none">
     Hapus
 </button>
