@@ -15,7 +15,8 @@
     <!-- EMAIL -->
     <div class="bg-white border rounded-xl p-6 mb-6">
         <p class="text-xs text-gray-500 mb-1">Email</p>
-        <p class="text-sm font-medium text-gray-800">ahmad@gmail.com</p>
+        <p class="text-sm font-medium text-gray-800">
+        {{ $data->user->email ?? '-' }}</p>
     </div>
 
     <!-- DATA SANTRI -->
@@ -32,32 +33,39 @@
 
                 <div>
                     <p class="text-xs text-gray-500">Nama Lengkap Santri</p>
-                    <p class="text-sm font-medium text-gray-800">Ahmad Fauzi</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->nama_lengkap }} </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">NISN (Nomor Induk Sekolah)</p>
-                    <p class="text-sm font-medium text-gray-800">1289856660</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->nisn }} </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">NIK Calon Santri</p>
-                    <p class="text-sm font-medium text-gray-800">5678904125400987</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->nik }} </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">Tempat Lahir</p>
-                    <p class="text-sm font-medium text-gray-800">Kota Madiun</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->tempat_lahir }} </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">Jenis Kelamin</p>
-                    <p class="text-sm font-medium text-gray-800">Laki - Laki</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->jenis_kelamin }} </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">Jenjang</p>
-                    <p class="text-sm font-medium text-gray-800">MTs (khusus putra)</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->program_id }}
+                    </p>
                 </div>
 
             </div>
@@ -67,22 +75,30 @@
 
                 <div>
                     <p class="text-xs text-gray-500">Tanggal Lahir</p>
-                    <p class="text-sm font-medium text-gray-800">06/06/2009</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ \Carbon\Carbon::parse($data->tanggal_lahir)->format('d/m/Y') }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">Nomor KK</p>
-                    <p class="text-sm font-medium text-gray-800">2433097865437711</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->nomor_kk ?? '-' }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">Sekolah Asal</p>
-                    <p class="text-sm font-medium text-gray-800">SDN 2 Madiun</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->sekolah_asal }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">Sumber Informasi</p>
-                    <p class="text-sm font-medium text-gray-800">Sosial Media</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->sumber_informasi ?? '-' }}
+                    </p>
                 </div>
 
             </div>
@@ -105,38 +121,52 @@
 
                 <div>
                     <p class="text-xs text-gray-500">Nama Ayah</p>
-                    <p class="text-sm font-medium text-gray-800">Riski</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->ortu->nama_ayah ?? '-' }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">NIK Ayah</p>
-                    <p class="text-sm font-medium text-gray-800">5678112340985543</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->ortu->nik_ayah ?? '-' }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">Tanggal Lahir Ayah</p>
-                    <p class="text-sm font-medium text-gray-800">08/02/1978</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->ortu && $data->ortu->tanggal_lahir_ayah 
+                        ? \Carbon\Carbon::parse($data->ortu->tanggal_lahir_ayah)->format('d/m/Y') 
+                        : '-' }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">Pekerjaan Ayah</p>
-                    <p class="text-sm font-medium text-gray-800">Karyawan Swasta</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->ortu->pekerjaan_ayah ?? '-' }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">Pendidikan Ayah</p>
-                    <p class="text-sm font-medium text-gray-800">SMP/SLTP</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->ortu->pendidikan_terakhir_ayah ?? '-' }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">Penghasilan</p>
-                    <p class="text-sm font-medium text-gray-800">1 - 2 Juta</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->ortu->penghasilan_ortu ?? '-' }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">Alamat</p>
                     <p class="text-sm font-medium text-gray-800 leading-relaxed">
-                        Jl. Cokroaminoto Kota Madiun
+                        {{ $data->ortu->alamat ?? '-' }}
                     </p>
                 </div>
 
@@ -147,37 +177,53 @@
 
                 <div>
                     <p class="text-xs text-gray-500">Nama Ibu</p>
-                    <p class="text-sm font-medium text-gray-800">Fatimah</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->ortu->nama_ibu ?? '-' }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">NIK Ibu</p>
-                    <p class="text-sm font-medium text-gray-800">567811056783344</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->ortu->nik_ibu ?? '-' }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">Tanggal Lahir Ibu</p>
-                    <p class="text-sm font-medium text-gray-800">25/09/1978</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->ortu && $data->ortu->tanggal_lahir_ibu 
+                        ? \Carbon\Carbon::parse($data->ortu->tanggal_lahir_ibu)->format('d/m/Y') 
+                        : '-' }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">Pekerjaan Ibu</p>
-                    <p class="text-sm font-medium text-gray-800">Ibu Rumah Tangga</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->ortu->pekerjaan_ibu ?? '-' }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">Pendidikan Ibu</p>
-                    <p class="text-sm font-medium text-gray-800">SMP/SLTP</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->ortu->pendidikan_terakhir_ibu ?? '-' }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">No WhatsApp</p>
-                    <p class="text-sm font-medium text-gray-800">08765444909</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->ortu->no_hp ?? '-' }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="text-xs text-gray-500">Kode Pos</p>
-                    <p class="text-sm font-medium text-gray-800">3519</p>
+                    <p class="text-sm font-medium text-gray-800">
+                        {{ $data->ortu->kode_pos ?? '-' }}
+                    </p>
                 </div>
 
             </div>
@@ -192,7 +238,13 @@
             Data Ukuran Seragam
         </h3>
         <p class="text-sm font-medium text-gray-800">
-            Baju : M, Celana : 35
+            @if($data->jenis_kelamin == 'Laki-laki')
+            Baju : {{ $data->ukuran_baju_putra ?? '-' }},
+            Celana : {{ $data->ukuran_celana_putra ?? '-' }}
+            @else
+            Baju : {{ $data->ukuran_baju_putri ?? '-' }},
+            Rok : {{ $data->ukuran_rok_putri ?? '-' }}
+            @endif
         </p>
     </div>
 
@@ -204,16 +256,28 @@
 
         <div class="grid md:grid-cols-2 gap-6 text-sm">
 
+        @php
+        $status = $data->status;
+
+        $color = match($status) {
+        'diterima' => 'bg-green-100 text-green-700',
+        'ditolak' => 'bg-red-100 text-red-600',
+        default => 'bg-blue-100 text-blue-600'
+        };
+        @endphp
+
             <div>
                 <p class="text-xs text-gray-500 mb-1">Status Saat Ini</p>
-                <span class="text-xs font-medium px-3 py-1 rounded bg-red-100 text-red-600">
-                    Ditolak
+                <span class="text-xs font-medium px-3 py-1 rounded {{ $color }}">
+                    {{ ucfirst($data->status) }}
                 </span>
             </div>
 
             <div>
                 <p class="text-xs text-gray-500 mb-1">Tanggal Pendaftaran</p>
-                <p class="text-sm font-medium text-gray-800">14/3/2026</p>
+                <p class="text-sm font-medium text-gray-800">
+                    {{ $data->created_at->format('d/m/Y') }}
+                </p>
             </div>
 
         </div>
@@ -227,34 +291,57 @@
     </h3>
 
     @php
-$dokumen = [
-    ["nama"=>"Dokumen Foto Formal.jpg", "file"=>"https://picsum.photos/800/600"],
-    ["nama"=>"Dokumen Akta Kelahiran.pdf", "file"=>"https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"],
-    ["nama"=>"Dokumen KK.pdf", "file"=>"https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"],
-    ["nama"=>"Dokumen KTP Ayah.jpg", "file"=>"https://picsum.photos/800/601"],
-    ["nama"=>"Dokumen KTP Ibu.jpg", "file"=>"https://picsum.photos/800/602"],
-    ["nama"=>"Sertifikat.pdf", "file"=>"https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"]
-];
-@endphp
+    $dokumen = [
+    ["nama"=>"Foto Santri", "file"=>$data->foto_santri],
+    ["nama"=>"Akta Kelahiran", "file"=>$data->akta_kelahiran],
+    ["nama"=>"Kartu Keluarga", "file"=>$data->kartu_keluarga],
+    ["nama"=>"KTP Ayah", "file"=>$data->ktp_ayah],
+    ["nama"=>"KTP Ibu", "file"=>$data->ktp_ibu],
+    ["nama"=>"Sertifikat", "file"=>$data->sertifikat],
+    ];
+    @endphp
 
     <div class="space-y-3">
-    @foreach($dokumen as $doc)
-    <div onclick="openModal('{{ $doc['file'] }}')"
-        class="flex items-center justify-between bg-gray-50 px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-100 transition">
+@foreach($dokumen as $doc)
 
-        <div class="flex items-center gap-3">
-            <div class="bg-[#1E5631] text-white text-[10px] px-2 py-1 rounded">
-                FILE
-            </div>
-            <p class="text-sm text-gray-700">{{ $doc['nama'] }}</p>
+@php
+$filePath = $doc['file'] ? asset('images/'.$doc['file']) : null;
+@endphp
+
+<div 
+    @if($filePath)
+        onclick="openModal('{{ $filePath }}')"
+    @endif
+    class="flex items-center justify-between px-4 py-2 rounded-lg transition
+    {{ $filePath 
+        ? 'bg-gray-50 hover:bg-gray-100 cursor-pointer' 
+        : 'bg-gray-100 opacity-60 cursor-not-allowed' }}">
+
+    <!-- LEFT -->
+    <div class="flex items-center gap-3">
+        <div class="bg-[#1E5631] text-white text-[10px] px-2 py-1 rounded">
+            {{ Str::contains($doc['file'], '.pdf') ? 'PDF' : 'IMG' }}
         </div>
 
-        <p class="text-xs text-[#1E5631] font-medium">
-            12 Mar 2026 - 11:04
-        </p>
+        <p class="text-sm text-gray-700">
+            {{ $doc['nama'] }}
 
+            @if(!$filePath)
+                <span class="text-red-500 text-xs">(Belum upload)</span>
+            @endif
+        </p>
     </div>
-    @endforeach
+
+    <!-- RIGHT -->
+    <p class="text-xs text-[#1E5631] font-medium">
+        {{ $filePath 
+            ? $data->updated_at->format('d M Y - H:i') 
+            : '-' }}
+    </p>
+
+</div>
+
+@endforeach
 </div>
 </div>
 
@@ -302,7 +389,9 @@ function openModal(file) {
     img.classList.add('hidden');
     pdf.classList.add('hidden');
 
-    if (file.endsWith('.pdf')) {
+    const lowerFile = file.toLowerCase();
+
+    if (lowerFile.endsWith('.pdf')) {
         pdf.src = file;
         pdf.classList.remove('hidden');
     } else {

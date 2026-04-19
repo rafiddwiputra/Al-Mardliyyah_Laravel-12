@@ -171,9 +171,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
         return view('pages.admin.data-pendaftar.data');
     })->name('admin.pendaftar');
 
-    Route::get('/data-pendaftar/detail-data', function () {
-        return view('pages.admin.data-pendaftar.detail-data');
-    })->name('admin.pendaftar.detail');
+    Route::get('/data-pendaftar/{id}', [AdminDataPendaftarController::class, 'show'])
+    ->name('admin.pendaftar.detail');
 
 
     // ================= BERITA =================

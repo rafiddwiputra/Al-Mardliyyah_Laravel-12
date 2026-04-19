@@ -40,4 +40,10 @@ class PendaftaranSantri extends Model
     {
         return $this->belongsTo(DataOrtu::class, 'data_ortu_id');
     }
+
+    // relasi user
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id');
+    }
 }

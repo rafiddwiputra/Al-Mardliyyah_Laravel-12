@@ -145,7 +145,7 @@
 
                         <!-- AKSI -->
                         <td>
-                           <a href="/admin/data-pendaftar/detail-data"
+                           <a href="{{ route('admin.pendaftar.detail', $item->id) }}"
                             class="border border-[#1E5631] text-[#1E5631] px-3 py-1 rounded-md text-xs hover:bg-[#1E5631] hover:text-white transition">
                             Detail
                             </a>
