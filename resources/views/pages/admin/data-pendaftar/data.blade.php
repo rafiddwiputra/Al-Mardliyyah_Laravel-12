@@ -81,65 +81,67 @@
                 <!-- DATA -->
                 <tbody class="text-gray-700">
 
-                    @php
-                    $data = [
-                        ['id'=>'PSB001','nama'=>'Ahmad Fauzi','program'=>'MTs (khusus putra)','tanggal'=>'14/3/2026','status'=>'Ditolak'],
-                        ['id'=>'PSB002','nama'=>'Fatimah Zahra','program'=>'SMP (khusus putri)','tanggal'=>'14/3/2026','status'=>'Diproses'],
-                        ['id'=>'PSB003','nama'=>'Muhammad Riski','program'=>'MA (putra/putri)','tanggal'=>'14/3/2026','status'=>'Diterima'],
-                        ['id'=>'PSB004','nama'=>'Aisyah Nur','program'=>'MA (putri/putri)','tanggal'=>'14/3/2026','status'=>'Diproses'],
-                    ];
-                    @endphp
-
                     @foreach($data as $item)
                     <tr class="border-b hover:bg-gray-50">
 
                         <td class="py-3">
-                            {{ $item['id'] }}
+                            PSB{{ str_pad($item->id, 3, '0', STR_PAD_LEFT) }}
                         </td>
-                        <td>{{ $item['nama'] }}</td>
-                        <td>{{ $item['program'] }}</td>
-                        <td>{{ $item['tanggal'] }}</td>
 
+                        <td>
+                            {{ $item->nama_lengkap }}
+                        </td>
+
+                        <td>
+                            {{ $item->program_id }}
+                        </td>
+
+                        <td>
+                            {{ $item->created_at ? $item->created_at->format('d/m/Y') : '-' }}
+                        </td>
 
                         <td class="text-left">
 
                             <div class="relative group inline-block">
 
-                            <!-- BUTTON STATUS -->
-                            @php
-                            $statusColor = match($item['status']) {
-                            'Diproses' => 'bg-[#BFDBFE] text-[#1D4ED8]',
-                            'Diterima' => 'bg-[#DEFFE9] text-[#1E5631]',
-                            'Ditolak' => 'bg-[#FECACA] text-[#B91C1C]',
-                            };
-                            @endphp
+                                <!-- BUTTON STATUS -->
+                                @php
+                                $status = ucfirst($item->status ?? 'diproses');
 
-                            <button class="w-20 text-center text-xs px-4 py-2 rounded-xl font-semibold {{ $statusColor }}">
-                                {{ $item['status'] }}
-                            </button>
+                                $statusColor = match($status) {
+                                    'Diproses' => 'bg-[#BFDBFE] text-[#1D4ED8]',
+                                    'Diterima' => 'bg-[#DEFFE9] text-[#1E5631]',
+                                    'Ditolak' => 'bg-[#FECACA] text-[#B91C1C]',
+                                    default => 'bg-gray-100 text-gray-600'
+                                };
+                                @endphp
 
-                            <!-- POPUP (HOVER) -->
-                            <div class="absolute right-0 top-full w-25 bg-white border rounded-lg shadow
-                                opacity-0 invisible group-hover:visible group-hover:opacity-100
-                                transition duration-200 z-10">
+                                <button class="w-20 text-center text-xs px-4 py-2 rounded-xl font-semibold {{ $statusColor }}">
+                                    {{ $status }}
+                                </button>
 
-                            <div class="px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white transition">
-                                Diproses
-                            </div>
+                                <!-- POPUP (HOVER) -->
+                                <div class="absolute right-0 top-full w-25 bg-white border rounded-lg shadow
+                                    opacity-0 invisible group-hover:visible group-hover:opacity-100
+                                    transition duration-200 z-10">
 
-                            <div class="px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white transition">
-                                Diterima
-                            </div>
+                                    <div class="px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white transition">
+                                        Diproses
+                                    </div>
 
-                            <div class="px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white transition">
-                                Ditolak
-                            </div>
+                                    <div class="px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white transition">
+                                        Diterima
+                                    </div>
 
-                            </div>
+                                    <div class="px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white transition">
+                                        Ditolak
+                                    </div>
 
-                            </div>
+                                </div>
 
-                            </td>
+                             </div>
+
+                        </td>
 
                         <!-- AKSI -->
                         <td>
@@ -155,6 +157,10 @@
                 </tbody>
 
             </table>
+
+            <div class="mt-4">
+                {{ $data->links() }}
+            </div>
 
         </div>
 

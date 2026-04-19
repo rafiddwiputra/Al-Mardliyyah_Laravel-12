@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\AdminKontakController;
 use App\Http\Controllers\Admin\AdminBiayaController;
 use App\Http\Controllers\Admin\AdminEditProfilController;
 use App\Http\Controllers\Admin\AdminVideoPondokController;
+use App\Http\Controllers\Admin\AdminDataPendaftarController;
 
 // ================== DEBUG ==================
 Route::get('/debug-login', function () {
@@ -243,6 +244,9 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     // ================= EDIT PROFIL ADMIN =================
     Route::get('/profil', [AdminEditProfilController::class, 'index'])->name('admin.profil');
     Route::post('/profil', [AdminEditProfilController::class, 'update'])->name('admin.profil.update');
+
+    // ================ DATA PENDAFTAR ====================
+    Route::get('/data-pendaftar', [AdminDataPendaftarController::class, 'index'])->name('admin.pendaftar');
 });
 
 
