@@ -24,7 +24,7 @@
             Pondok Pesantren Al-Mardliyyah
         </h1>
         <p class="text-white text-lg md:text-xl mb-10 font-medium opacity-90">
-            Membentuk Generasi Qur’ani yang Berakhlak Mulia dan Berprestasi
+            Mari Menjadi Generasi Penerus yang Berjiwa Islami dan Berwawasan Luas
         </p>
 
         <div class="flex flex-wrap justify-center gap-4">
@@ -44,20 +44,19 @@
 
         {{-- GAMBAR --}}
         <div>
-            <img src="{{ $profil && $profil->gambar_lembaga 
-                ? asset('storage/'.$profil->gambar_lembaga) 
-                : asset('images/lembaga.jpg') }}" 
-                class="rounded-xl shadow-md w-full object-cover">
+            <img src="{{ asset('images/logo.jpg') }}" 
+            class="rounded-xl shadow-md w-full object-cover">
         </div>
 
         {{-- TEKS --}}
         <div>
             <h2 class="text-2xl md:text-3xl font-bold text-[#1E5631] mb-4">
-                Lembaga Pendidikan Islam Terpadu
+                Latar Belakang Berdirinya Pondok
         </h2>
 
             <p class="text-gray-600 mb-6 leading-relaxed">
-            {{ $profil->deskripsi_lembaga ?? 'Deskripsi belum diisi' }}
+            Berawal dari keprihatinan mendalam terhadap kondisi pendidikan Islam di tahun 1980-an, 
+            sekelompok ulama dan tokoh masyarakat berinisiatif mendirikan sebuah lembaga pendidikan yang mampu mencetak generasi muslim
             </p>
 
             <a href="{{ route('profile') }}" 
@@ -77,16 +76,16 @@
     </div>
 
     {{-- VISI --}}
-<section class="py-16">
+<section class="pt-16 pb-6">
     <div class="max-w-5xl mx-auto px-6 text-center">
         <h2 class="text-2xl font-bold text-[#1E5631] mb-5">Visi & Misi</h2>
 
-        <div class="mb-12 text-left">
+        <div class="mb-4 text-left">
             <div class="bg-gradient-to-r from-[#1E5631] to-[#2E8B57] text-white p-8 rounded-lg border-l-8 border-[#C6A75E]">
                 <h3 class="text-xl font-semibold mb-4">Visi</h3>
                 <p class="text-justify">
                 Melahirkan kader pemimpin yang sholeh dan berkarakter serta berjiwa interpreneur dalam membangun
-                peradaban islam radhiyatam mardhiyah.
+                peradaban islam radhiyatan mardliyyah.
                 </p>
                 </p>
             </div>
@@ -106,7 +105,7 @@
                 </div>
                 <h4 class="text-[#1E5631] font-semibold mb-2">Misi 1</h4>
                 <p class="text-sm text-justify">
-                    Menjadi pusat pembelajaran Al-Qur'an dan mempersiapkan kader hafidzul Qur'an yang beriman bertaqwa serta berakhlakul.
+                    Menjadi pusat pembelajaran Al-Qur'an dan mempersiapkan kader hafidzul Qur'an yang beriman, bertaqwa, serta berakhlakul karimah.
                 </p>
             </div>
 
@@ -116,7 +115,7 @@
                 </div>
                 <h4 class="text-[#1E5631] font-semibold mb-2">Misi 2</h4>
                 <p class="text-sm text-justify">
-                    Menguasai talakuhfiddin, pengetahuan dan memiliki daya saing serta mampu mengembangkan diri di tengah masyarakat karimah.
+                    Menguasai tafakkuh fiddiin, pengetahuan dan memiliki daya saing, serta mampu mengembangkan diri di tengah masyarakat.
                 </p>
             </div>
 
@@ -215,17 +214,17 @@
                             </h3>
 
                             {{-- RINGKASAN DESKRIPSI (DIPERBAIKI) --}}
-<p class="text-sm text-gray-600 mb-4 line-clamp-3">
-    @if($news->ringkasan)
-        {{ $news->ringkasan }}
-    @elseif($news->konten)
-        {{ Str::limit(strip_tags($news->konten), 100) }}
-    @elseif($news->deskripsi)
-        {{ Str::limit(strip_tags($news->deskripsi), 100) }}
-    @else
-        Tidak ada deskripsi tersedia.
-    @endif
-</p>
+                            <p class="text-sm text-gray-600 mb-4 line-clamp-3">
+                                @if($news->ringkasan)
+                                    {{ $news->ringkasan }}
+                                @elseif($news->konten)
+                                    {{ Str::limit(strip_tags($news->konten), 100) }}
+                                @elseif($news->deskripsi)
+                                    {{ Str::limit(strip_tags($news->deskripsi), 100) }}
+                                @else
+                                    Tidak ada deskripsi tersedia.
+                                @endif
+                            </p>
 
                             {{-- BUTTON KE DETAIL --}}
                             <a href="{{ route('berita.detail', $news->slug) }}" class="text-[#1E5631] text-sm font-bold hover:underline">
