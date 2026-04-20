@@ -35,15 +35,16 @@
             </div>
         </td>
         <td class="px-5 py-6 text-center align-middle whitespace-nowrap">
-            <button onclick="openEditVideoModal('{{ $v->id }}', '{{ $v->judul }}', '{{ $v->deskripsi }}')" 
-                class="bg-blue-100 text-blue-600 px-4 py-1.5 rounded font-bold mr-2 hover:bg-blue-200 transition-colors">
-                Edit
-            </button>
-            <button onclick="openHapusVideoModal('{{ $v->id }}')" 
-                class="bg-red-100 text-red-600 px-4 py-1.5 rounded font-bold hover:bg-red-200 transition-colors">
-                Hapus
-            </button>
-        </td>
+    {{-- PERHATIKAN: Kita menggunakan kutip SATU onclick='...' --}}
+    <button onclick='openEditVideoModal("{{ $v->id }}", @json($v->judul), @json($v->deskripsi), @json($v->link_yt), "{{ $v->thumbnail ? asset('storage/' . $v->thumbnail) : '' }}")' 
+    class="bg-blue-100 text-blue-600 px-4 py-1.5 rounded font-bold mr-2 hover:bg-blue-200 transition-colors">
+    Edit
+</button>
+    <button onclick='openHapusVideoModal("{{ $v->id }}")' 
+        class="bg-red-100 text-red-600 px-4 py-1.5 rounded font-bold hover:bg-red-200 transition-colors">
+        Hapus
+    </button>
+</td>
     </tr>
     @endforeach
 </tbody>

@@ -43,14 +43,65 @@
 @include('pages.admin.profil-pondok.fasilitas-hapus')
 
 @include('pages.admin.profil-pondok.video-tambah')
-{{-- @include('pages.admin.profil-pondok.video-edit') --}}
-{{-- @include('pages.admin.profil-pondok.video-hapus') --}}
+@include('pages.admin.profil-pondok.video-edit')
+@include('pages.admin.profil-pondok.video-hapus') 
 
 <!-- {{-- BEST PRACTICE: Jika layouts.admin memiliki @stack('scripts'), 
      lebih baik <script> ini dipindah ke dalam @push('scripts'). 
      Tapi jika tidak, diletakkan di akhir @section sudah cukup aman. --}} -->
 <script>
-// --- FUNGSI TAB ---
+// ==========================================
+// LOGIKA TAMBAH VIDEO (Dengan Animasi)
+// ==========================================
+function openTambahVideoModal() {
+    const modal = document.getElementById('modalTambahVideo');
+    const content = document.getElementById('modalContentVideo');
+    
+    modal.classList.remove('hidden');
+    setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        if(content) {
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+        }
+    }, 10);
+}
+
+function closeTambahVideoModal() {
+    const modal = document.getElementById('modalTambahVideo');
+    const content = document.getElementById('modalContentVideo');
+    
+    modal.classList.add('opacity-0');
+    if(content) {
+        content.classList.remove('scale-100');
+        content.classList.add('scale-95');
+    }
+    
+    setTimeout(() => {
+        modal.classList.add('hidden');
+    }, 300);
+}
+
+// Fungsi Preview Gambar khusus untuk Tambah Video
+function previewImage(event) {
+    const reader = new FileReader();
+    reader.onload = function() {
+        const preview = document.getElementById('image-preview');
+        const text = document.getElementById('preview-text');
+        if(preview && text) {
+            preview.src = reader.result;
+            preview.classList.remove('hidden');
+            text.classList.add('hidden');
+        }
+    }
+    if(event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]);
+    }
+}
+
+// ==========================================
+// FUNGSI TAB & CORE MODAL (Fasilitas & Hapus)
+// ==========================================
 function showTab(tab) {
     document.querySelectorAll('[id^="tab-"]').forEach(el => el.classList.add('hidden'));
     document.querySelectorAll('[id^="btn-"] span').forEach(span => {
@@ -60,7 +111,6 @@ function showTab(tab) {
     document.querySelector('#btn-' + tab + ' span').classList.add('bg-[#1E5631]', 'text-white');
 }
 
-// --- FUNGSI CORE MODAL ---
 function openModal(id) {
     const modal = document.getElementById(id);
     if (modal) {
@@ -85,7 +135,9 @@ function closeModal(id) {
     }
 }
 
-// --- LOGIKA MODAL FASILITAS ---
+// ==========================================
+// LOGIKA MODAL FASILITAS
+// ==========================================
 function openTambahFasilitasModal() {
     openModal('modalTambahFasilitas');
 }
@@ -93,7 +145,6 @@ function closeTambahFasilitasModal() {
     closeModal('modalTambahFasilitas');
 }
 
-// EDIT FASILITAS
 function openEditFasilitasModal(id, nama, deskripsi, fotoUrl) {
     document.getElementById('edit_nama_fasilitas').value = nama || '';
     document.getElementById('edit_deskripsi_fasilitas').value = deskripsi || '';
@@ -110,12 +161,10 @@ function openEditFasilitasModal(id, nama, deskripsi, fotoUrl) {
 
     openModal('modalEditFasilitas');
 }
-
 function closeEditFasilitasModal() {
     closeModal('modalEditFasilitas');
 }
 
-// HAPUS FASILITAS
 function openHapusFasilitasModal(id, nama) {
     const form = document.getElementById('formHapusFasilitas');
     if(form && id) {
@@ -127,35 +176,113 @@ function openHapusFasilitasModal(id, nama) {
     }
     openModal('modalHapusFasilitas');
 }
-
 function closeHapusFasilitasModal() {
     closeModal('modalHapusFasilitas');
 }
 
-// --- LOGIKA MODAL VIDEO ---
-function openTambahVideoModal() {
-    openModal('modalTambahVideo');
-}
-function closeTambahVideoModal() {
-    closeModal('modalTambahVideo');
-}
-
-function openEditVideoModal(id, judul, deskripsi) {
+// ==========================================
+// EDIT VIDEO (Versi Final dengan Animasi & Thumbnail)
+// ==========================================
+function openEditVideoModal(id, judul, deskripsi, linkYt, thumbnailUrl) {
     const inputJudul = document.getElementById('edit_judul_video');
     const inputDeskripsi = document.getElementById('edit_deskripsi_video');
+    const inputLinkYt = document.getElementById('edit_link_yt_video'); 
+    
+    // Elemen Gambar & Error
+    const previewImg = document.getElementById('edit_preview_video_img');
+    const placeholder = document.getElementById('edit_placeholder_video');
+    const inputThumbnail = document.getElementById('edit_thumbnail_video');
+    const errorSize = document.getElementById('edit_error_size_video');
+    
+    // Reset form saat dibuka
+    if(inputThumbnail) inputThumbnail.value = '';
+    if(errorSize) errorSize.classList.add('hidden');
+
     if(inputJudul) inputJudul.value = judul || '';
     if(inputDeskripsi) inputDeskripsi.value = deskripsi || '';
+    if(inputLinkYt) inputLinkYt.value = linkYt || ''; 
+
+    // Tampilkan gambar lama jika ada
+    if (thumbnailUrl) {
+        previewImg.src = thumbnailUrl;
+        previewImg.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+    } else {
+        previewImg.src = '';
+        previewImg.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+    }
 
     const form = document.getElementById('formEditVideo');
     if(form && id) {
         form.action = `/admin/profil-pondok/video/update/${id}`;
     }
-    openModal('modalEditVideo');
-}
-function closeEditVideoModal() {
-    closeModal('modalEditVideo');
+
+    // ANIMASI BUKA MODAL
+    const modal = document.getElementById('modalEditVideo');
+    const content = document.getElementById('modalContentEditVideo');
+    modal.classList.remove('hidden');
+    setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        if(content) {
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+        }
+    }, 10);
 }
 
+function closeEditVideoModal() {
+    // ANIMASI TUTUP MODAL
+    const modal = document.getElementById('modalEditVideo');
+    const content = document.getElementById('modalContentEditVideo');
+    
+    modal.classList.add('opacity-0');
+    if(content) {
+        content.classList.remove('scale-100');
+        content.classList.add('scale-95');
+    }
+    
+    setTimeout(() => {
+        modal.classList.add('hidden');
+    }, 300);
+}
+
+// LOGIKA 2MB & LIVE PREVIEW
+function previewEditVideoThumbnail(input) {
+    const previewImg = document.getElementById('edit_preview_video_img');
+    const placeholder = document.getElementById('edit_placeholder_video');
+    const errorSize = document.getElementById('edit_error_size_video');
+
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+        
+        // Batasan Maksimal 2MB
+        if (file.size > 2097152) {
+            errorSize.classList.remove('hidden');
+            input.value = ''; // Tolak file
+            
+            // Sembunyikan preview jika gagal upload gambar baru
+            previewImg.classList.add('hidden');
+            placeholder.classList.remove('hidden');
+            return;
+        }
+
+        // Kalau lolos, tampilkan gambar
+        errorSize.classList.add('hidden');
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
+            previewImg.classList.remove('hidden');
+            placeholder.classList.add('hidden');
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
+// ==========================================
+// HAPUS VIDEO
+// ==========================================
 function openHapusVideoModal(id) {
     const form = document.getElementById('formHapusVideo');
     if(form && id) {
@@ -167,5 +294,4 @@ function closeHapusVideoModal() {
     closeModal('modalHapusVideo');
 }
 </script>
-
 @endsection

@@ -17,41 +17,54 @@
 
 <div class="max-w-6xl mx-auto py-16 px-6">
 
-    <div class="flex justify-center gap-3 mb-12 flex-wrap">
-        {{-- Link Semua Kategori --}}
-        <a href="{{ route('galeri', ['kategori' => 'semua']) }}"
-           class="px-5 py-2 rounded-xl text-sm font-medium transition-all duration-300 {{ $kategoriAktif == 'semua' ? 'bg-[#1E5631] text-white shadow-lg' : 'bg-gray-100 text-[#1E5631] hover:bg-gray-200' }}">
-            Semua
-        </a>
+   {{-- Filter Kategori (Card Memanjang, Menu Tetap Kumpul di Tengah) --}}
+    <div class="mb-16 max-w-6xl mx-auto px-6">
+        <div class="w-full bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] py-4 px-6 flex justify-center items-center gap-4 md:gap-10 flex-wrap relative -mt-16 z-20 border border-gray-50">
+            
+            {{-- Link Semua Kategori --}}
+            <a href="{{ route('galeri', ['kategori' => 'semua']) }}"
+               class="text-sm md:text-base font-bold capitalize transition-all duration-300 text-center
+                      {{ $kategoriAktif == 'semua' ? 'bg-[#1E5631] text-white px-8 py-3 rounded-xl shadow-md' : 'text-gray-600 hover:text-[#1E5631] px-4 py-3' }}">
+                Semua
+            </a>
 
-        {{-- Looping Kategori dari Database --}}
-        @foreach($categories as $cat)
-        <a href="{{ route('galeri', ['kategori' => $cat->slug]) }}"
-           class="px-5 py-2 rounded-xl text-sm font-medium transition-all duration-300 {{ $kategoriAktif == $cat->slug ? 'bg-[#1E5631] text-white shadow-lg' : 'bg-gray-100 text-[#1E5631] hover:bg-gray-200' }}">
-            {{ $cat->nama_kategori }}
-        </a>
-        @endforeach
+            {{-- Looping Kategori Statis (ENUM) --}}
+            @foreach($categories as $cat)
+            <a href="{{ route('galeri', ['kategori' => $cat]) }}"
+               class="text-sm md:text-base font-bold capitalize transition-all duration-300 text-center
+                      {{ $kategoriAktif == $cat ? 'bg-[#1E5631] text-white px-8 py-3 rounded-xl shadow-md' : 'text-gray-600 hover:text-[#1E5631] px-4 py-3' }}">
+                {{ $cat }}
+            </a>
+            @endforeach
+
+        </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         @forelse($visibleGaleris as $item)
-        <div class="group bg-white rounded-[2rem] shadow-md border border-gray-100 p-3 text-center hover:shadow-xl transition-all duration-300">
+        {{-- Card Galeri Gaya Poster/Instagram (Teks Rata Kiri) --}}
+        <div class="group bg-white rounded-xl shadow-[0_3px_15px_rgb(0,0,0,0.06)] border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
             
-            {{-- Container Gambar Utama --}}
-            <div class="w-full h-56 bg-gray-100 rounded-[1.5rem] mb-5 overflow-hidden shadow-inner relative">
+            {{-- Container Gambar (Dibuat sedikit lebih tinggi biar makin poster) --}}
+            <div class="w-full h-72 overflow-hidden relative">
                 <img src="{{ Str::startsWith($item->gambar, 'http') ? $item->gambar : asset($item->gambar) }}"
                      alt="{{ $item->judul }}"
                      onclick="openModal(this.src)"
-                     class="w-full h-full object-cover transition duration-500 cursor-pointer group-hover:scale-110">
+                     class="w-full h-full object-cover transition duration-700 cursor-pointer group-hover:scale-105">
+                
+                {{-- Overlay tipis saat hover --}}
+                <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
             </div>
 
-            {{-- Judul Foto --}}
-            <h3 class="text-base font-bold text-[#1E5631] px-2 mb-2 leading-tight">
-                {{ $item->judul }}
-            </h3>
+            {{-- Judul Foto di bagian bawah (SEKARANG RATA KIRI) --}}
+            <div class="p-6">
+                <h3 class="text-lg font-bold text-[#1E5631] leading-tight hover:text-[#164227] transition-colors cursor-pointer">
+                    {{ $item->judul }}
+                </h3>
+            </div>
         </div>
         @empty
-        <div class="col-span-full py-20 text-center text-gray-400 italic">
+        <div class="col-span-full py-24 text-center text-gray-400 italic font-medium bg-gray-50 rounded-xl border-2 border-dashed border-gray-100">
             Belum ada dokumentasi foto untuk kategori ini.
         </div>
         @endforelse

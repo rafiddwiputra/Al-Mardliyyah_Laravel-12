@@ -14,11 +14,8 @@ return new class extends Migration
         Schema::create('galeri', function (Blueprint $table) {
             $table->id();
             
-            // Relasi ke Kategori Galeri
-            $table->foreignId('kategori_id')
-                  ->constrained('kategori_galeri')
-                  ->cascadeOnDelete()
-                  ->cascadeOnUpdate();
+            // Kategori statis menggunakan ENUM (Pengganti relasi tabel)
+            $table->enum('kategori', ['Kegiatan', 'Fasilitas', 'Prestasi', 'Lingkungan']);
 
             $table->string('judul', 100);
             $table->string('gambar', 255);

@@ -1,5 +1,5 @@
 <div id="editModal"
-     class="hidden fixed inset-0 bg-black/40 flex items-center justify-center overflow-y-auto z-50 opacity-0 transition-opacity duration-300">
+     class="hidden fixed inset-0 bg-black/40 items-center justify-center overflow-y-auto z-50 opacity-0 transition-opacity duration-300">
      
     <div class="bg-white w-full max-w-lg rounded-xl overflow-visible shadow-lg transform transition-transform duration-300 scale-95" id="editModalContent">
 
@@ -34,28 +34,17 @@
                         class="w-full mt-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#1E5631]">
                 </div>
 
+                {{-- Input Kategori (Sekarang pakai standard Select Dropdown statis) --}}
                 <div>
                     <label class="text-sm font-medium text-gray-700">Kategori</label>
-                    <div class="relative" id="editKategoriWrapper">
-                        <input type="hidden" name="kategori_id" id="edit_kategori" value="">
-
-                        <button type="button" onclick="toggleEditKategori()"
-                            class="w-full mt-1 border rounded-lg px-3 py-2 text-sm text-left flex justify-between items-center bg-white">
-                            <span id="edit_kategori_text">Pilih Kategori</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500 transition-transform duration-300" id="editArrowIcon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-
-                        <div id="editKategoriMenu" class="hidden absolute w-full bg-white border rounded-lg mt-1 shadow-xl z-50 max-h-40 overflow-y-auto">
-                            @foreach($categories as $cat)
-                                <div onclick="pilihEditKategori('{{ $cat->id }}', '{{ $cat->nama_kategori }}')"
-                                    class="px-3 py-2 text-sm cursor-pointer hover:bg-[#1E5631] hover:text-white border-b last:border-0">
-                                    {{ $cat->nama_kategori }}
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
+                    <select name="kategori" id="edit_kategori" required 
+                        class="w-full mt-1 border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-[#1E5631] transition-all bg-white cursor-pointer hover:bg-gray-50">
+                        <option value="" disabled>-- Pilih Kategori --</option>
+                        {{-- Looping string ENUM --}}
+                        @foreach($categories as $cat)
+                            <option value="{{ $cat }}">{{ $cat }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="flex justify-between gap-3 pt-2 border-t border-gray-100">
@@ -89,26 +78,6 @@ function previewEditImage(input) {
     }
 }
 
-function toggleEditKategori() {
-    const menu = document.getElementById('editKategoriMenu');
-    const arrow = document.getElementById('editArrowIcon');
-    menu.classList.toggle('hidden');
-    arrow.classList.toggle('rotate-180');
-}
-
-function pilihEditKategori(id, name) {
-    document.getElementById('edit_kategori_text').innerText = name;
-    document.getElementById('edit_kategori').value = id;
-    document.getElementById('editKategoriMenu').classList.add('hidden');
-    document.getElementById('editArrowIcon').classList.remove('rotate-180');
-}
-
-// Klik luar untuk tutup dropdown
-document.addEventListener('click', function(e) {
-    const wrapper = document.getElementById('editKategoriWrapper');
-    if (wrapper && !wrapper.contains(e.target)) {
-        document.getElementById('editKategoriMenu').classList.add('hidden');
-        document.getElementById('editArrowIcon').classList.remove('rotate-180');
-    }
-});
+// Script kustom dropdown (toggleEditKategori, pilihEditKategori, dll) 
+// sudah dihapus karena tidak diperlukan lagi oleh tag <select> HTML.
 </script>

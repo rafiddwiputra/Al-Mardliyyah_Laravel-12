@@ -200,7 +200,9 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profil-pondok/fasilitas/{id}', [AdminProfilController::class, 'destroyFasilitas'])->name('admin.profil.fasilitas.destroy');
 
     // Profil Pondok - Video
-   Route::post('/admin/profil-pondok/video/store', [AdminVideoPondokController::class, 'store'])->name('admin.video.store');
+Route::post('/profil-pondok/video/store', [AdminVideoPondokController::class, 'store'])->name('admin.video.store');
+Route::delete('/profil-pondok/video/hapus/{id}', [AdminVideoPondokController::class, 'destroy'])->name('admin.video.hapus');
+Route::put('/profil-pondok/video/update/{id}', [AdminVideoPondokController::class, 'update'])->name('admin.video.update');
 
     // Program Pendidikan
     Route::get('/program-pendidikan', [AdminProgramController::class, 'programPendidikan'])

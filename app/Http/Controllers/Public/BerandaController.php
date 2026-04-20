@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Public\TentangPondok;
 use App\Models\Public\VisiMisi;
 use App\Models\Public\ProgramPendidikan;
-use App\Models\Public\Galeri;
+use App\Models\Galeri;
 use App\Models\Public\Kontak;
 use App\Models\Public\Berita;
 use App\Models\ProfilPondok;

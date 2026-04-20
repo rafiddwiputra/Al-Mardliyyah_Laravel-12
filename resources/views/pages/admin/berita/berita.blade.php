@@ -3,6 +3,31 @@
 @section('content')
 
 <div class="bg-white rounded-lg p-6 shadow-sm">
+    
+    {{-- ================= DETEKTOR ERROR & SUCCESS ================= --}}
+    @if(session('success'))
+        <div class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg flex items-center justify-between shadow-sm">
+            <span class="font-bold">{{ session('success') }}</span>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg flex items-center justify-between shadow-sm">
+            <span class="font-bold">{{ session('error') }}</span>
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="mb-6 p-4 bg-red-50 border border-red-400 text-red-700 rounded-lg shadow-sm">
+            <strong class="font-bold">Gagal menyimpan data!</strong>
+            <ul class="list-disc list-inside mt-2 text-sm">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    {{-- ================= END DETEKTOR ================= --}}
 
     <div class="mb-6">
         <h1 class="text-2xl font-bold text-[#1E5631]">

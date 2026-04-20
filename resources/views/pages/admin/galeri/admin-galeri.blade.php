@@ -2,85 +2,142 @@
 
 @section('content')
 
-<div class="p-6">
-    <h2 class="text-2xl font-bold text-[#1E5631]">Manajemen Galeri</h2>
-    <p class="text-sm text-gray-500 mb-6">Kelola foto pondok pesantren Al-Mardliyyah</p>
+<div class="bg-white rounded-lg p-6 shadow-sm">
 
-    <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+    {{-- ================= DETEKTOR ERROR & SUCCESS ================= --}}
+    @if(session('success'))
+        <div class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg flex items-center justify-between shadow-sm">
+            <span class="font-bold">{{ session('success') }}</span>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg flex items-center justify-between shadow-sm">
+            <span class="font-bold">{{ session('error') }}</span>
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="mb-6 p-4 bg-red-50 border border-red-400 text-red-700 rounded-lg shadow-sm">
+            <strong class="font-bold">Gagal menyimpan data!</strong>
+            <ul class="list-disc list-inside mt-2 text-sm">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    {{-- ================= END DETEKTOR ================= --}}
+
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-[#1E5631]">
+            Manajemen Galeri
+        </h1>
+        <p class="text-sm text-gray-500 mt-1">
+            Kelola semua foto dokumentasi pondok pesantren Al-Mardliyyah
+        </p>
+    </div>
+
+    {{-- Filter & Tombol Tambah Sejajar --}}
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+        
+        {{-- Filter Kategori --}}
         <div class="flex gap-2 flex-wrap">
             <button onclick="filterKategori('semua', event)"
-                class="filter-btn px-4 py-2 rounded-lg text-sm bg-[#1E5631] text-white">
+                class="filter-btn px-4 py-1.5 rounded-lg text-xs font-semibold bg-[#1E5631] text-white transition border border-[#1E5631]">
                 Semua
             </button>
             @foreach($categories as $cat)
-            <button onclick="filterKategori('{{ $cat->id }}', event)"
-                class="filter-btn px-4 py-2 rounded-lg text-sm border text-[#1E5631] hover:bg-gray-50 transition">
-                {{ $cat->nama_kategori }}
+            <button onclick="filterKategori('{{ $cat }}', event)"
+                class="filter-btn px-4 py-1.5 rounded-lg text-xs font-semibold border border-[#D9D9D9] text-[#444444] hover:bg-gray-50 transition">
+                {{ $cat }}
             </button>
             @endforeach
         </div>
 
-    <div class="flex gap-2">
-    <button onclick="openModal('kategoriModal')"
-        class="border border-[#1E5631] text-[#1E5631] px-4 py-2 rounded-lg text-sm font-bold hover:bg-[#1E5631] hover:text-white transition-all">
-        + Kategori
-    </button>
-
-    <button onclick="openModal('uploadModal')"
-        class="bg-[#1E5631] text-white px-4 py-2 rounded-lg text-sm font-bold shadow-md hover:bg-[#164227] transition">
-        + Upload Foto
-    </button>
-
-</div>
+        {{-- Tombol Upload --}}
+        <button onclick="openModal('uploadModal')"
+            class="bg-[#1E5631] text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-[#17472a] transition shadow-sm whitespace-nowrap">
+            + Upload Foto
+        </button>
     </div>
 
-    <div class="grid gap-6 [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]">
-        @forelse($galeris as $item)
-        <div class="galeri-item bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition border border-gray-100"
-             data-kategori="{{ $item->kategori_id }}">
+    <div class="overflow-x-auto">
+        <table class="w-full border border-[#D9D9D9] border-collapse">
+            <thead>
+                <tr class="bg-white border-b border-[#D9D9D9]">
+                    <th class="p-4 text-center font-bold text-black border-r border-[#D9D9D9] w-24">
+                        Foto
+                    </th>
+                    <th class="p-4 text-left font-bold text-black border-r border-[#D9D9D9] w-1/3">
+                        Judul Foto
+                    </th>
+                    <th class="p-4 text-center font-bold text-black border-r border-[#D9D9D9]">
+                        Kategori
+                    </th>
+                    <th class="p-4 text-center font-bold text-black border-r border-[#D9D9D9]">
+                        Tanggal
+                    </th>
+                    <th class="p-4 text-center font-bold text-black">
+                        Aksi
+                    </th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                @forelse($galeris as $item)
+                <tr class="border-b border-[#D9D9D9] hover:bg-gray-50 transition galeri-item" data-kategori="{{ $item->kategori }}">
+                    
+                    <td class="p-4 border-r border-[#D9D9D9] text-center">
+                        <img src="{{ asset($item->gambar) }}" alt="{{ $item->judul }}" 
+                             class="w-16 h-12 object-cover rounded mx-auto border border-[#D9D9D9]">
+                    </td>
 
-            <div class="h-48 bg-gray-200 overflow-hidden">
-                <img src="{{ asset($item->gambar) }}" alt="{{ $item->judul }}" class="w-full h-full object-cover">
-            </div>
+                    <td class="p-4 text-sm text-[#444444] border-r border-[#D9D9D9]">
+                        {{ $item->judul }}
+                    </td>
 
-            <div class="p-4">
-                <p class="text-sm font-semibold text-[#1E5631] mb-1 truncate" title="{{ $item->judul }}">
-                    {{ $item->judul }}
-                </p>
-                <p class="text-[10px] text-gray-400 mb-3 uppercase tracking-wider italic">
-                    {{ $item->kategori->nama_kategori ?? 'Tanpa Kategori' }}
-                </p>
+                    <td class="p-4 text-center border-r border-[#D9D9D9]">
+                        <span class="text-[#1E5631] font-medium text-sm">
+                            {{ $item->kategori }}
+                        </span>
+                    </td>
 
-                <div class="flex gap-2">
-                    {{-- Tombol Edit dengan mempassing data JSON --}}
-                    <button onclick='openEditModal(@json($item))'
-                        class="flex-1 bg-blue-100 font-bold text-blue-600 text-xs py-2 rounded hover:bg-blue-200 transition">
-                        Edit
-                    </button>
+                    <td class="p-4 text-sm text-center text-[#444444] border-r border-[#D9D9D9]">
+                        {{ $item->created_at->format('d/m/Y') }}
+                    </td>
 
-                    {{-- Tombol Hapus dengan mempassing ID dan Judul --}}
-                    <button onclick="openDeleteModal('{{ $item->id }}', '{{ $item->judul }}')"
-                        class="flex-1 bg-red-100 font-bold text-red-600 text-xs py-2 rounded hover:bg-red-200 transition">
-                        Hapus
-                    </button>
-                </div>
-            </div>
-        </div>
-        @empty
-        <div class="col-span-full bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl py-20 text-center">
-            <p class="text-gray-400">Belum ada foto yang diunggah.</p>
-        </div>
-        @endforelse
+                    <td class="p-4">
+                        <div class="flex gap-3 justify-center items-center">
+                            <button type="button" onclick='openEditModal(@json($item))'
+                                class="bg-[#C6E0FF] text-[#2563EB] px-8 py-1.5 rounded-full font-bold text-xs hover:bg-[#adcfff] transition-all min-w-[90px]">
+                                Edit
+                            </button>
+                            <button type="button" onclick="openDeleteModal('{{ $item->id }}', '{{ $item->judul }}')"
+                                class="bg-[#FFCACA] text-[#B91C1C] px-8 py-1.5 rounded-full font-bold text-xs hover:bg-[#ffb1b1] transition-all min-w-[90px]">
+                                Hapus
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="5" class="p-8 text-center text-sm text-[#444444] italic">
+                        Belum ada foto galeri yang diunggah.
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
 </div>
 
 @include('pages.admin.galeri.galeri-tambah')
 @include('pages.admin.galeri.galeri-edit')
 @include('pages.admin.galeri.galeri-hapus')
-@include('pages.admin.galeri.galeri-kategori')
 
 <script>
-// Fungsi Open Modal (Gunakan versi smooth yang kita buat tadi)
+// Fungsi Open & Close Modal
 function openModal(id) {
     const modal = document.getElementById(id);
     modal.classList.remove('hidden');
@@ -97,43 +154,44 @@ function closeModal(id) {
     }, 300);
 }
 
-// KHUSUS EDIT: Mengisi data ke modal edit
+// KHUSUS EDIT
 function openEditModal(data) {
-    // Isi value input di galeri-edit.blade.php
     document.getElementById('edit_judul').value = data.judul;
-    document.getElementById('edit_kategori').value = data.kategori_id;
-    document.getElementById('edit_kategori_text').innerText = data.kategori.nama_kategori;
-    
-    // Set action form agar mengarah ke ID yang benar
+    document.getElementById('edit_kategori').value = data.kategori;
     document.getElementById('formEditGaleri').action = `/admin/galeri/update/${data.id}`;
     
+    const preview = document.getElementById('editImagePreview');
+    if(preview) preview.src = `/${data.gambar}`;
+
     openModal('editModal');
 }
 
-// KHUSUS HAPUS: Set action dan nama di modal hapus
+// KHUSUS HAPUS
 function openDeleteModal(id, judul) {
     document.getElementById('hapus_judul_text').innerText = judul;
     document.getElementById('formHapusGaleri').action = `/admin/galeri/destroy/${id}`;
     openModal('deleteModal');
 }
 
-// FILTER KATEGORI (Sekarang pakai ID Kategori)
-function filterKategori(kategoriId, event) {
+// FILTER KATEGORI UNTUK TABEL
+function filterKategori(kategoriString, event) {
     const items = document.querySelectorAll('.galeri-item');
     const buttons = document.querySelectorAll('.filter-btn');
 
+    // Reset warna semua tombol
     buttons.forEach(btn => {
-        btn.classList.remove('bg-[#1E5631]', 'text-white');
-        btn.classList.add('border', 'text-[#1E5631]');
+        btn.classList.remove('bg-[#1E5631]', 'text-white', 'border-[#1E5631]');
+        btn.classList.add('border', 'border-[#D9D9D9]', 'text-[#444444]');
     });
 
-    event.target.classList.add('bg-[#1E5631]', 'text-white');
-    event.target.classList.remove('border');
+    // Aktifkan warna tombol yang diklik
+    event.target.classList.add('bg-[#1E5631]', 'text-white', 'border-[#1E5631]');
+    event.target.classList.remove('border-[#D9D9D9]', 'text-[#444444]');
 
+    // Filter baris tabel (menggunakan 'table-row')
     items.forEach(item => {
-        // Cek data-kategori (ID)
-        if (kategoriId === 'semua' || item.dataset.kategori == kategoriId) {
-            item.style.display = 'block';
+        if (kategoriString === 'semua' || item.dataset.kategori === kategoriString) {
+            item.style.display = 'table-row'; 
         } else {
             item.style.display = 'none';
         }
