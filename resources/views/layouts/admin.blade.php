@@ -11,7 +11,7 @@
 {{-- Inisialisasi Alpine.js: sidebarOpen default true (terbuka) --}}
 <body class="bg-gray-50 font-sans" x-data="{ sidebarOpen: true }">
 
-    <div class="flex overflow-x-hidden">
+    <div class="flex h-screen overflow-hidden">
         
         {{-- SIDEBAR --}}
         {{-- Kita bungkus dengan transisi agar smooth saat menutup --}}
@@ -20,13 +20,13 @@
         </div>
 
         {{-- AREA KANAN --}}
-        <div class="flex-1 flex flex-col min-h-screen transition-all duration-300">
+        <div class="flex-1 flex flex-col h-screen transition-all duration-300">
             
             {{-- TOPBAR --}}
             @include('components.admin.topbar')
 
             {{-- AREA KONTEN UTAMA --}}
-            <main class="p-8">
+            <main class="flex-1 overflow-y-auto p-8">
                 @yield('content')
             </main>
 

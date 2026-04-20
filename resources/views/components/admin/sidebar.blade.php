@@ -1,11 +1,11 @@
-<aside class="w-64 bg-[#1e4d2b] min-h-screen flex flex-col text-white">
+<aside class="w-64 bg-[#1e4d2b] h-screen fixed top-0 left-0 flex flex-col text-white">
     {{-- LOGO --}}
     <div class="p-6 border-b border-white/10">
         <h2 class="text-xl font-bold text-center">Admin Panel</h2>
     </div>
 
     {{-- NAVIGASI --}}
-    <nav class="flex-1 px-4 py-6 overflow-y-auto custom-scrollbar">
+    <nav class="flex-1 px-4 py-6">
     
     {{-- DASHBOARD --}}
     <div class="mb-6">
