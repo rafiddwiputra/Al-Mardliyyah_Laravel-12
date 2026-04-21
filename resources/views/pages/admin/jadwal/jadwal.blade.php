@@ -110,7 +110,7 @@
                     {{ explode(' - ', $item->deskripsi)[1] ?? '-' }}
                 </td>
 
-                <td class="px-6 py-4 text-center">
+                <td class="px-5 py-6 text-center align-middle whitespace-nowrap">
 
                     <div class="flex justify-center gap-2">
 
@@ -122,14 +122,14 @@
                                 '{{ explode(' - ', $item->deskripsi)[0] ?? '' }}',
                                 '{{ explode(' - ', $item->deskripsi)[1] ?? '' }}'
                             )"
-                            class="bg-[#BFDBFE] text-[#1D4ED8] px-3 py-1 rounded text-xs font-bold">
+                            class="bg-blue-100 text-blue-600 px-4 py-1.5 rounded font-bold mr-2 hover:bg-blue-200 transition-colors focus:outline-none">
                             Edit
                         </button>
 
                         <!-- DELETE -->
                         <button type="button"
                             onclick="openDeleteModal({{ $item->id }})"
-                            class="bg-[#FECACA] text-[#B91C1C] px-3 py-1 rounded text-xs font-bold">
+                            class="bg-red-100 text-red-600 px-4 py-1.5 rounded font-bold hover:bg-red-200 transition-colors focus:outline-none">
                             Hapus
                         </button>
 

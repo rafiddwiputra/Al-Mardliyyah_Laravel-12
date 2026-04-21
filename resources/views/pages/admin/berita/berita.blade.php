@@ -84,14 +84,14 @@
                 </span>
             </td>
 
-            <td class="p-4">
-                <div class="flex gap-3 justify-center items-center">
+            <td class="px-5 py-6 text-center align-middle whitespace-nowrap">
+                <div class="flex justify-center gap-2">
                     <button type="button" onclick="openEditModal({{ json_encode($berita) }})"
-                        class="bg-[#C6E0FF] text-[#2563EB] px-8 py-1.5 rounded-full font-bold text-xs hover:bg-[#adcfff] transition-all min-w-[90px]">
+                         class="bg-blue-100 text-blue-600 px-4 py-1.5 rounded font-bold mr-2 hover:bg-blue-200 transition-colors focus:outline-none">
                         Edit
                     </button>
                     <button type="button" onclick="openHapusModal({{ json_encode($berita) }})"
-                        class="bg-[#FFCACA] text-[#B91C1C] px-8 py-1.5 rounded-full font-bold text-xs hover:bg-[#ffb1b1] transition-all min-w-[90px]">
+                        class="bg-red-100 text-red-600 px-4 py-1.5 rounded font-bold hover:bg-red-200 transition-colors focus:outline-none">
                         Hapus
                     </button>
                 </div>
