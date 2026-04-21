@@ -1,16 +1,16 @@
 <div id="modalEditFasilitas" 
-     class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-[9999] opacity-0 transition-opacity duration-300">
+     class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
     
-    <div class="bg-white w-full max-w-lg rounded-xl shadow-lg transform transition-transform duration-300 scale-95 mx-4" id="modalEditFasilitasContent">
+    <div class="bg-white rounded-lg border border-[#D9D9D9] w-full max-w-lg shadow-lg">
         
-        <div class="bg-[#2D7FF9] text-white text-center py-3 font-semibold rounded-t-xl uppercase tracking-widest text-xs">
+        <div class="bg-[#1E5631] text-white text-center py-3 font-semibold rounded-t-xl uppercase tracking-widest text-xs">
             Edit Fasilitas
         </div>
 
         <form id="formEditFasilitas" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <div class="p-6 space-y-4">
+            <div class="p-5 space-y-4">
                 {{-- NAMA FASILITAS --}}
                 <div>
                     <label class="block text-xs font-bold text-[#1E5631] mb-1 uppercase">Nama Fasilitas</label>
@@ -48,7 +48,7 @@
                         Batal
                     </button>
                     <button type="submit"
-                        class="px-6 py-2 bg-[#2D7FF9] text-white rounded-lg text-sm font-bold hover:bg-[#1a66d6] shadow-md transition-all">
+                        class="px-4 py-2 text-sm bg-[#1E5631] text-white rounded-lg text-sm font-bold hover:bg-[#1E5631] shadow-md transition-all">
                         Update Fasilitas
                     </button>
                 </div>

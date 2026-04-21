@@ -10,10 +10,10 @@
         <table class="w-full border-collapse text-sm">
             <thead class="bg-gray-50 border-b border-[#D9D9D9] text-[#1E5631]">
                 <tr>
-                    <th class="p-4 border-r border-[#D9D9D9] font-semibold text-center">JUDUL</th>
-                    <th class="p-4 border-r border-[#D9D9D9] font-semibold text-center">DESKRIPSI</th>
-                    <th class="p-4 border-r border-[#D9D9D9] font-semibold text-center">GAMBAR</th>
-                    <th class="p-4 font-semibold text-center">AKSI</th>
+                    <th class="p-4 border-r border-[#D9D9D9] font-bold text-center">JUDUL</th>
+                    <th class="p-4 border-r border-[#D9D9D9] font-bold text-center">DESKRIPSI</th>
+                    <th class="p-4 border-r border-[#D9D9D9] font-bold text-center">GAMBAR</th>
+                    <th class="p-4 font-bold text-center">AKSI</th>
                 </tr>
             </thead>
             <tbody class="bg-white">

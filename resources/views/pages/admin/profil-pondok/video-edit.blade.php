@@ -1,12 +1,12 @@
 {{-- Wrapper Diperkuat dengan w-screen dan h-screen agar memaksa full layar --}}
-<div id="modalEditVideo" class="fixed inset-0 w-screen h-screen z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+<div id="modalEditVideo" class="fixed inset-0 w-screen h-screen z-[9999] flex items-center justify-center bg-black/30 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
     
     {{-- Content Box dipaksa berukuran konsisten max-w-[600px] seperti Tambah Video --}}
-    <div class="bg-white rounded-lg shadow-2xl w-full max-w-[600px] mx-4 overflow-hidden transform scale-95 transition-transform duration-300 max-h-[95vh] flex flex-col" id="modalContentEditVideo">
+    <div class="bg-white rounded-lg border border-[#D9D9D9] w-full max-w-lg shadow-lg mx-4 overflow-hidden transform scale-95 transition-transform duration-300 max-h-[95vh] flex flex-col" id="modalContentEditVideo">
         
         {{-- Header Hijau --}}
-        <div class="bg-[#1E5631] px-6 py-3 relative">
-            <h3 class="text-white text-center font-bold text-lg">Edit Video</h3>
+        <div class="bg-[#1E5631] py-2 relative">
+            <h3 class="text-white text-center font-bold text-base">Edit Video</h3>
             {{-- Tombol X untuk close modal dari atas --}}
             <button onclick="closeEditVideoModal()" class="absolute right-4 top-3 text-white/80 hover:text-white transition-colors focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -21,7 +21,7 @@
             {{-- Upload Thumbnail dengan Preview & Batas 2MB --}}
             <div>
                 <label class="block text-sm font-bold text-black mb-2">Upload Thumbnail (Maks 2MB):</label>
-                <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 flex flex-col items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer relative" id="dropzone_edit">
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-5 flex flex-col items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer relative" id="dropzone_edit">
                     
                     {{-- Input File --}}
                     <input type="file" id="edit_thumbnail_video" name="thumbnail" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" onchange="previewEditVideoThumbnail(this)">
@@ -68,7 +68,7 @@
                 <button type="button" onclick="closeEditVideoModal()" class="flex-1 py-2 border border-gray-300 rounded text-black font-medium hover:bg-gray-50 transition-colors">
                     Batal
                 </button>
-                <button type="submit" class="flex-1 py-2 bg-[#1E5631] text-white rounded font-medium hover:bg-[#174427] transition-colors">
+                <button type="submit" class="flex-1 px-4 py-2 text-sm bg-[#1E5631] text-white rounded font-medium hover:bg-[#174427] transition-colors">
                     Simpan Perubahan
                 </button>
             </div>
