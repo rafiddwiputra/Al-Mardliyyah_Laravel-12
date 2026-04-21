@@ -15,15 +15,25 @@
     </div>
 
     {{-- SISI KANAN: PROFILE USER --}}
-    <div class="flex items-center gap-3 bg-gray-100 px-4 py-1.5 rounded-full border border-gray-200 shadow-sm cursor-pointer hover:bg-gray-200 transition">
-        <div class="text-right">
-            <p class="text-[10px] font-bold text-gray-500 leading-none uppercase">Admin User</p>
+    <a href="{{ route('admin.profil') }}"
+        class="flex items-center gap-3 bg-gray-100 px-4 py-1.5 rounded-full border border-gray-200 shadow-sm cursor-pointer hover:bg-gray-200 transition">
+            <div class="text-right">
+                <p class="text-[10px] font-bold text-gray-500 leading-none">
+                   {{ ucfirst(strtolower(collect(explode(' ', trim(Auth::user()->nama ?? 'User')))->first())) }}
+                </p>
+            </div>
+            <div class="w-8 h-8 rounded-full overflow-hidden border border-white">
+            @if(Auth::user()->photo)
+                <img src="{{ asset('storage/' . Auth::user()->photo) }}"
+                    class="w-full h-full object-cover">
+            @else
+                <div class="w-full h-full bg-gray-300 flex items-center justify-center">
+                    <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                    </svg>
+                </div>
+            @endif
         </div>
-        <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center border border-white">
-            <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
-            </svg>
-        </div>
-    </div>
+    </a>
 
 </header>
