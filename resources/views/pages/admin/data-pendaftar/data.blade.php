@@ -93,7 +93,7 @@
                         </td>
 
                         <td>
-                            {{ $item->program_id }}
+                            {{ $item->program->nama_program ?? '-' }}
                         </td>
 
                         <td>

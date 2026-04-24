@@ -64,7 +64,7 @@
                 <div>
                     <p class="text-xs text-gray-500">Jenjang</p>
                     <p class="text-sm font-medium text-gray-800">
-                        {{ $data->program_id }}
+                        {{ $data->program->nama_program ?? '-' }}
                     </p>
                 </div>
 
@@ -238,7 +238,7 @@
             Data Ukuran Seragam
         </h3>
         <p class="text-sm font-medium text-gray-800">
-            @if($data->jenis_kelamin == 'Laki-laki')
+            @if($data->jenis_kelamin == 'Putra')
             Baju : {{ $data->ukuran_baju_putra ?? '-' }},
             Celana : {{ $data->ukuran_celana_putra ?? '-' }}
             @else

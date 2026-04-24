@@ -139,8 +139,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/formulir', [PendaftaranController::class, 'formulir'])->name('formulir');
 
-});
+    // Isi Formulir
+    Route::post('/pendaftaran/store', [PendaftaranController::class, 'store'])
+    ->name('pendaftaran.store');
 
+});
 
 // Status Pendaftaran
 Route::get('/status-pendaftaran/belum', [StatusPendaftaranController::class, 'belum']);
