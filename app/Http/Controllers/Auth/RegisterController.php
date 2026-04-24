@@ -14,21 +14,20 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:50',
-            'email' => 'required|string|email|max:100|unique:users',
+            'nama' => 'required|string|max:30',
+            'email' => 'required|string|email|max:30|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'phone' => 'required|string|max:16',
+            'no_hp' => 'required|string|max:12',
         ]);
 
         $user = User::create([
             'nama' => $request->nama,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'phone' => $request->phone,
+            'no_hp' => $request->no_hp,
             'role' => 'calon_santri', 
         ]);
 
-        // Kode ini digunakan untuk trigger kirim email verifikasi ke Mailtrap
         event(new Registered($user));
         
 

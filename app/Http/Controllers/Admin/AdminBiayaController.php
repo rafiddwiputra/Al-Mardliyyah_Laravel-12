@@ -8,46 +8,37 @@ use Illuminate\Http\Request;
 
 class AdminBiayaController extends Controller
 {
-public function index()
-{
-    // Filter: Hanya ambil data yang deskripsinya HANYA berisi angka (numeric)
-    // Ini akan membuang data jadwal yang ada tanda hubung "-" atau huruf
-    $biaya = InformasiPendaftaran::all()->filter(function ($item) {
-        return is_numeric($item->deskripsi);
-    });
+    public function index()
+    {
+        // AUTO-SEED: Pastikan data 'Biaya Pendaftaran' selalu ada (Hanya 1 baris)
+        InformasiPendaftaran::firstOrCreate(
+            ['judul' => 'Biaya Pendaftaran'],
+            [
+                'deskripsi' => 'Belum ada informasi biaya yang ditambahkan.',
+                'tanggal_mulai' => null,
+                'tanggal_selesai' => null,
+                'status' => 1
+            ]
+        );
 
-    return view('pages.admin.biaya', compact('biaya'));
-}
+        // Ambil khusus data Biaya Pendaftaran
+        $data = InformasiPendaftaran::where('judul', 'Biaya Pendaftaran')->get();
+
+        return view('pages.admin.biaya', compact('data'));
+    }
 
     public function update(Request $request, $id)
-{
-    $data = InformasiPendaftaran::findOrFail($id);
+    {
+        $request->validate([
+            'deskripsi' => 'required' // Cukup validasi teks biasa
+        ]);
 
-    $data->update([
-        'deskripsi' => $request->deskripsi
-    ]);
+        $biaya = InformasiPendaftaran::findOrFail($id);
+        
+        $biaya->update([
+            'deskripsi' => $request->deskripsi
+        ]);
 
-    return back();
-}
-
-public function store(Request $request)
-{
-    // Tambahkan penanda kalau ini adalah data biaya
-    InformasiPendaftaran::create([
-        'judul' => $request->judul,
-        'deskripsi' => $request->deskripsi,
-        'created_by' => auth()->id()
-        // 'type' => 'biaya' // Ide bagus kalau kamu mau nambah kolom type di migrasi
-    ]);
-
-    return back()->with('success', 'Berhasil ditambahkan');
-}
-
-public function destroy($id)
-{
-    $data = InformasiPendaftaran::findOrFail($id);
-    $data->delete();
-
-    return back()->with('success', 'Berhasil dihapus');
-}
+        return redirect()->back()->with('success', 'Rincian Biaya Pendaftaran berhasil diperbarui!');
+    }
 }

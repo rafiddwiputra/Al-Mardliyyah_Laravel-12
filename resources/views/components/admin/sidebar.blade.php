@@ -22,7 +22,7 @@
     <div class="mb-6">
         {{-- Header Bab: Sekarang menggunakan padding dan background jika aktif --}}
         <div class="flex items-center gap-3 font-bold px-4 py-2.5 rounded-lg text-sm transition mb-2
-            {{ Request::is('admin/berita*', 'admin/galeri*', 'admin/profil*', 'admin/program*', 'admin/biaya*', 'admin/jadwal*') 
+            {{ Request::is('admin/berita*', 'admin/galeri*', 'admin/program*', 'admin/jadwal*') 
                ? 'bg-[#c9a76d] text-white shadow-md' 
                : 'text-white/90' }}">
             <img src="{{ asset('images/ikon-sidebar-admin.png') }}" alt="Icon" 
@@ -33,11 +33,14 @@
         {{-- List Menu --}}
         <div class="ml-6 border-l-2 border-white/30 space-y-1">
             <a href="{{ route('admin.berita') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/berita*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Berita</a>
-            <a href="{{ route('admin.galeri') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/galeri*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Galeri</a>
-            <a href="{{ route('admin.profil.index') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/profil-pondok*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Profil Pondok</a>
+            <a href="{{ route('admin.galeri') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/galeri*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Galeri</a> 
             <a href="{{ route('admin.program') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/program-pendidikan*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Program Pendidikan</a>
-            <a href="{{ route('admin.biaya') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/biaya*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Biaya Pendidikan</a>
-            <a href="{{ route('admin.jadwal') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/jadwal*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Jadwal Pendaftaran</a>
+             <a href="{{ route('admin.profil.index') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/profil-pondok*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Profil Pondok</a>
+             <a href="{{ route('admin.biaya') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/biaya*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Biaya Pendidikan</a>
+             <a href="{{ route('admin.jadwal') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/jadwal*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Jadwal Pendaftaran</a>
+          <a href="{{ route('admin.persyaratan') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/persyaratan*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Persyaratan Pendaftaran</a>
+            
+</a>
         </div>
     </div>
 
@@ -63,7 +66,9 @@
             Pengaturan Website
         </div>
         <div class="ml-6 border-l-2 border-white/30 space-y-1">
-            <a href="{{ route('admin.banner') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/banner*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Informasi Website</a>
+            <a href="{{ route('admin.banner') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/banner*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Pengaturan Banner</a>
+
+            
             <a href="{{ route('admin.kontak') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/kontak*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Kontak</a>
         </div>
     </div>

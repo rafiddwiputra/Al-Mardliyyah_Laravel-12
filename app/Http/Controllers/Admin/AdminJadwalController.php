@@ -5,80 +5,65 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Public\InformasiPendaftaran;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class AdminJadwalController extends Controller
 {
-   public function index()
-{
-    // Filter: Hanya ambil data yang deskripsinya punya tanda " - " (format tanggal)
-    // Ini akan menyingkirkan data Biaya yang isinya cuma angka (Contoh: 1000000)
-    $data = InformasiPendaftaran::where('deskripsi', 'like', '% - %')->get(); 
-    
-    // Status tetap ambil dari data terbaru yang punya status
-    $status = InformasiPendaftaran::whereNotNull('status')->latest()->first()?->status ?? 0;
-
-    return view('pages.admin.jadwal.jadwal', compact('data', 'status'));
-}
-
-    public function store(Request $request)
+    public function index()
     {
-        $request->validate([
-            'judul' => 'required',
-            'tanggal_mulai' => 'required',
-            'tanggal_selesai' => 'required',
-        ]);
+        $jadwal = InformasiPendaftaran::firstOrCreate(
+            ['judul' => 'Jadwal Pendaftaran'],
+            [
+                'deskripsi' => 'Belum ada informasi...',
+                'tanggal_mulai' => null,
+                'tanggal_selesai' => null,
+                'status' => 0
+            ]
+        );
 
-        $deskripsi = $request->tanggal_mulai . ' - ' . $request->tanggal_selesai;
+        if ($jadwal->status == 1 && $jadwal->tanggal_selesai) {
+            $hariIni = Carbon::now();
+            $batasAkhir = Carbon::parse($jadwal->tanggal_selesai)->endOfDay();
 
-        InformasiPendaftaran::create([
-            'judul' => $request->judul,
-            'deskripsi' => $deskripsi,
-            'created_by' => auth()->id()
-        ]);
+            if ($hariIni->greaterThan($batasAkhir)) {
+                $jadwal->update(['status' => 0]);
+            }
+        }
 
-        return redirect()->route('admin.jadwal')->with('success', 'Data berhasil ditambahkan!');
+        $data = InformasiPendaftaran::where('judul', 'Jadwal Pendaftaran')->get(); 
+        
+        return view('pages.admin.jadwal.jadwal', compact('data'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'judul' => 'required',
-            'tanggal_mulai' => 'required',
-            'tanggal_selesai' => 'required',
+            'tanggal_mulai' => 'nullable|date',
+            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
+            'status' => 'required|boolean',
+            'deskripsi' => 'nullable|string'
         ]);
 
         $data = InformasiPendaftaran::findOrFail($id);
-
-        $deskripsi = $request->tanggal_mulai . ' - ' . $request->tanggal_selesai;
-
-        $data->update([
-            'judul' => $request->judul,
-            'deskripsi' => $deskripsi,
-            'updated_by' => auth()->id()
-        ]);
-
-        return redirect()->route('admin.jadwal')->with('success', 'Data berhasil diupdate!');
-    }
-
-    public function destroy($id)
-    {
-        $data = InformasiPendaftaran::findOrFail($id);
-        $data->delete();
-
-        return redirect()->route('admin.jadwal')->with('success', 'Data berhasil dihapus!');
-    }
-
-   public function toggle()
-    {
-        $data = InformasiPendaftaran::latest()->first();
-
-        if (!$data) {
-            return back();
+        $statusBaru = $request->status;
+        if ($request->tanggal_mulai && $request->tanggal_selesai) {
+            $hariIni = Carbon::now();
+            $batasAkhir = Carbon::parse($request->tanggal_selesai)->endOfDay();
+            
+            if ($hariIni->greaterThan($batasAkhir)) {
+                $statusBaru = 0; 
+            } else {
+                $statusBaru = 1;
+            }
         }
 
-        $data->status = !$data->status;
-        $data->save();
+        $data->update([
+            'tanggal_mulai' => $request->tanggal_mulai,
+            'tanggal_selesai' => $request->tanggal_selesai,
+            'status' => $statusBaru,
+            'deskripsi' => $request->deskripsi
+        ]);
 
-        return redirect()->route('admin.jadwal');
+        return redirect()->back()->with('success', 'Jadwal Pendaftaran berhasil diperbarui!');
     }
 }

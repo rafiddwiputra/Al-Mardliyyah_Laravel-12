@@ -124,10 +124,10 @@
                         Nomor HP (WhatsApp) <span class="text-red-500">*</span>
                     </label>
 
-                    <input type="text" name="phone" value="{{ old('phone') }}"
+                    <input type="text" name="no_hp" value="{{ old('no_hp') }}"
                         class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-green-800 transition"
                         placeholder="08xxxxxxxxxx" required>
-                    @error('phone') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    @error('no_hp') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
 
                 {{-- BUTTON & LOGIN --}}

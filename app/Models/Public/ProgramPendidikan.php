@@ -9,12 +9,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ProgramPendidikan extends Model
 {
     protected $table = 'program_pendidikan';
-    protected $fillable = ['kategori_id', 'nama_program', 'deskripsi', 'status', 'created_by', 'updated_by'];
+    protected $fillable = [
+        'users_id', 
+        'kategori', 
+        'nama_program', 
+        'deskripsi', 
+        'status'
+    ];
 
-    public function kategori(): BelongsTo
-    {
-        return $this->belongsTo(KategoriProgram::class, 'kategori_id');
+    public function creator(): BelongsTo 
+    { 
+        return $this->belongsTo(User::class, 'users_id'); 
     }
-
-    public function creator(): BelongsTo { return $this->belongsTo(User::class, 'created_by'); }
 }

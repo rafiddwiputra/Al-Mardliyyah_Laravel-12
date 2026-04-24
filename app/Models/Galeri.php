@@ -11,11 +11,9 @@ class Galeri extends Model
     protected $table = 'galeri';
     
     protected $fillable = [
-        'kategori', 
-        'judul', 
-        'gambar', 
-        'created_by', 
-        'updated_by'
+        'gambar',
+        'judul',
+        'kategori'
     ];
 
     public function creator(): BelongsTo 

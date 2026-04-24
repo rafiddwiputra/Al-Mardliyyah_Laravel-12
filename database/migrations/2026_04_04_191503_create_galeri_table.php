@@ -6,40 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('galeri', function (Blueprint $table) {
             $table->id();
-            
-            // Kategori statis menggunakan ENUM (Pengganti relasi tabel)
-            $table->enum('kategori', ['Kegiatan', 'Fasilitas', 'Prestasi', 'Lingkungan']);
-
-            $table->string('judul', 100);
             $table->string('gambar', 255);
-
-            // Audit Trail (Relasi ke Users)
-            $table->foreignId('created_by')
-                  ->nullable()
-                  ->constrained('users')
-                  ->nullOnDelete()
-                  ->cascadeOnUpdate();
-
-            $table->foreignId('updated_by')
-                  ->nullable()
-                  ->constrained('users')
-                  ->nullOnDelete()
-                  ->cascadeOnUpdate();
-
+            $table->string('judul', 50);
+            $table->enum('kategori', ['Kegiatan', 'Fasilitas', 'Prestasi', 'Lingkungan', 'Banner']);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('galeri');

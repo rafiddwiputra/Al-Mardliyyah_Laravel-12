@@ -10,7 +10,7 @@
     Carbon::setLocale('id');
 @endphp
 
-<div class="bg-[#1E5631] text-white px-6 md:px-20 py-20">
+<div class="bg-[#1E5631] text-white px-6 md:px-20 py-20" data-aos="fade-down" data-aos-duration="1000">
     <div class="max-w-6xl mx-auto">
         <p class="text-sm mb-4 opacity-80 text-white">Beranda > Berita</p>
         <h1 class="text-4xl font-bold mb-4 text-white">Berita & Kegiatan Pondok</h1>
@@ -23,17 +23,17 @@
 
 <div class="max-w-6xl mx-auto py-16 px-6">
 
-    <h2 class="text-center text-2xl font-bold mb-12 text-[#1E5631]">
+    <h2 class="text-center text-2xl font-bold mb-12 text-[#1E5631]" data-aos="fade-up">
        Berita & Kegiatan Pondok
     </h2>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {{-- Loop data dari database ($beritas dikirim dari Controller) --}}
+        {{-- Loop Berita dengan delay agar muncul bergantian dari kiri ke kanan --}}
         @foreach($beritas as $index => $berita)
         <div onclick="window.location='{{ route('berita.detail', $berita->slug) }}'"
-            class="berita-item {{ $index >= 9 ? 'hidden' : '' }} cursor-pointer bg-white border border-gray-100 rounded-[2rem] shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden group">
+             data-aos="fade-up" data-aos-delay="{{ ($index % 3) * 150 }}" data-aos-duration="800"
+             class="berita-item {{ $index >= 9 ? 'hidden' : '' }} cursor-pointer bg-white border border-gray-100 rounded-[2rem] shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden group">
 
-            {{-- Logika Gambar: Cek apakah link URL atau path lokal --}}
             <img src="{{ Str::startsWith($berita->gambar, 'http') ? $berita->gambar : asset($berita->gambar) }}" 
                  class="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-110">
 
@@ -61,7 +61,7 @@
     </div>
 
     @if($beritas->count() > 9)
-    <div class="text-center mt-16">
+    <div class="text-center mt-16" data-aos="zoom-in" data-aos-duration="800">
         <button id="loadMoreBtn" onclick="loadMore()" class="bg-[#1E5631] hover:bg-[#153d22] text-white px-10 py-3 rounded-xl font-bold shadow-lg transition-all active:scale-95">
             Muat Lebih Banyak
         </button>
@@ -72,14 +72,16 @@
 
 <div class="bg-gray-50 py-20 px-6 border-t border-gray-100">
     <div class="max-w-6xl mx-auto">
-        <h2 class="text-center font-bold text-2xl mb-12 text-[#1E5631]">
+        <h2 class="text-center font-bold text-2xl mb-12 text-[#1E5631]" data-aos="fade-up">
             Berita Populer
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            @foreach($beritaPopuler as $populer)
+            {{-- Loop Berita Populer (Efek zoom-in bergantian) --}}
+            @foreach($beritaPopuler as $index => $populer)
             <div onclick="window.location='{{ route('berita.detail', $populer->slug) }}'"
-                class="cursor-pointer bg-white border border-gray-50 rounded-2xl p-4 flex gap-4 shadow-sm hover:shadow-md transition group">
+                 data-aos="zoom-in" data-aos-delay="{{ ($index % 3) * 150 }}" data-aos-duration="600"
+                 class="cursor-pointer bg-white border border-gray-50 rounded-2xl p-4 flex gap-4 shadow-sm hover:shadow-md transition group">
 
                 <img src="{{ Str::startsWith($populer->gambar, 'http') ? $populer->gambar : asset($populer->gambar) }}"
                      class="w-20 h-20 object-cover rounded-xl shrink-0">
@@ -99,14 +101,16 @@
     </div>
 </div>
 
-{{-- CTA tetap sama seperti kodemu --}}
-<div class="bg-[#1E5631] text-white py-24 text-center relative overflow-hidden">
+{{-- CTA PENDAFTARAN --}}
+<div class="bg-[#1E5631] text-white py-24 text-center relative overflow-hidden" data-aos="fade-up" data-aos-duration="1000">
     <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full translate-x-1/2 -translate-y-1/2"></div>
     <h3 class="text-3xl font-bold mb-6 text-white relative z-10">Pendaftaran Santri Baru Telah Dibuka</h3>
     <p class="text-base mb-10 max-w-2xl mx-auto text-gray-200 opacity-80 relative z-10">
         Bergabunglah dengan keluarga besar Al-Mardliyyah untuk mencetak generasi yang berakhlak mulia dan berwawasan luas.
     </p>
-    <a href="{{ url('/pendaftaran') }}" class="bg-[#C6A75E] hover:bg-[#b59650] text-[#1E5631] px-10 py-3 rounded-full font-bold shadow-xl transition-all inline-block relative z-10">
+    
+    {{-- TOMBOL DAFTAR DENGAN ANIMASI HEARTBEAT --}}
+    <a href="{{ url('/pendaftaran') }}" class="bg-[#C6A75E] hover:bg-[#b59650] text-[#1E5631] px-10 py-3 rounded-full font-bold shadow-xl transition-all inline-block relative z-10 animate-heartbeat">
         Daftar Sekarang
     </a>
 </div>
@@ -131,4 +135,3 @@ function loadMore() {
 </script>
 
 @endsection
-

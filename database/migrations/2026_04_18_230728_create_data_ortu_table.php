@@ -13,50 +13,57 @@ return new class extends Migration
     {
         Schema::create('data_ortu', function (Blueprint $table) {
             $table->id();
-            
-            $table->string('nama_ayah', 40);
+
+            // Data Ayah
+            $table->string('nama_ayah', 30);
             $table->string('nik_ayah', 16);
             $table->string('tempat_lahir_ayah', 30);
             $table->date('tanggal_lahir_ayah');
             $table->string('pekerjaan_ayah', 25);
             $table->enum('pendidikan_terakhir_ayah', [
-                'sd/sederajat', 
-                'smp/sltp/sederajat', 
-                'sma/slta/sederajat', 
-                'diploma3', 
-                'strata1', 
-                'strata2', 
-                'strata3'
+                'SD/sederajat', 
+                'SMP/SLTP/sederajat', 
+                'SMA/SLTA/sederajat', 
+                'Diploma III', 
+                'Strata I', 
+                'Strata II', 
+                'Strata III'
             ]);
-            
-            $table->string('nama_ibu', 35);
+
+            // Data Ibu
+            $table->string('nama_ibu', 30);
             $table->string('nik_ibu', 16);
             $table->string('tempat_lahir_ibu', 30);
             $table->date('tanggal_lahir_ibu');
             $table->string('pekerjaan_ibu', 25);
             $table->enum('pendidikan_terakhir_ibu', [
-                'sd/sederajat', 
-                'smp/sltp/sederajat', 
-                'sma/slta/sederajat', 
-                'diploma3', 
-                'strata1', 
-                'strata2', 
-                'strata3'
+                'SD/sederajat', 
+                'SMP/SLTP/sederajat', 
+                'SMA/SLTA/sederajat', 
+                'Diploma III', 
+                'Strata I', 
+                'Strata II', 
+                'Strata III'
             ]);
-            
+
+            // Data Keluarga Umum
             $table->enum('penghasilan_ortu', [
                 '<500 Ribu', 
                 '1-2 Juta', 
                 '3-5 Juta', 
-                '>5 Juta' 
-            ]); 
+                '>5 Juta'
+            ]);
             $table->string('no_hp', 16);
-            $table->string('alamat', 100);
+            $table->string('alamat', 60);
             $table->string('kode_pos', 5);
-            $table->timestamps(); 
+
+            $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('data_ortu');

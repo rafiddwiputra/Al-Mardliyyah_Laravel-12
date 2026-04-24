@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="bg-[#1E5631] text-white px-6 md:px-20 py-20">
+<div class="bg-[#1E5631] text-white px-6 md:px-20 py-20" data-aos="fade-down" data-aos-duration="1000">
     <div class="max-w-6xl mx-auto">
         <p class="text-sm mb-4 opacity-80 text-white">Beranda > Galeri</p>
         <h1 class="text-4xl font-bold mb-4 tracking-tight text-white">Galeri Pondok</h1>
@@ -17,18 +17,16 @@
 
 <div class="max-w-6xl mx-auto py-16 px-6">
 
-   {{-- Filter Kategori (Card Memanjang, Menu Tetap Kumpul di Tengah) --}}
-    <div class="mb-16 max-w-6xl mx-auto px-6">
+   {{-- Filter Kategori: Animasi zoom-in --}}
+    <div class="mb-16 max-w-6xl mx-auto px-6" data-aos="zoom-in" data-aos-duration="800">
         <div class="w-full bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] py-4 px-6 flex justify-center items-center gap-4 md:gap-10 flex-wrap relative -mt-16 z-20 border border-gray-50">
             
-            {{-- Link Semua Kategori --}}
             <a href="{{ route('galeri', ['kategori' => 'semua']) }}"
                class="text-sm md:text-base font-bold capitalize transition-all duration-300 text-center
                       {{ $kategoriAktif == 'semua' ? 'bg-[#1E5631] text-white px-8 py-3 rounded-xl shadow-md' : 'text-gray-600 hover:text-[#1E5631] px-4 py-3' }}">
                 Semua
             </a>
 
-            {{-- Looping Kategori Statis (ENUM) --}}
             @foreach($categories as $cat)
             <a href="{{ route('galeri', ['kategori' => $cat]) }}"
                class="text-sm md:text-base font-bold capitalize transition-all duration-300 text-center
@@ -40,23 +38,22 @@
         </div>
     </div>
 
+    {{-- Grid Galeri --}}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        @forelse($visibleGaleris as $item)
-        {{-- Card Galeri Gaya Poster/Instagram (Teks Rata Kiri) --}}
-        <div class="group bg-white rounded-xl shadow-[0_3px_15px_rgb(0,0,0,0.06)] border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+        @forelse($visibleGaleris as $index => $item)
+        {{-- Card Galeri: Animasi fade-up secara berurutan dengan menggunakan sisa bagi $index untuk efek delay --}}
+        <div class="group bg-white rounded-xl shadow-[0_3px_15px_rgb(0,0,0,0.06)] border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-500"
+             data-aos="fade-up" data-aos-delay="{{ ($index % 3) * 150 }}" data-aos-duration="800">
             
-            {{-- Container Gambar (Dibuat sedikit lebih tinggi biar makin poster) --}}
             <div class="w-full h-72 overflow-hidden relative">
                 <img src="{{ Str::startsWith($item->gambar, 'http') ? $item->gambar : asset($item->gambar) }}"
                      alt="{{ $item->judul }}"
                      onclick="openModal(this.src)"
                      class="w-full h-full object-cover transition duration-700 cursor-pointer group-hover:scale-105">
                 
-                {{-- Overlay tipis saat hover --}}
                 <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
             </div>
 
-            {{-- Judul Foto di bagian bawah (SEKARANG RATA KIRI) --}}
             <div class="p-6">
                 <h3 class="text-lg font-bold text-[#1E5631] leading-tight hover:text-[#164227] transition-colors cursor-pointer">
                     {{ $item->judul }}
@@ -70,9 +67,8 @@
         @endforelse
     </div>
 
-    {{-- Hanya muncul jika total foto > 3 dan masih di halaman 1 --}}
     @if($page == 1 && $total > $perPage)
-    <div class="text-center mt-16">
+    <div class="text-center mt-16" data-aos="fade-up" data-aos-duration="600">
         <a href="{{ route('galeri', ['kategori' => $kategoriAktif, 'page' => 2]) }}"
            class="inline-block bg-[#1E5631] hover:bg-[#153d22] text-white px-10 py-3 rounded-xl font-semibold transition-all shadow-md hover:shadow-lg">
             Muat Lebih Banyak
@@ -84,7 +80,7 @@
 <div class="bg-gray-50 py-24 px-6 border-t border-gray-100">
     <div class="max-w-6xl mx-auto">
         
-        <div class="text-center mb-16">
+        <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="800">
             <span class="bg-[#D8E6E0] text-[#1E5631] text-[10px] font-extrabold px-4 py-1.5 rounded-full uppercase tracking-widest">
                 Kegiatan Unggulan
             </span>
@@ -96,22 +92,20 @@
             </p>
         </div>
         
-        {{-- Grid Aktivitas Santri --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            @forelse($aktivitas as $akt)
-            <div class="bg-white rounded-[2rem] shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-2 group">
+            @forelse($aktivitas as $index => $akt)
+            {{-- Animasi fade-up berurutan pada Card Aktivitas --}}
+            <div class="bg-white rounded-[2rem] shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-2 group"
+                 data-aos="fade-up" data-aos-delay="{{ ($index % 4) * 150 }}" data-aos-duration="800">
                 
-                {{-- Gambar Aktivitas --}}
                 <img src="{{ $akt->gambar ? (Str::startsWith($akt->gambar, 'http') ? $akt->gambar : asset($akt->gambar)) : 'https://picsum.photos/400/300' }}" 
                      class="w-full h-44 object-cover rounded-[1.5rem] mb-4 cursor-pointer" 
                      onclick="openModal(this.src)">
                 
                 <div class="px-4 pb-4">
-                    {{-- Nama Aktivitas --}}
                     <h4 class="font-bold text-xl text-[#1E5631] mb-2 leading-tight uppercase">
                         {{ $akt->nama_aktivitas }}
                     </h4>
-                    {{-- Deskripsi (dengan line-clamp agar rapi) --}}
                     <p class="text-gray-500 text-xs leading-relaxed line-clamp-2">
                         {{ $akt->deskripsi }}
                     </p>
@@ -126,8 +120,8 @@
     </div>
 </div>
 
-{{-- Bagian CTA untuk Pendaftaran Santri Baru --}}
-<div class="bg-[#1E5631] relative overflow-hidden text-white py-24 text-center">
+{{-- CTA PENDAFTARAN (DENGAN EFEK HEARTBEAT) --}}
+<div class="bg-[#1E5631] relative overflow-hidden text-white py-24 text-center" data-aos="fade-up" data-aos-duration="1000">
     <div class="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
     <div class="relative z-10 px-6">
         <h3 class="text-3xl font-bold mb-6 text-white">Mulai Masa Depan Gemilang di Sini</h3>
@@ -135,8 +129,10 @@
             Pendaftaran Santri Baru Al-Mardliyyah telah dibuka. Mari bergabung bersama 
             keluarga besar kami untuk mendalami ilmu agama dan pengetahuan umum.
         </p>
+        
+        {{-- TOMBOL DAFTAR DENGAN ANIMASI HEARTBEAT --}}
         <a href="{{ url('/pendaftaran') }}"
-           class="bg-[#C6A75E] hover:bg-[#b59650] text-[#1E5631] px-10 py-3 rounded-full font-bold transition-all shadow-xl inline-block">
+           class="bg-[#C6A75E] hover:bg-[#b59650] text-[#1E5631] px-10 py-3 rounded-full font-bold transition-all shadow-xl inline-block animate-heartbeat">
             Daftar Sekarang
         </a>
     </div>
@@ -148,7 +144,7 @@
     <img id="modalImage" onclick="event.stopPropagation()" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300">
 </div>
 
-{{-- Script untuk membuka dan menutup modal gambar --}}
+{{-- Script Modal --}}
 <script>
     function openModal(src) {
         const modal = document.getElementById('imageModal');

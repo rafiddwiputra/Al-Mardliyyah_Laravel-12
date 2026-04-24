@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\DataOrtu;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Public\ProgramPendidikan;
 
 class PendaftaranSantri extends Model
 {
-     protected $table = 'pendaftaran_santri';
+    protected $table = 'pendaftaran_santri';
 
     protected $fillable = [
         'users_id',
@@ -21,6 +22,7 @@ class PendaftaranSantri extends Model
         'nomor_kk',
         'jenis_kelamin',
         'sekolah_asal',
+        'jenjang', 
         'sumber_informasi',
         'foto_santri',
         'akta_kelahiran',
@@ -35,15 +37,18 @@ class PendaftaranSantri extends Model
         'status'
     ];
 
-    // relasi ke data ortu
-    public function ortu()
+    public function ortu(): BelongsTo
     {
         return $this->belongsTo(DataOrtu::class, 'data_ortu_id');
     }
 
-    // relasi user
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'users_id');
+    }
+
+    public function program(): BelongsTo
+    {
+        return $this->belongsTo(ProgramPendidikan::class, 'program_id');
     }
 }

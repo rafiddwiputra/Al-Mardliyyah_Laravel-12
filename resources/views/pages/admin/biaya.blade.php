@@ -2,156 +2,211 @@
 
 @section('content')
 
-<div class="p-6">
+<div class="bg-white rounded-lg p-6 shadow-sm">
 
-    <!-- HEADER -->
-    <h2 class="text-2xl font-bold text-[#1E5631]">
-        Biaya Pendidikan
-    </h2>
-    <p class="text-sm text-gray-500 mb-6">
-        Kelola informasi biaya pendidikan pondok
-    </p>
-
-    <div class="flex justify-end mb-4">
-    <button onclick="showTambah()"
-        class="bg-[#1E5631] text-white px-4 py-2 rounded-md text-sm">
-        + Tambah Biaya
-    </button>
-</div>
-
-    <div id="formTambah" class="hidden mb-6">
-    <form action="{{ route('admin.biaya.store') }}" method="POST">
-        @csrf
-
-        <div class="bg-white rounded-xl shadow p-5">
-
-            <input type="text" name="judul"
-                placeholder="Judul biaya"
-                class="w-full border mb-3 px-3 py-2 text-sm">
-
-            <input type="number" name="deskripsi"
-                placeholder="Nominal biaya"
-                class="w-full border mb-3 px-3 py-2 text-sm">
-
-            <div class="flex gap-2">
-                <button type="submit"
-                    class="bg-[#1E5631] text-white px-4 py-2 rounded text-sm">
-                    Simpan
-                </button>
-
-                <button type="button" onclick="hideTambah()"
-                    class="bg-gray-400 text-white px-4 py-2 rounded text-sm">
-                    Batal
+    {{-- TOAST NOTIFICATION CONTAINER --}}
+    <div id="toast-container" class="fixed top-5 right-5 z-[9999] flex flex-col gap-3 items-end pointer-events-none">
+        @if(session('success'))
+            <div class="toast-alert pointer-events-auto flex items-start gap-3 bg-white border-l-4 border-green-500 shadow-xl rounded-lg p-4 min-w-[300px] max-w-sm transform transition-all duration-500 translate-x-full opacity-0">
+                <svg class="w-6 h-6 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div class="flex-1">
+                    <h4 class="text-sm font-bold text-gray-800">Berhasil</h4>
+                    <p class="text-xs text-gray-500 mt-0.5">{{ session('success') }}</p>
+                </div>
+                <button onclick="this.parentElement.remove()" class="text-gray-400 hover:text-gray-600 transition">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
             </div>
+        @endif
 
-        </div>
-    </form>
-</div>
-
-    <!-- GRID -->
-    <div class="grid md:grid-cols-2 gap-6 mb-6">
-
-        @foreach($biaya as $item)
-<div class="bg-white rounded-xl shadow p-5 relative">
-
-    <div class="absolute left-0 top-0 h-full w-1 bg-[#1E5631] rounded-l-xl"></div>
-
-    <div class="ml-2">
-
-        <p class="text-sm font-bold text-[#1E5631] mb-1">
-            {{ $item->judul }}
-        </p>
-
-        <!-- FORM UPDATE -->
-        <form action="{{ route('admin.biaya.update', $item->id) }}" method="POST">
-            @csrf
-            @method('PUT')
-
-            <p id="text-{{ $item->id }}"
-               class="text-lg font-bold text-[#C6A75E] mb-4">
-                Rp {{ number_format($item->deskripsi,0,',','.') }}
-            </p>
-
-            <input id="input-{{ $item->id }}"
-                   type="number"
-                   name="deskripsi"
-                   value="{{ $item->deskripsi }}"
-                   class="hidden w-full border border-[#C6A75E] px-3 py-2 mb-4 text-sm">
-
-            <div class="flex gap-2">
-
-                <button type="button"
-                    id="editBtn-{{ $item->id }}"
-                    onclick="startEdit({{ $item->id }})"
-                    class="w-full bg-[#1E5631] text-white py-2 rounded-md text-sm">
-                    Edit
+        @if ($errors->any())
+            <div class="toast-alert pointer-events-auto flex items-start gap-3 bg-white border-l-4 border-red-500 shadow-xl rounded-lg p-4 min-w-[300px] max-w-sm transform transition-all duration-500 translate-x-full opacity-0">
+                <svg class="w-6 h-6 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <div class="flex-1">
+                    <h4 class="text-sm font-bold text-gray-800">Peringatan</h4>
+                    <ul class="list-disc list-inside mt-1 text-xs text-gray-500">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                <button onclick="this.parentElement.remove()" class="text-gray-400 hover:text-gray-600 transition">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
-
-                <button type="submit"
-                    id="saveBtn-{{ $item->id }}"
-                    class="hidden w-full bg-[#1E5631] text-white py-2 rounded-md text-sm">
-                    Simpan
-                </button>
-
-                <button type="button"
-                    id="cancelBtn-{{ $item->id }}"
-                    onclick="cancelEdit({{ $item->id }})"
-                    class="hidden w-full bg-gray-400 text-white py-2 rounded-md text-sm">
-                    Batal
-                </button>
-
             </div>
-        </form>
-
-        <!-- FORM DELETE (WAJIB DI LUAR) -->
-        <form action="{{ route('admin.biaya.destroy', $item->id) }}" method="POST"
-            onsubmit="return confirm('Yakin mau hapus data ini?')"
-            class="mt-2">
-            @csrf
-            @method('DELETE')
-
-            <button type="submit"
-                class="w-full bg-red-600 text-white py-2 rounded-md text-sm">
-                Hapus
-            </button>
-        </form>
-
+        @endif
     </div>
 
-</div>
-@endforeach
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-[#1E5631]">
+                Biaya Pendidikan
+            </h1>
+            <p class="text-sm text-gray-500 mt-1">
+                Kelola informasi rincian biaya pendidikan pondok
+            </p>
+        </div>
+        
+        <div class="bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-2 rounded-lg text-sm flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span>Tuliskan rincian biaya secara manual dengan memisahkan baris menggunakan tombol Enter.</span>
+        </div>
+    </div>
 
+    <div class="overflow-x-auto">
+        <table class="w-full border border-[#D9D9D9] border-collapse">
+            <thead>
+                <tr class="bg-white border-b border-[#D9D9D9]">
+                    <th class="p-4 text-left font-bold text-black border-r border-[#D9D9D9] w-1/4">
+                        Nama Informasi
+                    </th>
+                    <th class="p-4 text-left font-bold text-black border-r border-[#D9D9D9]">
+                        Rincian Biaya
+                    </th>
+                    <th class="p-4 text-center font-bold text-black w-32">
+                        Aksi
+                    </th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                @foreach($data as $item)
+                <tr class="border-b border-[#D9D9D9] hover:bg-gray-50 transition">
+                    <td class="p-4 border-r border-[#D9D9D9] font-medium text-[#1E5631]">
+                        {{ $item->judul }}
+                    </td>
+
+                    <td class="p-4 text-sm text-[#444444] border-r border-[#D9D9D9]">
+                        <p class="whitespace-pre-line">{{ $item->deskripsi }}</p>
+                    </td>
+
+                    <td class="px-5 py-6 text-center align-middle whitespace-nowrap">
+                        <div class="flex gap-3 justify-center items-center">
+                            <button type="button" 
+                                data-id="{{ $item->id }}"
+                                data-judul="{{ $item->judul }}"
+                                data-deskripsi="{{ $item->deskripsi }}"
+                                onclick="openEditModal(this)"
+                                class="bg-blue-100 text-blue-600 px-4 py-1.5 rounded font-bold hover:bg-blue-200 transition-colors focus:outline-none">
+                                Edit
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 
+{{-- MODAL EDIT BIAYA --}}
+<div id="editModal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50 transition-opacity duration-300 opacity-0">
+    <div class="bg-white w-full max-w-lg rounded-xl overflow-hidden shadow-lg transform scale-95 transition-transform duration-300">
+        <form id="editForm" method="POST">
+            @csrf
+            @method('PUT')
+            
+            <div class="bg-[#1E5631] text-white text-center py-3 font-semibold flex justify-between items-center px-4">
+                <span>Edit Rincian Biaya</span>
+                <button type="button" onclick="closeModal('editModal')" class="text-white hover:text-gray-200 focus:outline-none">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <div class="p-5 space-y-4">
+                <div>
+                    <label class="text-sm font-bold text-gray-700">Nama Informasi</label>
+                    <input type="text" name="judul" id="editJudul" readonly
+                        class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm bg-gray-100 text-gray-500 cursor-not-allowed outline-none">
+                </div>
+
+                <div>
+                    <label class="text-sm font-bold text-gray-700">Daftar Rincian Biaya</label>
+                    <textarea name="deskripsi" id="editDeskripsi" required rows="7"
+                        placeholder="Contoh:&#10;- Pendaftaran: Rp 150.000&#10;- SPP Bulan Pertama: Rp 300.000&#10;- Seragam: Rp 500.000"
+                        class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-[#1E5631] focus:ring-1 focus:ring-[#1E5631]"></textarea>
+                    <p class="text-xs text-gray-500 mt-1">Ketik nominal secara manual. Gunakan 'enter' untuk membuat baris baru. Titik (bullet) akan otomatis dibuat di Landing Page.</p>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" onclick="closeModal('editModal')"
+                        class="border border-gray-300 text-gray-700 px-4 py-2 rounded text-sm font-bold hover:bg-gray-50 transition">
+                        Batal
+                    </button>
+                    <button type="submit"
+                        class="bg-[#1E5631] text-white px-4 py-2 rounded text-sm font-bold hover:bg-[#17472a] transition shadow-sm">
+                        Simpan Perubahan
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script>
-function startEdit(id){
-    document.getElementById('text-'+id).classList.add('hidden');
-    document.getElementById('input-'+id).classList.remove('hidden');
+    document.addEventListener("DOMContentLoaded", function() {
+        const toasts = document.querySelectorAll('.toast-alert');
+        
+        toasts.forEach(function(toast, index) {
+            setTimeout(function() {
+                toast.classList.remove('translate-x-full', 'opacity-0');
+                toast.classList.add('translate-x-0', 'opacity-100');
+            }, 100 + (index * 150)); 
+            
+            setTimeout(function() {
+                toast.classList.remove('translate-x-0', 'opacity-100');
+                toast.classList.add('translate-x-full', 'opacity-0');
+                setTimeout(function() {
+                    toast.remove();
+                }, 500);
+            }, 4000); 
+        });
+    });
 
-    document.getElementById('editBtn-'+id).classList.add('hidden');
-    document.getElementById('saveBtn-'+id).classList.remove('hidden');
-    document.getElementById('cancelBtn-'+id).classList.remove('hidden');
-}
+    function openModal(id){
+        const modal = document.getElementById(id);
+        const content = modal.querySelector('.transform');
+        
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
 
-function cancelEdit(id){
-    document.getElementById('text-'+id).classList.remove('hidden');
-    document.getElementById('input-'+id).classList.add('hidden');
+        void modal.offsetWidth;
+        
+        modal.classList.remove('opacity-0');
+        content.classList.remove('scale-95');
+        
+        document.body.style.overflow = 'hidden'; 
+    }
 
-    document.getElementById('editBtn-'+id).classList.remove('hidden');
-    document.getElementById('saveBtn-'+id).classList.add('hidden');
-    document.getElementById('cancelBtn-'+id).classList.add('hidden');
-}
+    function closeModal(id){
+        const modal = document.getElementById(id);
+        const content = modal.querySelector('.transform');
+        
+        modal.classList.add('opacity-0');
+        content.classList.add('scale-95');
+        
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto'; 
+        }, 300);
+    }
 
-function showTambah() {
-    document.getElementById('formTambah').classList.remove('hidden');
-}
+    function openEditModal(button){
+        let id = button.getAttribute('data-id');
+        let judul = button.getAttribute('data-judul');
+        let deskripsi = button.getAttribute('data-deskripsi');
 
-function hideTambah() {
-    document.getElementById('formTambah').classList.add('hidden');
-}
+        document.getElementById('editForm').action = '/admin/biaya/' + id;
+        document.getElementById('editJudul').value = judul;
+        document.getElementById('editDeskripsi').value = deskripsi;
+        
+        openModal('editModal');
+    }
 </script>
 
 @endsection

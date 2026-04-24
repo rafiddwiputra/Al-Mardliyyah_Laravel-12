@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\PendaftaranSantri;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class DataOrtu extends Model
 {
@@ -28,7 +28,7 @@ class DataOrtu extends Model
         'kode_pos'
     ];
 
-    public function santri()
+    public function pendaftaran(): HasOne
     {
         return $this->hasOne(PendaftaranSantri::class, 'data_ortu_id');
     }

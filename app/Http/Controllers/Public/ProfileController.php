@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;   
-use App\Models\Public\Pimpinan;   
 use App\Models\Public\Fasilitas;  
 use App\Models\Public\VideoPondok; 
 

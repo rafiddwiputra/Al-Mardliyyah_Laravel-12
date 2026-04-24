@@ -15,7 +15,6 @@ use App\Http\Controllers\Public\BerandaController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Public\RedirectPendaftaranController;
-use App\Http\Controllers\Admin\InformasiWebsiteController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -226,8 +225,10 @@ Route::put('/profil-pondok/video/update/{id}', [AdminVideoPondokController::clas
     Route::post('/biaya', [AdminBiayaController::class, 'store'])
     ->name('admin.biaya.store');
 
-    Route::get('/banner-beranda', [InformasiWebsiteController::class, 'index'])->name('admin.banner');
-    Route::post('/banner-beranda', [InformasiWebsiteController::class, 'update'])->name('informasi.update');
+    // ================= PENGATURAN BANNER =================
+    Route::get('/banner', [App\Http\Controllers\Admin\AdminBannerController::class, 'index'])->name('admin.banner');
+    Route::post('/banner/store', [App\Http\Controllers\Admin\AdminBannerController::class, 'store'])->name('admin.banner.store');
+    Route::delete('/banner/destroy/{id}', [App\Http\Controllers\Admin\AdminBannerController::class, 'destroy'])->name('admin.banner.destroy');
 
     // KONTAK
     Route::get('/kontak', [AdminKontakController::class, 'index'])->name('admin.kontak');
@@ -235,13 +236,16 @@ Route::put('/profil-pondok/video/update/{id}', [AdminVideoPondokController::clas
     Route::put('/kontak/{id}', [AdminKontakController::class, 'update'])->name('admin.kontak.update');
     Route::delete('/kontak/{id}', [AdminKontakController::class, 'destroy'])->name('admin.kontak.destroy');
 
-    // ================= JADWAL PENDAFTARAN =================
+   // ================= JADWAL PENDAFTARAN =================
     Route::get('/jadwal-pendaftaran', [AdminJadwalController::class, 'index'])->name('admin.jadwal');
     Route::post('/jadwal-pendaftaran/toggle', [AdminJadwalController::class, 'toggle'])->name('admin.jadwal.toggle');
-    Route::post('/jadwal-pendaftaran', [AdminJadwalController::class, 'store'])->name('admin.jadwal.store');
-    Route::post('/jadwal-pendaftaran/{id}', [AdminJadwalController::class, 'update'])->name('admin.jadwal.update');
-    Route::delete('/jadwal-pendaftaran/{id}', [AdminJadwalController::class, 'destroy'])->name('admin.jadwal.delete');
+    Route::post('/jadwal-pendaftaran/atur-waktu', [AdminJadwalController::class, 'aturWaktu'])->name('admin.jadwal.waktu');
+    Route::put('/jadwal-pendaftaran/{id}', [AdminJadwalController::class, 'update'])->name('admin.jadwal.update');
 
+    // ================= PERSYARATAN PENDAFTARAN =================
+    Route::get('/persyaratan-pendaftaran', [\App\Http\Controllers\Admin\AdminPersyaratanController::class, 'index'])->name('admin.persyaratan');
+    Route::put('/persyaratan-pendaftaran/{id}', [\App\Http\Controllers\Admin\AdminPersyaratanController::class, 'update'])->name('admin.persyaratan.update');
+    
     // ================= EDIT PROFIL ADMIN =================
     Route::get('/profil', [AdminEditProfilController::class, 'index'])->name('admin.profil');
     Route::post('/profil', [AdminEditProfilController::class, 'update'])->name('admin.profil.update');

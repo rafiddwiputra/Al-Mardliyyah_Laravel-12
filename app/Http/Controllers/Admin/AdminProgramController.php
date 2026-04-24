@@ -1,36 +1,37 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use App\Models\Public\ProgramPendidikan;
-use App\Models\Public\KategoriProgram;
 use Illuminate\Http\Request;
 
 class AdminProgramController extends Controller
 {
     public function programPendidikan()
     {
-        $programs = ProgramPendidikan::with('kategori')
-            ->where('status', 'aktif')
+        $programs = ProgramPendidikan::where('status', 'aktif')
             ->get()
-            ->groupBy(function($item) {
-                return $item->kategori->nama_kategori;
-            });
+            ->groupBy('kategori');
 
-            $kategori = KategoriProgram::all();
+        $kategori = ['lembaga pendidikan', 'program pendidikan'];
 
         return view('pages.admin.program-pendidikan.program-pendidikan', compact('programs', 'kategori'));
     }
 
     public function store(Request $request)
     {
+        $request->validate([
+            'kategori' => 'required|in:lembaga pendidikan,program pendidikan',
+            'nama_program' => 'required|string|max:100', 
+            'deskripsi' => 'nullable|string',
+        ]);
+
         ProgramPendidikan::create([
-            'kategori_id' => $request->kategori_id,
+            'kategori' => $request->kategori, 
             'nama_program' => $request->nama_program,
             'deskripsi' => $request->deskripsi,
             'status' => $request->has('status') ? 'aktif' : 'nonaktif',
-            'created_by' => auth()->id()
+            'users_id' => auth()->id() 
         ]);
 
         return redirect()->back()->with('success', 'Program berhasil ditambahkan');
@@ -38,25 +39,29 @@ class AdminProgramController extends Controller
 
     public function update(Request $request, $id)
     {
-    $program = ProgramPendidikan::findOrFail($id);
+        $request->validate([
+            'kategori' => 'required|in:lembaga pendidikan,program pendidikan',
+            'nama_program' => 'required|string|max:100',
+            'deskripsi' => 'nullable|string',
+        ]);
 
-    $program->update([
-        'nama_program' => $request->nama_program,
-        'deskripsi' => $request->deskripsi,
-        'kategori_id' => $request->kategori_id,
-        'status' => $request->has('status') ? 'aktif' : 'nonaktif',
-        'updated_by' => auth()->id()
-    ]);
+        $program = ProgramPendidikan::findOrFail($id);
 
-    return redirect()->back()->with('success', 'Data berhasil diupdate');
+        $program->update([
+            'kategori' => $request->kategori, 
+            'nama_program' => $request->nama_program,
+            'deskripsi' => $request->deskripsi,
+            'status' => $request->has('status') ? 'aktif' : 'nonaktif',
+        ]);
+
+        return redirect()->back()->with('success', 'Data berhasil diupdate');
     }
 
     public function destroy($id)
     {
-    $program = ProgramPendidikan::findOrFail($id);
-    $program->delete();
+        $program = ProgramPendidikan::findOrFail($id);
+        $program->delete();
 
-    return redirect()->back()->with('success', 'Data berhasil dihapus');
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
-
 }
