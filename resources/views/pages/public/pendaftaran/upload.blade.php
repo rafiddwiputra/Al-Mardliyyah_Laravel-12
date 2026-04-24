@@ -71,7 +71,8 @@
         </div>
     </div>
 
-    <form class="space-y-5">
+    <form action="{{ route('upload.dokumen.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
+    @csrf
 
         @php
         $dokumen = [
@@ -102,7 +103,18 @@
         ];
         @endphp
 
-        @foreach($dokumen as $item)
+        @php
+        $fields = [
+        'foto_santri',
+        'akta_kelahiran',
+        'kartu_keluarga',
+        'ktp_ayah',
+        'ktp_ibu',
+        'sertifikat'
+        ];
+        @endphp
+
+        @foreach($dokumen as $index => $item)
         <div class="bg-white border rounded-xl p-6 shadow-sm">
 
             <!-- TITLE -->
@@ -132,9 +144,11 @@
                 <p class="text-sm text-gray-400">
                     Klik untuk upload atau drag & drop
                 </p>
-                <p class="text-sm text-green-600 mt-2 file-name hidden"></p>
 
-                <input type="file" class="hidden file-input">
+                <p class="text-sm text-green-600 mt-2 file-name hidden"></p>
+                <p class="text-sm text-red-500 mt-1 error-message hidden"></p>
+
+                <input type="file" name="{{ $fields[$index] }}" class="hidden file-input">
 
             </label>
 
@@ -143,10 +157,10 @@
 
         <!-- BUTTON -->
         <div class="text-center pt-4">
-            <a href="{{ route('status.proses') }}"
-                class="bg-[#C6A75E] text-white px-8 py-2 rounded-lg font-semibold inline-block">
+            <button type="submit"
+                class="bg-[#C6A75E] text-white px-8 py-2 rounded-lg font-semibold">
                 Kirim
-            </a>
+            </button>
         </div>
 
     </form>
@@ -191,21 +205,37 @@ document.addEventListener("DOMContentLoaded", function () {
     inputs.forEach((input) => {
         input.addEventListener('change', function() {
 
-            let fileName = this.files[0]?.name;
-            let label = this.closest('label');
-            let text = label.querySelector('.file-name');
+            let file = this.files[0];
+            let maxSize = 1024 * 1024; // 1MB
 
-            if(fileName){
-                text.textContent = fileName;
-                text.classList.remove('hidden');
+            let label = this.closest('label');
+            let fileText = label.querySelector('.file-name');
+            let errorText = label.querySelector('.error-message');
+
+            // RESET pesan
+            errorText.classList.add('hidden');
+            fileText.classList.add('hidden');
+
+            // 🚨 VALIDASI
+            if (file && file.size > maxSize) {
+                errorText.textContent = "Ukuran file maksimal 1 MB!";
+                errorText.classList.remove('hidden');
+                this.value = '';
+                return;
             }
 
-            // 🔥 update progress setiap upload
+            // tampilkan nama file
+            if(file){
+                fileText.textContent = file.name;
+                fileText.classList.remove('hidden');
+            }
+
             updateProgress();
         });
     });
 
 });
+
 </script>
 
 @endsection

@@ -143,6 +143,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/pendaftaran/store', [PendaftaranController::class, 'store'])
     ->name('pendaftaran.store');
 
+    // upload dokumen
+    Route::post('/upload-dokumen/store', [PendaftaranController::class, 'storeDokumen'])
+    ->name('upload.dokumen.store');
 });
 
 // Status Pendaftaran

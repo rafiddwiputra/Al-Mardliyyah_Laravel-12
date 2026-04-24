@@ -129,4 +129,47 @@ public function store(Request $request)
         ->with('success', 'Data berhasil disimpan!');
 }
 
+public function storeDokumen(Request $request)
+{
+    $request->validate([
+    'foto_santri' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1024',
+    'akta_kelahiran' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1024',
+    'kartu_keluarga' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1024',
+    'ktp_ayah' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1024',
+    'ktp_ibu' => 'required|file|mimes:jpg,jpeg,png,pdf|max:1024',
+    'sertifikat' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:1024',
+], [
+    '*.max' => 'Ukuran file maksimal 1 MB!',
+    '*.mimes' => 'Format file harus PDF / JPG / PNG /JPEG!',
+    '*.required' => 'File wajib diupload!',
+]);
+
+    $santri = PendaftaranSantri::where('users_id', Auth::id())->first();
+
+    if (!$santri) {
+        return back()->with('error', 'Data tidak ditemukan!');
+    }
+
+    $upload = function ($file, $folder) {
+    if (!$file) return null;
+
+    $nama = time().'_'.$file->getClientOriginalName();
+    $file->move(public_path('images/'.$folder), $nama);
+
+    return $folder.'/'.$nama;
+};
+
+    $santri->update([
+    'foto_santri' => $request->file('foto_santri') ? $upload($request->file('foto_santri'), 'foto') : $santri->foto_santri,
+    'akta_kelahiran' => $request->file('akta_kelahiran') ? $upload($request->file('akta_kelahiran'), 'akta') : $santri->akta_kelahiran,
+    'kartu_keluarga' => $request->file('kartu_keluarga') ? $upload($request->file('kartu_keluarga'), 'kk') : $santri->kartu_keluarga,
+    'ktp_ayah' => $request->file('ktp_ayah') ? $upload($request->file('ktp_ayah'), 'ktp_ayah') : $santri->ktp_ayah,
+    'ktp_ibu' => $request->file('ktp_ibu') ? $upload($request->file('ktp_ibu'), 'ktp_ibu') : $santri->ktp_ibu,
+    'sertifikat' => $request->file('sertifikat') ? $upload($request->file('sertifikat'), 'sertifikat') : $santri->sertifikat,
+]);
+
+    return redirect()->route('status.proses')
+        ->with('success', 'Dokumen berhasil diupload!');
+}
+
 }
