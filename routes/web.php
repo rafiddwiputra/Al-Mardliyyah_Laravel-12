@@ -252,7 +252,11 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::post('/profil', [AdminEditProfilController::class, 'update'])->name('admin.profil.update');
 
     // ================ DATA PENDAFTAR ====================
+    Route::get('/data-pendaftar/export-excel', [AdminDataPendaftarController::class, 'exportExcel'])->name('admin.pendaftar.exportExcel');
+    Route::get('/data-pendaftar/export-pdf', [AdminDataPendaftarController::class, 'exportPDF'])->name('admin.pendaftar.exportPDF');
+    Route::get('/data-pendaftar/{id}', [AdminDataPendaftarController::class, 'show'])->whereNumber('id')->name('admin.pendaftar.detail');
     Route::get('/data-pendaftar', [AdminDataPendaftarController::class, 'index'])->name('admin.pendaftar');
+    Route::put('/data-pendaftar/{id}/status', [AdminDataPendaftarController::class, 'updateStatus'])->name('admin.pendaftar.updateStatus');
 
     // ================ AKTIVITAS SANTRI  ====================
     Route::post('/aktivitas-santri', [AdminAktivitasSantriController::class, 'store'])->name('admin.aktivitas.store');

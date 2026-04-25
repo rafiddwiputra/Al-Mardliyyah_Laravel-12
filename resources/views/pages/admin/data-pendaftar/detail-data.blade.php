@@ -257,19 +257,21 @@
         <div class="grid md:grid-cols-2 gap-6 text-sm">
 
         @php
-        $status = $data->status;
+        $status = ucfirst($data->status ?? 'diproses');
 
-        $color = match($status) {
-        'diterima' => 'bg-green-100 text-green-700',
-        'ditolak' => 'bg-red-100 text-red-600',
-        default => 'bg-blue-100 text-blue-600'
+        $statusColor = match($status) {
+            'Diproses' => 'bg-[#BFDBFE] text-[#1D4ED8]',
+            'Diterima' => 'bg-[#DEFFE9] text-[#1E5631]',
+            'Ditolak' => 'bg-[#FECACA] text-[#B91C1C]',
+            default => 'bg-gray-100 text-gray-600'
         };
         @endphp
+        
 
             <div>
                 <p class="text-xs text-gray-500 mb-1">Status Saat Ini</p>
-                <span class="text-xs font-medium px-3 py-1 rounded {{ $color }}">
-                    {{ ucfirst($data->status) }}
+                <span class="text-xs font-medium px-3 py-1 rounded {{ $statusColor }}">
+                    {{ $status }}
                 </span>
             </div>
 

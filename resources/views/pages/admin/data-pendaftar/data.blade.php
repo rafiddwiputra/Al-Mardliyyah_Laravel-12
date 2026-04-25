@@ -2,32 +2,49 @@
 
 @section('content')
 
-<div class="p-6">
+<div class="bg-white rounded-lg p-6 shadow-sm">
 
     <!-- HEADER -->
-    <h2 class="text-2xl font-bold text-[#1E5631] mb-1">
+    <h1 class="text-2xl font-bold text-[#1E5631]">
         Data Pendaftar
-    </h2>
-    <p class="text-sm text-gray-500 mb-6">
+    </h1>
+    <p class="text-sm text-gray-500 mt-1 mb-6">
         Kelola data pendaftar dan status pendaftaran
     </p>
 
     <!-- CARD SEARCH + EXPORT -->
-<div class="bg-white border rounded-xl shadow p-4 mb-6">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
 
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between w-full px-4">
 
         <!-- SUB CARD SEARCH -->
-        <div class="w-1/3">
-            <div class="bg-gray-50 border rounded-lg px-3 py-2 flex items-center">
+        <form method="GET" action="{{ route('admin.pendaftar') }}" class="flex-1 max-w-md">
+    
+            <div class="relative">
+
+                <!-- INPUT -->
                 <input type="text"
-                    placeholder="Cari nama"
-                    class="w-full text-sm bg-transparent outline-none">
+                    name="search"
+                    value="{{ request('search') }}"
+                    placeholder="Cari nama atau ID (PSB001)"
+                    class="w-full pl-9 pr-10 py-2 text-sm border rounded-lg bg-white outline-none focus:ring-2 focus:ring-[#1E5631]"
+
+                <!-- BUTTON ICON -->
+                <button type="submit"
+                    class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#1E5631]">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+
             </div>
-        </div>
+
+        </form>
 
         <!-- EXPORT -->
-        <div class="relative group inline-block">
+        <div class="relative group inline-block ml-auto">
 
     <!-- BUTTON -->
     <button class="text-sm text-gray-600 border px-4 py-2 rounded-lg bg-white hover:bg-gray-50">
@@ -39,12 +56,14 @@
                 opacity-0 invisible group-hover:visible group-hover:opacity-100
                 transition duration-200 z-10">
 
-        <a href="#" class="block px-4 py-2 text-sm hover:bg-[#1E5631] hover:text-white transition">
-            Download Excel
+        <a href="{{ route('admin.pendaftar.exportExcel') }}"
+            class="block px-4 py-2 text-sm hover:bg-[#1E5631] hover:text-white transition">
+                Download Excel
         </a>
 
-        <a href="#" class="block px-4 py-2 text-sm hover:bg-[#1E5631] hover:text-white transition">
-            Download PDF
+        <a href="{{ route('admin.pendaftar.exportPDF') }}"
+            class="block px-4 py-2 text-sm hover:bg-[#1E5631] hover:text-white">
+                Download PDF
         </a>
 
     </div>
@@ -56,25 +75,43 @@
 </div>
 
     <!-- CARD -->
-    <div class="bg-white rounded-xl shadow border p-6">
+    <div>
 
-        <h3 class="text-sm font-bold text-[#1E5631] mb-4">
+        <h3 class="text-lg font-bold text-[#1E5631] mb-4">
             Pendaftaran Terbaru
         </h3>
 
         <div class="overflow-x-auto">
 
-            <table class="w-full text-sm">
+            <table class="w-full border border-[#D9D9D9] border-collapse text-sm">
 
                 <!-- HEADER -->
                 <thead>
-                    <tr class="text-gray-600 border-b">
-                        <th class="text-left py-3">ID</th>
-                        <th class="text-left py-3">Nama Santri</th>
-                        <th class="text-left py-3">Program Pendidikan</th>
-                        <th class="text-left py-3">Tanggal Daftar</th>
-                        <th class="text-left py-3">Status</th>
-                        <th class="text-left py-3">Aksi</th>
+                    <tr class="bg-white border-b border-[#D9D9D9]">
+                        <th class="p-4 text-center font-bold text-black border-r border-[#D9D9D9]">
+                            ID
+                        </th>
+
+                        <th class="p-4 text-center font-bold text-black border-r border-[#D9D9D9]">
+                            Nama Santri
+                        </th>
+
+                        <th class="p-4 text-center font-bold text-black border-r border-[#D9D9D9]">
+                            Program Pendidikan
+                        </th>
+
+                        <th class="p-4 text-center font-bold text-black border-r border-[#D9D9D9]">
+                            Tanggal Daftar
+                        </th>
+
+                        <th class="p-4 text-center font-bold text-black border-r border-[#D9D9D9]">
+                            Status
+                        </th>
+
+                        <th class="p-4 text-center font-bold text-black border-r border-[#D9D9D9]">
+                            Aksi
+                        </th>
+
                     </tr>
                 </thead>
 
@@ -82,25 +119,25 @@
                 <tbody class="text-gray-700">
 
                     @foreach($data as $item)
-                    <tr class="border-b hover:bg-gray-50">
+                    <tr class="border-b border-[#D9D9D9] hover:bg-gray-50 transition">
 
-                        <td class="py-3">
+                        <td class="p-4 text-center border-r border-[#D9D9D9]">
                             PSB{{ str_pad($item->id, 3, '0', STR_PAD_LEFT) }}
                         </td>
 
-                        <td>
+                        <td class="p-4 text-center border-r border-[#D9D9D9]">
                             {{ $item->nama_lengkap }}
                         </td>
 
-                        <td>
+                        <td class="p-4 text-center border-r border-[#D9D9D9]">
                             {{ $item->program->nama_program ?? '-' }}
                         </td>
 
-                        <td>
+                        <td class="p-4 text-center border-r border-[#D9D9D9]">
                             {{ $item->created_at ? $item->created_at->format('d/m/Y') : '-' }}
                         </td>
 
-                        <td class="text-left">
+                        <td class="p-4 text-center border-r border-[#D9D9D9]">
 
                             <div class="relative group inline-block">
 
@@ -121,30 +158,36 @@
                                 </button>
 
                                 <!-- POPUP (HOVER) -->
-                                <div class="absolute right-0 top-full w-25 bg-white border rounded-lg shadow
+                                <div class="absolute right-0 top-full mt-1 w-25 bg-white border rounded-lg shadow
                                     opacity-0 invisible group-hover:visible group-hover:opacity-100
                                     transition duration-200 z-10">
 
-                                    <div class="px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white transition">
-                                        Diproses
-                                    </div>
+                                    <form action="{{ route('admin.pendaftar.updateStatus', $item->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
 
-                                    <div class="px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white transition">
-                                        Diterima
-                                    </div>
+                                        <button name="status" value="diproses"
+                                            class="block w-full text-left px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white">
+                                            Diproses
+                                        </button>
 
-                                    <div class="px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white transition">
-                                        Ditolak
-                                    </div>
+                                        <button name="status" value="diterima"
+                                            class="block w-full text-left px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white">
+                                            Diterima
+                                        </button>
+
+                                        <button name="status" value="ditolak"
+                                            class="block w-full text-left px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white">
+                                            Ditolak
+                                        </button>
+                                    </form>
 
                                 </div>
-
-                             </div>
-
+                            </div>
                         </td>
 
                         <!-- AKSI -->
-                        <td>
+                        <td class="p-4 text-center border-r border-[#D9D9D9]">
                            <a href="{{ route('admin.pendaftar.detail', $item->id) }}"
                             class="border border-[#1E5631] text-[#1E5631] px-3 py-1 rounded-md text-xs hover:bg-[#1E5631] hover:text-white transition">
                             Detail

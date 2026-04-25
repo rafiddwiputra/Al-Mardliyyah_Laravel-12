@@ -47,52 +47,61 @@
     </div>
 
     {{-- Tabel Pendaftaran Terbaru --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-[#D9D9D9] flex justify-between items-center">
             <h3 class="font-bold text-[#1e4d2b]">Pendaftaran Terbaru</h3>
             <a href="{{ route('admin.pendaftar') }}"
-                class="text-xs font-bold px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">
-                    Lihat Semua
+                class="text-xs font-bold px-4 py-2 border border-[#1E5631] rounded-lg text-[#1E5631] hover:bg-[#1E5631] hover:text-white transition">
+                Lihat Semua
             </a>
         </div>
-        <div class="overflow-x-auto">
-            <table class="w-full text-left border border-gray-200">
-                <thead class="bg-gray-50 text-gray-500 text-xs uppercase font-bold">
-                    <tr>
-                        <th class="px-6 py-4 border border-gray-200">Nama Santri</th>
-                        <th class="px-6 py-4 border border-gray-200">Program Pendidikan</th>
-                        <th class="px-6 py-4 border border-gray-200">Tanggal Daftar</th>
-                        <th class="px-6 py-4 border border-gray-200">Status</th>
+        <div class="overflow-x-auto px-6 pb-6">
+            <table class="w-full border-x border-b border-[#D9D9D9] border-collapse text-sm">
+                <thead class="border-b border-[#D9D9D9]">
+                    <tr class="bg-white">
+                       <th class="p-4 text-center font-bold text-black border-r border-[#D9D9D9]">
+                            Nama Santri
+                        </th>
+                        <th class="p-4 text-center font-bold text-black border-r border-[#D9D9D9]">
+                            Program Pendidikan
+                        </th>
+                        <th class="p-4 text-center font-bold text-black border-r border-[#D9D9D9]">
+                            Tanggal Daftar
+                        </th>
+                        <th class="p-4 text-center font-bold text-black border-r border-[#D9D9D9]">
+                            Status
+                        </th>
                     </tr>
                 </thead>
-                <tbody class="text-sm">
+                <tbody class="text-gray-700">
 @foreach($terbaru as $item)
-<tr class="hover:bg-gray-50">
-    <td class="px-6 py-4 border border-gray-200">
+<tr class="border-b border-[#D9D9D9] hover:bg-gray-50 transition">
+    <td class="p-4 text-center border-r border-[#D9D9D9]">
         {{ $item->nama_lengkap }}
     </td>
 
-    <td class="px-6 py-4 border border-gray-200">
+    <td class="p-4 text-center border-r border-[#D9D9D9]">
         {{ $item->program->nama_program ?? '-' }}
     </td>
 
-    <td class="px-6 py-4 border border-gray-200">
+    <td class="p-4 text-center border-r border-[#D9D9D9]">
         {{ $item->created_at->format('d/m/Y') }}
     </td>
 
-    <td class="px-6 py-4 border border-gray-200">
-        @php
-            $status = $item->status ?? 'diproses';
+    <td class="p-4 text-center border-r border-[#D9D9D9]">
+       @php
+        $status = ucfirst($item->status ?? 'diproses');
 
-            $color = match($status) {
-                'diterima' => 'bg-green-100 text-green-600',
-                'ditolak' => 'bg-red-100 text-red-600',
-                default => 'bg-blue-100 text-blue-600'
-            };
+        $statusColor = match($status) {
+            'Diproses' => 'bg-[#BFDBFE] text-[#1D4ED8]',
+            'Diterima' => 'bg-[#DEFFE9] text-[#1E5631]',
+            'Ditolak' => 'bg-[#FECACA] text-[#B91C1C]',
+            default => 'bg-gray-100 text-gray-600'
+        };
         @endphp
 
-        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase {{ $color }}">
-            {{ ucfirst($status) }}
+        <span class="inline-block w-20 text-center text-xs px-4 py-2 rounded-xl font-semibold {{ $statusColor }}">
+            {{ $status }}
         </span>
     </td>
 </tr>
