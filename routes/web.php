@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\AdminBiayaController;
 use App\Http\Controllers\Admin\AdminEditProfilController;
 use App\Http\Controllers\Admin\AdminVideoPondokController;
 use App\Http\Controllers\Admin\AdminDataPendaftarController;
+use App\Http\Controllers\Admin\AdminAktivitasSantriController;
 
 // ================== DEBUG ==================
 Route::get('/debug-login', function () {
@@ -205,9 +206,9 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profil-pondok/fasilitas/{id}', [AdminProfilController::class, 'destroyFasilitas'])->name('admin.profil.fasilitas.destroy');
 
     // Profil Pondok - Video
-Route::post('/profil-pondok/video/store', [AdminVideoPondokController::class, 'store'])->name('admin.video.store');
-Route::delete('/profil-pondok/video/hapus/{id}', [AdminVideoPondokController::class, 'destroy'])->name('admin.video.hapus');
-Route::put('/profil-pondok/video/update/{id}', [AdminVideoPondokController::class, 'update'])->name('admin.video.update');
+    Route::post('/profil-pondok/video/store', [AdminVideoPondokController::class, 'store'])->name('admin.video.store');
+    Route::delete('/profil-pondok/video/hapus/{id}', [AdminVideoPondokController::class, 'destroy'])->name('admin.video.hapus');
+    Route::put('/profil-pondok/video/update/{id}', [AdminVideoPondokController::class, 'update'])->name('admin.video.update');
 
     // Program Pendidikan
     Route::get('/program-pendidikan', [AdminProgramController::class, 'programPendidikan'])
@@ -258,6 +259,11 @@ Route::put('/profil-pondok/video/update/{id}', [AdminVideoPondokController::clas
 
     // ================ DATA PENDAFTAR ====================
     Route::get('/data-pendaftar', [AdminDataPendaftarController::class, 'index'])->name('admin.pendaftar');
+
+    // ================ AKTIVITAS SANTRI  ====================
+    Route::post('/aktivitas-santri', [AdminAktivitasSantriController::class, 'store'])->name('admin.aktivitas.store');
+    Route::put('/aktivitas-santri/{id}', [AdminAktivitasSantriController::class, 'update'])->name('admin.aktivitas.update');
+    Route::delete('/aktivitas-santri/{id}', [AdminAktivitasSantriController::class, 'destroy'])->name('admin.aktivitas.delete');
 });
 
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Galeri; 
 use Illuminate\Support\Facades\File;
+use App\Models\Public\AktivitasSantri;
 
 class AdminGaleriController extends Controller
 {
@@ -14,11 +15,14 @@ class AdminGaleriController extends Controller
     {
         // 1. Filter: Hanya ambil data yang kategorinya BUKAN 'Banner'
         $galeris = Galeri::where('kategori', '!=', 'Banner')->latest()->get();
+
+         // Tambahan untuk aktivitas santri
+        $aktivitas = AktivitasSantri::latest()->get();
         
         // Kategori untuk dropdown di form (Tanpa Banner)
         $categories = ['Kegiatan', 'Fasilitas', 'Prestasi', 'Lingkungan'];
         
-        return view('pages.admin.galeri.admin-galeri', compact('galeris', 'categories'));
+        return view('pages.admin.galeri.admin-galeri', compact('galeris', 'aktivitas', 'categories'));
     }
 
     public function store(Request $request)

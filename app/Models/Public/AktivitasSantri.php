@@ -12,4 +12,6 @@ class AktivitasSantri extends Model
     protected $fillable = ['nama_aktivitas', 'gambar', 'deskripsi', 'created_by', 'updated_by'];
 
     public function creator(): BelongsTo { return $this->belongsTo(User::class, 'created_by'); }
+
+    public function updater(): BelongsTo { return $this->belongsTo(User::class, 'updated_by'); }
 }

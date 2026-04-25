@@ -92,21 +92,21 @@
             </p>
         </div>
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse($aktivitas as $index => $akt)
             {{-- Animasi fade-up berurutan pada Card Aktivitas --}}
-            <div class="bg-white rounded-[2rem] shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-2 group"
+            <div class="bg-white rounded-[2rem] shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-2 group flex flex-col h-full"
                  data-aos="fade-up" data-aos-delay="{{ ($index % 4) * 150 }}" data-aos-duration="800">
                 
                 <img src="{{ $akt->gambar ? (Str::startsWith($akt->gambar, 'http') ? $akt->gambar : asset($akt->gambar)) : 'https://picsum.photos/400/300' }}" 
                      class="w-full h-44 object-cover rounded-[1.5rem] mb-4 cursor-pointer" 
                      onclick="openModal(this.src)">
                 
-                <div class="px-4 pb-4">
+                <div class="px-4 pb-4 flex flex-col flex-grow">
                     <h4 class="font-bold text-xl text-[#1E5631] mb-2 leading-tight uppercase">
                         {{ $akt->nama_aktivitas }}
                     </h4>
-                    <p class="text-gray-500 text-xs leading-relaxed line-clamp-2">
+                    <p class="text-gray-500 text-sm leading-relaxed line-clamp-3 mt-1">
                         {{ $akt->deskripsi }}
                     </p>
                 </div>
