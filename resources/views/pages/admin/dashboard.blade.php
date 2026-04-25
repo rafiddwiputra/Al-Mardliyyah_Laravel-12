@@ -16,15 +16,15 @@
         <div class="bg-[#1e4d2b] p-6 rounded-xl shadow-sm text-white flex justify-between items-start">
             <div>
                 <p class="text-xs font-bold opacity-80 mb-2">Total Pendaftar</p>
-                <h3 class="text-3xl font-bold">100</h3>
+                <h3 class="text-3xl font-bold">{{ $total }}</h3>
             </div>
             <i class="fas fa-users text-2xl opacity-50"></i>
         </div>
-        {{-- Pendaftar Baru --}}
+        {{-- Santri Diproses --}}
         <div class="bg-[#1e4d2b] p-6 rounded-xl shadow-sm text-white flex justify-between items-start">
             <div>
-                <p class="text-xs font-bold opacity-80 mb-2">Pendaftar Baru</p>
-                <h3 class="text-3xl font-bold">24</h3>
+                <p class="text-xs font-bold opacity-80 mb-2">Santri Diproses</p>
+                <h3 class="text-3xl font-bold">{{ $baru }}</h3>
             </div>
             <i class="fas fa-user-plus text-2xl opacity-50"></i>
         </div>
@@ -32,7 +32,7 @@
         <div class="bg-[#1e4d2b] p-6 rounded-xl shadow-sm text-white flex justify-between items-start">
             <div>
                 <p class="text-xs font-bold opacity-80 mb-2">Santri Diterima</p>
-                <h3 class="text-3xl font-bold">24</h3>
+                <h3 class="text-3xl font-bold">{{ $diterima }}</h3>
             </div>
             <i class="fas fa-user-check text-2xl opacity-50"></i>
         </div>
@@ -40,7 +40,7 @@
         <div class="bg-[#1e4d2b] p-6 rounded-xl shadow-sm text-white flex justify-between items-start">
             <div>
                 <p class="text-xs font-bold opacity-80 mb-2">Santri Ditolak</p>
-                <h3 class="text-3xl font-bold">24</h3>
+                <h3 class="text-3xl font-bold">{{ $ditolak }}</h3>
             </div>
             <i class="fas fa-user-times text-2xl opacity-50"></i>
         </div>
@@ -50,40 +50,56 @@
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         <div class="p-6 border-b border-gray-100 flex justify-between items-center">
             <h3 class="font-bold text-[#1e4d2b]">Pendaftaran Terbaru</h3>
-            <button class="text-xs font-bold px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">Lihat Semua</button>
+            <a href="{{ route('admin.pendaftar') }}"
+                class="text-xs font-bold px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">
+                    Lihat Semua
+            </a>
         </div>
         <div class="overflow-x-auto">
-            <table class="w-full text-left">
+            <table class="w-full text-left border border-gray-200">
                 <thead class="bg-gray-50 text-gray-500 text-xs uppercase font-bold">
                     <tr>
-                        <th class="px-6 py-4">Nama Santri</th>
-                        <th class="px-6 py-4">Program Pendidikan</th>
-                        <th class="px-6 py-4">Tanggal Daftar</th>
-                        <th class="px-6 py-4">Status</th>
+                        <th class="px-6 py-4 border border-gray-200">Nama Santri</th>
+                        <th class="px-6 py-4 border border-gray-200">Program Pendidikan</th>
+                        <th class="px-6 py-4 border border-gray-200">Tanggal Daftar</th>
+                        <th class="px-6 py-4 border border-gray-200">Status</th>
                     </tr>
                 </thead>
-                <tbody class="text-sm divide-y divide-gray-100">
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 font-medium text-gray-800">Ahmad Fauzi</td>
-                        <td class="px-6 py-4 text-gray-600">Madrasah Aliyah</td>
-                        <td class="px-6 py-4 text-gray-600">14/3/2026</td>
-                        <td class="px-6 py-4"><span class="px-3 py-1 bg-red-100 text-red-600 rounded-full text-xs font-bold uppercase">Ditolak</span></td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 font-medium text-gray-800">Fatimah Zahra</td>
-                        <td class="px-6 py-4 text-gray-600">Madrasah Aliyah</td>
-                        <td class="px-6 py-4 text-gray-600">14/3/2026</td>
-                        <td class="px-6 py-4"><span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-xs font-bold uppercase">Diproses</span></td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 font-medium text-gray-800">Muhammad Riski</td>
-                        <td class="px-6 py-4 text-gray-600">Madrasah Tsanawiyah</td>
-                        <td class="px-6 py-4 text-gray-600">14/3/2026</td>
-                        <td class="px-6 py-4"><span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-xs font-bold uppercase">Diterima</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+                <tbody class="text-sm">
+@foreach($terbaru as $item)
+<tr class="hover:bg-gray-50">
+    <td class="px-6 py-4 border border-gray-200">
+        {{ $item->nama_lengkap }}
+    </td>
+
+    <td class="px-6 py-4 border border-gray-200">
+        {{ $item->program->nama_program ?? '-' }}
+    </td>
+
+    <td class="px-6 py-4 border border-gray-200">
+        {{ $item->created_at->format('d/m/Y') }}
+    </td>
+
+    <td class="px-6 py-4 border border-gray-200">
+        @php
+            $status = $item->status ?? 'diproses';
+
+            $color = match($status) {
+                'diterima' => 'bg-green-100 text-green-600',
+                'ditolak' => 'bg-red-100 text-red-600',
+                default => 'bg-blue-100 text-blue-600'
+            };
+        @endphp
+
+        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase {{ $color }}">
+            {{ ucfirst($status) }}
+        </span>
+    </td>
+</tr>
+@endforeach
+</tbody>
+</table>
+</div>
+</div>
 </div>
 @endsection

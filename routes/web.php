@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\AdminEditProfilController;
 use App\Http\Controllers\Admin\AdminVideoPondokController;
 use App\Http\Controllers\Admin\AdminDataPendaftarController;
 use App\Http\Controllers\Admin\AdminAktivitasSantriController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 
 // ================== DEBUG ==================
 Route::get('/debug-login', function () {
@@ -165,17 +166,10 @@ Route::get('/', [BerandaController::class, 'index'])->name('home');
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
 
     // Dashboard
-    Route::get('/dashboard', function () {
-        if (!in_array(Auth::user()->role, ['admin', 'pimpinan'])) {
-            return redirect('/')->with('error', 'Anda tidak punya akses ke halaman ini.');
-        }
-        return view('pages.admin.dashboard');
-    })->name('admin.dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])
+    ->name('admin.dashboard');
 
     // Data Pendaftar
-    Route::get('/data-pendaftar', function () {
-        return view('pages.admin.data-pendaftar.data');
-    })->name('admin.pendaftar');
 
     Route::get('/data-pendaftar/{id}', [AdminDataPendaftarController::class, 'show'])
     ->name('admin.pendaftar.detail');
