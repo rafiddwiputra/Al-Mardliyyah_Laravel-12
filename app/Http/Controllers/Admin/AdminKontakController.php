@@ -8,48 +8,35 @@ use Illuminate\Http\Request;
 
 class AdminKontakController extends Controller
 {
-    // TAMPILKAN HALAMAN KONTAK
     public function index()
     {
-        $kontak = Kontak::all();
+        Kontak::firstOrCreate(
+            ['id' => 1],
+            ['no_hp' => '081234567890'] 
+        );
+
+        Kontak::firstOrCreate(
+            ['id' => 2],
+            ['no_hp' => '080987654321'] 
+        );
+
+        $kontak = Kontak::whereIn('id', [1, 2])->get();
 
         return view('pages.admin.kontak.kontak', compact('kontak'));
     }
 
-    public function store(Request $request)
-    {
-        Kontak::create([
-            'tipe' => $request->tipe,
-            'judul' => $request->judul,
-            'nilai' => $request->nilai,
-            'link' => $request->link,
-            'icon' => $request->icon,
-            'created_by' => auth()->id(),
-        ]);
-
-        return redirect()->route('admin.kontak');
-    }
-
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'no_hp' => 'required|string|max:15'
+        ]);
+
         $kontak = Kontak::findOrFail($id);
 
         $kontak->update([
-            'tipe' => $request->tipe,
-            'judul' => $request->judul,
-            'nilai' => $request->nilai,
-            'link' => $request->link,
-            'icon' => $request->icon,
-            'updated_by' => auth()->id(),
+            'no_hp' => $request->no_hp,
         ]);
 
-        return redirect()->route('admin.kontak');
-    }
-
-    public function destroy($id)
-    {
-        Kontak::findOrFail($id)->delete();
-
-        return redirect()->route('admin.kontak');
+        return redirect()->route('admin.kontak')->with('success', 'Nomor HP berhasil diperbarui!');
     }
 }

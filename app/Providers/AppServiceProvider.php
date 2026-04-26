@@ -8,6 +8,9 @@ use App\Models\Public\Kontak;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * Register any application services.
+     */
     public function register(): void
     {
         
@@ -16,7 +19,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('*', function ($view) {
-            $view->with('kontaks', Kontak::all());
+            $globalKontak = Kontak::whereIn('id', [1, 2])->get();
+            $view->with('globalKontak', $globalKontak);
         });
     }
 }
