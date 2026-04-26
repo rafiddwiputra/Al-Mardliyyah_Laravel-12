@@ -38,9 +38,18 @@
             <h3 class="font-bold text-lg mb-6 border-b border-white/10 pb-2 inline-block">Navigasi Cepat</h3>
             <ul class="space-y-3 text-sm text-gray-200">
                 <li><a href="/" class="hover:text-[#c9a76d] transition {{ Request::is('/') ? 'font-bold text-white' : '' }}">Beranda</a></li>
+
                 <li><a href="{{ route('profile') }}" class="hover:text-[#c9a76d] transition {{ Request::is('profil*') ? 'font-bold text-white' : '' }}">Profil</a></li>
+
+                <li><a href="{{ route('program') }}" class="hover:text-[#c9a76d] transition {{ Request::is('program*') ? 'font-bold text-white' : '' }}">Program</a></li>
+
                 <li><a href="{{ route('berita') }}" class="hover:text-[#c9a76d] transition {{ Request::is('berita*') ? 'font-bold text-white' : '' }}">Berita</a></li>
+                
+                <li><a href="{{ route('galeri') }}" class="hover:text-[#c9a76d] transition {{ Request::is('galeri*') ? 'font-bold text-white' : '' }}">Galeri</a></li>
+
                 <li><a href="{{ url('/pendaftaran') }}" class="hover:text-[#c9a76d] transition {{ Request::is('pendaftaran*') ? 'font-bold text-white' : '' }}">Pendaftaran</a></li>
+                
+                <li><a href="{{ route('kontak') }}" class="hover:text-[#c9a76d] transition {{ Request::is('kontak*') ? 'font-bold text-white' : '' }}">Kontak</a></li>
             </ul>
         </div>
 
@@ -80,7 +89,7 @@
                     </svg>
                     <div class="flex-1">
                         <p class="leading-relaxed mb-3">
-                            8GQ8+X43, Jl. H. Moch Noer, RT.01/RW.01, Demangan, Kec. Taman, Kota Madiun, Jawa Timur 63136
+                            Jl. H. Moch Noer, RT.01/RW.01, Demangan, Kec. Taman, Kota Madiun, Jawa Timur 63136
                         </p>
                         
                         <a href="https://maps.app.goo.gl/t1K41PeTNDuQY9dHA" target="_blank" rel="noopener noreferrer" class="block relative rounded-lg overflow-hidden group border border-white/20 shadow-md">
