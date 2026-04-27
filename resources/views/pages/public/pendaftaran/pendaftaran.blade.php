@@ -70,7 +70,7 @@
 
             {{-- ================= CARD 1: JADWAL PENDAFTARAN ================= --}}
             @if($jadwal)
-            <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="800" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-[400px] relative">
+            <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="800" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-[300px] relative">
                 <div class="w-14 h-14 shrink-0 bg-[#1E5631] rounded-2xl flex items-center justify-center p-3 mb-6 shadow-md transition-transform duration-500 hover:rotate-6">
                     <img src="{{ asset('images/ikon_dokumen.png') }}" alt="Ikon Dokumen" class="w-full h-full object-contain">
                 </div>
@@ -125,7 +125,7 @@
 
             {{-- ================= CARD 2: PERSYARATAN ================= --}}
             @if($persyaratan)
-            <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="800" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-[400px] relative">
+            <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="800" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-[300px] relative">
                 <div class="w-14 h-14 shrink-0 bg-[#1E5631] rounded-2xl flex items-center justify-center p-3 mb-6 shadow-md transition-transform duration-500 hover:rotate-6">
                     <img src="{{ asset('images/ikon_dokumen.png') }}" alt="Ikon Dokumen" class="w-full h-full object-contain">
                 </div>
@@ -157,7 +157,7 @@
 
             {{-- ================= CARD 3: BIAYA ================= --}}
             @if($biayaInfo)
-            <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="800" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-[400px] relative">
+            <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="800" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-[300px] relative">
                 <div class="w-14 h-14 shrink-0 bg-[#1E5631] rounded-2xl flex items-center justify-center p-3 mb-6 shadow-md transition-transform duration-500 hover:rotate-6">
                     <img src="{{ asset('images/ikon_dokumen.png') }}" alt="Ikon Dokumen" class="w-full h-full object-contain">
                 </div>

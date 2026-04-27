@@ -32,7 +32,7 @@ class AdminAktivitasSantriController extends Controller
             'nama_aktivitas' => $request->nama_aktivitas,
             'deskripsi' => $request->deskripsi,
             'gambar' => 'uploads/aktivitas/'.$namaFile,
-            'created_by' => auth()->id(),
+            // 'created_by' => auth()->id(),
         ]);
 
         return back()->with('success', 'Aktivitas berhasil ditambahkan');

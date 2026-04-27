@@ -13,7 +13,7 @@ class AdminDashboardController extends Controller
         $total = PendaftaranSantri::count();
 
         // BARU (misal hari ini)
-        $baru = PendaftaranSantri::whereDate('created_at', today())->count();
+        $baru = PendaftaranSantri::where('status', 'diproses')->count();
 
         // DITERIMA
         $diterima = PendaftaranSantri::where('status', 'diterima')->count();

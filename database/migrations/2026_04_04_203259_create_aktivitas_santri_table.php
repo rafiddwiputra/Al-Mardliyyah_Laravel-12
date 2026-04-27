@@ -18,19 +18,8 @@ return new class extends Migration
             $table->string('gambar', 255)->nullable(); 
             $table->text('deskripsi')->nullable();
 
-            // Audit Trail (Seragam dengan tabel Kontak & Galeri)
-            $table->foreignId('created_by')
-                  ->nullable()
-                  ->constrained('users')
-                  ->nullOnDelete()
-                  ->cascadeOnUpdate();
-
-            $table->foreignId('updated_by')
-                  ->nullable()
-                  ->constrained('users')
-                  ->nullOnDelete()
-                  ->cascadeOnUpdate();
-
+            // Cukup gunakan timestamps, tidak perlu created_by & updated_by 
+            // agar konsisten dengan penyederhanaan tabel kontak sebelumnya.
             $table->timestamps();
         });
     }
