@@ -67,6 +67,17 @@
 
 <!-- CONTENT -->
  <div class="max-w-xl mx-auto pb-12">
+
+@if ($errors->any())
+    <div class="bg-red-100 border border-red-300 text-red-700 p-3 rounded mb-4">
+        <ul class="list-disc pl-5 text-sm">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <form action="{{ route('pendaftaran.store') }}" method="POST" class="space-y-6">
     @csrf
 
@@ -93,37 +104,51 @@
 
             <div class="col-span-2">
                 <label class="font-semibold">Nama Lengkap Santri</label>
-                <input type="text" name="nama_lengkap" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="text" name="nama_lengkap" 
+                value="{{ old('nama_lengkap', $data->nama_lengkap ?? '') }}"
+                required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
             <div>
                 <label class="font-semibold">NISN (Nomor Induk Sekolah)</label>
-                <input type="text" name="nisn" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="text" name="nisn" 
+                value="{{ old('nisn', $data->nisn ?? '') }}"
+                required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
             <div>
                 <label class="font-semibold">Tanggal Lahir</label>
-                <input type="date" name="tanggal_lahir" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="date" name="tanggal_lahir" 
+                value="{{ old('tanggal_lahir', $data->tanggal_lahir ?? '') }}"
+                required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
             <div>
                 <label class="font-semibold">NIK Calon Santri (NIK Sesuai di KK)</label>
-                <input type="text" name="nik" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="text" name="nik" 
+                value="{{ old('nik', $data->nik ?? '') }}"
+                required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
             <div>
                 <label class="font-semibold">Nomor KK</label>
-                <input type="text" name="nomor_kk" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="text" name="nomor_kk" 
+                value="{{ old('nomor_kk', $data->nomor_kk ?? '') }}"
+                required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
             <div class="col-span-2">
                 <label class="font-semibold">Tempat Lahir</label>
-                <input type="text" name="tempat_lahir" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="text" name="tempat_lahir" 
+                value="{{ old('tempat_lahir', $data->tempat_lahir ?? '') }}"
+                required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
             <div class="col-span-2">
                 <label class="font-semibold">Sekolah Asal</label>
-                <input type="text" name="sekolah_asal" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="text" name="sekolah_asal" 
+                value="{{ old('sekolah_asal', $data->sekolah_asal ?? '') }}"
+                required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
         </div>
@@ -138,10 +163,14 @@
             <p class="mb-2 font-semibold">Jenis Kelamin</p>
             <div class="space-y-1">
                 <label class="flex items-center gap-2">
-                    <input type="radio" name="jenis_kelamin" value="Putra" required class="accent-[#1E5631]">Laki-laki
+                    <input type="radio" name="jenis_kelamin" value="Putra" 
+                    {{ old('jenis_kelamin', $data->jenis_kelamin ?? '') == 'Putra' ? 'checked' : '' }}
+                    required class="accent-[#1E5631]">Laki-laki
                 </label>
                 <label class="flex items-center gap-2">
-                    <input type="radio" name="jenis_kelamin" value="Putri" class="accent-[#1E5631]">Perempuan
+                    <input type="radio" name="jenis_kelamin" value="Putri" 
+                    {{ old('jenis_kelamin', $data->jenis_kelamin ?? '') == 'Putri' ? 'checked' : '' }}
+                    class="accent-[#1E5631]">Perempuan
                 </label>
             </div>
         </div>
@@ -150,13 +179,19 @@
             <p class="mb-2 font-semibold">Jenjang Yang Akan Ditempuh</p>
             <div class="space-y-1">
                 <label class="flex items-center gap-2">
-                    <input type="radio" name="jenjang" value="SMP (Khusus Putri)" required class="accent-[#1E5631]">SMP (Khusus Putri)
+                    <input type="radio" name="jenjang" value="SMP (Khusus Putri)" 
+                    {{ old('jenjang', $data->jenjang ?? '') == 'SMP (Khusus Putri)' ? 'checked' : '' }}
+                    required class="accent-[#1E5631]">SMP (Khusus Putri)
                 </label>
                 <label class="flex items-center gap-2">
-                    <input type="radio" name="jenjang" value="MTs (Khusus Putra)" class="accent-[#1E5631]">MTs (Khusus Putra)
+                    <input type="radio" name="jenjang" value="MTs (Khusus Putra)" 
+                    {{ old('jenjang', $data->jenjang ?? '') == 'MTs (Khusus Putra)' ? 'checked' : '' }}
+                    class="accent-[#1E5631]">MTs (Khusus Putra)
                 </label>
                 <label class="flex items-center gap-2">
-                    <input type="radio" name="jenjang" value="MA (Putra/Putri)" class="accent-[#1E5631]">MA (Putra/Putri)
+                    <input type="radio" name="jenjang" value="MA (Putra/Putri)" 
+                    {{ old('jenjang', $data->jenjang ?? '') == 'MA (Putra/Putri)' ? 'checked' : '' }}
+                    class="accent-[#1E5631]">MA (Putra/Putri)
                 </label>
             </div>
         </div>
@@ -167,18 +202,19 @@
     <div>
         <p class="mb-2 font-semibold">Dari Mana Mengetahui Pondok</p>
         <div class="space-y-1">
-            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Orang Tua" required class="accent-[#1E5631]">Orang Tua</label>
-            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Tetangga" class="accent-[#1E5631]">Tetangga</label>
-            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Kerabat/Saudara" class="accent-[#1E5631]">Kerabat/Saudara</label>
-            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Pamflet Sosialisasi" class="accent-[#1E5631]">Pamflet Sosialisasi</label>
-            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Alumni" class="accent-[#1E5631]">Alumni</label>
-            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Thoriqoh" class="accent-[#1E5631]">Thoriqoh</label>
-            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Sosial Media" class="accent-[#1E5631]">Sosial Media</label>
-            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Other" id="other_radio" class="accent-[#1E5631]">Other</label>
+            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Orang Tua" {{ old('sumber_informasi', $data->sumber_informasi ?? '') == 'Orang Tua' ? 'checked' : '' }} required class="accent-[#1E5631]">Orang Tua</label>
+            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Tetangga" {{ old('sumber_informasi', $data->sumber_informasi ?? '') == 'Tetangga' ? 'checked' : '' }} class="accent-[#1E5631]">Tetangga</label>
+            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Kerabat/Saudara" {{ old('sumber_informasi', $data->sumber_informasi ?? '') == 'Kerabat/Saudara' ? 'checked' : '' }} class="accent-[#1E5631]">Kerabat/Saudara</label>
+            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Pamflet Sosialisasi" {{ old('sumber_informasi', $data->sumber_informasi ?? '') == 'Pamflet Sosialisasi' ? 'checked' : '' }} class="accent-[#1E5631]">Pamflet Sosialisasi</label>
+            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Alumni" {{ old('sumber_informasi', $data->sumber_informasi ?? '') == 'Alumni' ? 'checked' : '' }} class="accent-[#1E5631]">Alumni</label>
+            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Thoriqoh" {{ old('sumber_informasi', $data->sumber_informasi ?? '') == 'Thoriqoh' ? 'checked' : '' }} class="accent-[#1E5631]">Thoriqoh</label>
+            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Sosial Media"{{ old('sumber_informasi', $data->sumber_informasi ?? '') == 'Sosial Media' ? 'checked' : '' }} class="accent-[#1E5631]">Sosial Media</label>
+            <label class="flex items-center gap-2"><input type="radio" name="sumber_informasi" value="Other" id="other_radio" {{ !in_array(old('sumber_informasi', $data->sumber_informasi ?? ''), ['Orang Tua','Tetangga','Kerabat/Saudara','Pamflet Sosialisasi','Alumni','Thoriqoh','Sosial Media']) ? 'checked' : '' }} class="accent-[#1E5631]">Other</label>
             <div id="other_input_container" class="hidden mt-2">
                 <input type="text"
                 name="sumber_informasi_lainnya"
                 placeholder="Tulis sumber lainnya..."
+                value="{{ old('sumber_informasi_lainnya') }}"
                 class="w-full border rounded-lg px-3 py-2 text-sm">
             </div>
         </div>
@@ -202,35 +238,43 @@
 
             <div>
                 <label class="font-semibold">Nama Ayah</label>
-                <input type="text" name="nama_ayah" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="text" name="nama_ayah" 
+                value="{{ old('nama_ayah', $data->ortu->nama_ayah ?? '') }}"
+                required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
             <div>
                 <label class="font-semibold">NIK Ayah</label>
-                <input type="text" name="nik_ayah" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="text" name="nik_ayah" 
+                value="{{ old('nik_ayah', $data->ortu->nik_ayah ?? '') }}"
+                required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
             <div>
                 <label class="font-semibold">Tanggal Lahir Ayah</label>
-                <input type="date" name="tanggal_lahir_ayah" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="date" name="tanggal_lahir_ayah" 
+                value="{{ old('tanggal_lahir_ayah', $data->ortu->tanggal_lahir_ayah ?? '') }}"
+                required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
             <div>
                 <label class="font-semibold">Pekerjaan Ayah</label>
-                <input type="text" name="pekerjaan_ayah" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="text" name="pekerjaan_ayah" 
+                value="{{ old('pekerjaan_ayah', $data->ortu->pekerjaan_ayah ?? '') }}"
+                required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
             <!-- Pendidikan Ayah -->
             <div>
                 <p class="mb-2 font-semibold">Pendidikan Terakhir Ayah</p>
                 <div class="space-y-1">
-                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ayah" value="SD/sederajat" class="accent-[#1E5631]" required>SD/sederajat</label>
-                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ayah" value="SMP/SLTP/sederajat" class="accent-[#1E5631]">SMP/SLTP/sederajat</label>
-                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ayah" value="SMA/SLTA/sederajat" class="accent-[#1E5631]">SMA/SLTA/sederajat</label>
-                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ayah" value="Diploma III" class="accent-[#1E5631]">Diploma III</label>
-                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ayah" value="Strata I" class="accent-[#1E5631]">Strata I</label>
-                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ayah" value="Strata II" class="accent-[#1E5631]">Strata II</label>
-                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ayah" value="Strata III" class="accent-[#1E5631]">Strata III</label>
+                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ayah" value="SD/sederajat" class="accent-[#1E5631]" {{ old('pendidikan_terakhir_ayah', $data->ortu->pendidikan_terakhir_ayah ?? '') == 'SD/sederajat' ? 'checked' : '' }} required>SD/sederajat</label>
+                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ayah" value="SMP/SLTP/sederajat" {{ old('pendidikan_terakhir_ayah', $data->ortu->pendidikan_terakhir_ayah ?? '') == 'SMP/SLTP/sederajat' ? 'checked' : '' }} class="accent-[#1E5631]">SMP/SLTP/sederajat</label>
+                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ayah" value="SMA/SLTA/sederajat" {{ old('pendidikan_terakhir_ayah', $data->ortu->pendidikan_terakhir_ayah ?? '') == 'SMA/SLTA/sederajat' ? 'checked' : '' }} class="accent-[#1E5631]">SMA/SLTA/sederajat</label>
+                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ayah" value="Diploma III" {{ old('pendidikan_terakhir_ayah', $data->ortu->pendidikan_terakhir_ayah ?? '') == 'Diploma III' ? 'checked' : '' }} class="accent-[#1E5631]">Diploma III</label>
+                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ayah" value="Strata I" {{ old('pendidikan_terakhir_ayah', $data->ortu->pendidikan_terakhir_ayah ?? '') == 'Strata I' ? 'checked' : '' }} class="accent-[#1E5631]">Strata I</label>
+                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ayah" value="Strata II" {{ old('pendidikan_terakhir_ayah', $data->ortu->pendidikan_terakhir_ayah ?? '') == 'Strata II' ? 'checked' : '' }} class="accent-[#1E5631]">Strata II</label>
+                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ayah" value="Strata III" {{ old('pendidikan_terakhir_ayah', $data->ortu->pendidikan_terakhir_ayah ?? '') == 'Strata III' ? 'checked' : '' }} class="accent-[#1E5631]">Strata III</label>
                 </div>
             </div>
 
@@ -238,17 +282,17 @@
             <div>
                 <p class="mb-2 font-semibold">Penghasilan Orang Tua</p>
                 <div class="space-y-1">
-                    <label class="flex gap-2"><input type="radio" name="penghasilan_ortu" value="<500 Ribu" class="accent-[#1E5631]" required>&lt; 500 Ribu</label>
-                    <label class="flex gap-2"><input type="radio" name="penghasilan_ortu" value="1-2 Juta" class="accent-[#1E5631]">1 - 2 Juta</label>
-                    <label class="flex gap-2"><input type="radio" name="penghasilan_ortu" value="3-5 Juta" class="accent-[#1E5631]">3 - 5 Juta</label>
-                    <label class="flex gap-2"><input type="radio" name="penghasilan_ortu" value=">5 Juta" class="accent-[#1E5631]">&gt; 5 Juta</label>
+                    <label class="flex gap-2"><input type="radio" name="penghasilan_ortu" value="<500 Ribu" {{ old('penghasilan_ortu', $data->ortu->penghasilan_ortu ?? '') == '<500 Ribu' ? 'checked' : '' }} class="accent-[#1E5631]" required>&lt; 500 Ribu</label>
+                    <label class="flex gap-2"><input type="radio" name="penghasilan_ortu" value="1-2 Juta" {{ old('penghasilan_ortu', $data->ortu->penghasilan_ortu ?? '') == '1-2 Juta' ? 'checked' : '' }} class="accent-[#1E5631]">1 - 2 Juta</label>
+                    <label class="flex gap-2"><input type="radio" name="penghasilan_ortu" value="3-5 Juta" {{ old('penghasilan_ortu', $data->ortu->penghasilan_ortu ?? '') == '3-5 Juta' ? 'checked' : '' }} class="accent-[#1E5631]">3 - 5 Juta</label>
+                    <label class="flex gap-2"><input type="radio" name="penghasilan_ortu" value=">5 Juta" {{ old('penghasilan_ortu', $data->ortu->penghasilan_ortu ?? '') == '>5 Juta' ? 'checked' : '' }} class="accent-[#1E5631]">&gt; 5 Juta</label>
                 </div>
             </div>
 
             <!-- Alamat -->
             <div>
                 <label class="font-semibold">Alamat (Sesuai KK)</label>
-                <textarea name="alamat" required class="w-full mt-1 border rounded-lg px-3 py-2"></textarea>
+                <textarea name="alamat" required class="w-full mt-1 border rounded-lg px-3 py-2">{{ old('alamat', $data->ortu->alamat ?? '') }}</textarea>
             </div>
 
         </div>
@@ -258,46 +302,54 @@
 
             <div>
                 <label class="font-semibold">Nama Ibu</label>
-                <input type="text" name="nama_ibu" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="text" name="nama_ibu" 
+                value="{{ old('nama_ibu', $data->ortu->nama_ibu ?? '') }}"
+                required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
             <div>
                 <label class="font-semibold">NIK Ibu</label>
-                <input type="text" name="nik_ibu" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="text" name="nik_ibu" 
+                value="{{ old('nik_ibu', $data->ortu->nik_ibu ?? '') }}"
+                required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
             <div>
                 <label class="font-semibold">Tanggal Lahir Ibu</label>
-                <input type="date" name="tanggal_lahir_ibu" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="date" name="tanggal_lahir_ibu" 
+                value="{{ old('tanggal_lahir_ibu', $data->ortu->tanggal_lahir_ibu ?? '') }}"
+                required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
             <div>
                 <label class="font-semibold">Pekerjaan Ibu</label>
-                <input type="text" name="pekerjaan_ibu" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="text" name="pekerjaan_ibu" 
+                value="{{ old('pekerjaan_ibu', $data->ortu->pekerjaan_ibu ?? '') }}"
+                required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
             <!-- Pendidikan Ibu -->
             <div>
                 <p class="mb-2 font-semibold">Pendidikan Terakhir Ibu</p>
                 <div class="space-y-1">
-                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ibu" value="SD/sederajat" class="accent-[#1E5631]" required>SD/sederajat</label>
-                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ibu" value="SMP/SLTP/sederajat" class="accent-[#1E5631]">SMP/SLTP/sederajat</label>
-                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ibu" value="SMA/SLTA/sederajat" class="accent-[#1E5631]">SMA/SLTA/sederajat</label>
-                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ibu" value="Diploma III" class="accent-[#1E5631]">Diploma III</label>
-                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ibu" value="Strata I" class="accent-[#1E5631]">Strata I</label>
-                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ibu" value="Strata II" class="accent-[#1E5631]">Strata II</label>
-                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ibu" value="Strata III" class="accent-[#1E5631]">Strata III</label>
+                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ibu" value="SD/sederajat" {{ old('pendidikan_terakhir_ibu', $data->ortu->pendidikan_terakhir_ibu ?? '') == 'SD/sederajat' ? 'checked' : '' }} class="accent-[#1E5631]" required>SD/sederajat</label>
+                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ibu" value="SMP/SLTP/sederajat" {{ old('pendidikan_terakhir_ibu', $data->ortu->pendidikan_terakhir_ibu ?? '') == 'SMP/SLTP/sederajat' ? 'checked' : '' }} class="accent-[#1E5631]">SMP/SLTP/sederajat</label>
+                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ibu" value="SMA/SLTA/sederajat" {{ old('pendidikan_terakhir_ibu', $data->ortu->pendidikan_terakhir_ibu ?? '') == 'SMA/SLTA/sederajat' ? 'checked' : '' }} class="accent-[#1E5631]">SMA/SLTA/sederajat</label>
+                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ibu" value="Diploma III" {{ old('pendidikan_terakhir_ibu', $data->ortu->pendidikan_terakhir_ibu ?? '') == 'Diploma III' ? 'checked' : '' }} class="accent-[#1E5631]">Diploma III</label>
+                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ibu" value="Strata I" {{ old('pendidikan_terakhir_ibu', $data->ortu->pendidikan_terakhir_ibu ?? '') == 'Strata I' ? 'checked' : '' }} class="accent-[#1E5631]">Strata I</label>
+                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ibu" value="Strata II" {{ old('pendidikan_terakhir_ibu', $data->ortu->pendidikan_terakhir_ibu ?? '') == 'Strata II' ? 'checked' : '' }} class="accent-[#1E5631]">Strata II</label>
+                    <label class="flex gap-2"><input type="radio" name="pendidikan_terakhir_ibu" value="Strata III" {{ old('pendidikan_terakhir_ibu', $data->ortu->pendidikan_terakhir_ibu ?? '') == 'Strata III' ? 'checked' : '' }} class="accent-[#1E5631]">Strata III</label>
                 </div>
             </div>
 
             <div>
                 <label class="font-semibold">Nomor WhatsApp</label>
-                <input type="text" name="no_hp" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="text" name="no_hp" value="{{ old('no_hp', $data->ortu->no_hp ?? '') }}" required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
             <div>
                 <label class="font-semibold">Kode Pos</label>
-                <input type="text" name="kode_pos" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="text" name="kode_pos" value="{{ old('kode_pos', $data->ortu->kode_pos ?? '') }}" required class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
         </div>
@@ -345,13 +397,13 @@
         <label class="font-semibold">Ukuran Baju Putra</label>
         <select name="ukuran_baju_putra" class="w-full mt-1 border rounded-lg px-3 py-2">
             <option value="">Pilih ukuran</option>
-            <option>XS</option>
-            <option>S</option>
-            <option>M</option>
-            <option>L</option>
-            <option>XL</option>
-            <option>XXL</option>
-            <option>XXXL</option>
+            <option {{ old('ukuran_baju_putra', $data->ukuran_baju_putra ?? '') == 'XS' ? 'selected' : '' }}>XS</option>
+            <option {{ old('ukuran_baju_putra', $data->ukuran_baju_putra ?? '') == 'S' ? 'selected' : '' }}>S</option>
+            <option {{ old('ukuran_baju_putra', $data->ukuran_baju_putra ?? '') == 'M' ? 'selected' : '' }}>M</option>
+            <option {{ old('ukuran_baju_putra', $data->ukuran_baju_putra ?? '') == 'L' ? 'selected' : '' }}>L</option>
+            <option {{ old('ukuran_baju_putra', $data->ukuran_baju_putra ?? '') == 'XL' ? 'selected' : '' }}>XL</option>
+            <option {{ old('ukuran_baju_putra', $data->ukuran_baju_putra ?? '') == 'XXL' ? 'selected' : '' }}>XXL</option>
+            <option {{ old('ukuran_baju_putra', $data->ukuran_baju_putra ?? '') == 'XXXL' ? 'selected' : '' }}>XXXL</option>
         </select>
     </div>
 
@@ -360,7 +412,7 @@
         <select name="ukuran_celana_putra" class="w-full mt-1 border rounded-lg px-3 py-2">
             <option value="">Pilih ukuran</option>
             @for ($i = 27; $i <= 38; $i++)
-                <option>{{ $i }}</option>
+                <option {{ old('ukuran_celana_putra', $data->ukuran_celana_putra ?? '') == $i ? 'selected' : '' }}>{{ $i }}</option>
             @endfor
         </select>
     </div>
@@ -374,13 +426,13 @@
         <label class="font-semibold">Ukuran Baju Putri</label>
         <select name="ukuran_baju_putri" class="w-full mt-1 border rounded-lg px-3 py-2">
             <option value="">Pilih ukuran</option>
-            <option>S</option>
-            <option>M</option>
-            <option>L</option>
-            <option>XL</option>
-            <option>XXL</option>
-            <option>XXXL</option>
-            <option>XXXXL</option>
+            <option {{ old('ukuran_baju_putri', $data->ukuran_baju_putri ?? '') == 'S' ? 'selected' : '' }}>S</option>
+            <option {{ old('ukuran_baju_putri', $data->ukuran_baju_putri ?? '') == 'M' ? 'selected' : '' }}>M</option>
+            <option {{ old('ukuran_baju_putri', $data->ukuran_baju_putri ?? '') == 'L' ? 'selected' : '' }}>L</option>
+            <option {{ old('ukuran_baju_putri', $data->ukuran_baju_putri ?? '') == 'XL' ? 'selected' : '' }}>XL</option>
+            <option {{ old('ukuran_baju_putri', $data->ukuran_baju_putri ?? '') == 'XXL' ? 'selected' : '' }}>XXL</option>
+            <option {{ old('ukuran_baju_putri', $data->ukuran_baju_putri ?? '') == 'XXXL' ? 'selected' : '' }}>XXXL</option>
+            <option {{ old('ukuran_baju_putri', $data->ukuran_baju_putri ?? '') == 'XXXXL' ? 'selected' : '' }}>XXXXL</option>
         </select>
     </div>
 
@@ -389,7 +441,7 @@
         <select name="ukuran_rok_putri" class="w-full mt-1 border rounded-lg px-3 py-2">
             <option value="">Pilih ukuran</option>
             @for ($i = 33; $i <= 40; $i++)
-                <option>{{ $i }}</option>
+                <option {{ old('ukuran_rok_putri', $data->ukuran_rok_putri ?? '') == $i ? 'selected' : '' }}>{{ $i }}</option>
             @endfor
         </select>
     </div>
@@ -447,6 +499,18 @@
             }
         });
     });
+
+window.addEventListener('DOMContentLoaded', function () {
+    const selectedGender = document.querySelector('input[name="jenis_kelamin"]:checked');
+
+    if (selectedGender) {
+        if (selectedGender.value === 'Putra') {
+            ukuranPutra.classList.remove('hidden');
+        } else if (selectedGender.value === 'Putri') {
+            ukuranPutri.classList.remove('hidden');
+        }
+    }
+});
 </script>
 
 @endsection

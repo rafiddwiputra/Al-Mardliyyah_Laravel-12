@@ -151,11 +151,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 // Status Pendaftaran
-Route::get('/status-pendaftaran/belum', [StatusPendaftaranController::class, 'belum']);
-Route::get('/status-pendaftaran/proses', [StatusPendaftaranController::class, 'proses'])
-->name('status.proses');
-Route::get('/status-pendaftaran/diterima', [StatusPendaftaranController::class, 'diterima']);
-Route::get('/status-pendaftaran/ditolak', [StatusPendaftaranController::class, 'ditolak']);
+Route::get('/status-pendaftaran', [StatusPendaftaranController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('status.pendaftaran');
 
 
 // Beranda

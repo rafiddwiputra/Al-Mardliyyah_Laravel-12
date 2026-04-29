@@ -73,19 +73,19 @@
         <!-- DATA 1 -->
         <div class="pb-4 border-b">
             <p class="text-sm text-gray-500 mb-1">Nama Calon Santri</p>
-            <p class="text-[#1E5631] text-lg font-semibold">Ahmad Fauzan</p>
+            <p>{{ $data->nama_lengkap }}</p>
         </div>
 
         <!-- DATA 2 -->
         <div class="py-4 border-b">
             <p class="text-sm text-gray-500 mb-1">Program Pendidikan Pilihan</p>
-            <p class="text-[#1E5631] text-lg font-semibold">MA Al-Mardliyyah</p>
+            <p>{{ $data->program->nama_program ?? '-' }}</p>
         </div>
 
         <!-- DATA 3 -->
         <div class="py-4 border-b">
             <p class="text-sm text-gray-500 mb-1">Tanggal Pendaftaran</p>
-            <p class="text-[#1E5631] text-lg font-semibold">12 Januari 2026</p>
+            <p>{{ $data->created_at->format('d F Y') }}</p>
         </div>
 
         <!-- CARD TAMBAHAN -->
@@ -97,9 +97,10 @@
 
         <!-- BUTTON EDIT -->
         <div class="flex justify-center mt-6">
-            <button class="bg-[#C6A75E] text-white px-6 py-2 rounded text-sm font-semibold">
+            <a href="{{ route('formulir') }}"
+                class="bg-[#C6A75E] text-white px-6 py-2 rounded text-sm font-semibold">
                 Edit Data
-            </button>
+            </a>
         </div>
 
     </div>

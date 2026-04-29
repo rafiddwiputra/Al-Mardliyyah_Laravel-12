@@ -3,27 +3,28 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\PendaftaranSantri;
+use Illuminate\Support\Facades\Auth;
 
 class StatusPendaftaranController extends Controller
 {
-     public function belum()
+    public function index()
     {
-        return view('pages.public.pendaftaran.status-pendaftaran.belum');
-    }
+        $data = PendaftaranSantri::where('users_id', Auth::id())->first();
 
-    public function proses()
-    {
-        return view('pages.public.pendaftaran.status-pendaftaran.proses');
-    }
+        if (!$data) {
+            return view('pages.public.pendaftaran.status-pendaftaran.belum');
+        }
 
-    public function diterima()
-    {
-        return view('pages.public.pendaftaran.status-pendaftaran.diterima');
-    }
+        $status = strtolower(trim($data->status));
 
-    public function ditolak()
-    {
-        return view('pages.public.pendaftaran.status-pendaftaran.ditolak');
+        switch ($status) {
+    case 'diterima':
+        return view('pages.public.pendaftaran.status-pendaftaran.diterima', compact('data'));
+    case 'ditolak':
+        return view('pages.public.pendaftaran.status-pendaftaran.ditolak', compact('data'));
+    default:
+        return view('pages.public.pendaftaran.status-pendaftaran.proses', compact('data'));
+}
     }
 }

@@ -71,6 +71,7 @@
         </div>
     </div>
 
+
     <form action="{{ route('upload.dokumen.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
     @csrf
 
@@ -148,7 +149,23 @@
                 <p class="text-sm text-green-600 mt-2 file-name hidden"></p>
                 <p class="text-sm text-red-500 mt-1 error-message hidden"></p>
 
-                <input type="file" name="{{ $fields[$index] }}" class="hidden file-input">
+                @php
+                $fieldName = $fields[$index];
+                $file = $santri->$fieldName ?? null;
+                @endphp
+
+                @if($file && $file != '-')
+                    <p class="text-green-600 text-sm mb-2">
+                        Sudah upload
+                    </p>
+
+                <a href="{{ asset('images/'.$file) }}" target="_blank"
+                class="text-blue-500 text-sm underline mb-2 block">
+                Lihat file
+                </a>
+                @endif
+
+<input type="file" name="{{ $fieldName }}" class="hidden file-input">
 
             </label>
 

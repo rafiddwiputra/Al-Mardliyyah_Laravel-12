@@ -100,14 +100,35 @@
     <div class="flex items-center gap-4 ml-4">
         
         @php
-            $targetRoute = route('home');
-            
-            if (Auth::user()->role === 'admin' || Auth::user()->role === 'pimpinan') {
-                $targetRoute = route('admin.dashboard');
-            } elseif (Auth::user()->role === 'calon_santri') {
-                $targetRoute = route('formulir');
-            }
-        @endphp
+    $targetRoute = route('home');
+    
+    if (Auth::user()->role === 'admin' || Auth::user()->role === 'pimpinan') {
+        $targetRoute = route('admin.dashboard');
+
+    } elseif (Auth::user()->role === 'calon_santri') {
+
+        $data = \App\Models\PendaftaranSantri::where('users_id', Auth::id())->first();
+
+        if (!$data) {
+            // belum isi formulir
+            $targetRoute = route('formulir');
+
+        } elseif (
+            empty($data->foto_santri) || $data->foto_santri == '-' ||
+            empty($data->akta_kelahiran) || $data->akta_kelahiran == '-' ||
+            empty($data->kartu_keluarga) || $data->kartu_keluarga == '-' ||
+            empty($data->ktp_ayah) || $data->ktp_ayah == '-' ||
+            empty($data->ktp_ibu) || $data->ktp_ibu == '-'
+        ) {
+            // sudah isi formulir tapi belum upload lengkap
+            $targetRoute = route('upload.dokumen');
+
+        } else {
+            // sudah lengkap → ke status
+            $targetRoute = route('status.pendaftaran');
+        }
+    }
+@endphp
 
         {{-- Username tetap simpel namun rapi --}}
         <a href="{{ $targetRoute }}" 
