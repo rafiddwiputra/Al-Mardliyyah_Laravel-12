@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 // Disesuaikan: phone diganti no_hp, lalu ditambahkan photo dan status
-#[Fillable(['nama', 'email', 'password', 'role', 'no_hp', 'photo', 'status'])]
+#[Fillable(['nama', 'email', 'password', 'role', 'no_hp', 'photo', 'status', 'email_verified_at'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements MustVerifyEmail
 {

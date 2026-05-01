@@ -3,23 +3,36 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash; // Ini wajib dipanggil untuk enkripsi password
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Membuat akun Pimpinan (Super Admin)
+        User::create([
+            'nama' => 'Pimpinan Pondok',
+            'email' => 'talisca@al-mardliyyah.com',
+            'password' => Hash::make('admin123'), // Silakan ganti passwordnya nanti
+            'no_hp' => '081234567890',
+            'role' => 'pimpinan', 
+            'status' => 'aktif',
+            'email_verified_at' => now(), // Agar tidak kena cegat verifikasi email
+        ]);
+        
+        // Opsional: Kamu juga bisa sekalian membuatkan satu akun Admin awal di sini
+        User::create([
+            'nama' => 'Admin Utama',
+            'email' => 'centa@al-mardliyyah.com',
+            'password' => Hash::make('admin123'), 
+            'no_hp' => '089876543210',
+            'role' => 'admin', 
+            'status' => 'aktif',
+            'email_verified_at' => now(), 
         ]);
     }
 }

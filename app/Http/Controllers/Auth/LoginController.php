@@ -20,14 +20,35 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
 
-            if ($user->role === 'admin' || $user->role === 'pimpinan') {
+            // 1. SATPAM UTAMA: Cek status blokir sebelum masuk ke mana pun
+            if ($user->status === 'nonaktif') {
+                Auth::logout(); // Langsung keluarkan
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                
+                return back()->withErrors([
+                    'email' => 'Akun Anda telah dinonaktifkan oleh Pimpinan. Silakan hubungi pihak pondok.',
+                ])->onlyInput('email');
+            }
+
+            // 2. Jalur khusus Pimpinan
+            if ($user->role === 'pimpinan') {
+                return redirect()->route('pimpinan.laporan')
+                                 ->with('success', 'Selamat Datang di Panel Pimpinan.');
+            }
+
+            // 3. Jalur khusus Admin (sudah bersih dari sisa kode lama)
+            if ($user->role === 'admin') {
                 return redirect()->route('admin.dashboard')
                                  ->with('success', 'Selamat Datang di Panel Admin.');
             }
+            
+            // 4. Jalur khusus Calon Santri
             if ($user->role === 'calon_santri') {
                 return redirect()->route('formulir')
                                  ->with('success', 'Silakan lengkapi pendaftaran Anda.');
             }
+            
             return redirect()->route('home');
         }
 

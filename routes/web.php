@@ -29,6 +29,8 @@ use App\Http\Controllers\Admin\AdminVideoPondokController;
 use App\Http\Controllers\Admin\AdminDataPendaftarController;
 use App\Http\Controllers\Admin\AdminAktivitasSantriController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Pimpinan\AdminManagementController;
+use App\Http\Middleware\CheckActiveStatus;
 
 // ================== DEBUG ==================
 Route::get('/debug-login', function () {
@@ -161,7 +163,7 @@ Route::get('/', [BerandaController::class, 'index'])->name('home');
 
 
 // ================= ADMIN PANEL =================
-Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'verified', CheckActiveStatus::class])->group(function () {
 
     // Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])
@@ -260,10 +262,20 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::post('/aktivitas-santri', [AdminAktivitasSantriController::class, 'store'])->name('admin.aktivitas.store');
     Route::put('/aktivitas-santri/{id}', [AdminAktivitasSantriController::class, 'update'])->name('admin.aktivitas.update');
     Route::delete('/aktivitas-santri/{id}', [AdminAktivitasSantriController::class, 'destroy'])->name('admin.aktivitas.delete');
+
 });
 
 
-//Route Pimpinan
-Route::get('/pimpinan/laporan', function(){
-    return view('pages.pimpinan.laporan');
+// ================= PIMPINAN / SUPER ADMIN PANEL =================
+Route::prefix('pimpinan')->middleware(['auth', 'verified'])->group(function () {
+
+    // Laporan Pendaftaran
+    Route::get('/laporan', function(){
+        return view('pages.pimpinan.laporan');
+    })->name('pimpinan.laporan');
+
+    // Managent Admin
+    Route::get('/admin', [AdminManagementController::class, 'index'])->name('pimpinan.admin.index');
+    Route::post('/admin/store', [AdminManagementController::class, 'store'])->name('pimpinan.admin.store');
+    Route::put('/admin/{id}/toggle-status', [AdminManagementController::class, 'toggleStatus'])->name('pimpinan.admin.toggle');
 });

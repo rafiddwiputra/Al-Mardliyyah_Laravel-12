@@ -24,6 +24,11 @@
             </a>
         </div>
 
+        <a href="{{ route('pimpinan.admin.index') }}"
+               class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-white/10 text-white text-sm font-medium transition">
+                👥 Manajemen Admin
+            </a>
+
     </aside>
 
     <!-- MAIN -->
