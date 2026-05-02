@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@php
+    $showCTA = true;
+@endphp
+
 @section('title', 'Berita & Kegiatan - Al-Mardliyyah')
 
 @section('content')
@@ -99,20 +103,6 @@
             @endforeach
         </div>
     </div>
-</div>
-
-{{-- CTA PENDAFTARAN --}}
-<div class="bg-[#1E5631] text-white py-24 text-center relative overflow-hidden" data-aos="fade-up" data-aos-duration="1000">
-    <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full translate-x-1/2 -translate-y-1/2"></div>
-    <h3 class="text-3xl font-bold mb-6 text-white relative z-10">Pendaftaran Santri Baru Telah Dibuka</h3>
-    <p class="text-base mb-10 max-w-2xl mx-auto text-gray-200 opacity-80 relative z-10">
-        Bergabunglah dengan keluarga besar Al-Mardliyyah untuk mencetak generasi yang berakhlak mulia dan berwawasan luas.
-    </p>
-    
-    {{-- TOMBOL DAFTAR DENGAN ANIMASI HEARTBEAT --}}
-    <a href="{{ url('/pendaftaran') }}" class="bg-[#C6A75E] hover:bg-[#b59650] text-[#1E5631] px-10 py-3 rounded-full font-bold shadow-xl transition-all inline-block relative z-10 animate-heartbeat">
-        Daftar Sekarang
-    </a>
 </div>
 
 <script>

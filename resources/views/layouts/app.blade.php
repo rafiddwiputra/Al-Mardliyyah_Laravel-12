@@ -38,7 +38,7 @@
     </main>
 
     {{-- Footer --}}
-    @include('components.footer')
+    @include('components.footer', ['showCTA' => $showCTA ?? false])
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>

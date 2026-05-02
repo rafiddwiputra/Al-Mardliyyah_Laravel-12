@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@php
+    $showCTA = true;
+@endphp
+
 @section('content')
 
 @php
@@ -233,35 +237,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="bg-[#4F7C5C] text-white py-20 text-center px-6 -mb-12" data-aos="fade-up" data-aos-duration="1000">
-    <h3 class="text-2xl font-semibold mb-4">
-        {{ $status ? 'Pendaftaran Santri Baru Telah Dibuka' : 'Pendaftaran Saat Ini Ditutup' }}
-    </h3>
-    <p class="text-sm mb-8 max-w-xl mx-auto text-gray-200">
-        Bergabunglah dengan ribuan santri kami dan mulai perjalanan pendidikan Anda di Pondok Pesantren Al-Mardliyyah
-    </p>
-
-    {{-- Logika CTA --}}
-    @if($status)
-        @auth
-            <a href="{{ route('formulir') }}"
-               class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition-colors shadow-lg active:scale-95 animate-heartbeat">
-                Lanjutkan Pendaftaran
-            </a>
-        @else
-            <a href="{{ route('register') }}"
-               class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition-colors shadow-lg active:scale-95 animate-heartbeat">
-                Daftar Sekarang
-            </a>
-        @endauth
-    @else
-        {{-- Tombol tetap memancing (Heartbeat) tapi saat diklik memicu Popup --}}
-        <button onclick="bukaPopupTutup()" class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition-colors shadow-lg active:scale-95 animate-heartbeat">
-            Daftar Sekarang
-        </button>
-    @endif
 </div>
 
 {{-- SCRIPT UNTUK ANIMASI POPUP --}}

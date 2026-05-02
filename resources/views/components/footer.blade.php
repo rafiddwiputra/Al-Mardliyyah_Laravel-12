@@ -2,18 +2,78 @@
     Bagian CTA (Call to Action)
 --}}
 @if(isset($showCTA) && $showCTA)
-    <div class="bg-[#52795b] py-20 px-4 text-center text-white">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">
-            Pendaftaran Santri Baru Telah Dibuka
-        </h2>
-        <p class="text-lg opacity-90 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Bergabunglah dengan ribuan santri kami dan mulai perjalanan pendidikan Anda di Pondok Pesantren Al-Mardliyyah
-        </p>
-        <a href="{{ url('/pendaftaran') }}" 
-           class="bg-[#c9a76d] hover:bg-[#b5955e] text-white font-bold px-10 py-3 rounded-lg shadow-lg transition duration-300 inline-block uppercase tracking-wider text-sm">
+
+@php
+    $jadwal = \App\Models\Public\InformasiPendaftaran::where('judul', 'Jadwal Pendaftaran')->first();
+
+    $isBuka = false;
+    if($jadwal && $jadwal->status == 1 && $jadwal->tanggal_mulai && $jadwal->tanggal_selesai) {
+        $hariIni = \Carbon\Carbon::now();
+        $mulai = \Carbon\Carbon::parse($jadwal->tanggal_mulai)->startOfDay();
+        $selesai = \Carbon\Carbon::parse($jadwal->tanggal_selesai)->endOfDay();
+
+        if($hariIni->between($mulai, $selesai)) {
+            $isBuka = true;
+        }
+    }
+
+    $status = $isBuka;
+@endphp
+
+<div class="bg-[#4F7C5C] text-white py-20 text-center px-6">
+    <h3 class="text-2xl font-semibold mb-4">
+        {{ $status ? 'Pendaftaran Santri Baru Telah Dibuka' : 'Pendaftaran Saat Ini Ditutup' }}
+    </h3>
+
+    <p class="text-sm mb-8 max-w-xl mx-auto text-gray-200">
+        Bergabunglah dengan ribuan santri kami dan mulai perjalanan pendidikan Anda di Pondok Pesantren Al-Mardliyyah
+    </p>
+
+    {{-- CTA LOGIKA SAMA --}}
+    @if($status)
+        @auth
+            <a href="{{ route('formulir') }}"
+               class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
+                Lanjutkan Pendaftaran
+            </a>
+        @else
+            <a href="{{ route('register') }}"
+               class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
+                Daftar Sekarang
+            </a>
+        @endauth
+    @else
+        <button onclick="bukaPopupTutup()"
+            class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
             Daftar Sekarang
-        </a>
+        </button>
+    @endif
+</div>
+
+{{-- POPUP --}}
+<div id="popupTutup" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+    <div class="bg-white p-8 rounded-xl text-center max-w-sm">
+        <h2 class="font-bold text-lg mb-2 text-red-600">Pendaftaran Ditutup</h2>
+        <p class="text-sm text-gray-500 mb-4">
+            Pendaftaran sedang tidak dibuka saat ini.
+        </p>
+        <button onclick="tutupPopup()" class="bg-[#1E5631] text-white px-4 py-2 rounded">
+            Tutup
+        </button>
     </div>
+</div>
+
+<script>
+function bukaPopupTutup() {
+    document.getElementById('popupTutup').classList.remove('hidden');
+    document.getElementById('popupTutup').classList.add('flex');
+}
+
+function tutupPopup() {
+    document.getElementById('popupTutup').classList.add('hidden');
+}
+</script>
+
 @endif
 
 {{-- FOOTER UTAMA --}}

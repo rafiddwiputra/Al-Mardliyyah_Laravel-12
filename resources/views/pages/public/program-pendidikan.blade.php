@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@php
+    $showCTA = true;
+@endphp
+
 @section('content')
 
 {{-- ================= HERO SECTION ================= --}}
