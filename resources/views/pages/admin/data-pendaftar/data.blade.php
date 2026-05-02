@@ -13,7 +13,7 @@
     </p>
 
     <!-- CARD SEARCH + EXPORT -->
-<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
 
     <div class="flex items-center justify-between w-full px-4">
 
@@ -27,7 +27,7 @@
                     name="search"
                     value="{{ request('search') }}"
                     placeholder="Cari nama atau ID (PSB001)"
-                    class="w-full pl-9 pr-10 py-2 text-sm border rounded-lg bg-white outline-none focus:ring-2 focus:ring-[#1E5631]"
+                    class="w-full pl-9 pr-10 py-2 text-sm border rounded-lg bg-white outline-none focus:ring-2 focus:ring-[#1E5631]">
 
                 <!-- BUTTON ICON -->
                 <button type="submit"
@@ -46,29 +46,34 @@
         <!-- EXPORT -->
         <div class="relative group inline-block ml-auto">
 
-    <!-- BUTTON -->
-    <button class="text-sm text-gray-600 border px-4 py-2 rounded-lg bg-white hover:bg-gray-50">
-        Export
-    </button>
+            <!-- BUTTON -->
+            <button class="text-sm text-gray-600 border px-4 py-2 rounded-lg bg-white hover:bg-gray-50">
+                Export
+            </button>
 
-    <!-- DROPDOWN -->
-    <div class="absolute right-0 mt-2 w-44 bg-white border rounded-lg shadow 
-                opacity-0 invisible group-hover:visible group-hover:opacity-100
-                transition duration-200 z-10">
+            <!-- DROPDOWN WRAPPER -->
+            <div class="absolute right-0 pt-2 w-44">
 
-        <a href="{{ route('admin.pendaftar.exportExcel') }}"
-            class="block px-4 py-2 text-sm hover:bg-[#1E5631] hover:text-white transition">
-                Download Excel
-        </a>
+                <div class="bg-white border rounded-lg shadow
+                            opacity-0 invisible pointer-events-none
+group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto
+                            transition duration-200 z-10">
 
-        <a href="{{ route('admin.pendaftar.exportPDF') }}"
-            class="block px-4 py-2 text-sm hover:bg-[#1E5631] hover:text-white">
-                Download PDF
-        </a>
+                    <a href="{{ route('admin.pendaftar.exportExcel') }}"
+                    class="block px-4 py-2 text-sm hover:bg-[#1E5631] hover:text-white transition">
+                        Download Excel
+                    </a>
 
-    </div>
+                    <a href="{{ route('admin.pendaftar.exportPDF') }}"
+                    class="block px-4 py-2 text-sm hover:bg-[#1E5631] hover:text-white">
+                        Download PDF
+                    </a>
 
-</div>
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
@@ -119,7 +124,7 @@
                 <tbody class="text-gray-700">
 
                     @foreach($data as $item)
-                    <tr class="border-b border-[#D9D9D9] hover:bg-gray-50 transition">
+                    <tr class="border-b border-[#D9D9D9] hover:bg-gray-50 transition relative">
 
                         <td class="p-4 text-center border-r border-[#D9D9D9]">
                             PSB{{ str_pad($item->id, 3, '0', STR_PAD_LEFT) }}
@@ -139,9 +144,8 @@
 
                         <td class="p-4 text-center border-r border-[#D9D9D9]">
 
-                            <div class="relative group inline-block">
+                            <div class="relative inline-block group">
 
-                                <!-- BUTTON STATUS -->
                                 @php
                                 $status = ucfirst($item->status ?? 'diproses');
 
@@ -153,14 +157,17 @@
                                 };
                                 @endphp
 
+                                <!-- BUTTON -->
                                 <button class="w-20 text-center text-xs px-4 py-2 rounded-xl font-semibold {{ $statusColor }}">
                                     {{ $status }}
                                 </button>
 
-                                <!-- POPUP (HOVER) -->
-                                <div class="absolute right-0 top-full mt-1 w-25 bg-white border rounded-lg shadow
-                                    opacity-0 invisible group-hover:visible group-hover:opacity-100
-                                    transition duration-200 z-10">
+                                <!-- DROPDOWN (FIXED) -->
+                                <div class="absolute right-0 top-full mt-2 w-28 z-[9999]
+                                            bg-white border rounded-lg shadow
+                                            opacity-0 invisible
+                                            group-hover:opacity-100 group-hover:visible
+                                            transition duration-200">
 
                                     <form action="{{ route('admin.pendaftar.updateStatus', $item->id) }}" method="POST">
                                         @csrf
@@ -180,10 +187,13 @@
                                             class="block w-full text-left px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white">
                                             Ditolak
                                         </button>
+
                                     </form>
 
                                 </div>
+
                             </div>
+
                         </td>
 
                         <!-- AKSI -->
