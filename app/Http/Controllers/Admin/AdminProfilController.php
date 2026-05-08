@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Public\Fasilitas; // <--- 1. TAMBAHKAN INI
+use App\Models\Public\Fasilitas; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Public\VideoPondok;
@@ -12,17 +12,12 @@ class AdminProfilController extends Controller
 {
     public function index()
     {
-        // 2. AMBIL DATA FASILITAS DARI DATABASE
+    
         $fasilitas = Fasilitas::latest()->get(); 
-
-         // 3. VIDEO
          $videos = VideoPondok::latest()->get();
         
-        // 3. MASUKKAN $fasilitas KE DALAM compact()
         return view('pages.admin.profil-pondok.profil-pondok', compact('fasilitas', 'videos'));
     }
-
-    /* ================= FASILITAS ================= */
 
     public function storeFasilitas(Request $request)
     {

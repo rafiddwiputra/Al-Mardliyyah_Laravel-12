@@ -84,11 +84,26 @@
             <p>{{ $data->created_at->format('d F Y') }}</p>
         </div>
 
+       {{-- Ubah $pendaftaran menjadi $data --}}
+        @if(strtolower($data->status ?? '') === 'diterima')
+        <div class="mt-6 flex justify-center">
+            <a href="{{ route('user.cetak-bukti') }}" target="_blank" 
+               class="bg-[#1E5631] text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-green-800 transition shadow-md flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Download Bukti Pendaftaran (PDF)
+            </a>
+        </div>
+        @endif
+
         <div class="bg-[#F5F5F5] rounded p-4 mt-6">
             <p class="text-gray-500 text-sm text-center">
                 Selamat! Pendaftaran Anda telah diterima. Silahkan cek email Anda untuk informasi lebih lanjut mengenai tahap selanjutnya.
             </p>
         </div>
+
+        
 
     </div>
 

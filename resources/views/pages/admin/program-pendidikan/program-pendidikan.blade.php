@@ -108,7 +108,7 @@
                         {{ $program->id }},
                         '{{ addslashes($program->nama_program) }}',
                         '{{ addslashes($program->deskripsi) }}',
-                        '{{ $program->kategori }}', 
+                        '{{ $program->nama_kategori }}', 
                         '{{ $program->status }}'
                     )"
                     class="bg-[#BFDBFE] text-[#1D4ED8] px-6 py-2 rounded text-sm font-medium hover:bg-blue-300 transition">
@@ -156,7 +156,7 @@
                         {{ $program->id }},
                         '{{ addslashes($program->nama_program) }}',
                         '{{ addslashes($program->deskripsi) }}',
-                        '{{ $program->kategori }}',
+                        '{{ $program->nama_kategori }}',
                         '{{ $program->status }}'
                     )"
                     class="bg-[#BFDBFE] text-[#1D4ED8] px-6 py-2 rounded text-sm font-medium hover:bg-blue-300 transition">

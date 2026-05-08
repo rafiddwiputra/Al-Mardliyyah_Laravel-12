@@ -11,7 +11,7 @@ class ProgramPendidikan extends Model
     protected $table = 'program_pendidikan';
     protected $fillable = [
         'users_id', 
-        'kategori', 
+        'nama_kategori', 
         'nama_program', 
         'deskripsi', 
         'status'
@@ -20,5 +20,10 @@ class ProgramPendidikan extends Model
     public function creator(): BelongsTo 
     { 
         return $this->belongsTo(User::class, 'users_id'); 
+    }
+
+    public function pendaftar()
+    {
+        return $this->hasMany(\App\Models\PendaftaranSantri::class, 'program_id');
     }
 }

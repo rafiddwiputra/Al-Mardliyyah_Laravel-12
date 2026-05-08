@@ -12,7 +12,7 @@ class CheckActiveStatus
     public function handle(Request $request, Closure $next): Response
     {
         // Cek apakah user sedang login DAN statusnya nonaktif
-        if (Auth::check() && Auth::user()->status === 'nonaktif') {
+        if (Auth::check() && Auth::user()->statu_user === 'nonaktif') {
             
             // Langsung cabut paksa sesinya
             Auth::logout();

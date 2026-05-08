@@ -22,13 +22,16 @@ class BeritaController extends Controller
         return view('pages.public.berita.berita', compact('beritas', 'beritaPopuler'));
     }
 
-    public function show($slug)
+    // 1. Ubah parameter dari $slug menjadi $id
+    public function show($id)
     {
-        $berita = Berita::where('slug', $slug)
+        // 2. Ubah pencarian dari 'slug' menjadi 'id'
+        $berita = Berita::where('id', $id)
                         ->where('status', 'publish')
                         ->firstOrFail();
         
-        $beritaTerkait = Berita::where('slug', '!=', $slug)
+        // 3. Ubah pengecualian berita terkait dari 'slug' menjadi 'id'
+        $beritaTerkait = Berita::where('id', '!=', $id)
                                 ->where('status', 'publish')
                                 ->orderBy('created_at', 'desc')
                                 ->take(3)

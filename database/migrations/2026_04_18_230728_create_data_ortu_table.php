@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('data_ortu', function (Blueprint $table) {
-            $table->id();
+            // PERBAIKAN: Ubah menjadi integer autoIncrement agar sinkron dengan foreign key
+            $table->integer('id')->autoIncrement();
 
             // Data Ayah
             $table->string('nama_ayah', 30);
@@ -54,7 +55,7 @@ return new class extends Migration
                 '>5 Juta'
             ]);
             $table->string('no_hp', 16);
-            $table->string('alamat', 60);
+            $table->string('alamat', 150);
             $table->string('kode_pos', 5);
 
             $table->timestamps();

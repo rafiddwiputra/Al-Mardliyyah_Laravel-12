@@ -18,18 +18,30 @@
     <div class="flex items-center justify-between w-full px-4">
 
         <!-- SUB CARD SEARCH -->
-        <form method="GET" action="{{ route('admin.pendaftar') }}" class="flex-1 max-w-md">
+       <!-- SUB CARD SEARCH & FILTER -->
+        <form method="GET" action="{{ route('admin.pendaftar') }}" class="flex-1 max-w-2xl flex flex-col sm:flex-row gap-2">
     
-            <div class="relative">
+            <!-- DROPDOWN FILTER PERIODE -->
+            <select name="periode_id" 
+                onchange="this.form.submit()" 
+                class="px-4 py-2 text-sm border border-gray-300 rounded-lg bg-white outline-none focus:ring-2 focus:ring-[#1E5631] text-gray-600 cursor-pointer min-w-[200px]">
+                <option value="">Semua Periode / Tahun</option>
+                @foreach($listPeriode as $p)
+                    <option value="{{ $p->id_periode }}" {{ request('periode_id') == $p->id_periode ? 'selected' : '' }}>
+                        {{ $p->nama_periode }}
+                    </option>
+                @endforeach
+            </select>
 
-                <!-- INPUT -->
+            <!-- INPUT SEARCH -->
+            <div class="relative flex-1">
                 <input type="text"
                     name="search"
                     value="{{ request('search') }}"
-                    placeholder="Cari nama atau ID (PSB001)"
-                    class="w-full pl-9 pr-10 py-2 text-sm border rounded-lg bg-white outline-none focus:ring-2 focus:ring-[#1E5631]">
+                    placeholder="Cari nama atau ID (PSB-2026-G1-001)"
+                    class="w-full pl-4 pr-10 py-2 text-sm border border-gray-300 rounded-lg bg-white outline-none focus:ring-2 focus:ring-[#1E5631]">
 
-                <!-- BUTTON ICON -->
+                <!-- BUTTON ICON SEARCH -->
                 <button type="submit"
                     class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#1E5631]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
@@ -38,7 +50,6 @@
                             d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                 </button>
-
             </div>
 
         </form>
@@ -127,7 +138,8 @@ group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto
                     <tr class="border-b border-[#D9D9D9] hover:bg-gray-50 transition relative">
 
                         <td class="p-4 text-center border-r border-[#D9D9D9]">
-                            PSB{{ str_pad($item->id, 3, '0', STR_PAD_LEFT) }}
+                            <!-- PSB{{ str_pad($item->id, 3, '0', STR_PAD_LEFT) }} -->
+                             {{ $item->smart_id }}
                         </td>
 
                         <td class="p-4 text-center border-r border-[#D9D9D9]">

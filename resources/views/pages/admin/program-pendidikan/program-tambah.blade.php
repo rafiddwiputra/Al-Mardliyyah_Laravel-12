@@ -37,8 +37,8 @@
                         Kategori Program
                     </label>
 
-                    {{-- Name diubah menjadi "kategori" --}}
-                    <select name="kategori" required
+                    {{-- Name diubah menjadi "nama_kategori" --}}
+                    <select name="nama_kategori" required
                         class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm text-gray-800 focus:outline-none focus:ring-1 focus:ring-[#1E5631] bg-white capitalize">
 
                         <option value="" disabled selected>Pilih kategori...</option>

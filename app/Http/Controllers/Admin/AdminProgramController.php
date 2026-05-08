@@ -11,7 +11,7 @@ class AdminProgramController extends Controller
     {
         $programs = ProgramPendidikan::where('status', 'aktif')
             ->get()
-            ->groupBy('kategori');
+            ->groupBy('nama_kategori');
 
         $kategori = ['lembaga pendidikan', 'program pendidikan'];
 
@@ -21,13 +21,13 @@ class AdminProgramController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kategori' => 'required|in:lembaga pendidikan,program pendidikan',
+            'nama_kategori' => 'required|in:lembaga pendidikan,program pendidikan',
             'nama_program' => 'required|string|max:100', 
             'deskripsi' => 'nullable|string',
         ]);
 
         ProgramPendidikan::create([
-            'kategori' => $request->kategori, 
+            'nama_kategori' => $request->nama_kategori, 
             'nama_program' => $request->nama_program,
             'deskripsi' => $request->deskripsi,
             'status' => $request->has('status') ? 'aktif' : 'nonaktif',
@@ -40,7 +40,7 @@ class AdminProgramController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'kategori' => 'required|in:lembaga pendidikan,program pendidikan',
+            'nama_kategori' => 'required|in:lembaga pendidikan,program pendidikan',
             'nama_program' => 'required|string|max:100',
             'deskripsi' => 'nullable|string',
         ]);
@@ -48,7 +48,7 @@ class AdminProgramController extends Controller
         $program = ProgramPendidikan::findOrFail($id);
 
         $program->update([
-            'kategori' => $request->kategori, 
+            'nama_kategori' => $request->nama_kategori,
             'nama_program' => $request->nama_program,
             'deskripsi' => $request->deskripsi,
             'status' => $request->has('status') ? 'aktif' : 'nonaktif',

@@ -109,13 +109,15 @@
             <div data-aos="fade-up">
                 <h3 class="text-2xl font-bold text-[#1e4d2b] mb-4">Awal Berdiri</h3>
                 <p>
-                    Pada tahun 1985, dengan modal yang terbatas namun semangat yang membara, Pondok Pesantren Al-Mardliyyah didirikan di atas lahan seluas 2 hektar yang diwakafkan oleh masyarakat setempat. Dengan fasilitas seadanya—beberapa bangunan sederhana dan musholla kecil—pondok ini menerima santri perdana sebanyak 30 orang.
+                    Pondok Pesantren Al-Mardliyyah atau juga dikenal dengan sebutan "Pondok Demangan" merupakan salah satu lembaga pendidikan Islam yang berada di Kota Madiun,
+                    lebih tepatnya di Jl. H.Moch Noer RT.01/RW.01, Kelurahan Demangan, Kecamatan Taman, Kota Madiun. Pondok pesantren ini didirikan oleh KH. Agus Mushoffa Izzuddin pada tanggal 27 Rajab 1443 H atau bertepatan dengan tahun 2010 M.
                 </p>
                 <p class="mt-4">
-                    Para santri pertama tersebut tinggal dalam kondisi yang sangat sederhana, tidur beralaskan tikar dan mengaji dengan penerangan lampu minyak. Namun keterbatasan fasilitas tidak menyurutkan semangat belajar. Justru kondisi ini membentuk karakter kesederhanaan, kemandirian, dan kesabaran yang menjadi ciri khas santri Al-Mardliyyah.
+                    Pondok Pesantren Al-Mardliyyah pada awalnya merupakan salah satu dari empat asrama yang berada di bawah naungan Yayasan Pendidikan Islam Mujaddadiyyah. Keempat asrama tersebut
+                    adalah Asrama Gen-Q Al-Mujaddadiyyah, asrama Induk Putra, asrama Induk Putri dan asrama Tahfidzul Qur'an Al-Mardliyyah. 
                 </p>
                 <p class="mt-4">
-                    Dalam tujuh tahun pertama, pondok terus berkembang dan pada tahun 1992 berhasil membangun masjid utama berkapasitas 500 jamaah yang menjadi pusat kegiatan ibadah dan pembelajaran. Ini merupakan tonggak penting yang menandai kemajuan pondok dalam menyediakan sarana pendidikan yang lebih memadai.
+                    Pendirian pondok pesantren ini, dilatarbelakangi oleh keinginan kuat dari KH. Agus Mushoffa Izzuddin untuk mendirikan pesantren berbasis tahfidzul qur'an sebagai wadah bagi istrinya, Ibu Nyai Hj. Siti Alfiyah yang merupakan seorang hafidul qur’an
                 </p>
             </div>
 

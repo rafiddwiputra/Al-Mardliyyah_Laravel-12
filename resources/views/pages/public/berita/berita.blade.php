@@ -34,7 +34,8 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {{-- Loop Berita dengan delay agar muncul bergantian dari kiri ke kanan --}}
         @foreach($beritas as $index => $berita)
-        <div onclick="window.location='{{ route('berita.detail', $berita->slug) }}'"
+        <div onclick="window.location='{{ route('berita.detail', $berita->id) }}'"
+
              data-aos="fade-up" data-aos-delay="{{ ($index % 3) * 150 }}" data-aos-duration="800"
              class="berita-item {{ $index >= 9 ? 'hidden' : '' }} cursor-pointer bg-white border border-gray-100 rounded-[2rem] shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden group">
 
@@ -54,10 +55,10 @@
                     {{ Str::limit(strip_tags($berita->deskripsi), 100) }}
                 </p>
 
-                <a href="{{ route('berita.detail', $berita->slug) }}"
-                    class="text-[#1E5631] text-xs font-extrabold flex items-center gap-2">
-                    Baca Selengkapnya <span class="group-hover:translate-x-2 transition-transform">→</span>
-                </a>
+                <a href="{{ route('berita.detail', $berita->id) }}"
+    class="text-[#1E5631] text-xs font-extrabold flex items-center gap-2">
+    Baca Selengkapnya <span class="group-hover:translate-x-2 transition-transform">→</span>
+</a>
             </div>
 
         </div>
@@ -83,9 +84,9 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             {{-- Loop Berita Populer (Efek zoom-in bergantian) --}}
             @foreach($beritaPopuler as $index => $populer)
-            <div onclick="window.location='{{ route('berita.detail', $populer->slug) }}'"
-                 data-aos="zoom-in" data-aos-delay="{{ ($index % 3) * 150 }}" data-aos-duration="600"
-                 class="cursor-pointer bg-white border border-gray-50 rounded-2xl p-4 flex gap-4 shadow-sm hover:shadow-md transition group">
+            <div onclick="window.location='{{ route('berita.detail', $populer->id) }}'"
+     data-aos="zoom-in" data-aos-delay="{{ ($index % 3) * 150 }}" data-aos-duration="600"
+     class="cursor-pointer bg-white border border-gray-50 rounded-2xl p-4 flex gap-4 shadow-sm hover:shadow-md transition group">
 
                 <img src="{{ Str::startsWith($populer->gambar, 'http') ? $populer->gambar : asset($populer->gambar) }}"
                      class="w-20 h-20 object-cover rounded-xl shrink-0">

@@ -14,12 +14,9 @@ return new class extends Migration
         Schema::create('aktivitas_santri', function (Blueprint $table) {
             $table->id();
             
-            $table->string('nama_aktivitas', 100);
+            $table->string('nama_aktivitas', 50);
             $table->string('gambar', 255)->nullable(); 
             $table->text('deskripsi')->nullable();
-
-            // Cukup gunakan timestamps, tidak perlu created_by & updated_by 
-            // agar konsisten dengan penyederhanaan tabel kontak sebelumnya.
             $table->timestamps();
         });
     }

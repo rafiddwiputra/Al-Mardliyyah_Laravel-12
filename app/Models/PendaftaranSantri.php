@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Public\ProgramPendidikan;
+use App\Models\Public\PeriodePendaftaran; 
 
 class PendaftaranSantri extends Model
 {
@@ -14,6 +15,7 @@ class PendaftaranSantri extends Model
         'users_id',
         'data_ortu_id',
         'program_id',
+        'id_periode',
         'nama_lengkap',
         'nisn',
         'nik',
@@ -34,6 +36,7 @@ class PendaftaranSantri extends Model
         'ukuran_celana_putra',
         'ukuran_baju_putri',
         'ukuran_rok_putri',
+        'catatan_admin',      
         'status'
     ];
 
@@ -50,5 +53,35 @@ class PendaftaranSantri extends Model
     public function program(): BelongsTo
     {
         return $this->belongsTo(ProgramPendidikan::class, 'program_id');
+    }
+
+    // Relasi ke tabel Periode Pendaftaran
+    public function periode(): BelongsTo
+    {
+        return $this->belongsTo(PeriodePendaftaran::class, 'id_periode', 'id_periode');
+    }
+
+    // ================= FITUR SMART ID (ACCESSOR) =================
+    public function getSmartIdAttribute()
+    {
+        $tahun = '0000';
+        $kodeGelombang = '';
+
+        // Cek apakah santri ini terhubung dengan suatu periode pendaftaran
+        if ($this->periode) {
+            // 1. Ambil Tahun dari tanggal mulai periode
+            $tahun = \Carbon\Carbon::parse($this->periode->tanggal_mulai)->format('Y');
+            
+            // 2. Deteksi kata "Gelombang X" dari nama periode
+            if (preg_match('/Gelombang\s+(\d+)/i', $this->periode->nama_periode, $matches)) {
+                $kodeGelombang = '-G' . $matches[1];
+            }
+        }
+
+        // 3. Format ID Asli (Auto Increment database) menjadi 3 digit (contoh: 1 jadi 001)
+        $nomorUrut = str_pad($this->id, 3, '0', STR_PAD_LEFT);
+
+        // 4. Gabungkan semuanya menjadi Smart ID
+        return 'PSB-' . $tahun . $kodeGelombang . '-' . $nomorUrut;
     }
 }

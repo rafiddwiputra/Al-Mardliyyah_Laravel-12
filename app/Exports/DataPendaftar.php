@@ -16,7 +16,8 @@ class DataPendaftar implements FromCollection, WithHeadings
                 // =====================
                 // IDENTITAS SANTRI
                 // =====================
-                'ID' => 'PSB' . str_pad($item->id, 3, '0', STR_PAD_LEFT),
+                // 'ID' => 'PSB' . str_pad($item->id, 3, '0', STR_PAD_LEFT),
+                'ID' => $item->smart_id,
                 'Nama' => $item->nama_lengkap,
                 'Email' => $item->user->email ?? '-',
                 'NISN' => $item->nisn ?? '-',

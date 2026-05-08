@@ -70,8 +70,8 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             {{-- Variabel $beritaTerkait dikirim dari BeritaController --}}
             @foreach($beritaTerkait as $item)
-            <div onclick="window.location='{{ route('berita.detail', $item->slug) }}'"
-                 class="bg-white border border-gray-100 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer group">
+            <div onclick="window.location='{{ route('berita.detail', $item->id) }}'"
+     class="bg-white border border-gray-100 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer group">
 
                 <div class="h-48 overflow-hidden relative">
                     <img src="{{ Str::startsWith($item->gambar, 'http') ? $item->gambar : asset($item->gambar) }}"

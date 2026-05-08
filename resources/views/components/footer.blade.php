@@ -4,20 +4,20 @@
 @if(isset($showCTA) && $showCTA)
 
 @php
-    $jadwal = \App\Models\Public\InformasiPendaftaran::where('judul', 'Jadwal Pendaftaran')->first();
-
-    $isBuka = false;
-    if($jadwal && $jadwal->status == 1 && $jadwal->tanggal_mulai && $jadwal->tanggal_selesai) {
+    // Mengecek status periode pendaftaran yang baru
+    $periodeAktif = \App\Models\Public\PeriodePendaftaran::where('status', 1)->latest()->first();
+    
+    $status = false; // <-- UBAH DARI $isBuka MENJADI $status
+    
+    if($periodeAktif && $periodeAktif->tanggal_mulai && $periodeAktif->tanggal_selesai) {
         $hariIni = \Carbon\Carbon::now();
-        $mulai = \Carbon\Carbon::parse($jadwal->tanggal_mulai)->startOfDay();
-        $selesai = \Carbon\Carbon::parse($jadwal->tanggal_selesai)->endOfDay();
-
+        $mulai = \Carbon\Carbon::parse($periodeAktif->tanggal_mulai)->startOfDay();
+        $selesai = \Carbon\Carbon::parse($periodeAktif->tanggal_selesai)->endOfDay();
+        
         if($hariIni->between($mulai, $selesai)) {
-            $isBuka = true;
+            $status = true; // <-- UBAH JUGA DI SINI
         }
     }
-
-    $status = $isBuka;
 @endphp
 
 <div class="bg-[#4F7C5C] text-white py-20 text-center px-6">

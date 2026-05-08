@@ -12,20 +12,27 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pendaftaran_santri', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('users_id')
-                  ->constrained('users')
-                  ->cascadeOnUpdate()
-                  ->restrictOnDelete();
-            $table->foreignId('data_ortu_id')
-                  ->constrained('data_ortu')
-                  ->cascadeOnUpdate()
-                  ->restrictOnDelete();
+            // Ubah ID utama menjadi INT biasa agar seragam dengan ERD
+            $table->integer('id')->autoIncrement();
+
+            // 1. Foreign Key ke tabel users
+            $table->integer('users_id');
+            $table->foreign('users_id')
+                  ->references('id')->on('users')
+                  ->onUpdate('cascade')->onDelete('restrict');
+
+            // 2. Foreign Key ke tabel data_ortu
+            $table->integer('data_ortu_id');
+            $table->foreign('data_ortu_id')
+                  ->references('id')->on('data_ortu')
+                  ->onUpdate('cascade')->onDelete('restrict');
                   
-            $table->foreignId('program_id')
-                  ->constrained('program_pendidikan')
-                  ->cascadeOnUpdate()
-                  ->restrictOnDelete();
+            // 3. Foreign Key ke tabel program_pendidikan
+            $table->integer('program_id');
+            $table->foreign('program_id')
+                  ->references('id')->on('program_pendidikan')
+                  ->onUpdate('cascade')->onDelete('restrict');
+
             $table->string('nama_lengkap', 50);
             $table->string('nisn', 10)->nullable(); 
             $table->string('nik', 16)->unique(); 

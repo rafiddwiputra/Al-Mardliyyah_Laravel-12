@@ -90,8 +90,8 @@
 
                 <div class="w-20 h-20 rounded-full overflow-hidden mb-3 bg-gray-100 flex items-center justify-center">
                     
-                    @if($user->photo)
-                        <img src="{{ asset('storage/' . $user->photo) }}"
+                    @if($user->foto)
+                        <img src="{{ asset('storage/' . $user->foto) }}"
                             class="w-full h-full object-cover">
                     @else
                         <div class="w-full h-full bg-[#1E5631] flex items-center justify-center">
@@ -115,9 +115,9 @@
                     {{ $user->email }}
                 </p>
 
-                <input type="file" name="photo" id="photoInput" class="hidden">
+                <input type="file" name="foto" id="fotoInput" class="hidden">
 
-                <label for="photoInput"
+                <label for="fotoInput"
                     class="flex items-center gap-2 bg-[#1E5631] text-white text-xs px-3 py-1.5 rounded cursor-pointer hover:bg-green-800 transition">
                     <svg xmlns="http://www.w3.org/2000/svg" 
                         class="w-4 h-4" 

@@ -6,42 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('berita', function (Blueprint $table) {
-            $table->id();
-            
-            $table->string('judul', 150); 
-            $table->string('slug', 170)->unique(); 
+            $table->integer('id')->autoIncrement();
+            $table->string('judul', 30); 
             $table->string('gambar', 255)->nullable();
-            $table->text('deskripsi'); 
-            
+            $table->text('deskripsi')->nullable(); 
             $table->date('tanggal_publish')->nullable();
-            $table->enum('status', ['draft', 'publish'])->default('draft');
-
-            // Bagian ini tadi sempat terpotong di kode kamu:
-            $table->foreignId('created_by')
-                  ->nullable()
-                  ->constrained('users')
-                  ->nullOnDelete()
-                  ->cascadeOnUpdate();
-
-            $table->foreignId('updated_by')
-                  ->nullable()
-                  ->constrained('users')
-                  ->nullOnDelete()
-                  ->cascadeOnUpdate();
-
+            $table->enum('status', ['draft', 'publish'])->default('draft')->nullable();
             $table->timestamps();
+            
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('berita');

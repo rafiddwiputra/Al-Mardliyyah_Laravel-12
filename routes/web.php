@@ -10,7 +10,6 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Public\PendaftaranController;
 use App\Http\Controllers\Public\StatusPendaftaranController;
 use App\Http\Controllers\Admin\AdminBeritaController;
-use App\Http\Controllers\Admin\AdminJadwalController;
 use App\Http\Controllers\Public\BerandaController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -23,7 +22,6 @@ use App\Models\User;
 use App\Http\Controllers\Admin\AdminGaleriController;
 use App\Http\Controllers\Admin\AdminProfilController;
 use App\Http\Controllers\Admin\AdminKontakController;
-use App\Http\Controllers\Admin\AdminBiayaController;
 use App\Http\Controllers\Admin\AdminEditProfilController;
 use App\Http\Controllers\Admin\AdminVideoPondokController;
 use App\Http\Controllers\Admin\AdminDataPendaftarController;
@@ -31,6 +29,8 @@ use App\Http\Controllers\Admin\AdminAktivitasSantriController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Pimpinan\AdminManagementController;
 use App\Http\Middleware\CheckActiveStatus;
+use App\Http\Controllers\Admin\PeriodePendaftaranController;
+use App\Http\Controllers\Pimpinan\LaporanPimpinanController;
 
 // ================== DEBUG ==================
 Route::get('/debug-login', function () {
@@ -106,7 +106,7 @@ Route::get('/kontak', [KontakController::class, 'index'])->name('kontak');
 
 // Berita
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
-Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.detail');
+Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.detail');
 
 // Program Pendidikan
 Route::get('/program-pendidikan', [ProgramPendidikanController::class, 'programPendidikan'])->name('program');
@@ -156,7 +156,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/status-pendaftaran', [StatusPendaftaranController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('status.pendaftaran');
-
+Route::get('/status-pendaftaran/cetak-bukti', [\App\Http\Controllers\Public\StatusPendaftaranController::class, 'cetakBuktiUser'])
+    ->name('user.cetak-bukti')
+    ->middleware('auth');
 
 // Beranda
 Route::get('/', [BerandaController::class, 'index'])->name('home');
@@ -217,14 +219,14 @@ Route::prefix('admin')->middleware(['auth', 'verified', CheckActiveStatus::class
     Route::delete('/program-pendidikan/{id}', [AdminProgramController::class, 'destroy']);
 
     // Biaya
-    Route::get('/biaya', [AdminBiayaController::class, 'index'])
-     ->name('admin.biaya');
-    Route::put('/biaya/{id}', [AdminBiayaController::class, 'update'])
-    ->name('admin.biaya.update');
-    Route::delete('/biaya/{id}', [AdminBiayaController::class, 'destroy'])
-    ->name('admin.biaya.destroy');
-    Route::post('/biaya', [AdminBiayaController::class, 'store'])
-    ->name('admin.biaya.store');
+    // Route::get('/biaya', [AdminBiayaController::class, 'index'])
+    //  ->name('admin.biaya');
+    // Route::put('/biaya/{id}', [AdminBiayaController::class, 'update'])
+    // ->name('admin.biaya.update');
+    // Route::delete('/biaya/{id}', [AdminBiayaController::class, 'destroy'])
+    // ->name('admin.biaya.destroy');
+    // Route::post('/biaya', [AdminBiayaController::class, 'store'])
+    // ->name('admin.biaya.store');
 
     // ================= PENGATURAN BANNER =================
     Route::get('/banner', [App\Http\Controllers\Admin\AdminBannerController::class, 'index'])->name('admin.banner');
@@ -238,15 +240,21 @@ Route::prefix('admin')->middleware(['auth', 'verified', CheckActiveStatus::class
     Route::delete('/kontak/{id}', [AdminKontakController::class, 'destroy'])->name('admin.kontak.destroy');
 
    // ================= JADWAL PENDAFTARAN =================
-    Route::get('/jadwal-pendaftaran', [AdminJadwalController::class, 'index'])->name('admin.jadwal');
-    Route::post('/jadwal-pendaftaran/toggle', [AdminJadwalController::class, 'toggle'])->name('admin.jadwal.toggle');
-    Route::post('/jadwal-pendaftaran/atur-waktu', [AdminJadwalController::class, 'aturWaktu'])->name('admin.jadwal.waktu');
-    Route::put('/jadwal-pendaftaran/{id}', [AdminJadwalController::class, 'update'])->name('admin.jadwal.update');
+    // Route::get('/jadwal-pendaftaran', [AdminJadwalController::class, 'index'])->name('admin.jadwal');
+    // Route::post('/jadwal-pendaftaran/toggle', [AdminJadwalController::class, 'toggle'])->name('admin.jadwal.toggle');
+    // Route::post('/jadwal-pendaftaran/atur-waktu', [AdminJadwalController::class, 'aturWaktu'])->name('admin.jadwal.waktu');
+    // Route::put('/jadwal-pendaftaran/{id}', [AdminJadwalController::class, 'update'])->name('admin.jadwal.update');
 
     // ================= PERSYARATAN PENDAFTARAN =================
-    Route::get('/persyaratan-pendaftaran', [\App\Http\Controllers\Admin\AdminPersyaratanController::class, 'index'])->name('admin.persyaratan');
-    Route::put('/persyaratan-pendaftaran/{id}', [\App\Http\Controllers\Admin\AdminPersyaratanController::class, 'update'])->name('admin.persyaratan.update');
+    // Route::get('/persyaratan-pendaftaran', [\App\Http\Controllers\Admin\AdminPersyaratanController::class, 'index'])->name('admin.persyaratan');
+    // Route::put('/persyaratan-pendaftaran/{id}', [\App\Http\Controllers\Admin\AdminPersyaratanController::class, 'update'])->name('admin.persyaratan.update');
     
+    // ================= PERIODE PENDAFTARAN =================
+    Route::get('/periode-pendaftaran', [App\Http\Controllers\Admin\PeriodePendaftaranController::class, 'index'])->name('admin.periode');
+    Route::post('/periode-pendaftaran/store', [App\Http\Controllers\Admin\PeriodePendaftaranController::class, 'store'])->name('admin.periode.store');
+    Route::put('/periode-pendaftaran/{id}', [App\Http\Controllers\Admin\PeriodePendaftaranController::class, 'update'])->name('admin.periode.update');
+    Route::delete('/periode-pendaftaran/{id}', [App\Http\Controllers\Admin\PeriodePendaftaranController::class, 'destroy'])->name('admin.periode.destroy');
+
     // ================= EDIT PROFIL ADMIN =================
     Route::get('/profil', [AdminEditProfilController::class, 'index'])->name('admin.profil');
     Route::post('/profil', [AdminEditProfilController::class, 'update'])->name('admin.profil.update');
@@ -257,6 +265,9 @@ Route::prefix('admin')->middleware(['auth', 'verified', CheckActiveStatus::class
     Route::get('/data-pendaftar/{id}', [AdminDataPendaftarController::class, 'show'])->whereNumber('id')->name('admin.pendaftar.detail');
     Route::get('/data-pendaftar', [AdminDataPendaftarController::class, 'index'])->name('admin.pendaftar');
     Route::put('/data-pendaftar/{id}/status', [AdminDataPendaftarController::class, 'updateStatus'])->name('admin.pendaftar.updateStatus');
+    Route::get('/admin/data-pendaftar/{id}/cetak-bukti', [\App\Http\Controllers\Admin\AdminDataPendaftarController::class, 'cetakBukti'])
+    ->name('admin.pendaftar.cetak-bukti');
+   
 
     // ================ AKTIVITAS SANTRI  ====================
     Route::post('/aktivitas-santri', [AdminAktivitasSantriController::class, 'store'])->name('admin.aktivitas.store');
@@ -270,11 +281,9 @@ Route::prefix('admin')->middleware(['auth', 'verified', CheckActiveStatus::class
 Route::prefix('pimpinan')->middleware(['auth', 'verified'])->group(function () {
 
     // Laporan Pendaftaran
-    Route::get('/laporan', function(){
-        return view('pages.pimpinan.laporan');
-    })->name('pimpinan.laporan');
+    Route::get('/laporan', [LaporanPimpinanController::class, 'index'])->name('pimpinan.laporan');
 
-    // Managent Admin
+    // Manajemen Admin
     Route::get('/admin', [AdminManagementController::class, 'index'])->name('pimpinan.admin.index');
     Route::post('/admin/store', [AdminManagementController::class, 'store'])->name('pimpinan.admin.store');
     Route::put('/admin/{id}/toggle-status', [AdminManagementController::class, 'toggleStatus'])->name('pimpinan.admin.toggle');

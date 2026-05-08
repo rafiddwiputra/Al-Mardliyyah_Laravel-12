@@ -23,8 +23,8 @@
                 </p>
             </div>
             <div class="w-8 h-8 rounded-full overflow-hidden border border-white">
-            @if(Auth::user()->photo)
-                <img src="{{ asset('storage/' . Auth::user()->photo) }}"
+            @if(Auth::user()->foto)
+                <img src="{{ asset('storage/' . Auth::user()->foto) }}"
                     class="w-full h-full object-cover">
             @else
                 <div class="w-full h-full bg-gray-300 flex items-center justify-center">

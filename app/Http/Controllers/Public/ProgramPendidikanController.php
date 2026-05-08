@@ -12,7 +12,7 @@ class ProgramPendidikanController extends Controller
     {
         $programs = ProgramPendidikan::where('status', 'aktif')
             ->get()
-            ->groupBy('kategori');
+            ->groupBy('nama_kategori');
 
         return view('pages.public.program-pendidikan', compact('programs'));
     }

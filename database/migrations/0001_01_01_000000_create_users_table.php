@@ -12,25 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id(); 
-            
-            // Sesuai dengan rancangan di Workbench (Panjang karakter presisi)
-            $table->string('nama', 30); 
-            $table->string('email', 30)->unique();
+            $table->integer('id')->autoIncrement(); 
+            $table->string('nama', 50); 
+            $table->string('email', 35)->unique();
             $table->string('password', 60);
-            $table->string('no_hp', 12);
+            $table->string('no_hp', 16);
             $table->enum('role', ['admin', 'calon_santri', 'pimpinan']);
-            
-            // Field photo dibuat nullable karena tidak dicentang NN di database
-            $table->string('photo', 255)->nullable();
-            
-            // Status dengan default aktif
-            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
+            $table->string('foto', 255)->nullable();
+            $table->enum('status_user', ['aktif', 'nonaktif'])->default('aktif');
 
-            // Bawaan Laravel (Dipertahankan untuk fitur autentikasi standar)
+            // 5. Bawaan Laravel (WAJIB DITAMBAHKAN JUGA KE ERD WORKBENCH)
             $table->timestamp('email_verified_at')->nullable();
-            $table->rememberToken();
-            $table->timestamps(); // Men-generate created_at & updated_at
+            $table->rememberToken(); 
+            $table->timestamps(); 
         });
 
         // Tabel bawaan Laravel untuk fitur Lupa Password
@@ -40,10 +34,9 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable();
         });
 
-        // Tabel bawaan Laravel untuk manajemen Session di Database
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
+            $table->integer('user_id')->nullable()->index(); 
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');
@@ -56,7 +49,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Urutan drop harus dari bawah ke atas menghindari error relasi
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('users');

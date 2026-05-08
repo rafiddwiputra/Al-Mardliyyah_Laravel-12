@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin123'), // Silakan ganti passwordnya nanti
             'no_hp' => '081234567890',
             'role' => 'pimpinan', 
-            'status' => 'aktif',
+            'status_user' => 'aktif',
             'email_verified_at' => now(), // Agar tidak kena cegat verifikasi email
         ]);
         
@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin123'), 
             'no_hp' => '089876543210',
             'role' => 'admin', 
-            'status' => 'aktif',
+            'status_user' => 'aktif',
             'email_verified_at' => now(), 
         ]);
     }

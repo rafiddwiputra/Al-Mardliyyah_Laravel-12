@@ -6,27 +6,6 @@
 
 @section('content')
 
-@php
-    // 1. Ambil Data Informasi
-    $jadwal = $informasi->where('judul', 'Jadwal Pendaftaran')->first();
-    $persyaratan = $informasi->where('judul', 'Persyaratan Pendaftaran')->first();
-    $biayaInfo = $informasi->where('judul', 'Biaya Pendaftaran')->first();
-
-    // 2. SINKRONISASI LOGIKA BUKA/TUTUP (Sangat Ketat)
-    $isBuka = false;
-    if($jadwal && $jadwal->status == 1 && $jadwal->tanggal_mulai && $jadwal->tanggal_selesai) {
-        $hariIni = \Carbon\Carbon::now();
-        $mulai = \Carbon\Carbon::parse($jadwal->tanggal_mulai)->startOfDay();
-        $selesai = \Carbon\Carbon::parse($jadwal->tanggal_selesai)->endOfDay();
-        
-        if($hariIni->between($mulai, $selesai)) {
-            $isBuka = true;
-        }
-    }
-
-    $status = $isBuka;
-@endphp
-
 {{-- POPUP KETIKA PENDAFTARAN DITUTUP (Awalnya Disembunyikan) --}}
 <div id="popupTutup" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 hidden opacity-0 transition-opacity duration-300">
     <div id="popupContent" class="bg-white p-8 rounded-2xl text-center shadow-2xl max-w-sm border-t-4 border-red-600 transform scale-95 transition-transform duration-300">
@@ -47,11 +26,21 @@
 
 <div class="bg-[#1E5631] text-white px-20 py-20" data-aos="fade-down" data-aos-duration="1000">
     <p class="text-sm mb-4 opacity-80">Beranda > Pendaftaran</p>
-    <h1 class="text-3xl font-bold mb-4">
+    
+    <h1 class="text-3xl font-bold mb-3">
         Pendaftaran Santri Baru
     </h1>
+
+    {{-- NAMA PERIODE DINAMIS DITAMPILKAN DI SINI --}}
+    @if($periodeAktif)
+        <div class="inline-block bg-[#C6A75E] text-white px-4 py-1.5 rounded-full text-sm font-bold mb-4 shadow-md tracking-wide">
+            {{ $periodeAktif->nama_periode }}
+        </div>
+    @endif
+
+    {{-- Teks paragrafnya kita buat lebih umum agar cocok untuk tahun berapapun --}}
     <p class="max-w-2xl text-sm leading-relaxed text-gray-100 opacity-90">
-        Pondok Pesantren Al-Mardliyyah membuka pendaftaran santri baru tahun ajaran 2026/2027. Bergabunglah bersama kami untuk pendidikan Islam yang berkualitas dan berakhlak mulia.
+        Pondok Pesantren Al-Mardliyyah resmi membuka pendaftaran santri baru. Bergabunglah bersama kami untuk pendidikan Islam yang berkualitas dan berakhlak mulia.
     </p>
 </div>
 
@@ -72,8 +61,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-16 items-stretch">
 
-            {{-- ================= CARD 1: JADWAL PENDAFTARAN ================= --}}
-            @if($jadwal)
+            {{-- ================= CARD 1: PERSYARATAN ================= --}}
             <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="800" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-[300px] relative">
                 <div class="w-14 h-14 shrink-0 bg-[#1E5631] rounded-2xl flex items-center justify-center p-3 mb-6 shadow-md transition-transform duration-500 hover:rotate-6">
                     <img src="{{ asset('images/ikon_dokumen.png') }}" alt="Ikon Dokumen" class="w-full h-full object-contain">
@@ -81,54 +69,29 @@
                 
                 <div class="flex flex-col flex-grow overflow-hidden">
                     <h4 class="font-bold text-[#1E5631] mb-3 text-lg uppercase tracking-wider leading-tight shrink-0">
-                        {{ $jadwal->judul }}
+                        Persyaratan Pendaftaran
                     </h4>
                     
                     <div class="text-xs text-gray-600 leading-relaxed space-y-1 flex-grow overflow-y-auto scroll-elegan pr-2">
-                        <ul class="mb-2">
-                            <li class="flex gap-2">
-                                <span>•</span>
-                                <span>Pembukaan : </span>
-                                {{-- KEMBALIKAN LOGIKA STATUS MERAH DI SINI --}}
-                                @if($status)
-                                    <span class="text-gray-800 font-medium">{{ $jadwal->tanggal_mulai ? \Carbon\Carbon::parse($jadwal->tanggal_mulai)->translatedFormat('d F Y') : '-' }}</span>
-                                @else
-                                    <span class="text-red-500 font-medium">Pendaftaran telah tutup</span>
-                                @endif
-                            </li>
-                            <li class="flex gap-2">
-                                <span>•</span>
-                                <span>Penutupan : </span>
-                                {{-- KEMBALIKAN LOGIKA STATUS MERAH DI SINI --}}
-                                @if($status)
-                                    <span class="text-gray-800 font-medium">{{ $jadwal->tanggal_selesai ? \Carbon\Carbon::parse($jadwal->tanggal_selesai)->translatedFormat('d F Y') : '-' }}</span>
-                                @else
-                                    <span class="text-red-500 font-medium">Pendaftaran telah tutup</span>
-                                @endif
-                            </li>
-                        </ul>
-
-                        @if($jadwal->deskripsi && $jadwal->deskripsi !== 'Belum ada informasi...')
-                            <div class="mt-2 pt-2 border-t border-gray-100">
-                                <ul class="space-y-1">
-                                    @foreach(explode("\n", str_replace("\r", "", $jadwal->deskripsi)) as $baris)
-                                        @if(trim($baris) !== '')
-                                            <li class="flex gap-2">
-                                                <span>•</span>
-                                                <span class="text-gray-600">{{ ltrim(trim($baris), '- •') }}</span>
-                                            </li>
-                                        @endif
-                                    @endforeach
-                                </ul>
-                            </div>
+                        @if($periodeAktif && $periodeAktif->persyaratan)
+                            <ul class="space-y-1">
+                                @foreach(explode("\n", str_replace("\r", "", $periodeAktif->persyaratan)) as $baris)
+                                    @if(trim($baris) !== '')
+                                        <li class="flex gap-2">
+                                            <span>•</span>
+                                            <span class="text-gray-600">{{ ltrim(trim($baris), '- •') }}</span>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        @else
+                            <span class="text-gray-500 italic">Belum ada informasi persyaratan.</span>
                         @endif
                     </div>
                 </div>
             </div>
-            @endif
 
-            {{-- ================= CARD 2: PERSYARATAN ================= --}}
-            @if($persyaratan)
+            {{-- ================= CARD 2: JADWAL PENDAFTARAN ================= --}}
             <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="800" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-[300px] relative">
                 <div class="w-14 h-14 shrink-0 bg-[#1E5631] rounded-2xl flex items-center justify-center p-3 mb-6 shadow-md transition-transform duration-500 hover:rotate-6">
                     <img src="{{ asset('images/ikon_dokumen.png') }}" alt="Ikon Dokumen" class="w-full h-full object-contain">
@@ -136,31 +99,62 @@
                 
                 <div class="flex flex-col flex-grow overflow-hidden">
                     <h4 class="font-bold text-[#1E5631] mb-3 text-lg uppercase tracking-wider leading-tight shrink-0">
-                        {{ $persyaratan->judul }}
+                        Jadwal Pendaftaran
                     </h4>
                     
                     <div class="text-xs text-gray-600 leading-relaxed space-y-1 flex-grow overflow-y-auto scroll-elegan pr-2">
-                        @if($persyaratan->deskripsi && $persyaratan->deskripsi !== 'Belum ada persyaratan yang ditambahkan.')
+                        @if($periodeAktif)
                             <ul class="space-y-1">
-                                @foreach(explode("\n", str_replace("\r", "", $persyaratan->deskripsi)) as $baris)
-                                    @if(trim($baris) !== '')
-                                        <li class="flex gap-2">
-                                            <span>•</span>
-                                            <span class="text-gray-600">{{ ltrim(trim($baris), '- •') }}</span>
-                                        </li>
+                                <li class="flex gap-2">
+                                    <span>•</span>
+                                    <span class="w-16">Pembukaan</span>
+                                    <span>: </span>
+                                    @if($statusBuka)
+                                        <span class="text-gray-800 font-medium">{{ $periodeAktif->tanggal_mulai ? \Carbon\Carbon::parse($periodeAktif->tanggal_mulai)->translatedFormat('d F Y') : '-' }}</span>
+                                    @else
+                                        <span class="text-red-600 font-bold uppercase">Pendaftaran Telah Ditutup</span>
                                     @endif
-                                @endforeach
+                                </li>
+                                <li class="flex gap-2">
+                                    <span>•</span>
+                                    <span class="w-16">Penutupan</span>
+                                    <span>: </span>
+                                    @if($statusBuka)
+                                        <span class="text-gray-800 font-medium">{{ $periodeAktif->tanggal_selesai ? \Carbon\Carbon::parse($periodeAktif->tanggal_selesai)->translatedFormat('d F Y') : '-' }}</span>
+                                    @else
+                                        <span class="text-red-600 font-bold uppercase">Pendaftaran Telah Ditutup</span>
+                                    @endif
+                                </li>
                             </ul>
+
+                            {{-- Garis Pemisah Hitam Tipis --}}
+                            <div class="border-t border-gray-800 my-3 w-10/12"></div>
+
+                            {{-- Jadwal Tambahan (Dinamis dari Admin) --}}
+                            <div class="mt-3">
+                                @if($periodeAktif->jadwal_tambahan && $periodeAktif->jadwal_tambahan !== '')
+                                    <ul class="space-y-1">
+                                        @foreach(explode("\n", str_replace("\r", "", $periodeAktif->jadwal_tambahan)) as $baris)
+                                            @if(trim($baris) !== '')
+                                                <li class="flex gap-2">
+                                                    <span>•</span>
+                                                    <span class="text-gray-600">{{ ltrim(trim($baris), '- •') }}</span>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <span class="text-gray-500 italic text-[11px]">Belum ada jadwal tambahan.</span>
+                                @endif
+                            </div>
                         @else
-                            <span class="text-gray-600">{{ $persyaratan->deskripsi }}</span>
+                            <span class="text-gray-500 italic">Belum ada jadwal pendaftaran yang ditetapkan.</span>
                         @endif
                     </div>
                 </div>
             </div>
-            @endif
 
             {{-- ================= CARD 3: BIAYA ================= --}}
-            @if($biayaInfo)
             <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="800" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-[300px] relative">
                 <div class="w-14 h-14 shrink-0 bg-[#1E5631] rounded-2xl flex items-center justify-center p-3 mb-6 shadow-md transition-transform duration-500 hover:rotate-6">
                     <img src="{{ asset('images/ikon_dokumen.png') }}" alt="Ikon Dokumen" class="w-full h-full object-contain">
@@ -168,13 +162,13 @@
                 
                 <div class="flex flex-col flex-grow overflow-hidden">
                     <h4 class="font-bold text-[#1E5631] mb-4 text-lg uppercase tracking-wider leading-tight shrink-0">
-                        {{ $biayaInfo->judul }}
+                        Biaya Pendaftaran
                     </h4>
                     
                     <div class="text-xs text-gray-600 leading-relaxed space-y-1 flex-grow overflow-y-auto scroll-elegan pr-2">
-                        @if($biayaInfo->deskripsi && $biayaInfo->deskripsi !== 'Belum ada informasi biaya yang ditambahkan.')
+                        @if($periodeAktif && $periodeAktif->biaya)
                             <ul class="space-y-1">
-                                @foreach(explode("\n", str_replace("\r", "", $biayaInfo->deskripsi)) as $baris)
+                                @foreach(explode("\n", str_replace("\r", "", $periodeAktif->biaya)) as $baris)
                                     @if(trim($baris) !== '')
                                         <li class="flex gap-2">
                                             <span>•</span>
@@ -184,12 +178,11 @@
                                 @endforeach
                             </ul>
                         @else
-                            <span class="text-gray-600">{{ $biayaInfo->deskripsi }}</span>
+                            <span class="text-gray-500 italic">Belum ada rincian biaya.</span>
                         @endif
                     </div>
                 </div>
             </div>
-            @endif
 
         </div>
     </div>

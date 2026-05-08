@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotifikasiPenerimaanSantri;
+
 use App\Http\Controllers\Controller;
 use App\Models\PendaftaranSantri;
 use Illuminate\Support\Str;
@@ -15,33 +18,45 @@ class AdminDataPendaftarController extends Controller
 {
     public function index(Request $request)
     {
-        $query = PendaftaranSantri::with(['ortu', 'user', 'program']);
+        // 1. Ambil semua daftar periode untuk ditampilkan di Dropdown
+        // Diurutkan dari yang terbaru (desc) agar tahun ajaran terkini ada di paling atas
+        $listPeriode = \App\Models\Public\PeriodePendaftaran::orderBy('tanggal_mulai', 'desc')->get();
 
-        if ($request->search) {
+        // 2. Siapkan Query Dasar
+        $query = PendaftaranSantri::with(['ortu', 'user', 'program', 'periode']);
+
+        // 3. LOGIKA FILTER PERIODE
+        if ($request->filled('periode_id')) {
+            $query->where('id_periode', $request->periode_id);
+        }
+
+        // 4. LOGIKA PENCARIAN (SEARCH)
+        if ($request->filled('search')) {
             $search = $request->search;
 
             $query->where(function ($q) use ($search) {
-
-                // cari nama
+                // Cari nama
                 $q->where('nama_lengkap', 'like', '%' . $search . '%');
 
-                // kalau input PSB001
+                // Cari Smart ID
                 if (str_starts_with(strtoupper($search), 'PSB')) {
-                    $id = (int) filter_var($search, FILTER_SANITIZE_NUMBER_INT);
-                    if ($id) {
+                    $parts = explode('-', $search);
+                    $lastPart = end($parts); 
+                    $id = (int) $lastPart; 
+                    if ($id > 0) {
                         $q->orWhere('id', $id);
                     }
                 } 
-                // kalau angka langsung
+                // Cari angka langsung
                 elseif (is_numeric($search)) {
                     $q->orWhere('id', $search);
                 }
             });
         }
 
-        $data = $query->latest()->paginate(10);
+        $data = $query->latest()->paginate(10)->withQueryString();
 
-        return view('pages.admin.data-pendaftar.data', compact('data'));
+        return view('pages.admin.data-pendaftar.data', compact('data', 'listPeriode'));
     }
 
     public function show($id)
@@ -51,14 +66,31 @@ class AdminDataPendaftarController extends Controller
         return view('pages.admin.data-pendaftar.detail-data', compact('data'));
     }
 
-    public function updateStatus(Request $request, $id)
+   public function updateStatus(Request $request, $id)
     {
-        $data = PendaftaranSantri::findOrFail($id);
+        // 1. Ambil data santri beserta relasi akun (user) untuk mendapatkan alamat email
+        $data = PendaftaranSantri::with('user')->findOrFail($id);
 
+        // 2. Simpan status lama sebelum diubah, untuk pengecekan
+        $statusLama = $data->status;
+
+        // 3. Update dan simpan status baru ke database
         $data->status = $request->status;
         $data->save();
 
-        return back();
+        // 4. LOGIKA PEMICU EMAIL
+        // Jika status yang baru adalah 'diterima' DAN sebelumnya belum diterima
+        if (strtolower($request->status) === 'diterima' && strtolower($statusLama) !== 'diterima') {
+            
+            // Pastikan relasi user dan emailnya benar-benar ada
+            if ($data->user && $data->user->email) {
+                // Panggil kurir untuk mengirim email
+                Mail::to($data->user->email)->send(new NotifikasiPenerimaanSantri($data));
+            }
+        }
+
+        // Tambahkan session success agar ada notifikasi visual di layar admin (opsional)
+        return back()->with('success', 'Status pendaftaran berhasil diperbarui!');
     }
 
     public function exportExcel()
@@ -124,7 +156,8 @@ class AdminDataPendaftarController extends Controller
             // DATA
             foreach ($data as $item) {
                 fputcsv($file, [
-                    'PSB' . str_pad($item->id, 3, '0', STR_PAD_LEFT),
+                    // 'PSB' . str_pad($item->id, 3, '0', STR_PAD_LEFT),
+                    $item->smart_id,
                     $item->nama_lengkap,
                     $item->nisn,
                     $item->nik,
@@ -180,6 +213,26 @@ class AdminDataPendaftarController extends Controller
           ->setPaper('a4', 'landscape');
 
         return $pdf->download('data_pendaftar.pdf');
+    }
+
+    public function cetakBukti($id)
+    {
+        // 1. Ambil data santri beserta relasinya
+        $data = PendaftaranSantri::with(['user', 'ortu', 'program'])->findOrFail($id);
+
+        // 2. Pastikan hanya yang berstatus "diterima" yang bisa dicetak
+        if (strtolower($data->status) !== 'diterima') {
+            return redirect()->back()->with('error', 'Bukti pendaftaran hanya bisa dicetak untuk santri yang sudah diterima.');
+        }
+
+        // 3. Render view ke dalam PDF
+        // Kita letakkan file blade-nya di dalam folder yang sama dengan view admin pendaftar
+        $pdf = Pdf::loadView('pages.admin.data-pendaftar.pdf-bukti', compact('data'))
+                  ->setPaper('a4', 'portrait');
+
+        // 4. Gunakan stream() agar file terbuka di tab baru (bisa di-preview sebelum di-download)
+        // Jika ingin langsung auto-download, ganti stream() menjadi download()
+        return $pdf->stream('Bukti_Pendaftaran_' . $data->nama_lengkap . '.pdf');
     }
     
 }
