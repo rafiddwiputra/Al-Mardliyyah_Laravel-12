@@ -5,24 +5,32 @@
 @section('content')
 <div class="w-full bg-white">
 
-    <div class="w-full bg-white py-10">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="bg-gradient-to-b from-[#F5F9F7] to-white rounded-2xl py-20 text-center shadow-sm">
+    <div class="w-full bg-white py-10"
+        data-aos="fade-down"
+        data-aos-duration="1000">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="bg-gradient-to-b from-[#F5F9F7] to-white rounded-2xl py-20 text-center shadow-sm">
 
-                <h1 class="text-5xl font-extrabold text-[#1E5631] mb-6">
-                    Pusat Bantuan & Kontak
-                </h1>
+                    <h1 class="text-5xl font-extrabold text-[#1E5631] mb-6"
+                        data-aos="zoom-in"
+                        data-aos-delay="200">
+                        Pusat Bantuan & Kontak
+                    </h1>
 
-                <p class="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed mb-10">
-                    Hubungi kami untuk informasi pendaftaran, program pendidikan, dan kegiatan pondok pesantren Al-Mardliyyah.
-                </p>
+                    <p class="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed mb-10"
+                        data-aos="fade-up"
+                        data-aos-delay="400">
+                        Hubungi kami untuk informasi pendaftaran, program pendidikan, dan kegiatan pondok pesantren Al-Mardliyyah.
+                    </p>
 
+                </div>
             </div>
-        </div>
     </div>
 
         {{-- ================= INFORMASI UMUM ================= --}}
-        <section id="kontak" class="w-full py-16 mt-16 bg-[#F9FAFB]">
+        <section id="kontak" class="w-full py-16 mt-16 bg-[#F9FAFB]"
+            data-aos="fade-up"
+            data-aos-duration="1000">
             <div class="max-w-6xl mx-auto px-6">
 
                 <!-- BADGE -->
@@ -48,20 +56,83 @@
                 <div class="flex flex-wrap justify-center gap-6">
 
                     <!-- ALAMAT -->
-                    <div class="w-full md:w-80 group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center">
-                        <p class="font-semibold text-[#1E5631]">Alamat</p>
+                    <div class="w-full md:w-80 group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
+                        data-aos="zoom-in"
+                        data-aos-delay="100">
+
+                        {{-- GAMBAR MAPS --}}
+                        <a href="https://maps.app.goo.gl/t1K41PeTNDuQY9dHA" target="_blank" rel="noopener noreferrer"
+                            class="block relative rounded-xl overflow-hidden group border border-gray-100 shadow mb-4">
+
+                            <div class="w-full h-28 bg-[#52795b] relative overflow-hidden flex items-center justify-center">
+                                <img src="{{ asset('images/maps.png') }}" alt="Peta Lokasi Pondok"
+                                    class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 ease-in-out">
+
+                                <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all flex items-center justify-center">
+                                    <span class="bg-[#1E5631] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-xl flex items-center gap-1.5 transform group-hover:scale-105 transition-transform">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                            </path>
+                                        </svg>
+                                        Buka di Peta
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <p class="font-semibold text-[#1E5631] mb-2">Alamat</p>
+
                         <a href="https://maps.app.goo.gl/t1K41PeTNDuQY9dHA" target="_blank"
                             class="text-sm text-gray-500 hover:text-[#1E5631] transition leading-relaxed block">
-                                Jl. H. Moch Noer, RT.01/RW.01, Demangan, Kec. Taman, Kota Madiun, Jawa Timur 63136
+                            Jl. H. Moch Noer, RT.01/RW.01, Demangan, Kec. Taman, Kota Madiun, Jawa Timur 63136
                         </a>
                     </div>
 
                     <!-- EMAIL -->
-                    <div class="w-full md:w-80 group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center">
-                        <p class="font-semibold text-[#1E5631]">Email</p>
-                        <a href="mailto:almardliyyahpondok@gmail.com" 
+                    <div class="w-full md:w-80 group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
+                        data-aos="zoom-in"
+                        data-aos-delay="100">
+
+                        {{-- ICON EMAIL --}}
+                        <div class="w-full h-28 mb-4 flex items-center justify-center rounded-xl border border-gray-100 bg-white shadow-sm overflow-hidden">
+
+                            <div class="group-hover:scale-110 transition-all duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    width="70"
+                                    height="70"
+                                    viewBox="0 0 48 48">
+
+                                    <path fill="#4caf50"
+                                        d="M45,16.2l-5,2.75l-5,4.75L35,40h7c1.657,0,3-1.343,3-3V16.2z">
+                                    </path>
+
+                                    <path fill="#1e88e5"
+                                        d="M3 16.2V37c0 1.657 1.343 3 3 3h7V23.7L3 16.2z">
+                                    </path>
+
+                                    <polygon fill="#e53935"
+                                        points="35,11.2 24,19.45 13,11.2 12,17 13,23.7 24,31.95 35,23.7 36,17">
+                                    </polygon>
+
+                                    <path fill="#c62828"
+                                        d="M3,12.298V16.2l10,7.5V11.2L9.876,8.859C9.132,8.301,8.228,8,7.298,8h0C4.924,8,3,9.924,3,12.298z">
+                                    </path>
+
+                                    <path fill="#fbc02d"
+                                        d="M45,12.298V16.2l-10,7.5V11.2l3.124-2.341C38.868,8.301,39.772,8,40.702,8h0C43.076,8,45,9.924,45,12.298z">
+                                    </path>
+
+                                </svg>
+                            </div>
+
+                        </div>
+
+                        <p class="font-semibold text-[#1E5631] mb-2">Email</p>
+
+                        <a href="mailto:almardliyyahpondok@gmail.com"
                             class="text-sm text-gray-500 hover:text-[#1E5631] transition">
-                                almardliyyahpondok@gmail.com
+                            almardliyyahpondok@gmail.com
                         </a>
                     </div>
 
@@ -71,7 +142,9 @@
         </section>
         
         {{-- ================= MEDIA SOSIAL ================= --}}
-        <div class="w-full py-20 bg-white">
+        <div class="w-full py-20 bg-white"
+            data-aos="fade-up"
+            data-aos-duration="1000">
 
             <!-- BADGE -->
             <div class="text-center mb-6">
@@ -97,12 +170,15 @@
 
                 <!-- INSTAGRAM -->
                 <a href="https://www.instagram.com/almardliyyah.demangan" target="_blank"
-                class="w-full group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center">
+                class="w-full group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
+                    data-aos="fade-up"
+                    data-aos-delay="100">
 
-                    <div class="w-16 h-16 mx-auto mb-4 bg-[#E1306C] text-white flex items-center justify-center rounded-xl group-hover:scale-110 transition">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white flex items-center justify-center rounded-xl group-hover:scale-110 transition">
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                            <path d="M7.75 2C4.574 2 2 4.574 2 7.75v8.5C2 19.426 4.574 22 7.75 22h8.5C19.426 22 22 19.426 22 16.25v-8.5C22 4.574 19.426 2 16.25 2h-8.5zm0 2h8.5A3.75 3.75 0 0 1 20 7.75v8.5A3.75 3.75 0 0 1 16.25 20h-8.5A3.75 3.75 0 0 1 4 16.25v-8.5A3.75 3.75 0 0 1 7.75 4zm8.75 1.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
                         </svg>
+
                     </div>
 
                     <h4 class="font-bold text-[#1E5631]">Instagram</h4>
@@ -111,7 +187,9 @@
 
                 <!-- FACEBOOK -->
                 <a href="https://www.facebook.com/share/18MpGAx7LZ/" target="_blank"
-                class="w-full group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center">
+                class="w-full group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
+                    data-aos="fade-up"
+                    data-aos-delay="200">
 
                     <div class="w-16 h-16 mx-auto mb-4 bg-blue-600 text-white flex items-center justify-center rounded-xl group-hover:scale-110 transition">
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
@@ -125,7 +203,9 @@
 
                 <!-- TIKTOK -->
                 <a href="https://www.tiktok.com/@almardliyyah" target="_blank"
-                class="w-full group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center">
+                class="w-full group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
+                    data-aos="fade-up"
+                    data-aos-delay="300">
 
                     <div class="w-16 h-16 mx-auto mb-4 bg-black text-white flex items-center justify-center rounded-xl group-hover:scale-110 transition">
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
@@ -139,7 +219,9 @@
 
                 <!-- YOUTUBE -->
                 <a href="https://youtube.com/@al-mardliyyah448" target="_blank"
-                class="w-full group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center">
+                class="w-full group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
+                    data-aos="fade-up"
+                    data-aos-delay="400">
 
                     <div class="w-16 h-16 mx-auto mb-4 bg-red-600 text-white flex items-center justify-center rounded-xl group-hover:scale-110 transition">
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
@@ -156,7 +238,9 @@
         </div>
         
         {{-- ================= KONTAK PENDAFTARAN ================= --}}
-        <section class="w-full py-20 bg-[#F9FAFB]">
+        <section class="w-full py-20 bg-[#F9FAFB]"
+            data-aos="fade-up"
+            data-aos-duration="1000">
             <div class="max-w-6xl mx-auto px-6">
 
                 <!-- BADGE -->

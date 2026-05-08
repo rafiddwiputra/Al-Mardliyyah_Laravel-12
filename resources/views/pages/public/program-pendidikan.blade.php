@@ -33,7 +33,7 @@
 </div>
 
 {{-- ================= SECTION 1: LEMBAGA PENDIDIKAN ================= --}}
-<section id="lembaga" class="py-16 bg-[#F9FAFB] scroll-mt-20">
+<section id="lembaga" class="py-16 bg-white scroll-mt-20">
     <div class="max-w-6xl mx-auto px-6 text-center">
         <div data-aos="fade-up">
             <div class="inline-block bg-[#D8E6E0] px-4 py-2 rounded mb-4">
@@ -71,7 +71,7 @@
 </section>
 
 {{-- ================= SECTION 2: PROGRAM UNGGULAN ================= --}}
-<section id="program" class="py-20 bg-white scroll-mt-20">
+<section id="program" class="py-20 bg-gray-50 scroll-mt-20">
     <div class="max-w-6xl mx-auto px-6 text-center">
         <div data-aos="fade-up">
             <div class="inline-block bg-[#D8E6E0] px-5 py-2 rounded-lg mb-4">

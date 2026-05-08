@@ -33,18 +33,18 @@
     @if($status)
         @auth
             <a href="{{ route('formulir') }}"
-               class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
+               class="bg-[#C6A75E] text-white px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
                 Lanjutkan Pendaftaran
             </a>
         @else
             <a href="{{ route('register') }}"
-               class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
+               class="bg-[#C6A75E] text-white px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
                 Daftar Sekarang
             </a>
         @endauth
     @else
         <button onclick="bukaPopupTutup()"
-            class="bg-[#C6A75E] text-[#1E5631] px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
+            class="bg-[#C6A75E] text-white px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
             Daftar Sekarang
         </button>
     @endif
@@ -158,7 +158,7 @@ function tutupPopup() {
                                 <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all flex items-center justify-center">
                                     <span class="bg-[#1E5631] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-xl flex items-center gap-1.5 transform group-hover:scale-105 transition-transform">
                                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                                        Buka di Peta
+                                        Buka di Maps
                                     </span>
                                 </div>
                             </div>

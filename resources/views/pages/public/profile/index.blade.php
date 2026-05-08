@@ -156,7 +156,7 @@
 </section>
 
 {{-- ================= FASILITAS SECTION ================= --}}
-<section id="fasilitas" class="py-24 bg-[#FAFAFA] scroll-mt-32">
+<section id="fasilitas" class="py-24 bg-gray-50 scroll-mt-32">
     <div class="max-w-6xl mx-auto px-6">
         {{-- Header Fasilitas --}}
         <div class="text-center mb-20" data-aos="fade-up">

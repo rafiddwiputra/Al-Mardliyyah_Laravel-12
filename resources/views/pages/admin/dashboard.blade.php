@@ -3,7 +3,8 @@
 @section('title', 'Admin Dashboard - Al-Mardliyyah')
 
 @section('content')
-<div class="p-8">
+<div class="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm">
+
     {{-- Welcome Message --}}
     <div class="mb-8">
         <h1 class="text-2xl font-bold text-gray-800">Dashboard</h1>
@@ -47,16 +48,17 @@
     </div>
 
     {{-- Tabel Pendaftaran Terbaru --}}
-    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-        <div class="p-6 border-b border-[#D9D9D9] flex justify-between items-center">
-            <h3 class="font-bold text-[#1e4d2b]">Pendaftaran Terbaru</h3>
+   <div>
+    
+        <div class="flex justify-between items-center mb-5">
+            <h3 class="text-lg font-bold text-[#1E5631] mb-4">Pendaftaran Terbaru</h3>
             <a href="{{ route('admin.pendaftar') }}"
                 class="text-xs font-bold px-4 py-2 border border-[#1E5631] rounded-lg text-[#1E5631] hover:bg-[#1E5631] hover:text-white transition">
                 Lihat Semua
             </a>
         </div>
-        <div class="overflow-x-auto px-6 pb-6">
-            <table class="w-full border-x border-b border-[#D9D9D9] border-collapse text-sm">
+        <div class="overflow-x-auto">
+            <table class="w-full border border-[#D9D9D9] border-collapse text-sm">
                 <thead class="border-b border-[#D9D9D9]">
                     <tr class="bg-white">
                        <th class="p-4 text-center font-bold text-black border-r border-[#D9D9D9]">
@@ -108,7 +110,6 @@
 @endforeach
 </tbody>
 </table>
-</div>
 </div>
 </div>
 @endsection

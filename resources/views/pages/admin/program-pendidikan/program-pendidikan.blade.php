@@ -58,7 +58,7 @@
 </div>
 {{-- ================= END TOAST CONTAINER ================= --}}
 
-<div class="p-4">
+<div class="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm">
 
     <div class="mb-6">
         <div>

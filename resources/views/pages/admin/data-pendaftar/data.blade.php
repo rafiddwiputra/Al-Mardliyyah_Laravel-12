@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="bg-white rounded-lg p-6 shadow-sm">
+<div class="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm">
 
     <!-- HEADER -->
     <h1 class="text-2xl font-bold text-[#1E5631]">

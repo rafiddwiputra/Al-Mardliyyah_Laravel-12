@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="bg-white rounded-lg p-6 shadow-sm">
+<div class="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm">
 
     {{-- TOAST NOTIFICATION CONTAINER --}}
     <div id="toast-container" class="fixed top-5 right-5 z-[9999] flex flex-col gap-3 items-end pointer-events-none">

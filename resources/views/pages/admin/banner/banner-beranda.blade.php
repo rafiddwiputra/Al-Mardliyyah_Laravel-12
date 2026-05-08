@@ -51,7 +51,7 @@
         </div>
     @endif
 
-<div class="p-6">
+<div class="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm">
 
    
 
@@ -68,7 +68,7 @@
         @csrf
         <div class="space-y-6">
 
-            <div class="border border-[#D9D9D9] rounded p-5 bg-white">
+            <div class="border border-[#D9D9D9] rounded-xl p-6 bg-white">
                 
                 <div class="mb-4">
                     <h2 class="text-sm font-semibold text-[#1E5631]">
@@ -122,9 +122,11 @@
     </form>
 
     <div class="mt-10">
-        <h2 class="text-lg font-bold text-[#1E5631] mb-4 border-b pb-2">
+        <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-bold text-[#1E5631]">
             Daftar Banner Saat Ini
         </h2>
+    </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse($banners as $item)

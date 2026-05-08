@@ -44,7 +44,7 @@
     </p>
 </div>
 
-<div class="bg-[#F5F7F6] py-16">
+<section class="bg-white py-16">
     <div class="max-w-6xl mx-auto text-center mb-16 px-6">
 
         <div data-aos="fade-up" data-aos-duration="800">
@@ -186,51 +186,53 @@
 
         </div>
     </div>
+</section>    
 
-    <div class="max-w-6xl mx-auto text-center px-6">
-        <div data-aos="fade-up" data-aos-duration="800">
-            <div class="inline-block bg-[#D8E6E0] text-[#1E5631] px-4 py-1 rounded-lg text-sm mb-4 font-medium">
-                Alur Pendaftaran
+    <section class="bg-gray-50 py-16 bg">      
+        <div class="max-w-6xl mx-auto text-center px-6">
+            <div data-aos="fade-up" data-aos-duration="800">
+                <div class="inline-block bg-[#D8E6E0] text-[#1E5631] px-4 py-1 rounded-lg text-sm mb-4 font-medium">
+                    Alur Pendaftaran
+                </div>
+                <h2 class="text-2xl font-semibold text-[#1E5631] mb-2">
+                    Langkah Pendaftaran
+                </h2>
+                <p class="text-sm text-gray-600 mb-10">
+                    Ikuti langkah-langkah berikut untuk menyelesaikan pendaftaran!
+                </p>
             </div>
-            <h2 class="text-2xl font-semibold text-[#1E5631] mb-2">
-                Langkah Pendaftaran
-            </h2>
-            <p class="text-sm text-gray-600 mb-10">
-                Ikuti langkah-langkah berikut untuk menyelesaikan pendaftaran!
-            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-left">
+                <div data-aos="zoom-in" data-aos-delay="100" class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100 group hover:border-[#1E5631] transition-colors">
+                     <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">1</div>
+                    <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">👤</div>
+                    <h4 class="font-semibold text-[#1E5631] text-sm mb-1">Buat Akun</h4>
+                    <p class="text-[11px] text-gray-500 leading-relaxed">Daftarkan akun baru dengan mengisi data diri yang valid untuk memulai proses pendaftaran.</p>
+                </div>
+
+                <div data-aos="zoom-in" data-aos-delay="200" class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100 group hover:border-[#1E5631] transition-colors">
+                    <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">2</div>
+                    <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">📝</div>
+                    <h4 class="font-semibold text-[#1E5631] text-sm mb-1">Isi Formulir</h4>
+                    <p class="text-[11px] text-gray-500 leading-relaxed">Lengkapi formulir online dengan data diri calon santri dan wali yang valid.</p>
+                </div>
+
+                <div data-aos="zoom-in" data-aos-delay="300" class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100 group hover:border-[#1E5631] transition-colors">
+                    <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">3</div>
+                    <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">📤</div>
+                    <h4 class="font-semibold text-[#1E5631] text-sm mb-1">Upload Dokumen</h4>
+                    <p class="text-[11px] text-gray-500 leading-relaxed">Upload dokumen persyaratan seperti Pas Foto, KK, KTP Orang Tua, dan Ijazah.</p>
+                </div>
+
+                <div data-aos="zoom-in" data-aos-delay="400" class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100 group hover:border-[#1E5631] transition-colors">
+                    <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">4</div>
+                    <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">🔔</div>
+                    <h4 class="font-semibold text-[#1E5631] text-sm mb-1">Status</h4>
+                    <p class="text-[11px] text-gray-500 leading-relaxed">Pantau status pendaftaran Anda secara berkala untuk mengetahui hasil seleksi.</p>
+                </div>
+            </div>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-left">
-            <div data-aos="zoom-in" data-aos-delay="100" class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100 group hover:border-[#1E5631] transition-colors">
-                <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">1</div>
-                <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">👤</div>
-                <h4 class="font-semibold text-[#1E5631] text-sm mb-1">Buat Akun</h4>
-                <p class="text-[11px] text-gray-500 leading-relaxed">Daftarkan akun baru dengan mengisi data diri yang valid untuk memulai proses pendaftaran.</p>
-            </div>
-
-            <div data-aos="zoom-in" data-aos-delay="200" class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100 group hover:border-[#1E5631] transition-colors">
-                <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">2</div>
-                <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">📝</div>
-                <h4 class="font-semibold text-[#1E5631] text-sm mb-1">Isi Formulir</h4>
-                <p class="text-[11px] text-gray-500 leading-relaxed">Lengkapi formulir online dengan data diri calon santri dan wali yang valid.</p>
-            </div>
-
-            <div data-aos="zoom-in" data-aos-delay="300" class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100 group hover:border-[#1E5631] transition-colors">
-                <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">3</div>
-                <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">📤</div>
-                <h4 class="font-semibold text-[#1E5631] text-sm mb-1">Upload Dokumen</h4>
-                <p class="text-[11px] text-gray-500 leading-relaxed">Upload dokumen persyaratan seperti Pas Foto, KK, KTP Orang Tua, dan Ijazah.</p>
-            </div>
-
-            <div data-aos="zoom-in" data-aos-delay="400" class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100 group hover:border-[#1E5631] transition-colors">
-                <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">4</div>
-                <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">🔔</div>
-                <h4 class="font-semibold text-[#1E5631] text-sm mb-1">Status</h4>
-                <p class="text-[11px] text-gray-500 leading-relaxed">Pantau status pendaftaran Anda secara berkala untuk mengetahui hasil seleksi.</p>
-            </div>
-        </div>
-    </div>
-</div>
+    </section>    
 
 {{-- SCRIPT UNTUK ANIMASI POPUP --}}
 <script>

@@ -42,7 +42,7 @@
 
         {{-- TOMBOL: Ditumpuk atas-bawah di HP seperti referensi --}}
         <div class="flex flex-col sm:flex-row justify-center items-center gap-4 w-full max-w-sm mx-auto sm:max-w-none">
-            <a href="{{ url('/pendaftaran') }}" class="w-full sm:w-auto text-center bg-[#C6A75E] text-[#1E5631] px-8 py-3.5 rounded-lg font-bold shadow-lg hover:bg-[#b5954a] transition uppercase text-sm md:text-base animate-heartbeat">
+            <a href="{{ url('/pendaftaran') }}" class="w-full sm:w-auto text-center bg-[#C6A75E] text-white px-8 py-3.5 rounded-lg font-bold shadow-lg hover:bg-[#b5954a] transition uppercase text-sm md:text-base animate-heartbeat">
                 Daftar Sekarang
             </a>
             <a href="{{ route('profile') }}" class="w-full sm:w-auto text-center border-2 border-white text-white px-8 py-3.5 rounded-lg font-bold shadow-lg hover:bg-white hover:text-[#1E5631] transition uppercase text-sm md:text-base backdrop-blur-sm bg-white/10">
@@ -53,7 +53,7 @@
 </section>
 
 {{-- LEMBAGA PENDIDIKAN --}}
-<section class="py-12 md:py-16 bg-gray-50 overflow-hidden">
+<section class="py-12 md:py-16 bg-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-8 md:gap-10 items-center">
 
         {{-- GAMBAR (Masuk dari kiri) --}}
@@ -90,7 +90,7 @@
 </div>
 
 {{-- VISI --}}
-<section class="pt-12 md:pt-16 pb-6">
+<section class="pt-12 md:pt-16 pb-6 bg-gray-50">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
         <h2 class="text-xl md:text-2xl font-bold text-[#1E5631] mb-5" data-aos="fade-up">Visi & Misi</h2>
 
@@ -107,7 +107,7 @@
 </section>
 
 {{-- MISI --}}
-<section class="py-5">
+<section class="py-5 bg-gray-50">
     <div class="max-w-5xl mx-auto px-4 sm:px-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 text-left">
             {{-- Misi Cards: Berurutan munculnya dengan delay --}}
@@ -145,14 +145,14 @@
 </section>
 
 {{-- DIVIDER --}}
-<div class="flex items-center justify-center my-12 md:my-16" data-aos="zoom-in" data-aos-duration="800">
+<div class="flex items-center justify-center mt-12 md:mt-16 mb-4 md:mb-6" data-aos="zoom-in" data-aos-duration="800">
     <div class="h-[2px] w-20 md:w-56 bg-[#C6A75E]"></div>
     <div class="w-2 h-2 bg-[#C6A75E] mx-3 md:mx-4 rotate-45 shrink-0"></div>
     <div class="h-[2px] w-20 md:w-56 bg-[#C6A75E]"></div>
 </div>
 
 {{-- PROGRAM --}}
-<section class="py-8 md:py-16">
+<section class="pt-4 md:pt-6 pb-12 md:pb-16">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
         <h2 class="text-lg md:text-xl font-semibold text-[#1E5631] mb-8 md:mb-10 text-center" data-aos="fade-up">
             Program Pendidikan
@@ -190,7 +190,7 @@
 </div>
 
 {{-- BERITA --}}
-<section class="pb-12 md:pb-16">
+<section class="pb-12 md:pb-16 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
         <h2 class="text-lg md:text-xl font-semibold text-[#1E5631] mb-8 md:mb-10" data-aos="fade-up">
             Berita Terbaru
