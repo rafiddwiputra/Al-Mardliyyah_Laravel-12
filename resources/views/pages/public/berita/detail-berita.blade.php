@@ -27,10 +27,30 @@
     </h2>
 
     <div class="flex items-center gap-4 text-sm text-gray-500 mb-10 border-b border-gray-100 pb-6">
+        
         <div class="flex items-center gap-2 font-medium">
-            <span class="text-lg">📅</span> 
-            {{ $berita->tanggal_publish ? $berita->tanggal_publish->translatedFormat('l, d F Y') : $berita->created_at->translatedFormat('l, d F Y') }}
+
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-[#1E5631]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+
+                <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    d="M8 7V4m8 3V4m-9 7h10m-11 9h12a2 2 0 002-2V8a2 2 0 00-2-2H6a2 2 0 00-2 2v11a2 2 0 002 2z" />
+
+            </svg>
+
+            <span>
+                {{ $berita->tanggal_publish
+                    ? $berita->tanggal_publish->translatedFormat('l, d F Y')
+                    : $berita->created_at->translatedFormat('l, d F Y') }}
+            </span>
+
         </div>
+
         <div class="text-gray-300">|</div>
         <div class="flex items-center gap-2">
             <span class="text-[#c9a76d] font-bold uppercase tracking-widest text-[10px]">Oleh: Admin Pondok</span>
@@ -79,9 +99,29 @@
                 </div>
 
                 <div class="p-6">
-                    <p class="text-[10px] text-gray-400 font-bold mb-3 uppercase tracking-widest">
-                        {{ $item->tanggal_publish ? $item->tanggal_publish->translatedFormat('d M Y') : $item->created_at->translatedFormat('d M Y') }}
-                    </p>
+
+                    <div class="flex items-center gap-2 text-xs text-gray-400 font-bold mb-3 uppercase tracking-wider">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4 text-[#1E5631]"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor">
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.8"
+                                d="M8 7V4m8 3V4m-9 7h10m-11 9h12a2 2 0 002-2V8a2 2 0 00-2-2H6a2 2 0 00-2 2v11a2 2 0 002 2z" />
+
+                        </svg>
+
+                        <span>
+                            {{ $item->tanggal_publish
+                                ? $item->tanggal_publish->translatedFormat('d M Y')
+                                : $item->created_at->translatedFormat('d M Y') }}
+                        </span>
+
+                    </div>
 
                     <h3 class="font-bold text-[#1E5631] text-base mb-3 line-clamp-2 group-hover:text-[#c9a76d] transition-colors leading-tight">
                         {{ $item->judul }}

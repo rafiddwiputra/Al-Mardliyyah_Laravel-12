@@ -43,9 +43,29 @@
                  class="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-110">
 
             <div class="p-6">
-                <p class="text-xs text-gray-400 font-bold mb-3 uppercase tracking-wider">
-                    📅 {{ $berita->tanggal_publish ? $berita->tanggal_publish->translatedFormat('d F Y') : $berita->created_at->translatedFormat('d F Y') }}
-                </p>
+
+                <div class="flex items-center gap-2 text-xs text-gray-400 font-bold mb-3 uppercase tracking-wider">
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-4 h-4 text-[#1E5631]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="1.8"
+                            d="M8 7V4m8 3V4m-9 7h10m-11 9h12a2 2 0 002-2V8a2 2 0 00-2-2H6a2 2 0 00-2 2v11a2 2 0 002 2z" />
+
+                    </svg>
+
+                    <span>
+                        {{ $berita->tanggal_publish
+                            ? $berita->tanggal_publish->translatedFormat('d F Y')
+                            : $berita->created_at->translatedFormat('d F Y') }}
+                    </span>
+
+                </div>
 
                 <h3 class="font-bold text-lg text-[#1E5631] mb-3 leading-tight group-hover:text-[#c9a76d] transition-colors">
                     {{ $berita->judul }}
@@ -92,9 +112,29 @@
                      class="w-20 h-20 object-cover rounded-xl shrink-0">
 
                 <div class="flex flex-col justify-center">
-                    <p class="text-[10px] text-gray-400 font-bold mb-1">
-                        📅 {{ $populer->tanggal_publish ? $populer->tanggal_publish->translatedFormat('d M Y') : $populer->created_at->translatedFormat('d M Y') }}
-                    </p>
+
+                    <div class="flex items-center gap-1.5 text-[10px] text-gray-400 font-bold mb-1">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-3.5 h-3.5 text-[#1E5631]"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor">
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.8"
+                                d="M8 7V4m8 3V4m-9 7h10m-11 9h12a2 2 0 002-2V8a2 2 0 00-2-2H6a2 2 0 00-2 2v11a2 2 0 002 2z" />
+
+                        </svg>
+
+                        <span>
+                            {{ $populer->tanggal_publish
+                                ? $populer->tanggal_publish->translatedFormat('d M Y')
+                                : $populer->created_at->translatedFormat('d M Y') }}
+                        </span>
+
+                    </div>
 
                     <h4 class="text-sm font-bold text-[#1E5631] leading-tight line-clamp-2 group-hover:text-[#c9a76d]">
                         {{ $populer->judul }}

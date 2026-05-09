@@ -198,15 +198,38 @@
                 {{-- Diubah dari w-64 menjadi fleksibel mengikuti layar agar pas di HP --}}
                 <div class="bg-white rounded-xl shadow-md overflow-hidden w-full max-w-[280px] sm:max-w-full hover:-translate-y-2 transition-transform duration-300" 
                      data-aos="fade-up" data-aos-delay="{{ ($loop->index % 3) * 150 }}"> 
-                    <div class="h-3 bg-[#1E5631]"></div>
-                    <div class="p-5 text-left">
-                        <div class="w-8 h-8 md:w-9 md:h-9 bg-[#1E5631] text-white flex items-center justify-center rounded mb-3 md:mb-4 text-sm md:text-base">🏫</div>
-                        <h3 class="text-sm md:text-base font-semibold text-[#1E5631] mb-2">
+                    
+                    <div class="h-3 w-full bg-[#1E5631] rounded-t-2xl"></div>
+
+                    <div class="p-6 md:p-8 flex-grow">
+
+                        {{-- Icon --}}
+                        <div class="w-14 h-14 md:w-16 md:h-16 bg-[#E8F2EC] rounded-2xl flex items-center justify-center mb-5 md:mb-6 mx-auto group-hover:scale-110 transition-transform">
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-8 h-8 md:w-9 md:h-9 text-[#1E5631]"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor">
+
+                                <path stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="1.8"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.253" />
+                            </svg>
+
+                        </div>
+
+                        {{-- Judul --}}
+                        <h3 class="text-[#1E5631] font-bold text-lg md:text-xl mb-3">
                             {{ $item->nama_program }}
-                        </h3> 
-                        <div class="text-xs md:text-sm text-gray-600 leading-relaxed">
+                        </h3>
+
+                        {{-- Deskripsi --}}
+                        <div class="text-xs md:text-sm text-[#4B5563] leading-relaxed">
                             {{ $item->deskripsi }}
                         </div>
+
                     </div>
                 </div>
             @empty
@@ -255,11 +278,28 @@
 
                 <div class="p-6">
 
-                    <p class="text-xs text-gray-400 font-bold mb-3 uppercase tracking-wider">
-                        📅 {{ $news->tanggal_publish
-                            ? $news->tanggal_publish->translatedFormat('d F Y')
-                            : $news->created_at->translatedFormat('d F Y') }}
-                    </p>
+                    <div class="flex items-center gap-2 text-xs text-gray-400 font-bold mb-3 uppercase tracking-wider">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4 text-[#1E5631]"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor">
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.8"
+                                d="M8 7V4m8 3V4m-9 7h10m-11 9h12a2 2 0 002-2V8a2 2 0 00-2-2H6a2 2 0 00-2 2v11a2 2 0 002 2z" />
+
+                        </svg>
+
+                        <span>
+                            {{ $news->tanggal_publish
+                                ? $news->tanggal_publish->translatedFormat('d F Y')
+                                : $news->created_at->translatedFormat('d F Y') }}
+                        </span>
+
+                    </div>
 
                     <h3 class="font-bold text-lg text-[#1E5631] mb-3 leading-tight group-hover:text-[#c9a76d] transition-colors line-clamp-2">
                         {{ $news->judul }}

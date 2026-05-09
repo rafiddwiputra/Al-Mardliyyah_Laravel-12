@@ -1,74 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Pimpinan Panel</title>
+    <title>Pimpinan Panel - Al-Mardliyyah</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    {{-- Font Awesome --}}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 </head>
-<body class="bg-gray-100 flex">
 
-    <!-- SIDEBAR -->
+<body class="bg-[#F5F7F6] flex min-h-screen">
+
+    {{-- ================= SIDEBAR ================= --}}
     <aside id="sidebar"
-        class="w-64 bg-[#1E5631] text-white min-h-screen transition-all duration-300 hidden">
+        class="w-72 bg-[#1E5631] text-white min-h-screen transition-all duration-300 flex flex-col shadow-2xl">
 
-        <!-- TITLE -->
-        <div class="px-5 py-4 border-b border-white/20">
-            <h1 class="text-lg font-bold">SuperAdmin Panel</h1>
+        {{-- LOGO / TITLE --}}
+        <div class="px-6 py-5 border-b border-white/10">
+
+            <div class="flex items-center gap-3">
+
+                <div>
+                    <h1 class="font-bold text-lg leading-tight">
+                        Pimpinan Panel
+                    </h1>
+                </div>
+
+            </div>
+
         </div>
 
-        <!-- MENU -->
-        <div class="p-4">
+        {{-- MENU --}}
+        <div class="flex-1 px-4 py-6 space-y-2">
+
+            {{-- Laporan --}}
             <a href="/pimpinan/laporan"
-               class="flex items-center gap-3 px-3 py-2 rounded-md bg-[#D1A954] text-white text-sm font-medium">
-                📊 Laporan
+               class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 text-white text-base font-medium transition"
+
+                <i class="fas fa-file-alt text-base"></i>
+
+                Laporan
             </a>
+
+            {{-- Manajemen Admin --}}
+            <a href="{{ route('pimpinan.admin.index') }}"
+               class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 text-white text-base font-medium transition"
+
+                <i class="fas fa-user-shield text-base"></i>
+
+                Manajemen Admin
+            </a>
+
         </div>
 
-        <a href="{{ route('pimpinan.admin.index') }}"
-               class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-white/10 text-white text-sm font-medium transition">
-                👥 Manajemen Admin
-            </a>
 
     </aside>
 
-    <!-- MAIN -->
-    <div id="mainContent" class="flex-1 flex flex-col transition-all duration-300">
+    {{-- ================= MAIN ================= --}}
+    <div class="flex-1 flex flex-col">
 
-        <!-- TOPBAR -->
-        <div class="bg-white border-b px-6 py-3 flex items-center justify-between">
+        {{-- ================= TOPBAR ================= --}}
+        <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 sticky top-0 z-40">
 
-            <!-- LEFT -->
-            <div class="flex items-center gap-3">
+            {{-- SISI KIRI --}}
+            <div class="flex items-center gap-4">
 
-                <!-- BUTTON -->
-                <button onclick="toggleSidebar()" class="text-[#1E5631] text-xl">
-                    ☰
+                {{-- BURGER BUTTON --}}
+                <button onclick="toggleSidebar()"
+                    class="text-[#1e4d2b] hover:bg-gray-100 p-2 rounded-lg transition-colors focus:outline-none">
+
+                    <svg class="w-6 h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16">
+                        </path>
+                    </svg>
                 </button>
 
-                <h2 class="font-bold text-[#1E5631]">
+                <h1 class="text-[#1e4d2b] font-bold text-lg hidden md:block">
                     Pondok Pesantren Al-Mardliyyah
-                </h2>
+                </h1>
 
             </div>
 
-            <!-- RIGHT -->
-            <div class="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-md">
-                <span class="text-xs text-gray-600">Admin User</span>
-                <div class="w-5 h-5 bg-gray-300 rounded-full flex items-center justify-center text-xs">
-                    👤
+            {{-- PROFILE --}}
+            <div class="flex items-center gap-3 bg-gray-100 px-4 py-1.5 rounded-full border border-gray-200 shadow-sm">
+
+                <div class="text-right">
+                    <p class="text-[10px] font-bold text-gray-500 leading-none">
+                        Admin User
+                    </p>
+
+                    <p class="text-[10px] text-gray-400">
+                        Pimpinan
+                    </p>
                 </div>
+
+                <div class="w-8 h-8 rounded-full bg-[#E8F2EC] flex items-center justify-center">
+                    <i class="fas fa-user text-[#1E5631] text-xs"></i>
+                </div>
+
             </div>
 
-        </div>
+        </header>
 
-        <!-- CONTENT -->
-        <main class="p-6">
-            @yield('content')
+        {{-- ================= CONTENT ================= --}}
+        <main class="p-8">
+
+            {{-- WRAPPER CARD --}}
+            <div class="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm min-h-[300px]">
+
+                @yield('content')
+
+            </div>
+
         </main>
 
     </div>
 
-    <!-- SCRIPT -->
+    {{-- ================= SCRIPT ================= --}}
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');

@@ -63,8 +63,19 @@
 
             {{-- ================= CARD 1: PERSYARATAN ================= --}}
             <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="800" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-[300px] relative">
-                <div class="w-14 h-14 shrink-0 bg-[#1E5631] rounded-2xl flex items-center justify-center p-3 mb-6 shadow-md transition-transform duration-500 hover:rotate-6">
-                    <img src="{{ asset('images/ikon_dokumen.png') }}" alt="Ikon Dokumen" class="w-full h-full object-contain">
+                
+                <div class="w-14 h-14 shrink-0 bg-[#E8F2EC] rounded-2xl flex items-center justify-center mb-6 transition-transform duration-500 hover:scale-110">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-8 h-8 text-[#1E5631]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="1.8"
+                            d="M9 12h6m-6 4h6M8 4h5l5 5v11a1 1 0 01-1 1H8a1 1 0 01-1-1V5a1 1 0 011-1z"/>
+                    </svg>
                 </div>
                 
                 <div class="flex flex-col flex-grow overflow-hidden">
@@ -93,8 +104,19 @@
 
             {{-- ================= CARD 2: JADWAL PENDAFTARAN ================= --}}
             <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="800" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-[300px] relative">
-                <div class="w-14 h-14 shrink-0 bg-[#1E5631] rounded-2xl flex items-center justify-center p-3 mb-6 shadow-md transition-transform duration-500 hover:rotate-6">
-                    <img src="{{ asset('images/ikon_dokumen.png') }}" alt="Ikon Dokumen" class="w-full h-full object-contain">
+                
+                <div class="w-14 h-14 shrink-0 bg-[#E8F2EC] rounded-2xl flex items-center justify-center mb-6 transition-transform duration-500 hover:scale-110">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-8 h-8 text-[#1E5631]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="1.8"
+                            d="M8 7V3m8 4V3m-9 8h10m2 9H5a2 2 0 01-2-2V7a2 2 0 012-2h14a2 2 0 012 2v11a2 2 0 01-2 2z"/>
+                    </svg>
                 </div>
                 
                 <div class="flex flex-col flex-grow overflow-hidden">
@@ -156,8 +178,19 @@
 
             {{-- ================= CARD 3: BIAYA ================= --}}
             <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="800" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-[300px] relative">
-                <div class="w-14 h-14 shrink-0 bg-[#1E5631] rounded-2xl flex items-center justify-center p-3 mb-6 shadow-md transition-transform duration-500 hover:rotate-6">
-                    <img src="{{ asset('images/ikon_dokumen.png') }}" alt="Ikon Dokumen" class="w-full h-full object-contain">
+               
+                <div class="w-14 h-14 shrink-0 bg-[#E8F2EC] rounded-2xl flex items-center justify-center mb-6 transition-transform duration-500 hover:scale-110">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-8 h-8 text-[#1E5631]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="1.8"
+                            d="M9 14l2 2 4-4m2-6H7a2 2 0 00-2 2v12l3-2 4 2 4-2 3 2V8a2 2 0 00-2-2z"/>
+                    </svg>
                 </div>
                 
                 <div class="flex flex-col flex-grow overflow-hidden">
@@ -204,29 +237,79 @@
 
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-left">
                 <div data-aos="zoom-in" data-aos-delay="100" class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100 group hover:border-[#1E5631] transition-colors">
-                     <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">1</div>
-                    <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">👤</div>
+                    <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">1</div>
+                    
+                    <div class="w-12 h-12 bg-[#E8F2EC] rounded-xl mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6 text-[#1E5631]"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor">
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.8"
+                                d="M15 19a6 6 0 10-12 0m6-8a4 4 0 100-8 4 4 0 000 8m9 2v6m3-3h-6"/>
+                        </svg>
+                    </div>
+                    
                     <h4 class="font-semibold text-[#1E5631] text-sm mb-1">Buat Akun</h4>
                     <p class="text-[11px] text-gray-500 leading-relaxed">Daftarkan akun baru dengan mengisi data diri yang valid untuk memulai proses pendaftaran.</p>
                 </div>
 
                 <div data-aos="zoom-in" data-aos-delay="200" class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100 group hover:border-[#1E5631] transition-colors">
                     <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">2</div>
-                    <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">📝</div>
+                    <div class="w-12 h-12 bg-[#E8F2EC] rounded-xl mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6 text-[#1E5631]"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor">
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.8"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.586-9.414a2 2 0 112.828 2.828L12 14l-4 1 1-4 8.414-8.414z"/>
+                        </svg>
+                    </div>
                     <h4 class="font-semibold text-[#1E5631] text-sm mb-1">Isi Formulir</h4>
                     <p class="text-[11px] text-gray-500 leading-relaxed">Lengkapi formulir online dengan data diri calon santri dan wali yang valid.</p>
                 </div>
 
                 <div data-aos="zoom-in" data-aos-delay="300" class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100 group hover:border-[#1E5631] transition-colors">
                     <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">3</div>
-                    <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">📤</div>
+                    <div class="w-12 h-12 bg-[#E8F2EC] rounded-xl mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6 text-[#1E5631]"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor">
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.8"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M12 11v8m0-8l-3 3m3-3l3 3"/>
+                        </svg>
+                    </div>
                     <h4 class="font-semibold text-[#1E5631] text-sm mb-1">Upload Dokumen</h4>
                     <p class="text-[11px] text-gray-500 leading-relaxed">Upload dokumen persyaratan seperti Pas Foto, KK, KTP Orang Tua, dan Ijazah.</p>
                 </div>
 
                 <div data-aos="zoom-in" data-aos-delay="400" class="bg-white p-5 rounded-xl shadow-sm relative border border-gray-100 group hover:border-[#1E5631] transition-colors">
                     <div class="absolute -top-4 left-4 bg-[#C6A75E] text-white w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold shadow-md">4</div>
-                    <div class="w-12 h-12 bg-[#D8E6E0] rounded-xl mb-4 flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300">🔔</div>
+                    <div class="w-12 h-12 bg-[#E8F2EC] rounded-xl mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6 text-[#1E5631]"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor">
+
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.8"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
                     <h4 class="font-semibold text-[#1E5631] text-sm mb-1">Status</h4>
                     <p class="text-[11px] text-gray-500 leading-relaxed">Pantau status pendaftaran Anda secara berkala untuk mengetahui hasil seleksi.</p>
                 </div>
