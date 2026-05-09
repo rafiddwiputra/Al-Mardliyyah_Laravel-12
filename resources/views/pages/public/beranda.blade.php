@@ -226,56 +226,83 @@
 </div>
 
 {{-- BERITA --}}
-<section class="pb-12 md:pb-16 bg-gray-50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-        <h2 class="text-lg md:text-xl font-semibold text-[#1E5631] mb-8 md:mb-10" data-aos="fade-up">
+<section class="pb-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+
+        <h2 class="text-center text-2xl font-bold mb-12 text-[#1E5631]" data-aos="fade-up">
             Berita Terbaru
         </h2>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
-            @forelse($beritas as $news)
-                <div class="bg-white rounded-xl shadow-md overflow-hidden text-left hover:shadow-lg transition duration-300 flex flex-col"
-                     data-aos="fade-up" data-aos-delay="{{ ($loop->index % 3) * 150 }}">
-                    <div class="w-full h-40 md:h-48 overflow-hidden bg-gray-100 shrink-0">
-                        <img src="{{ $news->gambar ? (Str::startsWith($news->gambar, 'http') ? $news->gambar : asset($news->gambar)) : asset('images/berita-default.jpg') }}" 
-                             alt="{{ $news->judul }}"
-                             class="w-full h-full object-cover hover:scale-110 transition duration-500">
-                    </div>
-                    <div class="p-4 md:p-5 flex flex-col flex-grow">
-                        <p class="text-[10px] md:text-xs text-gray-500 mb-2">
-                            {{ $news->created_at->translatedFormat('d F Y') }}
-                        </p>
-                        <h3 class="text-sm md:text-base font-semibold text-[#1E5631] mb-2 line-clamp-2 min-h-[40px]">
-                            {{ $news->judul }}
-                        </h3>
-                        <p class="text-xs md:text-sm text-gray-600 mb-4 line-clamp-3 flex-grow">
-                            @if($news->ringkasan)
-                                {{ $news->ringkasan }}
-                            @elseif($news->konten)
-                                {{ Str::limit(strip_tags($news->konten), 100) }}
-                            @elseif($news->deskripsi)
-                                {{ Str::limit(strip_tags($news->deskripsi), 100) }}
-                            @else
-                                Tidak ada deskripsi tersedia.
-                            @endif
-                        </p>
-                        <a href="{{ route('berita.detail', $news->slug ?? $news->id) }}" class="text-[#1E5631] text-xs md:text-sm font-bold hover:underline mt-auto">
-                            Selengkapnya →
-                        </a>
-                    </div> 
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            @forelse($beritas as $index => $news)
+
+            <div onclick="window.location='{{ route('berita.detail', $news->slug ?? $news->id) }}'"
+
+                 data-aos="fade-up"
+                 data-aos-delay="{{ ($index % 3) * 150 }}"
+                 data-aos-duration="800"
+
+                 class="cursor-pointer bg-white border border-gray-100 rounded-[2rem] shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden group">
+
+                <img src="{{ $news->gambar
+                    ? (Str::startsWith($news->gambar, 'http')
+                        ? $news->gambar
+                        : asset($news->gambar))
+                    : asset('images/berita-default.jpg') }}"
+                     
+                     class="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-110">
+
+                <div class="p-6">
+
+                    <p class="text-xs text-gray-400 font-bold mb-3 uppercase tracking-wider">
+                        📅 {{ $news->tanggal_publish
+                            ? $news->tanggal_publish->translatedFormat('d F Y')
+                            : $news->created_at->translatedFormat('d F Y') }}
+                    </p>
+
+                    <h3 class="font-bold text-lg text-[#1E5631] mb-3 leading-tight group-hover:text-[#c9a76d] transition-colors line-clamp-2">
+                        {{ $news->judul }}
+                    </h3>
+
+                    <p class="text-sm text-gray-500 mb-6 leading-relaxed line-clamp-3">
+                        @if($news->ringkasan)
+                            {{ $news->ringkasan }}
+                        @elseif($news->konten)
+                            {{ Str::limit(strip_tags($news->konten), 100) }}
+                        @elseif($news->deskripsi)
+                            {{ Str::limit(strip_tags($news->deskripsi), 100) }}
+                        @else
+                            Tidak ada deskripsi tersedia.
+                        @endif
+                    </p>
+
+                    <a href="{{ route('berita.detail', $news->slug ?? $news->id) }}"
+                       class="text-[#1E5631] text-xs font-extrabold flex items-center gap-2">
+                        Baca Selengkapnya
+                        <span class="group-hover:translate-x-2 transition-transform">→</span>
+                    </a>
+
                 </div>
+            </div>
+
             @empty
-                <div class="col-span-full py-10 text-center text-gray-400 italic text-sm">
-                    Belum ada berita terbaru saat ini.
-                </div>
+
+            <div class="col-span-full py-10 text-center text-gray-400 italic text-sm">
+                Belum ada berita terbaru saat ini.
+            </div>
+
             @endforelse
+
         </div>
-    
-        <div class="mt-8 md:mt-10 flex justify-center" data-aos="fade-up">
-            <a href="{{ route('berita') }}" class="bg-[#1E5631] text-white px-5 md:px-6 py-2 rounded-md text-sm md:text-base hover:bg-[#17472a] transition">
+
+        <div class="mt-14 flex justify-center" data-aos="fade-up">
+            <a href="{{ route('berita') }}"
+               class="bg-[#1E5631] hover:bg-[#153d22] text-white px-8 py-3 rounded-xl font-bold shadow-lg transition-all active:scale-95">
                 Lihat Semua Berita
             </a>
         </div>
+
     </div>
 </section>
 
