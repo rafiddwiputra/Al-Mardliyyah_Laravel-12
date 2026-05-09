@@ -22,7 +22,7 @@ class AdminEditProfilController extends Controller
        $request->validate([
             'nama' => 'required|string|max:30',
             'no_hp' => 'required|string|max:12',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', 
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:1024', 
         ], [
             'nama.required' => 'Nama lengkap wajib diisi.',
             'nama.max' => 'Nama maksimal 30 karakter.',
@@ -32,7 +32,7 @@ class AdminEditProfilController extends Controller
             
             'foto.image' => 'File yang diunggah harus berupa gambar.',
             'foto.mimes' => 'Format foto harus berupa jpeg, png, atau jpg.',
-            'foto.max' => 'Ukuran foto maksimal adalah 2MB.',
+            'foto.max' => 'Ukuran foto maksimal adalah 1 MB.',
         ]);
 
         $user->nama = $request->nama;

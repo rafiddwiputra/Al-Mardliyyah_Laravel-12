@@ -55,7 +55,7 @@
         </form>
 
         <!-- EXPORT -->
-        <div class="relative group inline-block ml-auto">
+        <div class="relative group inline-block ml-auto z-50">
 
             <!-- BUTTON -->
             <button class="text-sm text-gray-600 border px-4 py-2 rounded-lg bg-white hover:bg-gray-50">
@@ -63,7 +63,7 @@
             </button>
 
             <!-- DROPDOWN WRAPPER -->
-            <div class="absolute right-0 pt-2 w-44">
+            <div class="absolute right-0 pt-2 w-44 z-50">
 
                 <div class="bg-white border rounded-lg shadow
                             opacity-0 invisible pointer-events-none
@@ -97,12 +97,11 @@ group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto
             Pendaftaran Terbaru
         </h3>
 
-        <div class="overflow-x-auto">
-
-            <table class="w-full border border-[#D9D9D9] border-collapse text-sm">
+        <div class="overflow-x-auto overflow-y-scroll min-h-[300px] max-h-[300px] border border-[#D9D9D9] rounded-lg">
+            <table class="w-full border-collapse text-sm">
 
                 <!-- HEADER -->
-                <thead>
+                <thead class="sticky top-0 bg-white z-10">
                     <tr class="bg-white border-b border-[#D9D9D9]">
                         <th class="p-4 text-center font-bold text-black border-r border-[#D9D9D9]">
                             ID
@@ -156,57 +155,62 @@ group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto
 
                         <td class="p-4 text-center border-r border-[#D9D9D9]">
 
-                            <div class="relative inline-block group">
+    @php
+    $status = ucfirst($item->status ?? 'diproses');
 
-                                @php
-                                $status = ucfirst($item->status ?? 'diproses');
+    $statusColor = match($status) {
+        'Diproses' => 'bg-[#BFDBFE] text-[#1D4ED8]',
+        'Diterima' => 'bg-[#DEFFE9] text-[#1E5631]',
+        'Ditolak' => 'bg-[#FECACA] text-[#B91C1C]',
+        default => 'bg-gray-100 text-gray-600'
+    };
+    @endphp
 
-                                $statusColor = match($status) {
-                                    'Diproses' => 'bg-[#BFDBFE] text-[#1D4ED8]',
-                                    'Diterima' => 'bg-[#DEFFE9] text-[#1E5631]',
-                                    'Ditolak' => 'bg-[#FECACA] text-[#B91C1C]',
-                                    default => 'bg-gray-100 text-gray-600'
-                                };
-                                @endphp
+    <div x-data="{ open: false }" class="relative inline-block">
 
-                                <!-- BUTTON -->
-                                <button class="w-20 text-center text-xs px-4 py-2 rounded-xl font-semibold {{ $statusColor }}">
-                                    {{ $status }}
-                                </button>
+        <!-- BUTTON STATUS -->
+        <button
+            @click="open = !open"
+            type="button"
+            class="w-24 text-center text-xs px-4 py-2 rounded-xl font-semibold cursor-pointer {{ $statusColor }}">
 
-                                <!-- DROPDOWN (FIXED) -->
-                                <div class="absolute right-0 top-full mt-2 w-28 z-[9999]
-                                            bg-white border rounded-lg shadow
-                                            opacity-0 invisible
-                                            group-hover:opacity-100 group-hover:visible
-                                            transition duration-200">
+            {{ $status }}
+        </button>
 
-                                    <form action="{{ route('admin.pendaftar.updateStatus', $item->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
+        <!-- DROPDOWN -->
+        <div
+            x-show="open"
+            @click.outside="open = false"
+            x-transition
+            class="absolute right-0 top-full mt-2 w-28 bg-white border rounded-lg shadow-lg z-[9999]"
+            style="display: none;">
 
-                                        <button name="status" value="diproses"
-                                            class="block w-full text-left px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white">
-                                            Diproses
-                                        </button>
+            <form action="{{ route('admin.pendaftar.updateStatus', $item->id) }}" method="POST">
+                @csrf
+                @method('PUT')
 
-                                        <button name="status" value="diterima"
-                                            class="block w-full text-left px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white">
-                                            Diterima
-                                        </button>
+                <button type="submit" name="status" value="diproses"
+                    class="block w-full text-left px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white transition">
+                    Diproses
+                </button>
 
-                                        <button name="status" value="ditolak"
-                                            class="block w-full text-left px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white">
-                                            Ditolak
-                                        </button>
+                <button type="submit" name="status" value="diterima"
+                    class="block w-full text-left px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white transition">
+                    Diterima
+                </button>
 
-                                    </form>
+                <button type="submit" name="status" value="ditolak"
+                    class="block w-full text-left px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white transition">
+                    Ditolak
+                </button>
 
-                                </div>
+            </form>
 
-                            </div>
+        </div>
 
-                        </td>
+    </div>
+
+</td>
 
                         <!-- AKSI -->
                         <td class="p-4 text-center border-r border-[#D9D9D9]">

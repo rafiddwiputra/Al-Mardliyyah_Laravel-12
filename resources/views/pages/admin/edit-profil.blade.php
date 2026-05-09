@@ -71,14 +71,6 @@
             </p>
         </div>
 
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit"
-                class="bg-[#F8CFCF] text-red-600 font-semibold px-6 py-2 rounded-md text-sm hover:bg-red-200 transition">
-                Logout
-            </button>
-        </form>
-
     </div>
 
     <div class="border border-[#D9D9D9] rounded p-6">
@@ -88,50 +80,68 @@
 
             <div class="flex flex-col items-center text-center mb-8">
 
-                <div class="w-20 h-20 rounded-full overflow-hidden mb-3 bg-gray-100 flex items-center justify-center">
-                    
-                    @if($user->foto)
-                        <img src="{{ asset('storage/' . $user->foto) }}"
-                            class="w-full h-full object-cover">
-                    @else
-                        <div class="w-full h-full bg-[#1E5631] flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" 
-                                class="w-8 h-8 text-white" 
-                                fill="none" 
-                                viewBox="0 0 24 24" 
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
-                                    d="M5.121 17.804A9 9 0 1118.879 17.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                        </div>
-                    @endif
-                </div>
+                <div id="previewContainer"
+    class="w-20 h-20 rounded-full overflow-hidden mb-3 bg-gray-100 flex items-center justify-center border border-gray-200">
 
-                <h3 class="text-sm font-semibold text-[#1E5631]">
-                    {{ $user->nama }}
-                </h3>
+    @if($user->foto)
+        <img id="previewImage"
+            src="{{ asset('storage/' . $user->foto) }}"
+            class="w-full h-full object-cover">
+    @else
+        <img id="previewImage"
+            src=""
+            class="w-full h-full object-cover hidden">
 
-                <p class="text-xs text-gray-500 mb-3">
-                    {{ $user->email }}
-                </p>
+        <div id="defaultIcon"
+            class="w-full h-full bg-[#1E5631] flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-8 h-8 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M5.121 17.804A9 9 0 1118.879 17.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+        </div>
+    @endif
+</div>
 
-                <input type="file" name="foto" id="fotoInput" class="hidden">
+<h3 class="text-sm font-semibold text-[#1E5631]">
+    {{ $user->nama }}
+</h3>
 
-                <label for="fotoInput"
-                    class="flex items-center gap-2 bg-[#1E5631] text-white text-xs px-3 py-1.5 rounded cursor-pointer hover:bg-green-800 transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" 
-                        class="w-4 h-4" 
-                        fill="none" 
-                        viewBox="0 0 24 24" 
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
-                            d="M3 7h2l2-3h6l2 3h2a2 2 0 012 2v8a2 2 0 01-2 2H3a2 2 0 01-2-2V9a2 2 0 012-2z"/>
-                        <circle cx="12" cy="13" r="3"/>
-                    </svg>
-                    Pilih Foto
-                </label>
+<p class="text-xs text-gray-500 mb-3">
+    {{ $user->email }}
+</p>
 
-            </div>
+<input type="file"
+    name="foto"
+    id="fotoInput"
+    accept="image/*"
+    class="hidden">
+
+<label for="fotoInput"
+    class="flex items-center gap-2 bg-[#1E5631] text-white text-xs px-3 py-1.5 rounded cursor-pointer hover:bg-green-800 transition">
+
+    <svg xmlns="http://www.w3.org/2000/svg"
+        class="w-4 h-4"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor">
+
+        <path stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M3 7h2l2-3h6l2 3h2a2 2 0 012 2v8a2 2 0 01-2 2H3a2 2 0 01-2-2V9a2 2 0 012-2z"/>
+
+        <circle cx="12" cy="13" r="3"/>
+    </svg>
+
+    Pilih Foto
+</label>
+</div>
 
             <div>
                 <h2 class="text-[#1E5631] font-semibold mb-4">
@@ -207,6 +217,43 @@
                 }, 500);
             }, 4000); 
         });
+    });
+
+    // ================= PREVIEW FOTO =================
+    document.getElementById('fotoInput').addEventListener('change', function(e) {
+
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        // Maksimal 1 MB
+        const maxSize = 1024 * 1024;
+
+        if (file.size > maxSize) {
+            alert('Ukuran foto maksimal 1 MB');
+
+            e.target.value = '';
+
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+
+            const previewImage = document.getElementById('previewImage');
+            const defaultIcon = document.getElementById('defaultIcon');
+
+            previewImage.src = event.target.result;
+
+            previewImage.classList.remove('hidden');
+
+            if (defaultIcon) {
+                defaultIcon.classList.add('hidden');
+            }
+        };
+
+        reader.readAsDataURL(file);
     });
 </script>
 

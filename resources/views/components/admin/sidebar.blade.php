@@ -1,4 +1,4 @@
-<aside class="w-64 bg-[#1e4d2b] h-screen fixed top-0 left-0 flex flex-col text-white">
+<aside class="w-64 bg-[#1e4d2b] h-screen flex flex-col text-white">
     {{-- LOGO --}}
     <div class="p-6 border-b border-white/10">
         <h2 class="text-xl font-bold text-center">Admin Panel</h2>
@@ -72,4 +72,29 @@
     </div>
 
 </nav>
+
+</nav>
+
+{{-- LOGOUT --}}
+<div class="p-4 border-t border-white/10">
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit"
+            class="w-full flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white font-semibold py-2.5 rounded-lg transition">
+
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V5m-6 14h6a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+
+            Logout
+        </button>
+    </form>
+</div>
 </aside>
