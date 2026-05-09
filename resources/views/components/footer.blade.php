@@ -37,7 +37,7 @@
                 Lanjutkan Pendaftaran
             </a>
         @else
-            <a href="{{ route('register') }}"
+            <a href="{{ route('pendaftaran') }}"
                class="bg-[#C6A75E] text-white px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
                 Daftar Sekarang
             </a>

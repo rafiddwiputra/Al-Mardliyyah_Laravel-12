@@ -42,9 +42,45 @@
 
         {{-- TOMBOL: Ditumpuk atas-bawah di HP seperti referensi --}}
         <div class="flex flex-col sm:flex-row justify-center items-center gap-4 w-full max-w-sm mx-auto sm:max-w-none">
-            <a href="{{ url('/pendaftaran') }}" class="w-full sm:w-auto text-center bg-[#C6A75E] text-white px-8 py-3.5 rounded-lg font-bold shadow-lg hover:bg-[#b5954a] transition uppercase text-sm md:text-base animate-heartbeat">
-                Daftar Sekarang
-            </a>
+            {{-- TOMBOL DAFTAR --}}
+@php
+    $periodeAktif = \App\Models\Public\PeriodePendaftaran::where('status', 1)->latest()->first();
+
+    $status = false;
+
+    if($periodeAktif && $periodeAktif->tanggal_mulai && $periodeAktif->tanggal_selesai) {
+        $hariIni = \Carbon\Carbon::now();
+        $mulai = \Carbon\Carbon::parse($periodeAktif->tanggal_mulai)->startOfDay();
+        $selesai = \Carbon\Carbon::parse($periodeAktif->tanggal_selesai)->endOfDay();
+
+        if($hariIni->between($mulai, $selesai)) {
+            $status = true;
+        }
+    }
+@endphp
+
+@if($status)
+
+    @auth
+        <a href="{{ route('formulir') }}"
+           class="w-full sm:w-auto text-center bg-[#C6A75E] text-white px-8 py-3.5 rounded-lg font-bold shadow-lg hover:bg-[#b5954a] transition uppercase text-sm md:text-base animate-heartbeat">
+            Lanjutkan Pendaftaran
+        </a>
+    @else
+        <a href="{{ route('pendaftaran') }}"
+           class="w-full sm:w-auto text-center bg-[#C6A75E] text-white px-8 py-3.5 rounded-lg font-bold shadow-lg hover:bg-[#b5954a] transition uppercase text-sm md:text-base animate-heartbeat">
+            Daftar Sekarang
+        </a>
+    @endauth
+
+@else
+
+    <button onclick="bukaPopupTutup()"
+        class="w-full sm:w-auto text-center bg-[#C6A75E] text-white px-8 py-3.5 rounded-lg font-bold shadow-lg hover:bg-[#b5954a] transition uppercase text-sm md:text-base animate-heartbeat">
+        Daftar Sekarang
+    </button>
+
+@endif
             <a href="{{ route('profile') }}" class="w-full sm:w-auto text-center border-2 border-white text-white px-8 py-3.5 rounded-lg font-bold shadow-lg hover:bg-white hover:text-[#1E5631] transition uppercase text-sm md:text-base backdrop-blur-sm bg-white/10">
                 Lihat Profil
             </a>
@@ -306,6 +342,35 @@
 
         }, 4000); 
     });
+</script>
+
+{{-- POPUP PENDAFTARAN DITUTUP --}}
+<div id="popupTutup" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+    <div class="bg-white p-8 rounded-xl text-center max-w-sm">
+        <h2 class="font-bold text-lg mb-2 text-red-600">
+            Pendaftaran Ditutup
+        </h2>
+
+        <p class="text-sm text-gray-500 mb-4">
+            Pendaftaran sedang tidak dibuka saat ini.
+        </p>
+
+        <button onclick="tutupPopup()"
+            class="bg-[#1E5631] text-white px-4 py-2 rounded">
+            Tutup
+        </button>
+    </div>
+</div>
+
+<script>
+function bukaPopupTutup() {
+    document.getElementById('popupTutup').classList.remove('hidden');
+    document.getElementById('popupTutup').classList.add('flex');
+}
+
+function tutupPopup() {
+    document.getElementById('popupTutup').classList.add('hidden');
+}
 </script>
 
 @endsection
