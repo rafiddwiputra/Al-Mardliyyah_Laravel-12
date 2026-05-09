@@ -2,6 +2,9 @@
 
 @section('content')
 
+<div id="toast-container"
+    class="fixed top-5 right-5 z-[9999] flex flex-col gap-3 items-end pointer-events-none">
+
  @if(session('success'))
         <div class="toast-alert pointer-events-auto flex items-start gap-3 bg-white border-l-4 border-green-500 shadow-xl rounded-lg p-4 min-w-[300px] max-w-sm transform transition-all duration-500 translate-x-full opacity-0">
             <svg class="w-6 h-6 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -49,7 +52,9 @@
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
         </div>
-    @endif
+        @endif
+
+</div>
 
 <div class="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm">
 
@@ -136,14 +141,11 @@
                     <div class="p-4 flex justify-between items-center">
                         <span class="text-sm font-semibold text-gray-800">{{ $item->judul }}</span>
                         
-                        <form action="{{ route('admin.banner.destroy', $item->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-500 hover:text-red-700 text-sm font-bold"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus banner ini?')">
-                                Hapus
-                            </button>
-                        </form>
+                        <button type="button"
+    onclick="openDeleteModal('{{ route('admin.banner.destroy', $item->id) }}', '{{ $item->judul }}')"
+    class="text-red-500 hover:text-red-700 text-sm font-bold">
+    Hapus
+</button>
                     </div>
 
                     <div class="absolute top-2 left-2 bg-[#C6A75E] text-[#1E5631] text-xs font-bold px-2 py-1 rounded">
@@ -158,6 +160,49 @@
         </div>
     </div>
 
+</div>
+
+
+{{-- MODAL HAPUS BANNER --}}
+<div id="modalHapusBanner"
+    class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+
+    <div class="bg-white rounded-lg border border-[#D9D9D9] w-full max-w-sm shadow-lg">
+
+        <div class="bg-[#FCA5A5] py-2 rounded-t-lg">
+            <h2 class="text-center text-[#B91C1C] font-bold text-base">
+                Konfirmasi Hapus
+            </h2>
+        </div>
+
+        <div class="p-5 text-center">
+            <p class="text-sm text-gray-600 mb-2">
+                Apakah Anda yakin ingin menghapus banner ini secara permanen?
+            </p>
+
+            <p class="text-sm font-bold text-[#1E5631] mb-5">
+                <span id="hapus_banner_judul"></span>
+            </p>
+
+            <form id="formHapusBanner" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <div class="flex justify-center gap-2 py-4">
+                    <button type="button"
+                        onclick="closeDeleteModal()"
+                        class="px-4 py-2 text-sm border border-[#D9D9D9] rounded text-gray-600 hover:bg-gray-50">
+                        Batal
+                    </button>
+
+                    <button type="submit"
+                        class="px-4 py-2 text-sm bg-[#B91C1C] text-white rounded hover:bg-red-700 shadow-sm transition-colors">
+                        Ya, Hapus
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -208,6 +253,23 @@ document.addEventListener("DOMContentLoaded", function() {
             }, 4000); 
         });
     });
+
+
+    // ================= MODAL HAPUS BANNER =================
+function openDeleteModal(action, judul) {
+    document.getElementById('formHapusBanner').action = action;
+    document.getElementById('hapus_banner_judul').innerText = judul;
+
+    const modal = document.getElementById('modalHapusBanner');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+function closeDeleteModal() {
+    const modal = document.getElementById('modalHapusBanner');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
 </script>
 
 @endsection

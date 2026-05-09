@@ -3,21 +3,83 @@
 @section('content')
 
 <div class="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm">
-    {{-- TOAST NOTIFICATION --}}
+    <div id="toast-container" class="fixed top-5 right-5 z-[9999] flex flex-col gap-3 items-end pointer-events-none">
+
     @if(session('success'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-            <span class="block sm:inline">{{ session('success') }}</span>
+        <div class="toast-alert pointer-events-auto flex items-start gap-3 bg-white border-l-4 border-green-500 shadow-xl rounded-lg p-4 min-w-[300px] max-w-sm transform transition-all duration-500 translate-x-full opacity-0">
+            <svg class="w-6 h-6 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+
+            <div class="flex-1">
+                <h4 class="text-sm font-bold text-gray-800">Berhasil</h4>
+                <p class="text-xs text-gray-500 mt-0.5">
+                    {{ session('success') }}
+                </p>
+            </div>
+
+            <button onclick="this.parentElement.remove()"
+                class="text-gray-400 hover:text-gray-600 transition">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
         </div>
     @endif
+
+    @if(session('error'))
+        <div class="toast-alert pointer-events-auto flex items-start gap-3 bg-white border-l-4 border-red-500 shadow-xl rounded-lg p-4 min-w-[300px] max-w-sm transform transition-all duration-500 translate-x-full opacity-0">
+            <svg class="w-6 h-6 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+
+            <div class="flex-1">
+                <h4 class="text-sm font-bold text-gray-800">Gagal</h4>
+                <p class="text-xs text-gray-500 mt-0.5">
+                    {{ session('error') }}
+                </p>
+            </div>
+
+            <button onclick="this.parentElement.remove()"
+                class="text-gray-400 hover:text-gray-600 transition">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    @endif
+
     @if ($errors->any())
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
-            <ul class="list-disc list-inside text-sm">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+        <div class="toast-alert pointer-events-auto flex items-start gap-3 bg-white border-l-4 border-red-500 shadow-xl rounded-lg p-4 min-w-[300px] max-w-sm transform transition-all duration-500 translate-x-full opacity-0">
+            <svg class="w-6 h-6 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+
+            <div class="flex-1">
+                <h4 class="text-sm font-bold text-gray-800">Peringatan</h4>
+
+                <ul class="list-disc list-inside mt-1 text-xs text-gray-500">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+
+            <button onclick="this.parentElement.remove()"
+                class="text-gray-400 hover:text-gray-600 transition">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
         </div>
     @endif
+</div>
 
     <div class="flex justify-between items-center mb-8">
         <div>
@@ -73,13 +135,16 @@
                                 data-persyaratan="{{ $item->persyaratan }}"
                                 data-biaya="{{ $item->biaya }}"
                                 data-jadwal-tambahan="{{ $item->jadwal_tambahan }}"
-                                class="bg-yellow-100 text-yellow-700 px-3 py-1.5 rounded font-bold hover:bg-yellow-200 text-xs">Edit</button>
+                                class="bg-blue-100 text-blue-600 px-3 py-1.5 rounded font-bold hover:bg-blue-200 text-xs">Edit</button>
                             
-                            <form action="{{ route('admin.periode.destroy', $item->id_periode) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus periode ini? Data pendaftar yang terkait mungkin akan terpengaruh.')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="bg-red-100 text-red-700 px-3 py-1.5 rounded font-bold hover:bg-red-200 text-xs">Hapus</button>
-                            </form>
+                            <button 
+                            onclick="openDeleteModal(
+                            '{{ route('admin.periode.destroy', $item->id_periode) }}',
+                            '{{ $item->nama_periode }}'
+                            )"
+                            class="bg-red-100 text-red-700 px-3 py-1.5 rounded font-bold hover:bg-red-200 text-xs">
+                            Hapus
+                            </button>
                         </div>
                     </td>
                 </tr>
@@ -94,13 +159,12 @@
 </div>
 
 {{-- MODAL TAMBAH PERIODE --}}
-<div id="modalTambah" class="hidden fixed inset-0 bg-black/50 items-center justify-center z-50">
+<div id="modalTambah" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm items-center justify-center z-50">
     <div class="bg-white w-full max-w-4xl rounded-xl overflow-hidden shadow-lg">
         <form action="{{ route('admin.periode.store') }}" method="POST">
             @csrf
             <div class="bg-[#1E5631] text-white py-3 px-4 font-bold flex justify-between">
                 <span>Tambah Periode Pendaftaran</span>
-                <button type="button" onclick="closeModal('modalTambah')" class="hover:text-gray-300">✕</button>
             </div>
             <div class="p-5 space-y-4">
                 <div>
@@ -153,28 +217,27 @@
 </div>
 
 {{-- MODAL EDIT PERIODE --}}
-<div id="modalEdit" class="hidden fixed inset-0 bg-black/50 items-center justify-center z-50">
+<div id="modalEdit" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm items-center justify-center z-50">
     <div class="bg-white w-full max-w-4xl rounded-xl overflow-hidden shadow-lg">
         <form id="formEdit" method="POST">
             @csrf
             @method('PUT')
-            <div class="bg-yellow-500 text-white py-3 px-4 font-bold flex justify-between">
+            <div class="bg-[#1E5631] text-white py-3 px-4 font-bold flex justify-between">
                 <span>Edit Periode Pendaftaran</span>
-                <button type="button" onclick="closeModal('modalEdit')" class="hover:text-gray-200">✕</button>
             </div>
             <div class="p-5 space-y-4">
                 <div>
                     <label class="text-sm font-bold text-gray-700">Nama Periode / Gelombang <span class="text-red-500">*</span></label>
-                    <input type="text" name="nama_periode" id="edit_nama" required class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-yellow-500 outline-none">
+                    <input type="text" name="nama_periode" id="edit_nama" required class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-[#1E5631] outline-none">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="text-sm font-bold text-gray-700">Tgl Mulai <span class="text-red-500">*</span></label>
-                        <input type="date" name="tanggal_mulai" id="edit_mulai" required class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-yellow-500 outline-none">
+                        <input type="date" name="tanggal_mulai" id="edit_mulai" required class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-[#1E5631] outline-none">
                     </div>
                     <div>
                         <label class="text-sm font-bold text-gray-700">Tgl Selesai <span class="text-red-500">*</span></label>
-                        <input type="date" name="tanggal_selesai" id="edit_selesai" required class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-yellow-500 outline-none">
+                        <input type="date" name="tanggal_selesai" id="edit_selesai" required class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-[#1E5631] outline-none">
                     </div>
                 </div>
                 
@@ -182,17 +245,17 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="text-sm font-bold text-gray-700">Persyaratan Pendaftaran</label>
-                        <textarea name="persyaratan" id="edit_persyaratan" rows="5" class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-yellow-500 outline-none"></textarea>
+                        <textarea name="persyaratan" id="edit_persyaratan" rows="5" class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-[#1E5631] outline-none"></textarea>
                     </div>
                     <div>
                         <label class="text-sm font-bold text-gray-700">Rincian Biaya</label>
-                        <textarea name="biaya" id="edit_biaya" rows="5" class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-yellow-500 outline-none"></textarea>
+                        <textarea name="biaya" id="edit_biaya" rows="5" class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-[#1E5631] outline-none"></textarea>
                     </div>
                 </div>
 
                 <div>
                     <label class="text-sm font-bold text-gray-700">Status</label>
-                    <select name="status" id="edit_status" class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-yellow-500 outline-none">
+                    <select name="status" id="edit_status" class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-[#1E5631] outline-none">
                         <option value="1">Aktif (Buka)</option>
                         <option value="0">Tutup</option>
                     </select>
@@ -205,10 +268,61 @@
 
                 <div class="flex justify-end gap-3 pt-4 border-t">
                     <button type="button" onclick="closeModal('modalEdit')" class="px-4 py-2 border rounded text-sm font-bold">Batal</button>
-                    <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded text-sm font-bold hover:bg-yellow-600 transition">Update Data</button>
+                    <button type="submit" class="bg-[#1E5631] text-white px-4 py-2 rounded text-sm font-bold hover:bg-[#1E5631] transition">Update Data</button>
                 </div>
             </div>
         </form>
+    </div>
+</div>
+
+{{-- MODAL HAPUS --}}
+<div id="modalHapus"
+    class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+
+    <div class="bg-white rounded-lg border border-[#D9D9D9] w-full max-w-sm shadow-lg">
+
+        {{-- HEADER --}}
+        <div class="bg-[#FCA5A5] py-2 rounded-t-lg">
+            <h2 class="text-center text-[#B91C1C] font-bold text-base">
+                Konfirmasi Hapus
+            </h2>
+        </div>
+
+        {{-- CONTENT --}}
+        <div class="p-5 text-center">
+
+            <p class="text-sm text-gray-600 mb-2">
+                Apakah Anda yakin ingin menghapus periode ini secara permanen?
+            </p>
+
+            <p class="text-sm font-bold text-[#1E5631] mb-5">
+                <span id="hapus_nama_periode"></span>
+            </p>
+
+            <form id="formHapusPeriode" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <div class="flex justify-center gap-2 py-4">
+
+                    {{-- BATAL --}}
+                    <button type="button"
+                        onclick="closeModal('modalHapus')"
+                        class="px-4 py-2 text-sm border border-[#D9D9D9] rounded text-gray-600 hover:bg-gray-50">
+                        Batal
+                    </button>
+
+                    {{-- HAPUS --}}
+                    <button type="submit"
+                        class="px-4 py-2 text-sm bg-[#B91C1C] text-white rounded hover:bg-red-700 shadow-sm transition-colors">
+                        Ya, Hapus
+                    </button>
+
+                </div>
+            </form>
+
+        </div>
+
     </div>
 </div>
 
@@ -230,15 +344,43 @@
         document.getElementById('edit_nama').value = element.getAttribute('data-nama');
         document.getElementById('edit_mulai').value = element.getAttribute('data-mulai');
         document.getElementById('edit_selesai').value = element.getAttribute('data-selesai');
-        
-        // Memasukkan data ke dalam textarea yang baru
+
         document.getElementById('edit_persyaratan').value = element.getAttribute('data-persyaratan');
         document.getElementById('edit_biaya').value = element.getAttribute('data-biaya');
         document.getElementById('edit_jadwal_tambahan').value = element.getAttribute('data-jadwal-tambahan');
         document.getElementById('edit_status').value = element.getAttribute('data-status');
-        
+
         openModal('modalEdit');
     }
+
+    function openDeleteModal(action, nama) {
+        document.getElementById('formHapusPeriode').action = action;
+        document.getElementById('hapus_nama_periode').innerText = nama;
+
+        openModal('modalHapus');
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const toasts = document.querySelectorAll('.toast-alert');
+
+        toasts.forEach(function(toast, index) {
+
+            setTimeout(function() {
+                toast.classList.remove('translate-x-full', 'opacity-0');
+                toast.classList.add('translate-x-0', 'opacity-100');
+            }, 100 + (index * 150));
+
+            setTimeout(function() {
+                toast.classList.remove('translate-x-0', 'opacity-100');
+                toast.classList.add('translate-x-full', 'opacity-0');
+
+                setTimeout(function() {
+                    toast.remove();
+                }, 500);
+
+            }, 4000);
+        });
+    });
 </script>
 
 @endsection

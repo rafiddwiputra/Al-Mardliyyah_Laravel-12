@@ -108,7 +108,7 @@
 </div>
 
 {{-- MODAL EDIT KONTAK --}}
-<div id="editModal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50 transition-opacity duration-300 opacity-0">
+<div id="editModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300 opacity-0">
     <div class="bg-white w-full max-w-md rounded-xl overflow-hidden shadow-lg transform scale-95 transition-transform duration-300">
         <form id="editForm" method="POST">
             @csrf
@@ -116,9 +116,6 @@
             
             <div class="bg-[#1E5631] text-white text-center py-3 font-semibold flex justify-between items-center px-4">
                 <span>Edit Kontak Pendaftaran</span>
-                <button type="button" onclick="closeModal('editModal')" class="text-white hover:text-gray-200 focus:outline-none">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
             </div>
 
             <div class="p-5 space-y-4">

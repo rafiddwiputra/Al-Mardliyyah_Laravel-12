@@ -3,12 +3,6 @@
 @section('content')
 <div class="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm">
 
-    @if(session('success'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <div class="mb-6 text-left">
         <h1 class="text-2xl font-bold text-[#1E5631]">Kelola Profil Pondok</h1>
         <p class="text-sm text-gray-500 mt-1">Kelola informasi profil dan sejarah pesantren</p>

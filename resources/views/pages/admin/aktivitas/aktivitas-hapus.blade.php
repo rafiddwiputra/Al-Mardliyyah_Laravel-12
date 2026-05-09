@@ -1,41 +1,49 @@
 <div id="deleteAktivitasModal"
-     class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50 opacity-0 transition-opacity duration-300">
+    class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
 
-    <div class="bg-white w-full max-w-sm rounded-xl shadow-lg overflow-hidden transform transition-transform duration-300 scale-95" id="deleteAktivitasModalContent">
+    <div class="bg-white rounded-lg border border-[#D9D9D9] w-full max-w-sm shadow-lg">
 
-        <div class="bg-white text-[#B91C1C] text-center py-3 font-semibold border-b border-gray-200">
-            Konfirmasi Hapus
+        {{-- HEADER --}}
+        <div class="bg-[#FCA5A5] py-2 rounded-t-lg">
+            <h2 class="text-center text-[#B91C1C] font-bold text-base">
+                Konfirmasi Hapus
+            </h2>
         </div>
 
-        <form id="formHapusAktivitas" method="POST">
-            @csrf
-            @method('DELETE')
+        {{-- CONTENT --}}
+        <div class="p-5 text-center">
 
-            <div class="p-5 text-center">
-                <p class="text-sm text-gray-700 mb-3">
-                    Apakah Anda yakin ingin menghapus aktivitas ini? Tindakan ini tidak dapat dibatalkan.
-                </p>
+            <p class="text-sm text-gray-600 mb-2">
+                Apakah Anda yakin ingin menghapus aktivitas ini secara permanen?
+            </p>
 
-                <p class="text-xs text-gray-500 mb-4 bg-gray-50 py-2 rounded">
-                    Aktivitas: 
-                    <span id="hapus_nama_aktivitas" class="font-semibold text-gray-800 italic">
-                        {{-- Diisi oleh JS --}}
-                    </span>
-                </p>
+            <p class="text-sm font-bold text-[#1E5631] mb-5">
+                <span id="hapus_nama_aktivitas"></span>
+            </p>
 
-                <div class="flex gap-3">
-                    <button type="button" onclick="closeModal('deleteAktivitasModal')"
-                        class="flex-1 border rounded-md py-2 text-sm font-bold text-gray-700 hover:bg-gray-100 transition-colors">
+            <form id="formHapusAktivitas" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <div class="flex justify-center gap-2 py-4">
+
+                    {{-- BATAL --}}
+                    <button type="button"
+                        onclick="closeModal('deleteAktivitasModal')"
+                        class="px-4 py-2 text-sm border border-[#D9D9D9] rounded text-gray-600 hover:bg-gray-50">
                         Batal
                     </button>
 
+                    {{-- HAPUS --}}
                     <button type="submit"
-                        class="flex-1 bg-red-600 text-white rounded-md py-2 text-sm font-medium hover:bg-red-700 shadow-sm transition-all">
-                        Ya, Hapus Aktivitas
+                        class="px-4 py-2 text-sm bg-[#B91C1C] text-white rounded hover:bg-red-700 shadow-sm transition-colors">
+                        Ya, Hapus
                     </button>
+
                 </div>
-            </div>
-        </form>
+            </form>
+
+        </div>
 
     </div>
 </div>
