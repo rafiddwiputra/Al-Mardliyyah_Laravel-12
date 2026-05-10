@@ -174,9 +174,6 @@
             <p class="text-xs text-[#1E5631] mt-1 font-bold">
                 Pondok Pesantren Al-Mardliyyah
             </p>
-            <p class="text-xs text-gray-400 mt-1">
-                Dicetak: {{ $tanggalCetak }}
-            </p>
         </div>
 
     </div>

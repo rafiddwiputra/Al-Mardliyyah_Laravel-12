@@ -31,6 +31,8 @@ use App\Http\Controllers\Pimpinan\AdminManagementController;
 use App\Http\Middleware\CheckActiveStatus;
 use App\Http\Controllers\Admin\PeriodePendaftaranController;
 use App\Http\Controllers\Pimpinan\LaporanPimpinanController;
+use App\Http\Controllers\Pimpinan\PimpinanEditProfilController;
+use App\Http\Controllers\Pimpinan\PimpinanDashboardController;
 
 // ================== DEBUG ==================
 Route::get('/debug-login', function () {
@@ -287,4 +289,14 @@ Route::prefix('pimpinan')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin', [AdminManagementController::class, 'index'])->name('pimpinan.admin.index');
     Route::post('/admin/store', [AdminManagementController::class, 'store'])->name('pimpinan.admin.store');
     Route::put('/admin/{id}/toggle-status', [AdminManagementController::class, 'toggleStatus'])->name('pimpinan.admin.toggle');
+
+    // Edit Profil Pimpinan
+    Route::get('/profil', [PimpinanEditProfilController::class, 'index'])
+    ->name('pimpinan.profil');
+
+    Route::post('/profil/update', [PimpinanEditProfilController::class, 'update'])
+        ->name('pimpinan.profil.update');
+
+    Route::get('/dashboard', [PimpinanDashboardController::class, 'index'])
+    ->name('pimpinan.dashboard');
 });
