@@ -7,9 +7,37 @@
 
     {{-- Welcome Message --}}
     <div class="mb-8">
-        <h1 class="text-2xl font-bold text-gray-800">Dashboard</h1>
+        <h1 class="text-2xl font-bold text-[#1E5631]">Dashboard</h1>
         <p class="text-gray-500 text-sm">Selamat datang di Admin Panel Pondok Pesantren Al-Mardliyyah</p>
     </div>
+
+    {{-- FILTER PERIODE --}}
+<div class="mt-5 mb-6">
+
+    <form method="GET" action="{{ route('admin.dashboard') }}">
+
+        <select name="periode_id"
+            onchange="this.form.submit()"
+            class="px-4 py-2 text-sm border border-gray-300 rounded-lg bg-white outline-none focus:ring-2 focus:ring-[#1E5631] text-gray-600 min-w-[240px]">
+
+            <option value="">Semua Periode / Tahun</option>
+
+            @foreach($listPeriode as $p)
+
+                <option value="{{ $p->id_periode }}"
+                    {{ request('periode_id') == $p->id_periode ? 'selected' : '' }}>
+
+                    {{ $p->nama_periode }}
+
+                </option>
+
+            @endforeach
+
+        </select>
+
+    </form>
+
+</div>
 
     {{-- Statistik Cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">

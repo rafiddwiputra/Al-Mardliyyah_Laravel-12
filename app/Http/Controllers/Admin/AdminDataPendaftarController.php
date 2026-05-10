@@ -30,6 +30,11 @@ class AdminDataPendaftarController extends Controller
             $query->where('id_periode', $request->periode_id);
         }
 
+        //  LOGIKA FILTER STATUS
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
         // 4. LOGIKA PENCARIAN (SEARCH)
         if ($request->filled('search')) {
             $search = $request->search;

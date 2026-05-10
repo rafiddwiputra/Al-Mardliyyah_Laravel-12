@@ -4,35 +4,55 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PendaftaranSantri;
+use Illuminate\Http\Request;
+use App\Models\Public\PeriodePendaftaran;
 
 class AdminDashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // TOTAL
-        $total = PendaftaranSantri::count();
+        // LIST PERIODE
+        $listPeriode = PeriodePendaftaran::orderBy('tanggal_mulai', 'desc')->get();
 
-        // BARU (misal hari ini)
-        $baru = PendaftaranSantri::where('status', 'diproses')->count();
+        // QUERY DASAR
+        $query = PendaftaranSantri::with(['program', 'periode']);
+
+        // FILTER PERIODE
+        if ($request->filled('periode_id')) {
+            $query->where('id_periode', $request->periode_id);
+        }
+
+        // TOTAL
+        $total = (clone $query)->count();
+
+        // DIPROSES
+        $baru = (clone $query)
+            ->where('status', 'diproses')
+            ->count();
 
         // DITERIMA
-        $diterima = PendaftaranSantri::where('status', 'diterima')->count();
+        $diterima = (clone $query)
+            ->where('status', 'diterima')
+            ->count();
 
         // DITOLAK
-        $ditolak = PendaftaranSantri::where('status', 'ditolak')->count();
+        $ditolak = (clone $query)
+            ->where('status', 'ditolak')
+            ->count();
 
-        // DATA TERBARU (5 terakhir)
-        $terbaru = PendaftaranSantri::with('program')
-                    ->latest()
-                    ->take(5)
-                    ->get();
+        // DATA TERBARU
+        $terbaru = (clone $query)
+            ->latest()
+            ->take(5)
+            ->get();
 
         return view('pages.admin.dashboard', compact(
             'total',
             'baru',
             'diterima',
             'ditolak',
-            'terbaru'
+            'terbaru',
+            'listPeriode'
         ));
     }
 }

@@ -7,6 +7,17 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{-- Tambahkan Alpine.js jika belum ada di app.js --}}
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
 </head>
 {{-- Inisialisasi Alpine.js: sidebarOpen default true (terbuka) --}}
 <body class="bg-gray-50 font-sans" x-data="{ sidebarOpen: true }">

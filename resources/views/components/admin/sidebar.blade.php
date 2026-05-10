@@ -1,11 +1,11 @@
-<aside class="w-64 bg-[#1e4d2b] h-screen flex flex-col text-white">
+<aside class="w-64 bg-[#1e4d2b] h-screen flex flex-col text-white overflow-hidden">
     {{-- LOGO --}}
     <div class="p-6 border-b border-white/10">
         <h2 class="text-xl font-bold text-center">Admin Panel</h2>
     </div>
 
     {{-- NAVIGASI --}}
-    <nav class="flex-1 px-4 py-6">
+    <nav class="flex-1 px-4 py-6 overflow-y-auto scrollbar-hide">
     
     {{-- DASHBOARD --}}
     <div class="mb-6">
@@ -70,8 +70,6 @@
             <a href="{{ route('admin.kontak') }}" class="block px-4 py-1.5 text-sm transition {{ Request::is('admin/kontak*') ? 'text-[#c9a76d] font-bold' : 'hover:text-[#c9a76d]' }}">Kontak</a>
         </div>
     </div>
-
-</nav>
 
 </nav>
 

@@ -33,6 +33,30 @@
                 @endforeach
             </select>
 
+            <!-- FILTER STATUS -->
+    <select name="status"
+        onchange="this.form.submit()"
+        class="px-4 py-2 text-sm border border-gray-300 rounded-lg bg-white outline-none focus:ring-2 focus:ring-[#1E5631] text-gray-600 min-w-[170px]">
+
+        <option value="">Semua Status</option>
+
+        <option value="diproses"
+            {{ request('status') == 'diproses' ? 'selected' : '' }}>
+            Diproses
+        </option>
+
+        <option value="diterima"
+            {{ request('status') == 'diterima' ? 'selected' : '' }}>
+            Diterima
+        </option>
+
+        <option value="ditolak"
+            {{ request('status') == 'ditolak' ? 'selected' : '' }}>
+            Ditolak
+        </option>
+
+    </select>
+
             <!-- INPUT SEARCH -->
             <div class="relative flex-1">
                 <input type="text"
