@@ -18,7 +18,6 @@ class AdminManagementController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Validasi data yang diinput
         $request->validate([
             'nama' => 'required|string|max:255',
             'no_hp' => 'required|string|max:15',
@@ -26,39 +25,33 @@ class AdminManagementController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        // 2. Simpan ke database
         User::create([
             'nama' => $request->nama,
             'no_hp' => $request->no_hp,
             'email' => $request->email,
-            'password' => Hash::make($request->password), // Enkripsi password
-            'role' => 'admin', // Pastikan role-nya admin
-            'status' => 'aktif', // Default langsung aktif
-            'email_verified_at' => now(), // Bypass verifikasi email
+            'password' => Hash::make($request->password), 
+            'role' => 'admin', 
+            'status_user' => 'aktif', 
+            'email_verified_at' => now(), 
         ]);
 
-        // 3. Kembalikan ke halaman sebelumnya dengan pesan sukses
         return redirect()->back()->with('success', 'Akun Admin berhasil ditambahkan!');
     }
 
-    public function toggleStatus($id)
-    {
-        // Cari data admin berdasarkan ID
-        $admin = User::findOrFail($id);
+    public function toggleStatus(Request $request, $id)
+{
+    $admin = User::findOrFail($id); 
 
-        // Ubah statusnya (kalau aktif jadi nonaktif, kalau nonaktif jadi aktif)
-        if ($admin->status === 'aktif') {
-            $admin->status = 'nonaktif';
-            $pesan = 'Akun admin berhasil dinonaktifkan.';
-        } else {
-            $admin->status = 'aktif';
-            $pesan = 'Akun admin berhasil diaktifkan kembali.';
-        }
+    $targetStatus = $request->input('target_status');
 
-        // Simpan perubahan ke database
-        $admin->save();
-
-        // Kembalikan ke halaman sebelumnya dengan pesan sukses
-        return redirect()->back()->with('success', $pesan);
+    if ($targetStatus === 'aktif') {
+        $admin->status_user = 'aktif';
+    } else {
+        $admin->status_user = 'nonaktif';
     }
+
+    $admin->save();
+
+    return redirect()->back()->with('success', 'Status admin berhasil diperbarui!');
+}
 }

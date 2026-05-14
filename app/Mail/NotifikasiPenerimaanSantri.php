@@ -13,16 +13,13 @@ class NotifikasiPenerimaanSantri extends Mailable
 {
     use Queueable, SerializesModels;
 
-    // 1. Tambahkan variabel untuk menampung data santri
     public $santri;
 
-    // 2. Masukkan data santri melalui constructor
     public function __construct($santri)
     {
         $this->santri = $santri;
     }
 
-    // 3. Atur Subjek Email
     public function envelope(): Envelope
     {
         return new Envelope(
@@ -30,7 +27,6 @@ class NotifikasiPenerimaanSantri extends Mailable
         );
     }
 
-    // 4. Atur file view (blade) mana yang akan dipakai untuk desain emailnya
     public function content(): Content
     {
         return new Content(

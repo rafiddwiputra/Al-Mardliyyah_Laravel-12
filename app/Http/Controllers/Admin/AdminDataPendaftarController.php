@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NotifikasiPenerimaanSantri;
-
+use App\Mail\PenolakanSantriMail;
 use App\Http\Controllers\Controller;
 use App\Models\PendaftaranSantri;
 use Illuminate\Support\Str;
@@ -19,20 +19,28 @@ class AdminDataPendaftarController extends Controller
     public function index(Request $request)
     {
         // 1. Ambil semua daftar periode untuk ditampilkan di Dropdown
-        // Diurutkan dari yang terbaru (desc) agar tahun ajaran terkini ada di paling atas
         $listPeriode = \App\Models\Public\PeriodePendaftaran::orderBy('tanggal_mulai', 'desc')->get();
+        
+        // BARU: Ambil semua program pendidikan untuk Dropdown
+        $listProgram = \App\Models\Public\ProgramPendidikan::where('nama_kategori', 'Lembaga Pendidikan')->get();
 
         // 2. Siapkan Query Dasar
         $query = PendaftaranSantri::with(['ortu', 'user', 'program', 'periode']);
 
-        // 3. LOGIKA FILTER PERIODE
+        // 3. LOGIKA FILTER
+        // Filter Periode
         if ($request->filled('periode_id')) {
             $query->where('id_periode', $request->periode_id);
         }
 
-        //  LOGIKA FILTER STATUS
-        if ($request->status) {
+        // Filter Status
+        if ($request->filled('status')) {
             $query->where('status', $request->status);
+        }
+
+        // BARU: Filter Program Pendidikan
+        if ($request->filled('program_id')) {
+            $query->where('program_id', $request->program_id);
         }
 
         // 4. LOGIKA PENCARIAN (SEARCH)
@@ -61,7 +69,8 @@ class AdminDataPendaftarController extends Controller
 
         $data = $query->latest()->paginate(10)->withQueryString();
 
-        return view('pages.admin.data-pendaftar.data', compact('data', 'listPeriode'));
+        // BARU: Tambahkan 'listProgram' ke fungsi compact()
+        return view('pages.admin.data-pendaftar.data', compact('data', 'listPeriode', 'listProgram'));
     }
 
     public function show($id)
@@ -73,34 +82,68 @@ class AdminDataPendaftarController extends Controller
 
    public function updateStatus(Request $request, $id)
     {
-        // 1. Ambil data santri beserta relasi akun (user) untuk mendapatkan alamat email
+        // 1. Validasi: Catatan wajib diisi JIKA statusnya Ditolak
+        $request->validate([
+            'status' => 'required|in:Diproses,Diterima,Ditolak',
+            'catatan_admin' => 'required_if:status,Ditolak' 
+        ], [
+            'catatan_admin.required_if' => 'Alasan penolakan WAJIB diisi jika status diubah menjadi Ditolak!'
+        ]);
+
+        // 2. Ambil data santri beserta relasi akun (user)
         $data = PendaftaranSantri::with('user')->findOrFail($id);
 
-        // 2. Simpan status lama sebelum diubah, untuk pengecekan
+        // 3. Simpan status lama sebelum diubah, untuk pengecekan pemicu email
         $statusLama = $data->status;
 
-        // 3. Update dan simpan status baru ke database
+        // 4. Update data ke database
         $data->status = $request->status;
+        
+        if ($request->status === 'Ditolak') {
+            $data->catatan_admin = $request->catatan_admin;
+        } else {
+            $data->catatan_admin = null; // Kosongkan catatan jika diterima/diproses
+        }
+        
         $data->save();
 
-        // 4. LOGIKA PEMICU EMAIL
-        // Jika status yang baru adalah 'diterima' DAN sebelumnya belum diterima
+        // 5. LOGIKA PEMICU EMAIL
+        
+        // A. Jika status berubah menjadi 'Diterima'
         if (strtolower($request->status) === 'diterima' && strtolower($statusLama) !== 'diterima') {
-            
-            // Pastikan relasi user dan emailnya benar-benar ada
             if ($data->user && $data->user->email) {
-                // Panggil kurir untuk mengirim email
                 Mail::to($data->user->email)->send(new NotifikasiPenerimaanSantri($data));
             }
         }
 
-        // Tambahkan session success agar ada notifikasi visual di layar admin (opsional)
+        // B. Jika status berubah menjadi 'Ditolak'
+        if (strtolower($request->status) === 'ditolak' && strtolower($statusLama) !== 'ditolak') {
+            if ($data->user && $data->user->email) {
+                Mail::to($data->user->email)->send(new PenolakanSantriMail($data, $request->catatan_admin));
+            }
+        }
+
         return back()->with('success', 'Status pendaftaran berhasil diperbarui!');
     }
 
-    public function exportExcel()
+    public function exportExcel(Request $request)
     {
-        $data = \App\Models\PendaftaranSantri::with(['program', 'ortu'])->get();
+        // Siapkan Query Dasar
+        $query = \App\Models\PendaftaranSantri::with(['program', 'ortu']);
+
+        // Terapkan Filter sama seperti di index
+        if ($request->filled('periode_id')) {
+            $query->where('id_periode', $request->periode_id);
+        }
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        if ($request->filled('program_id')) {
+            $query->where('program_id', $request->program_id);
+        }
+
+        // Ambil datanya
+        $data = $query->get();
 
         $filename = "data_pendaftar.csv";
 
@@ -112,7 +155,7 @@ class AdminDataPendaftarController extends Controller
             "Expires" => "0"
         ];
 
-        $callback = function () use ($data) {
+       $callback = function () use ($data) {
             $file = fopen('php://output', 'w');
 
             // HEADER KOLOM
@@ -210,20 +253,50 @@ class AdminDataPendaftarController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
-    public function exportPDF()
+    public function exportPDF(Request $request)
     {
-        $data = \App\Models\PendaftaranSantri::with(['program', 'ortu'])->get();
+        // Siapkan Query Dasar
+        $query = \App\Models\PendaftaranSantri::with(['program', 'ortu']);
 
-        $pdf = Pdf::loadView('pages.admin.data-pendaftar.pdf', compact('data'))
-          ->setPaper('a4', 'landscape');
+        // Siapkan Variabel Keterangan untuk Header Laporan PDF
+        $namaPeriode = 'Semua Periode / Tahun';
+        $namaProgram = 'Semua Program Pendidikan';
+        $statusAktif = $request->filled('status') ? ucfirst($request->status) : 'Semua Status';
 
-        return $pdf->download('data_pendaftar.pdf');
+        // Terapkan Filter & Ambil Nama Filternya
+        if ($request->filled('periode_id')) {
+            $query->where('id_periode', $request->periode_id);
+            $periode = \App\Models\Public\PeriodePendaftaran::find($request->periode_id);
+            if($periode) $namaPeriode = $periode->nama_periode;
+        }
+        
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        
+        if ($request->filled('program_id')) {
+            $query->where('program_id', $request->program_id);
+            $program = \App\Models\Public\ProgramPendidikan::find($request->program_id);
+            if($program) $namaProgram = $program->nama_program;
+        }
+
+        // Ambil datanya
+        $data = $query->get();
+
+        // Lempar variabel data dan keterangan filter ke tampilan PDF
+        $pdf = Pdf::loadView('pages.admin.data-pendaftar.pdf', compact('data', 'namaPeriode', 'namaProgram', 'statusAktif'))
+          ->setPaper('a4', 'portrait');
+
+        // Menamai file sesuai program jika ada filter
+        $namaFile = 'Laporan_Pendaftar_' . str_replace(['/', '\\'], '-', $namaProgram) . '.pdf';
+
+        return $pdf->download($namaFile);
     }
 
     public function cetakBukti($id)
     {
         // 1. Ambil data santri beserta relasinya
-        $data = PendaftaranSantri::with(['user', 'ortu', 'program'])->findOrFail($id);
+        $data = PendaftaranSantri::with(['user', 'ortu', 'program', 'periode'])->findOrFail($id);
 
         // 2. Pastikan hanya yang berstatus "diterima" yang bisa dicetak
         if (strtolower($data->status) !== 'diterima') {
@@ -232,8 +305,8 @@ class AdminDataPendaftarController extends Controller
 
         // 3. Render view ke dalam PDF
         // Kita letakkan file blade-nya di dalam folder yang sama dengan view admin pendaftar
-        $pdf = Pdf::loadView('pages.admin.data-pendaftar.pdf-bukti', compact('data'))
-                  ->setPaper('a4', 'portrait');
+        $pdf = Pdf::loadView('pages.admin.data-pendaftar.pdf', compact('data'))
+          ->setPaper('a4', 'portrait');
 
         // 4. Gunakan stream() agar file terbuka di tab baru (bisa di-preview sebelum di-download)
         // Jika ingin langsung auto-download, ganti stream() menjadi download()

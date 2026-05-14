@@ -117,13 +117,28 @@
                         <span class="block text-gray-400 text-xs my-1">sampai</span>
                         <span class="block font-semibold">{{ \Carbon\Carbon::parse($item->tanggal_selesai)->translatedFormat('d M Y') }}</span>
                     </td>
-                    <td class="p-4 text-center border-r border-[#D9D9D9]">
-                        @if($item->status == 1)
-                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold border border-green-200">AKTIF</span>
-                        @else
-                            <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold border border-red-200">TUTUP</span>
-                        @endif
-                    </td>
+                    <td class="p-4 text-center border-r border-[#D9D9D9] align-middle">
+    @php
+        $hariIni = \Carbon\Carbon::now()->startOfDay();
+        $tglMulai = \Carbon\Carbon::parse($item->tanggal_mulai)->startOfDay();
+        $tglSelesai = \Carbon\Carbon::parse($item->tanggal_selesai)->endOfDay();
+
+        if ($item->status == 0 || $hariIni->greaterThan($tglSelesai)) {
+            $teksStatus = 'Ditutup';
+            $warnaBadge = 'bg-[#FECACA] text-[#B91C1C] border-red-200';
+        } elseif ($hariIni->lessThan($tglMulai)) {
+            $teksStatus = 'Belum Dibuka';
+            $warnaBadge = 'bg-yellow-100 text-yellow-700 border-yellow-200';
+        } else {
+            $teksStatus = 'Dibuka';
+            $warnaBadge = 'bg-[#DEFFE9] text-[#1E5631] border-[#1E5631]/20';
+        }
+    @endphp
+
+    <span class="inline-block min-w-[100px] px-3 py-1 border rounded-full text-xs font-bold uppercase tracking-wide {{ $warnaBadge }}">
+        {{ $teksStatus }}
+    </span>
+</td>
                     <td class="p-4 text-center">
                         <div class="flex gap-2 justify-center">
                             <button onclick="openEditModal(this)" 
@@ -135,6 +150,15 @@
                                 data-persyaratan="{{ $item->persyaratan }}"
                                 data-biaya="{{ $item->biaya }}"
                                 data-jadwal-tambahan="{{ $item->jadwal_tambahan }}"
+                                
+                                {{-- Penambahan Data Jadwal PDF untuk Tombol Edit --}}
+                                data-js-tanggal="{{ $item->jadwal_seleksi_tanggal }}"
+                                data-js-ruang="{{ $item->jadwal_seleksi_ruang }}"
+                                data-js-waktu="{{ $item->jadwal_seleksi_waktu }}"
+                                data-jw-tanggal="{{ $item->jadwal_wawancara_tanggal }}"
+                                data-jw-ruang="{{ $item->jadwal_wawancara_ruang }}"
+                                data-jw-waktu="{{ $item->jadwal_wawancara_waktu }}"
+
                                 class="bg-blue-100 text-blue-600 px-3 py-1.5 rounded font-bold hover:bg-blue-200 text-xs">Edit</button>
                             
                             <button 
@@ -159,14 +183,15 @@
 </div>
 
 {{-- MODAL TAMBAH PERIODE --}}
-<div id="modalTambah" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm items-center justify-center z-50">
-    <div class="bg-white w-full max-w-4xl rounded-xl overflow-hidden shadow-lg">
-        <form action="{{ route('admin.periode.store') }}" method="POST">
+<div id="modalTambah" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm items-center justify-center z-50 p-4">
+    <div class="bg-white w-full max-w-4xl rounded-xl overflow-hidden shadow-lg max-h-[90vh] flex flex-col">
+        <form action="{{ route('admin.periode.store') }}" method="POST" class="flex flex-col h-full overflow-hidden">
             @csrf
-            <div class="bg-[#1E5631] text-white py-3 px-4 font-bold flex justify-between">
+            <div class="bg-[#1E5631] text-white py-3 px-4 font-bold flex justify-between shrink-0">
                 <span>Tambah Periode Pendaftaran</span>
             </div>
-            <div class="p-5 space-y-4">
+            
+            <div class="p-5 overflow-y-auto space-y-4">
                 <div>
                     <label class="text-sm font-bold text-gray-700">Nama Periode / Gelombang <span class="text-red-500">*</span></label>
                     <input type="text" name="nama_periode" placeholder="Contoh: Gelombang 1 - Tahun Ajaran 2026/2027" required class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-[#1E5631] outline-none">
@@ -207,25 +232,65 @@
                         <option value="0">Tutup</option>
                     </select>
                 </div>
-                <div class="flex justify-end gap-3 pt-4 border-t">
-                    <button type="button" onclick="closeModal('modalTambah')" class="px-4 py-2 border rounded text-sm font-bold">Batal</button>
-                    <button type="submit" class="bg-[#1E5631] text-white px-4 py-2 rounded text-sm font-bold hover:bg-[#17472a] transition">Simpan Data</button>
+
+                {{-- FORM BARU: JADWAL UNTUK CETAK PDF --}}
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <h3 class="text-lg font-bold text-[#1E5631] mb-2">Pengaturan Jadwal Cetak Bukti (PDF)</h3>
+                    <p class="text-xs text-gray-500 mb-4">Data di bawah ini akan tercetak langsung di dalam tabel Surat Bukti Pendaftaran Santri.</p>
+
+                    <h4 class="text-sm font-bold text-gray-700 mb-2">Jadwal Seleksi Penentuan Kelas Santri</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label class="block text-xs text-gray-600 mb-1">Hari/Tanggal</label>
+                            <input type="text" name="jadwal_seleksi_tanggal" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="Minggu, 19 April 2026">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-600 mb-1">Ruang</label>
+                            <input type="text" name="jadwal_seleksi_ruang" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="Ruang D">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-600 mb-1">Waktu</label>
+                            <input type="text" name="jadwal_seleksi_waktu" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="08.00 - Selesai">
+                        </div>
+                    </div>
+
+                    <h4 class="text-sm font-bold text-gray-700 mb-2 mt-4">Jadwal Wawancara Orang Tua</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pb-4">
+                        <div>
+                            <label class="block text-xs text-gray-600 mb-1">Hari/Tanggal</label>
+                            <input type="text" name="jadwal_wawancara_tanggal" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="Minggu, 19 April 2026">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-600 mb-1">Ruang</label>
+                            <input type="text" name="jadwal_wawancara_ruang" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="Ruang D">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-600 mb-1">Waktu</label>
+                            <input type="text" name="jadwal_wawancara_waktu" class="w-full border border-gray-300 rounded px-3 py-2 text-sm" placeholder="08.00 - Selesai">
+                        </div>
+                    </div>
                 </div>
+
+            </div>
+            <div class="flex justify-end gap-3 p-4 border-t bg-gray-50 shrink-0">
+                <button type="button" onclick="closeModal('modalTambah')" class="px-4 py-2 border rounded text-sm font-bold">Batal</button>
+                <button type="submit" class="bg-[#1E5631] text-white px-4 py-2 rounded text-sm font-bold hover:bg-[#17472a] transition">Simpan Data</button>
             </div>
         </form>
     </div>
 </div>
 
 {{-- MODAL EDIT PERIODE --}}
-<div id="modalEdit" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm items-center justify-center z-50">
-    <div class="bg-white w-full max-w-4xl rounded-xl overflow-hidden shadow-lg">
-        <form id="formEdit" method="POST">
+<div id="modalEdit" class="hidden fixed inset-0 bg-black/30 backdrop-blur-sm items-center justify-center z-50 p-4">
+    <div class="bg-white w-full max-w-4xl rounded-xl overflow-hidden shadow-lg max-h-[90vh] flex flex-col">
+        <form id="formEdit" method="POST" class="flex flex-col h-full overflow-hidden">
             @csrf
             @method('PUT')
-            <div class="bg-[#1E5631] text-white py-3 px-4 font-bold flex justify-between">
+            <div class="bg-[#1E5631] text-white py-3 px-4 font-bold flex justify-between shrink-0">
                 <span>Edit Periode Pendaftaran</span>
             </div>
-            <div class="p-5 space-y-4">
+            
+            <div class="p-5 overflow-y-auto space-y-4">
                 <div>
                     <label class="text-sm font-bold text-gray-700">Nama Periode / Gelombang <span class="text-red-500">*</span></label>
                     <input type="text" name="nama_periode" id="edit_nama" required class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-[#1E5631] outline-none">
@@ -241,7 +306,6 @@
                     </div>
                 </div>
                 
-                {{-- KOTAK PERSYARATAN & BIAYA UNTUK EDIT --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="text-sm font-bold text-gray-700">Persyaratan Pendaftaran</label>
@@ -262,14 +326,52 @@
                 </div>
 
                 <div class="mt-4">
-    <label class="text-sm font-bold text-gray-700">Jadwal Tambahan (Seleksi, Pengumuman, dll)</label>
-    <textarea name="jadwal_tambahan" id="edit_jadwal_tambahan" rows="3" placeholder="Contoh:&#10;Seleksi : 10 Juli 2026&#10;Pengumuman : 20 Juli 2026" class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-[#1E5631] outline-none"></textarea>
-</div>
-
-                <div class="flex justify-end gap-3 pt-4 border-t">
-                    <button type="button" onclick="closeModal('modalEdit')" class="px-4 py-2 border rounded text-sm font-bold">Batal</button>
-                    <button type="submit" class="bg-[#1E5631] text-white px-4 py-2 rounded text-sm font-bold hover:bg-[#1E5631] transition">Update Data</button>
+                    <label class="text-sm font-bold text-gray-700">Jadwal Tambahan (Seleksi, Pengumuman, dll)</label>
+                    <textarea name="jadwal_tambahan" id="edit_jadwal_tambahan" rows="3" placeholder="Contoh:&#10;Seleksi : 10 Juli 2026&#10;Pengumuman : 20 Juli 2026" class="w-full mt-1 border border-gray-300 rounded px-3 py-2 text-sm focus:border-[#1E5631] outline-none"></textarea>
                 </div>
+
+                {{-- FORM EDIT BARU: JADWAL UNTUK CETAK PDF --}}
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <h3 class="text-lg font-bold text-[#1E5631] mb-2">Pengaturan Jadwal Cetak Bukti (PDF)</h3>
+                    <p class="text-xs text-gray-500 mb-4">Data di bawah ini akan tercetak langsung di dalam tabel Surat Bukti Pendaftaran Santri.</p>
+
+                    <h4 class="text-sm font-bold text-gray-700 mb-2">Jadwal Seleksi Penentuan Kelas Santri</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label class="block text-xs text-gray-600 mb-1">Hari/Tanggal</label>
+                            <input type="text" name="jadwal_seleksi_tanggal" id="edit_js_tanggal" class="w-full border border-gray-300 rounded px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-600 mb-1">Ruang</label>
+                            <input type="text" name="jadwal_seleksi_ruang" id="edit_js_ruang" class="w-full border border-gray-300 rounded px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-600 mb-1">Waktu</label>
+                            <input type="text" name="jadwal_seleksi_waktu" id="edit_js_waktu" class="w-full border border-gray-300 rounded px-3 py-2 text-sm">
+                        </div>
+                    </div>
+
+                    <h4 class="text-sm font-bold text-gray-700 mb-2 mt-4">Jadwal Wawancara Orang Tua</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pb-4">
+                        <div>
+                            <label class="block text-xs text-gray-600 mb-1">Hari/Tanggal</label>
+                            <input type="text" name="jadwal_wawancara_tanggal" id="edit_jw_tanggal" class="w-full border border-gray-300 rounded px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-600 mb-1">Ruang</label>
+                            <input type="text" name="jadwal_wawancara_ruang" id="edit_jw_ruang" class="w-full border border-gray-300 rounded px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-600 mb-1">Waktu</label>
+                            <input type="text" name="jadwal_wawancara_waktu" id="edit_jw_waktu" class="w-full border border-gray-300 rounded px-3 py-2 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="flex justify-end gap-3 p-4 border-t bg-gray-50 shrink-0">
+                <button type="button" onclick="closeModal('modalEdit')" class="px-4 py-2 border rounded text-sm font-bold">Batal</button>
+                <button type="submit" class="bg-[#1E5631] text-white px-4 py-2 rounded text-sm font-bold hover:bg-[#1E5631] transition">Update Data</button>
             </div>
         </form>
     </div>
@@ -277,7 +379,7 @@
 
 {{-- MODAL HAPUS --}}
 <div id="modalHapus"
-    class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden p-4">
 
     <div class="bg-white rounded-lg border border-[#D9D9D9] w-full max-w-sm shadow-lg">
 
@@ -349,6 +451,14 @@
         document.getElementById('edit_biaya').value = element.getAttribute('data-biaya');
         document.getElementById('edit_jadwal_tambahan').value = element.getAttribute('data-jadwal-tambahan');
         document.getElementById('edit_status').value = element.getAttribute('data-status');
+
+        // Menarik data jadwal PDF ke dalam input edit
+        document.getElementById('edit_js_tanggal').value = element.getAttribute('data-js-tanggal');
+        document.getElementById('edit_js_ruang').value = element.getAttribute('data-js-ruang');
+        document.getElementById('edit_js_waktu').value = element.getAttribute('data-js-waktu');
+        document.getElementById('edit_jw_tanggal').value = element.getAttribute('data-jw-tanggal');
+        document.getElementById('edit_jw_ruang').value = element.getAttribute('data-jw-ruang');
+        document.getElementById('edit_jw_waktu').value = element.getAttribute('data-jw-waktu');
 
         openModal('modalEdit');
     }

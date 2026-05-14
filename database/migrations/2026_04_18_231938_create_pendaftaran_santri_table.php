@@ -49,11 +49,13 @@ return new class extends Migration
             $table->string('ktp_ayah', 255);
             $table->string('ktp_ibu', 255);
             $table->string('sertifikat', 255)->nullable(); 
+
             $table->enum('ukuran_baju_putra', ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'])->nullable();
             $table->enum('ukuran_celana_putra', ['27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38'])->nullable();       
             $table->enum('ukuran_baju_putri', ['S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'XXXXL'])->nullable();
             $table->enum('ukuran_rok_putri', ['33', '34', '35', '36', '37', '38', '39', '40'])->nullable();
             $table->enum('status', ['Diproses', 'Diterima', 'Ditolak'])->default('Diproses');
+            $table->text('catatan_admin')->nullable();
             $table->timestamps();
         });
     }

@@ -282,8 +282,14 @@ Route::prefix('admin')->middleware(['auth', 'verified', CheckActiveStatus::class
 // ================= PIMPINAN / SUPER ADMIN PANEL =================
 Route::prefix('pimpinan')->middleware(['auth', 'verified'])->group(function () {
 
-    // Laporan Pendaftaran
+    // Laporan Pendaftaran & Export
     Route::get('/laporan', [LaporanPimpinanController::class, 'index'])->name('pimpinan.laporan');
+    Route::get('/laporan/export-excel', [LaporanPimpinanController::class, 'exportExcel'])->name('pimpinan.laporan.exportExcel');
+    Route::get('/laporan/export-pdf', [LaporanPimpinanController::class, 'exportPDF'])->name('pimpinan.laporan.exportPDF');
+
+    // Data Pendaftar (Read-Only Khusus Pimpinan)
+    Route::get('/pendaftar', [PendaftarPimpinanController::class, 'index'])->name('pimpinan.pendaftar');
+    Route::get('/pendaftar/{id}', [PendaftarPimpinanController::class, 'detail'])->name('pimpinan.pendaftar.detail');
 
     // Manajemen Admin
     Route::get('/admin', [AdminManagementController::class, 'index'])->name('pimpinan.admin.index');
@@ -291,12 +297,9 @@ Route::prefix('pimpinan')->middleware(['auth', 'verified'])->group(function () {
     Route::put('/admin/{id}/toggle-status', [AdminManagementController::class, 'toggleStatus'])->name('pimpinan.admin.toggle');
 
     // Edit Profil Pimpinan
-    Route::get('/profil', [PimpinanEditProfilController::class, 'index'])
-    ->name('pimpinan.profil');
+    Route::get('/profil', [PimpinanEditProfilController::class, 'index'])->name('pimpinan.profil');
+    Route::post('/profil/update', [PimpinanEditProfilController::class, 'update'])->name('pimpinan.profil.update');
 
-    Route::post('/profil/update', [PimpinanEditProfilController::class, 'update'])
-        ->name('pimpinan.profil.update');
-
-    Route::get('/dashboard', [PimpinanDashboardController::class, 'index'])
-    ->name('pimpinan.dashboard');
+    // Dashboard
+    Route::get('/dashboard', [PimpinanDashboardController::class, 'index'])->name('pimpinan.dashboard');
 });

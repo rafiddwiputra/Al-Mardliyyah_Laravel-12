@@ -111,10 +111,15 @@
                     </tr>
                 </thead>
 
-                <tbody class="text-gray-700">
+<tbody class="text-gray-700">
 
                     @forelse($admins as $admin)
-                    <tr class="border-b hover:bg-gray-50 transition duration-150 {{ $admin->status === 'nonaktif' ? 'opacity-75 bg-gray-50' : '' }}">
+                    {{-- Mengecek status secara lebih fleksibel (huruf besar/kecil atau angka 1/0) --}}
+                  @php
+                        $isAktif = ($admin->status_user === 'aktif');
+                    @endphp
+
+                    <tr class="border-b hover:bg-gray-50 transition duration-150 {{ !$isAktif ? 'opacity-75 bg-gray-50' : '' }}">
                         <td class="py-3">
                             <p class="font-medium">{{ $admin->nama }}</p>
                             <p class="text-xs text-gray-400">Ditambahkan: {{ $admin->created_at->format('d/m/Y') }}</p>
@@ -123,8 +128,10 @@
                             <p>{{ $admin->email }}</p>
                             <p class="text-xs text-gray-500">{{ $admin->no_hp }}</p>
                         </td>
+                        
+                        {{-- KOLOM STATUS (Hanya sebagai indikator label) --}}
                         <td class="py-3 text-center">
-                            @if($admin->status === 'aktif')
+                            @if($isAktif)
                                 <span class="inline-block min-w-[80px] text-center bg-[#DEFFE9] text-[#1E5631] px-2 py-1 rounded text-xs border border-[#1E5631]/20">
                                     Aktif
                                 </span>
@@ -134,23 +141,31 @@
                                 </span>
                             @endif
                         </td>
+
+                        {{-- KOLOM AKSI (Dua Tombol Selalu Tampil) --}}
                         <td class="py-3 text-center">
-                            <form id="form-toggle-{{ $admin->id }}" action="{{ route('pimpinan.admin.toggle', $admin->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
+                            <div class="flex justify-center items-center gap-2">
                                 
-                                @if($admin->status === 'aktif')
-                                    <button type="button" onclick="bukaModalToggle('{{ $admin->id }}', 'nonaktif', '{{ $admin->nama }}')" 
-                                        class="bg-[#FECACA] text-[#B91C1C] px-3 py-1 rounded text-xs hover:bg-red-200 transition duration-200">
-                                        Nonaktifkan
-                                    </button>
-                                @else
-                                    <button type="button" onclick="bukaModalToggle('{{ $admin->id }}', 'aktif', '{{ $admin->nama }}')" 
-                                        class="bg-[#DEFFE9] text-[#1E5631] px-3 py-1 rounded text-xs hover:bg-[#cbf5da] transition duration-200 border border-[#1E5631]/20">
-                                        Aktifkan
-                                    </button>
-                                @endif
-                            </form>
+                                {{-- Tombol Aktifkan --}}
+                                <button type="button" onclick="bukaModalToggle('{{ $admin->id }}', 'aktif', '{{ $admin->nama }}')" 
+                                    class="bg-[#DEFFE9] text-[#1E5631] px-3 py-1 rounded text-xs hover:bg-[#cbf5da] transition duration-200 border border-[#1E5631]/20">
+                                    Aktifkan
+                                </button>
+
+                                {{-- Tombol Nonaktifkan --}}
+                                <button type="button" onclick="bukaModalToggle('{{ $admin->id }}', 'nonaktif', '{{ $admin->nama }}')" 
+                                    class="bg-[#FECACA] text-[#B91C1C] px-3 py-1 rounded text-xs hover:bg-red-200 transition duration-200 border border-red-200">
+                                    Nonaktifkan
+                                </button>
+
+                                {{-- Form Eksekusi Tersembunyi (Menyimpan input status tujuan) --}}
+                                <form id="form-toggle-{{ $admin->id }}" action="{{ route('pimpinan.admin.toggle', $admin->id) }}" method="POST" class="hidden">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="target_status" id="target-status-{{ $admin->id }}" value="">
+                                </form>
+
+                            </div>
                         </td>
                     </tr>
                     @empty
@@ -170,12 +185,10 @@
 
 </div>
 
-<!-- MODAL KONFIRMASI TOGGLE STATUS -->
 <div id="modalToggle" class="fixed inset-0 z-50 hidden bg-black/50 backdrop-blur-sm flex items-center justify-center transition-opacity duration-300 opacity-0">
     <div id="modalToggleContent" class="bg-white rounded-lg shadow-xl w-11/12 md:w-1/3 p-6 transform scale-95 transition-transform duration-300">
         <div class="flex flex-col items-center text-center">
             
-            <!-- Icon (Background & SVG) akan diatur via JS -->
             <div id="modalIconBg" class="w-14 h-14 rounded-full flex items-center justify-center mb-4">
                 <svg id="modalIcon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
             </div>
@@ -189,7 +202,6 @@
                 <button type="button" onclick="tutupModalToggle()" class="flex-1 bg-gray-100 text-gray-700 font-medium px-4 py-2 rounded-md text-sm hover:bg-gray-200 transition">
                     Batal
                 </button>
-                <!-- Tombol Konfirmasi -->
                 <button type="button" id="btnKonfirmasiToggle" class="flex-1 font-medium text-white px-4 py-2 rounded-md text-sm transition shadow-sm">
                     Ya, Lanjutkan
                 </button>
@@ -199,12 +211,14 @@
     </div>
 </div>
 
-<!-- SCRIPT UNTUK MODAL TOGGLE -->
 <script>
-    let formIdTarget = null; // Menyimpan ID form yang akan dieksekusi
+    let formIdTarget = null; 
 
     function bukaModalToggle(id, aksi, namaAdmin) {
         formIdTarget = id;
+        
+        // Memasukkan target status ke dalam form hidden agar terbaca di Controller
+        document.getElementById('target-status-' + id).value = aksi;
         
         const modal = document.getElementById('modalToggle');
         const modalContent = document.getElementById('modalToggleContent');
@@ -214,7 +228,6 @@
         const iconBg = document.getElementById('modalIconBg');
         const icon = document.getElementById('modalIcon');
         
-        // Atur gaya dan teks berdasarkan tombol apa yang diklik
         if (aksi === 'nonaktif') {
             judul.innerText = 'Nonaktifkan Admin?';
             pesan.innerHTML = `Apakah Anda yakin ingin mencabut akses <b>${namaAdmin}</b>? Sesi login admin ini akan langsung dihentikan.`;
@@ -231,7 +244,6 @@
             icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>';
         }
 
-        // Tampilkan Modal dengan Animasi Fade-in & Scale
         modal.classList.remove('hidden');
         setTimeout(() => {
             modal.classList.remove('opacity-0');
@@ -244,22 +256,18 @@
         const modal = document.getElementById('modalToggle');
         const modalContent = document.getElementById('modalToggleContent');
         
-        // Animasi Fade-out & Scale-down
         modal.classList.add('opacity-0');
         modalContent.classList.remove('scale-100');
         modalContent.classList.add('scale-95');
         
-        // Sembunyikan sepenuhnya setelah animasi selesai (300ms)
         setTimeout(() => {
             modal.classList.add('hidden');
             formIdTarget = null;
         }, 300); 
     }
 
-    // Eksekusi Form saat tombol konfirmasi "Ya" diklik
     document.getElementById('btnKonfirmasiToggle').addEventListener('click', function() {
         if (formIdTarget) {
-            // Mencegah double klik
             this.disabled = true;
             this.innerText = 'Memproses...';
             document.getElementById('form-toggle-' + formIdTarget).submit();

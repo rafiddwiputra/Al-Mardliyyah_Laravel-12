@@ -33,7 +33,7 @@
 
 
         {{-- DASHBOARD --}}
-<div class="mb-6">
+<!-- <div class="mb-6">
 
     <div class="flex items-center gap-3 font-bold px-4 py-2.5 rounded-lg text-sm transition mb-2
         {{ Request::is('pimpinan/dashboard*') ? 'bg-[#c9a76d] text-white shadow-md' : 'text-white/90' }}">
@@ -57,7 +57,7 @@
 
     </div>
 
-</div>
+</div> -->
 
         {{-- LAPORAN --}}
         <div class="mb-6">

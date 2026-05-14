@@ -11,21 +11,16 @@ class CheckActiveStatus
 {
     public function handle(Request $request, Closure $next): Response
     {
-        // Cek apakah user sedang login DAN statusnya nonaktif
-        if (Auth::check() && Auth::user()->statu_user === 'nonaktif') {
-            
-            // Langsung cabut paksa sesinya
+        if (Auth::check() && Auth::user()->status_user === 'nonaktif') {
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            // Tendang kembali ke halaman login dengan pesan error
             return redirect()->route('login')->withErrors([
                 'email' => 'Sesi Anda dihentikan paksa karena akun dinonaktifkan oleh Pimpinan.',
             ]);
         }
 
-        // Jika aman (status aktif), biarkan lewat
         return $next($request);
     }
 }

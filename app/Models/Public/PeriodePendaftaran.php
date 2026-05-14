@@ -20,7 +20,13 @@ class PeriodePendaftaran extends Model
         'jadwal_tambahan',        
         'tanggal_mulai',
         'tanggal_selesai',
-        'status'
+        'status',
+        'jadwal_seleksi_tanggal',
+        'jadwal_seleksi_ruang',
+        'jadwal_seleksi_waktu',
+        'jadwal_wawancara_tanggal',
+        'jadwal_wawancara_ruang',
+        'jadwal_wawancara_waktu'
     ];
 
     // 4. Buat relasi ke tabel Pendaftaran Santri (One-to-Many)

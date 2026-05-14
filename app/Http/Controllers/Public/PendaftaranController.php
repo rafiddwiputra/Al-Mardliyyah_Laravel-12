@@ -96,6 +96,11 @@ class PendaftaranController extends Controller
             ],
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
+            'kode_pos' => 'required|integer|digits:5',
+        ], [
+            // Pesan error kustom DITAMBAHKAN DI SINI juga
+            'kode_pos.integer' => 'Kode pos harus berupa angka!',
+            'kode_pos.digits'  => 'Kode pos harus berjumlah tepat 5 digit!',
         ]);
 
         // ================= MAPPING PROGRAM =================

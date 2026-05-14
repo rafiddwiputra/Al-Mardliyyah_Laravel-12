@@ -84,14 +84,22 @@
             <p>{{ $data->created_at->format('d F Y') }}</p>
         </div>
 
-        <div class="bg-[#F5F5F5] rounded p-4 mt-6">
-            <p class="text-gray-500 text-sm text-center">
-                Mohon maaf! Pendaftaran Anda belum dapat kami proses lebih lanjut. Silakan hubungi admin untuk informasi lebih lanjut.
-            </p>
+        <div class="bg-red-50 border border-red-200 rounded p-5 mt-6">
+            
+            @if($data->catatan_admin)
+                <p class="text-sm font-bold text-red-700 mb-2 text-center">Alasan Penolakan:</p>
+                <div class="bg-white p-3 rounded border border-red-100 text-center shadow-sm">
+                    <p class="text-sm text-red-600 italic">"{{ $data->catatan_admin }}"</p>
+                </div>
+            @else
+                <p class="text-red-600 text-sm text-center">
+                    Mohon maaf! Pendaftaran Anda belum dapat kami proses lebih lanjut. Silakan hubungi admin untuk informasi lebih lanjut.
+                </p>
+            @endif
 
             <div class="flex justify-center mt-6">
                 <a href="{{ url('/kontak') }}" 
-                class="bg-[#1E5631] text-white px-6 py-2 rounded text-sm font-semibold inline-block">
+                class="bg-[#1E5631] text-white px-6 py-2 rounded text-sm font-semibold inline-block hover:bg-[#17472a] transition shadow-sm">
                 Hubungi Admin
                 </a>
             </div>

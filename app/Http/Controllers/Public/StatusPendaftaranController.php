@@ -32,7 +32,7 @@ class StatusPendaftaranController extends Controller
         public function cetakBuktiUser()
     {
         // 1. Ambil data pendaftaran milik user yang sedang login saja (keamanan)
-        $data = PendaftaranSantri::with(['user', 'ortu', 'program'])
+        $data = PendaftaranSantri::with(['user', 'ortu', 'program', 'periode'])
                     ->where('users_id', Auth::id())
                     ->firstOrFail();
 

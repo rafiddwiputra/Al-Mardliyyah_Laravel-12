@@ -20,14 +20,11 @@ return new class extends Migration
             $table->enum('role', ['admin', 'calon_santri', 'pimpinan']);
             $table->string('foto', 255)->nullable();
             $table->enum('status_user', ['aktif', 'nonaktif'])->default('aktif');
-
-            // 5. Bawaan Laravel (WAJIB DITAMBAHKAN JUGA KE ERD WORKBENCH)
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken(); 
             $table->timestamps(); 
         });
 
-        // Tabel bawaan Laravel untuk fitur Lupa Password
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');

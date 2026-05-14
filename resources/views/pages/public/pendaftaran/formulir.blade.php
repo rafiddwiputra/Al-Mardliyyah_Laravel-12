@@ -349,7 +349,15 @@
 
             <div>
                 <label class="font-semibold">Kode Pos</label>
-                <input type="text" name="kode_pos" value="{{ old('kode_pos', $data->ortu->kode_pos ?? '') }}" required class="w-full mt-1 border rounded-lg px-3 py-2">
+                <input type="text" 
+                    name="kode_pos" 
+                    value="{{ old('kode_pos', $data->ortu->kode_pos ?? '') }}" 
+                    required 
+                    maxlength="5" 
+                    inputmode="numeric"
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                    placeholder="Contoh: 63111"
+                    class="w-full mt-1 border rounded-lg px-3 py-2">
             </div>
 
         </div>

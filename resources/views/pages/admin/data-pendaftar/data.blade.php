@@ -19,7 +19,8 @@
 
         <!-- SUB CARD SEARCH -->
        <!-- SUB CARD SEARCH & FILTER -->
-        <form method="GET" action="{{ route('admin.pendaftar') }}" class="flex-1 max-w-2xl flex flex-col sm:flex-row gap-2">
+       <!-- SUB CARD SEARCH & FILTER -->
+<form method="GET" action="{{ route('admin.pendaftar') }}" class="flex-1 w-full flex flex-col xl:flex-row gap-3 mr-4">
     
             <!-- DROPDOWN FILTER PERIODE -->
             <select name="periode_id" 
@@ -29,6 +30,18 @@
                 @foreach($listPeriode as $p)
                     <option value="{{ $p->id_periode }}" {{ request('periode_id') == $p->id_periode ? 'selected' : '' }}>
                         {{ $p->nama_periode }}
+                    </option>
+                @endforeach
+            </select>
+
+            <!-- DROPDOWN BARU: FILTER PROGRAM PENDIDIKAN -->
+            <select name="program_id" 
+                onchange="this.form.submit()" 
+                class="px-4 py-2 text-sm border border-gray-300 rounded-lg bg-white outline-none focus:ring-2 focus:ring-[#1E5631] text-gray-600 min-w-[200px]">
+                <option value="">Semua Program / Jenjang</option>
+                @foreach($listProgram as $prog)
+                    <option value="{{ $prog->id }}" {{ request('program_id') == $prog->id ? 'selected' : '' }}>
+                        {{ $prog->nama_program }}
                     </option>
                 @endforeach
             </select>
@@ -94,12 +107,12 @@
 group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto
                             transition duration-200 z-10">
 
-                    <a href="{{ route('admin.pendaftar.exportExcel') }}"
+                    <a href="{{ route('admin.pendaftar.exportExcel', request()->all()) }}"
                     class="block px-4 py-2 text-sm hover:bg-[#1E5631] hover:text-white transition">
                         Download Excel
                     </a>
 
-                    <a href="{{ route('admin.pendaftar.exportPDF') }}"
+                    <a href="{{ route('admin.pendaftar.exportPDF', request()->all()) }}"
                     class="block px-4 py-2 text-sm hover:bg-[#1E5631] hover:text-white">
                         Download PDF
                     </a>
@@ -202,33 +215,36 @@ group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto
         </button>
 
         <!-- DROPDOWN -->
-        <div
+       <div
             x-show="open"
             @click.outside="open = false"
             x-transition
             class="absolute right-0 top-full mt-2 w-28 bg-white border rounded-lg shadow-lg z-[9999]"
             style="display: none;">
 
+            {{-- FORM UNTUK DIPROSES & DITERIMA (Langsung Submit) --}}
             <form action="{{ route('admin.pendaftar.updateStatus', $item->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
-                <button type="submit" name="status" value="diproses"
+                {{-- VALUE HARUS HURUF BESAR DI AWAL SESUAI VALIDASI CONTROLLER --}}
+                <button type="submit" name="status" value="Diproses"
                     class="block w-full text-left px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white transition">
                     Diproses
                 </button>
 
-                <button type="submit" name="status" value="diterima"
+                <button type="submit" name="status" value="Diterima"
                     class="block w-full text-left px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white transition">
                     Diterima
                 </button>
-
-                <button type="submit" name="status" value="ditolak"
-                    class="block w-full text-left px-4 py-2 text-xs hover:bg-[#1E5631] hover:text-white transition">
-                    Ditolak
-                </button>
-
             </form>
+
+            {{-- TOMBOL UNTUK DITOLAK (Membuka Modal) --}}
+            <button type="button" 
+                @click="open = false; bukaModalTolak({{ $item->id }}, '{{ addslashes($item->nama_lengkap) }}')"
+                class="block w-full text-left px-4 py-2 text-xs text-[#B91C1C] hover:bg-[#B91C1C] hover:text-white border-t transition font-medium">
+                Ditolak
+            </button>
 
         </div>
 
@@ -260,6 +276,87 @@ group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto
     </div>
 
 </div>
+
+{{-- MODAL PENOLAKAN SANTRI --}}
+<div id="modalTolak" class="fixed inset-0 z-[9999] hidden bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-300 opacity-0">
+    <div id="modalTolakContent" class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden transform scale-95 transition-transform duration-300">
+        
+        {{-- HEADER MODAL --}}
+        <div class="bg-[#B91C1C] px-5 py-4 flex justify-between items-center">
+            <h3 class="text-white font-bold text-lg">Konfirmasi Penolakan</h3>
+            <button type="button" onclick="tutupModalTolak()" class="text-white hover:text-red-200 text-2xl leading-none">&times;</button>
+        </div>
+
+        {{-- FORM MODAL --}}
+        <form id="formTolak" method="POST" action="">
+            @csrf
+            @method('PUT')
+            
+            {{-- Input hidden agar Controller tahu ini update status Ditolak --}}
+            <input type="hidden" name="status" value="Ditolak">
+            
+            <div class="p-6">
+                <div class="bg-red-50 text-red-800 p-3 rounded-lg text-sm mb-4 border border-red-100">
+                    Anda akan menolak pendaftaran calon santri atas nama <strong id="namaSantriTolak"></strong>.
+                </div>
+
+                <label class="text-sm font-bold text-gray-700 block mb-1">
+                    Alasan Penolakan <span class="text-red-500">*</span>
+                </label>
+                <textarea name="catatan_admin" rows="4" required 
+                    placeholder="Contoh: Mohon maaf, kuota asrama telah penuh..." 
+                    class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition"></textarea>
+                
+                <span class="text-xs text-gray-500 mt-2 flex items-start gap-1">
+                    <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    Catatan ini akan langsung dikirimkan ke alamat email pendaftar.
+                </span>
+            </div>
+
+            <div class="bg-gray-50 px-6 py-4 flex justify-end gap-3 border-t border-gray-100">
+                <button type="button" onclick="tutupModalTolak()" class="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-100 font-semibold transition">
+                    Batal
+                </button>
+                <button type="submit" class="px-5 py-2 bg-[#B91C1C] text-white rounded-lg text-sm hover:bg-red-800 font-bold transition shadow-sm">
+                    Tolak & Kirim Email
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{-- SCRIPT UNTUK MODAL PENOLAKAN --}}
+<script>
+    function bukaModalTolak(id, nama) {
+        const modal = document.getElementById('modalTolak');
+        const content = document.getElementById('modalTolakContent');
+        
+        document.getElementById('namaSantriTolak').innerText = nama;
+        
+        let baseUrl = "{{ route('admin.pendaftar.updateStatus', ':id') }}";
+        document.getElementById('formTolak').action = baseUrl.replace(':id', id);
+
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.remove('opacity-0');
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+        }, 10);
+    }
+
+    function tutupModalTolak() {
+        const modal = document.getElementById('modalTolak');
+        const content = document.getElementById('modalTolakContent');
+        
+        modal.classList.add('opacity-0');
+        content.classList.remove('scale-100');
+        content.classList.add('scale-95');
+        
+        setTimeout(() => {
+            modal.classList.add('hidden');
+        }, 300);
+    }
+</script>
 
 <script src="https://unpkg.com/alpinejs" defer></script>
 

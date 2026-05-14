@@ -56,7 +56,8 @@ return new class extends Migration
             ]);
             $table->string('no_hp', 16);
             $table->string('alamat', 150);
-            $table->string('kode_pos', 5);
+            // $table->string('kode_pos', 5);
+            $table->integer('kode_pos');
 
             $table->timestamps();
         });

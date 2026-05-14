@@ -28,7 +28,7 @@ class AdminGaleriController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required|string|max:30', // 2. Sesuaikan dengan panjang di EER (30 karakter)
+            'judul' => 'required|string|max:50', // 2. Sesuaikan dengan panjang di EER (30 karakter)
             'kategori' => 'required|in:Kegiatan,Fasilitas,Prestasi,Lingkungan', 
             'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
@@ -63,7 +63,7 @@ class AdminGaleriController extends Controller
         $galeri = Galeri::findOrFail($id);
 
         $request->validate([
-            'judul' => 'required|string|max:30', // Sesuaikan dengan panjang di EER
+            'judul' => 'required|string|max:50', // Sesuaikan dengan panjang di EER
             'kategori' => 'required|in:Kegiatan,Fasilitas,Prestasi,Lingkungan',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);

@@ -32,16 +32,22 @@ class PeriodePendaftaranController extends Controller
 
     public function store(Request $request)
     {
-        // Ubah di dalam public function store() DAN public function update()
-    $request->validate([
-        'nama_periode' => 'required|string|max:50',
-        'tanggal_mulai' => 'required|date',
-        'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
-        'persyaratan' => 'nullable|string', 
-        'biaya' => 'nullable|string',           
-        'jadwal_tambahan' => 'nullable|string', 
-        'status' => 'required|integer'
-    ]);
+        $request->validate([
+            'nama_periode' => 'required|string|max:50',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+            'persyaratan' => 'nullable|string', 
+            'biaya' => 'nullable|string',           
+            'jadwal_tambahan' => 'nullable|string', 
+            'status' => 'required|integer',
+            // Tambahkan validasi kolom PDF baru
+            'jadwal_seleksi_tanggal' => 'nullable|string',
+            'jadwal_seleksi_ruang' => 'nullable|string',
+            'jadwal_seleksi_waktu' => 'nullable|string',
+            'jadwal_wawancara_tanggal' => 'nullable|string',
+            'jadwal_wawancara_ruang' => 'nullable|string',
+            'jadwal_wawancara_waktu' => 'nullable|string',
+        ]);
 
         PeriodePendaftaran::create($request->all());
 
@@ -50,16 +56,22 @@ class PeriodePendaftaranController extends Controller
 
     public function update(Request $request, $id_periode)
     {
-        // Ubah di dalam public function store() DAN public function update()
         $request->validate([
             'nama_periode' => 'required|string|max:50',
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
-            'persyaratan' => 'nullable|string', // <-- Menggantikan deskripsi
-            'biaya' => 'nullable|string',       // <-- Menggantikan deskripsi
-            'jadwal_tambahan' => 'nullable|string', // <-- Tambahkan baris ini
-            'status' => 'required|integer'
-    ]);
+            'persyaratan' => 'nullable|string',
+            'biaya' => 'nullable|string',
+            'jadwal_tambahan' => 'nullable|string',
+            'status' => 'required|integer',
+            // Tambahkan validasi kolom PDF baru
+            'jadwal_seleksi_tanggal' => 'nullable|string',
+            'jadwal_seleksi_ruang' => 'nullable|string',
+            'jadwal_seleksi_waktu' => 'nullable|string',
+            'jadwal_wawancara_tanggal' => 'nullable|string',
+            'jadwal_wawancara_ruang' => 'nullable|string',
+            'jadwal_wawancara_waktu' => 'nullable|string',
+        ]);
 
         $periode = PeriodePendaftaran::findOrFail($id_periode);
         
@@ -77,7 +89,14 @@ class PeriodePendaftaranController extends Controller
             'persyaratan' => $request->persyaratan,
             'biaya' => $request->biaya,
             'jadwal_tambahan' => $request->jadwal_tambahan,
-            'status' => $statusBaru
+            'status' => $statusBaru,
+            // Tambahkan baris ini agar kolom baru ikut tersimpan saat update
+            'jadwal_seleksi_tanggal' => $request->jadwal_seleksi_tanggal,
+            'jadwal_seleksi_ruang' => $request->jadwal_seleksi_ruang,
+            'jadwal_seleksi_waktu' => $request->jadwal_seleksi_waktu,
+            'jadwal_wawancara_tanggal' => $request->jadwal_wawancara_tanggal,
+            'jadwal_wawancara_ruang' => $request->jadwal_wawancara_ruang,
+            'jadwal_wawancara_waktu' => $request->jadwal_wawancara_waktu,
         ]);
 
         return redirect()->back()->with('success', 'Periode Pendaftaran berhasil diperbarui!');

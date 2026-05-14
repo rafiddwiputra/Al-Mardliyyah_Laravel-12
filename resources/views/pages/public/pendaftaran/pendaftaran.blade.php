@@ -111,7 +111,6 @@
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor">
-
                         <path stroke-linecap="round"
                             stroke-linejoin="round"
                             stroke-width="1.8"
@@ -126,26 +125,45 @@
                     
                     <div class="text-xs text-gray-600 leading-relaxed space-y-1 flex-grow overflow-y-auto scroll-elegan pr-2">
                         @if($periodeAktif)
+                            
+                            {{-- LOGIKA STATUS DENGAN CARBON --}}
+                            @php
+                                // Kita hapus "use Carbon\Carbon;" dan langsung panggil \Carbon\Carbon
+                                $hariIni = \Carbon\Carbon::now()->startOfDay();
+                                $tglMulai = \Carbon\Carbon::parse($periodeAktif->tanggal_mulai)->startOfDay();
+                                $tglSelesai = \Carbon\Carbon::parse($periodeAktif->tanggal_selesai)->endOfDay();
+
+                                if ($hariIni->lessThan($tglMulai)) {
+                                    $teksStatus = 'Belum Dibuka';
+                                    $warnaBadge = 'bg-yellow-100 text-yellow-700 border-yellow-200';
+                                } elseif ($hariIni->greaterThan($tglSelesai) || $periodeAktif->status == 0) {
+                                    $teksStatus = 'Ditutup';
+                                    $warnaBadge = 'bg-[#FECACA] text-[#B91C1C] border-red-200';
+                                } else {
+                                    $teksStatus = 'Dibuka';
+                                    $warnaBadge = 'bg-[#DEFFE9] text-[#1E5631] border-[#1E5631]/20';
+                                }
+                            @endphp
+
+                            {{-- BADGE STATUS DINAMIS --}}
+                            <div class="mb-4">
+                                <span class="inline-block px-3 py-1 border rounded-full text-[10px] font-bold tracking-wide {{ $warnaBadge }}">
+                                    Status: {{ $teksStatus }}
+                                </span>
+                            </div>
+
                             <ul class="space-y-1">
                                 <li class="flex gap-2">
                                     <span>•</span>
                                     <span class="w-16">Pembukaan</span>
                                     <span>: </span>
-                                    @if($statusBuka)
-                                        <span class="text-gray-800 font-medium">{{ $periodeAktif->tanggal_mulai ? \Carbon\Carbon::parse($periodeAktif->tanggal_mulai)->translatedFormat('d F Y') : '-' }}</span>
-                                    @else
-                                        <span class="text-red-600 font-bold uppercase">Pendaftaran Telah Ditutup</span>
-                                    @endif
+                                    <span class="text-gray-800 font-medium">{{ $periodeAktif->tanggal_mulai ? \Carbon\Carbon::parse($periodeAktif->tanggal_mulai)->translatedFormat('d F Y') : '-' }}</span>
                                 </li>
                                 <li class="flex gap-2">
                                     <span>•</span>
                                     <span class="w-16">Penutupan</span>
                                     <span>: </span>
-                                    @if($statusBuka)
-                                        <span class="text-gray-800 font-medium">{{ $periodeAktif->tanggal_selesai ? \Carbon\Carbon::parse($periodeAktif->tanggal_selesai)->translatedFormat('d F Y') : '-' }}</span>
-                                    @else
-                                        <span class="text-red-600 font-bold uppercase">Pendaftaran Telah Ditutup</span>
-                                    @endif
+                                    <span class="text-gray-800 font-medium">{{ $periodeAktif->tanggal_selesai ? \Carbon\Carbon::parse($periodeAktif->tanggal_selesai)->translatedFormat('d F Y') : '-' }}</span>
                                 </li>
                             </ul>
 
