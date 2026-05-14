@@ -1,5 +1,5 @@
 <div id="editAktivitasModal"
-     class="hidden fixed inset-0 bg-black/40 items-center justify-center overflow-y-auto z-50 opacity-0 transition-opacity duration-300">
+     class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm items-center justify-center overflow-y-auto z-50 opacity-0 transition-opacity duration-300">
      
     <div class="bg-white w-full max-w-lg rounded-xl overflow-visible shadow-lg transform transition-transform duration-300 scale-95">
 
@@ -38,7 +38,7 @@
                         class="w-full mt-1 border rounded-lg px-3 py-2 text-sm"></textarea>
                 </div>
 
-                <div class="flex gap-3 pt-2 border-t">
+                <div class="flex gap-3 pt-2">
                     <button type="button" onclick="closeModal('editAktivitasModal')"
                         class="flex-1 border rounded-lg py-2 text-sm">
                         Batal

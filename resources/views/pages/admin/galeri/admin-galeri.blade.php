@@ -261,47 +261,6 @@
 @include('pages.admin.aktivitas.aktivitas-edit')
 @include('pages.admin.aktivitas.aktivitas-hapus')
 
-{{-- ================= AKTIVITAS SANTRI ================= --}}
-<div id="tambahAktivitasModal"
-     class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-
-    <div class="bg-white w-full max-w-lg rounded-xl overflow-hidden shadow-lg">
-
-        <div class="bg-[#1E5631] text-white text-center py-3 font-semibold">
-            Tambah Aktivitas
-        </div>
-
-        <div class="p-5 space-y-4">
-
-            <form action="/admin/aktivitas-santri" method="POST" enctype="multipart/form-data">
-                @csrf
-
-                <input type="text" name="nama_aktivitas" placeholder="Nama Aktivitas"
-                    class="w-full border rounded-lg px-3 py-2 text-sm" required>
-
-                <textarea name="deskripsi" placeholder="Deskripsi"
-                    class="w-full border rounded-lg px-3 py-2 text-sm" required></textarea>
-
-                <input type="file" name="gambar"
-                    class="w-full border rounded-lg px-3 py-2 text-sm" required>
-
-                <div class="flex gap-3 mt-4">
-                    <button type="button" onclick="closeModal('tambahAktivitasModal')"
-                        class="flex-1 border rounded-lg py-2 text-sm">
-                        Batal
-                    </button>
-
-                    <button type="submit"
-                        class="flex-1 bg-[#1E5631] text-white rounded-lg py-2 text-sm">
-                        Simpan
-                    </button>
-                </div>
-            </form>
-
-        </div>
-
-    </div>
-</div>
 
 <script>
     // Fungsi Open & Close Modal
@@ -425,7 +384,7 @@ function openEditAktivitasModal(data) {
 function openDeleteAktivitasModal(id, nama) {
     const form = document.getElementById('formHapusAktivitas');
 
-    form.action = `/admin/aktivitas-santri/${id}`;
+    form.action = `/admin/aktivitas-santri/destroy/${id}`;
 
     document.getElementById('hapus_nama_aktivitas').innerText = nama;
 

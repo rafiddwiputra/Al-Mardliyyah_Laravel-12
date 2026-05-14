@@ -1,5 +1,5 @@
 <div id="deleteAktivitasModal"
-    class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    class="fixed inset-0 bg-black/30 backdrop-blur-sm items-center justify-center z-50 hidden">
 
     <div class="bg-white rounded-lg border border-[#D9D9D9] w-full max-w-sm shadow-lg">
 

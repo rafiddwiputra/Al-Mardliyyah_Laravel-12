@@ -1,5 +1,5 @@
 <div id="editModal"
-     class="hidden fixed inset-0 bg-black/40 items-center justify-center overflow-y-auto z-50 opacity-0 transition-opacity duration-300">
+      class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm items-center justify-center overflow-y-auto z-50 opacity-0 transition-opacity duration-300">
      
     <div class="bg-white w-full max-w-lg rounded-xl overflow-visible shadow-lg transform transition-transform duration-300 scale-95" id="editModalContent">
 

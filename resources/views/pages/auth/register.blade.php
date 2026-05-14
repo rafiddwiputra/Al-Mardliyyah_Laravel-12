@@ -89,10 +89,49 @@
                         Password <span class="text-red-500">*</span>
                     </label>
 
-                    <input type="password" name="password"
-                        class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-green-800 transition"
-                        placeholder="Minimal 8 karakter" required>
-                    @error('password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    <div class="relative">
+
+                        <input 
+                            type="password"
+                            id="password"
+                            name="password"
+                            autocomplete="new-password"
+                            class="w-full border border-gray-200 rounded-lg px-4 py-3 pr-12 text-sm bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-green-800 transition"
+                            placeholder="Minimal 8 karakter"
+                            required
+                        >
+
+                        <button 
+                            type="button"
+                            id="togglePassword"
+                            class="absolute inset-y-0 right-0 flex items-center justify-center w-12 text-gray-500 hover:text-[#1e4d2b] transition"
+                        >
+                            <svg 
+                                id="eyeIcon"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-5 h-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                {{-- Default mata dicoret --}}
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13.875 18.825A10.05 10.05 0 0112 19
+                                    c-4.478 0-8.268-2.943-9.542-7
+                                    a9.956 9.956 0 012.042-3.368m3.1-2.675
+                                    A9.953 9.953 0 0112 5c4.478 0 8.268 2.943
+                                    9.542 7a9.97 9.97 0 01-4.132 5.411
+                                    M15 12a3 3 0 00-3-3m0 0
+                                    a2.99 2.99 0 00-2.12.879
+                                    M3 3l18 18" />
+                            </svg>
+                        </button>
+
+                    </div>
+
+                    @error('password')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 {{-- EMAIL --}}
@@ -113,9 +152,45 @@
                         Konfirmasi Password <span class="text-red-500">*</span>
                     </label>
 
-                    <input type="password" name="password_confirmation"
-                        class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-green-800 transition"
-                        placeholder="Ulangi password" required>
+                    <div class="relative">
+
+                        <input 
+                            type="password"
+                            id="password_confirmation"
+                            name="password_confirmation"
+                            autocomplete="new-password"
+                            class="w-full border border-gray-200 rounded-lg px-4 py-3 pr-12 text-sm bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-green-800 transition"
+                            placeholder="Ulangi password"
+                            required
+                        >
+
+                        <button 
+                            type="button"
+                            id="toggleConfirmPassword"
+                            class="absolute inset-y-0 right-0 flex items-center justify-center w-12 text-gray-500 hover:text-[#1e4d2b] transition"
+                        >
+                            <svg 
+                                id="confirmEyeIcon"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-5 h-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                {{-- Default mata dicoret --}}
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13.875 18.825A10.05 10.05 0 0112 19
+                                    c-4.478 0-8.268-2.943-9.542-7
+                                    a9.956 9.956 0 012.042-3.368m3.1-2.675
+                                    A9.953 9.953 0 0112 5c4.478 0 8.268 2.943
+                                    9.542 7a9.97 9.97 0 01-4.132 5.411
+                                    M15 12a3 3 0 00-3-3m0 0
+                                    a2.99 2.99 0 00-2.12.879
+                                    M3 3l18 18" />
+                            </svg>
+                        </button>
+
+                    </div>
                 </div>
 
                 {{-- NOMOR HP --}}
@@ -151,5 +226,74 @@
     </div>
 
 </div>
+
+<style>
+    /* Hilangkan icon bawaan browser */
+    input[type="password"]::-ms-reveal,
+    input[type="password"]::-ms-clear {
+        display: none;
+    }
+
+    input[type="password"]::-webkit-credentials-auto-fill-button {
+        visibility: hidden;
+        display: none !important;
+        pointer-events: none;
+    }
+</style>
+
+<script>
+
+    function setupPasswordToggle(inputId, buttonId, iconId) {
+
+        const passwordInput = document.getElementById(inputId);
+        const toggleButton = document.getElementById(buttonId);
+        const eyeIcon = document.getElementById(iconId);
+
+        toggleButton.addEventListener('click', function () {
+
+            const isHidden = passwordInput.type === 'password';
+
+            passwordInput.type = isHidden ? 'text' : 'password';
+
+            if (isHidden) {
+
+                // mata normal
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5
+                        c4.478 0 8.268 2.943 9.542 7
+                        -1.274 4.057-5.064 7-9.542 7
+                        -4.477 0-8.268-2.943-9.542-7z" />
+                `;
+
+            } else {
+
+                // mata dicoret
+                eyeIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13.875 18.825A10.05 10.05 0 0112 19
+                        c-4.478 0-8.268-2.943-9.542-7
+                        a9.956 9.956 0 012.042-3.368m3.1-2.675
+                        A9.953 9.953 0 0112 5c4.478 0 8.268 2.943
+                        9.542 7a9.97 9.97 0 01-4.132 5.411
+                        M15 12a3 3 0 00-3-3m0 0
+                        a2.99 2.99 0 00-2.12.879
+                        M3 3l18 18" />
+                `;
+            }
+        });
+    }
+
+    setupPasswordToggle('password', 'togglePassword', 'eyeIcon');
+
+    setupPasswordToggle(
+        'password_confirmation',
+        'toggleConfirmPassword',
+        'confirmEyeIcon'
+    );
+
+</script>
 
 @endsection

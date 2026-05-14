@@ -95,7 +95,7 @@
         <div class="relative group inline-block ml-auto z-50">
 
             <!-- BUTTON -->
-            <button class="text-sm text-gray-600 border px-4 py-2 rounded-lg bg-white hover:bg-gray-50">
+            <button class="text-sm font-semibold text-white bg-[#1E5631] border border-[#1E5631] px-4 py-2 rounded-lg hover:bg-[#C3A771] hover:border-[#C3A771] transition duration-200 shadow-sm">
                 Export
             </button>
 
@@ -209,7 +209,7 @@ group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto
         <button
             @click="open = !open"
             type="button"
-            class="w-24 text-center text-xs px-4 py-2 rounded-xl font-semibold cursor-pointer {{ $statusColor }}">
+            class="w-24 text-center text-xs px-4 py-2 rounded-lg font-semibold cursor-pointer hover:bg-[#1E5631] hover:text-white transition duration-200 {{ $statusColor }}">
 
             {{ $status }}
         </button>

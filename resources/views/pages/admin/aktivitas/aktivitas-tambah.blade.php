@@ -1,5 +1,5 @@
 <div id="tambahAktivitasModal" 
-     class="hidden fixed inset-0 bg-black/40 items-center justify-center overflow-y-auto z-50 opacity-0 transition-opacity duration-300">
+      class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm items-center justify-center overflow-y-auto z-50 opacity-0 transition-opacity duration-300">
     
     <div class="bg-white w-full max-w-lg rounded-xl overflow-visible shadow-lg transform transition-transform duration-300 scale-95">
 
@@ -50,7 +50,7 @@
                 </div>
 
                 {{-- ACTION --}}
-                <div class="flex justify-between gap-3 pt-4 border-t">
+                <div class="flex justify-between gap-3 pt-4">
                     <button type="button"
                         onclick="closeModal('tambahAktivitasModal')"
                         class="flex-1 border rounded-lg py-2.5 text-sm font-bold text-gray-600 hover:bg-gray-100">

@@ -274,7 +274,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', CheckActiveStatus::class
     // ================ AKTIVITAS SANTRI  ====================
     Route::post('/aktivitas-santri', [AdminAktivitasSantriController::class, 'store'])->name('admin.aktivitas.store');
     Route::put('/aktivitas-santri/{id}', [AdminAktivitasSantriController::class, 'update'])->name('admin.aktivitas.update');
-    Route::delete('/aktivitas-santri/{id}', [AdminAktivitasSantriController::class, 'destroy'])->name('admin.aktivitas.delete');
+    Route::delete('/aktivitas-santri/destroy/{id}', [AdminAktivitasSantriController::class, 'destroy'])->name('admin.aktivitas.delete');
 
 });
 

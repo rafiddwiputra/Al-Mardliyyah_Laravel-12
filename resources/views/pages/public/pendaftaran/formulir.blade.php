@@ -462,7 +462,7 @@
 
         @if($status)
             <button type="submit"
-                class="bg-[#C6A75E] text-white px-8 py-2 rounded-lg font-semibold">
+                class="bg-[#C6A75E] text-white px-8 py-2 rounded-lg font-semibold hover:bg-[#b8954d] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                 Lanjutkan
             </button>
         @else
