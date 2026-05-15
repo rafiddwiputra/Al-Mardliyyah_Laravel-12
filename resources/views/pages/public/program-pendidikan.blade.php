@@ -72,9 +72,9 @@
                         </div>
 
                         <h3 class="text-[#1E5631] font-bold text-xl mb-3">{{ $item->nama_program }}</h3>
-                        <p class="text-sm text-[#4B5563] leading-relaxed">
+                        <div class="text-sm text-[#4B5563] leading-relaxed max-h-48 overflow-y-auto pr-2 text-justify no-scrollbar">
                             {!! nl2br(e($item->deskripsi)) !!}
-                        </p>
+                        </div>
                     </div>
                 </div>
                 @endforeach
@@ -123,7 +123,7 @@
                         <h3 class="text-[#1E5631] font-extrabold text-2xl mb-3 leading-tight">
                             {{ $item->nama_program }}
                         </h3>
-                        <div class="text-gray-500 text-base leading-relaxed">
+                        <div class="text-gray-500 text-base leading-relaxed max-h-48 overflow-y-auto pr-2 text-justify no-scrollbar">
                             {!! nl2br(e($item->deskripsi)) !!}
                         </div>
                     </div>
@@ -140,6 +140,23 @@
 <style>
     html { scroll-behavior: smooth; }
     section, #hero { scroll-margin-top: 80px; }
+    
+    html { 
+        scroll-behavior: smooth; 
+    }
+
+    section, #hero { 
+        scroll-margin-top: 80px; 
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
 </style>
 
 <script>

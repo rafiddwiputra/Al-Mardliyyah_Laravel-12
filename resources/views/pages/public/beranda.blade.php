@@ -226,9 +226,9 @@
                         </h3>
 
                         {{-- Deskripsi --}}
-                        <div class="text-xs md:text-sm text-[#4B5563] leading-relaxed">
-                            {{ $item->deskripsi }}
-                        </div>
+<div class="text-xs md:text-sm text-[#4B5563] leading-relaxed max-h-[15rem] overflow-y-auto pr-2 text-justify no-scrollbar">
+    {{ $item->deskripsi }}
+</div>
 
                     </div>
                 </div>
@@ -428,6 +428,16 @@
         </button>
     </div>
 </div>
+<style>
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+</style>
 
 <script>
 function bukaPopupTutup() {
