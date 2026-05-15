@@ -9,22 +9,24 @@
 @section('content')
 
 {{-- ================= HERO SECTION ================= --}}
-<div id="hero" class="bg-[#1e4d2b] text-white py-28 relative overflow-hidden" data-aos="fade-down" data-aos-duration="1000">
-    {{-- Dekorasi Latar Belakang --}}
-    <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-x-1/3 -translate-y-1/3 blur-3xl"></div>
-    
-    <div class="max-w-6xl mx-auto px-6 relative z-10">
-        <nav class="text-sm text-gray-300 mb-6 flex items-center gap-2">
-            <a href="/" class="hover:text-white transition">Beranda</a> 
-            <span class="opacity-50">></span> 
-            <span class="font-semibold text-white">Profil</span>
-        </nav>
+<div class="bg-[#1E5631] text-white px-6 md:px-20 py-20"
+     data-aos="fade-down"
+     data-aos-duration="1000">
 
-        <h1 class="text-4xl md:text-6xl font-bold mb-6 tracking-tight">Profil Pondok</h1>
+    <div class="max-w-6xl mx-auto">
 
-        <p class="text-lg md:text-xl text-gray-100 max-w-2xl leading-relaxed opacity-90">
+        <p class="text-sm mb-4 opacity-80 text-white">
+            Beranda > Profil
+        </p>
+
+        <h1 class="text-4xl font-bold mb-4 text-white">
+            Profil Pondok
+        </h1>
+
+        <p class="max-w-2xl text-base leading-relaxed opacity-90 text-gray-100">
             Pondok Pesantren Al-Mardliyyah adalah lembaga pendidikan Islam yang berkomitmen membentuk generasi Qur'ani yang berakhlak mulia, berilmu, dan siap menghadapi tantangan zaman.
         </p>
+
     </div>
 </div>
 

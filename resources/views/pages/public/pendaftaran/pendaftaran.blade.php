@@ -24,24 +24,33 @@
     </div>
 </div>
 
-<div class="bg-[#1E5631] text-white px-20 py-20" data-aos="fade-down" data-aos-duration="1000">
-    <p class="text-sm mb-4 opacity-80">Beranda > Pendaftaran</p>
-    
-    <h1 class="text-3xl font-bold mb-3">
-        Pendaftaran Santri Baru
-    </h1>
+{{-- ================= HERO SECTION ================= --}}
+<div class="bg-[#1E5631] text-white px-6 md:px-20 py-20" 
+     data-aos="fade-down" 
+     data-aos-duration="1000">
 
-    {{-- NAMA PERIODE DINAMIS DITAMPILKAN DI SINI --}}
-    @if($periodeAktif)
-        <div class="inline-block bg-[#C6A75E] text-white px-4 py-1.5 rounded-full text-sm font-bold mb-4 shadow-md tracking-wide">
-            {{ $periodeAktif->nama_periode }}
-        </div>
-    @endif
+    <div class="max-w-6xl mx-auto">
+        
+        <p class="text-sm mb-4 opacity-80 text-white">
+            Beranda > Pendaftaran
+        </p>
+        
+        <h1 class="text-4xl font-bold mb-4 text-white">
+            Pendaftaran Santri Baru
+        </h1>
 
-    {{-- Teks paragrafnya kita buat lebih umum agar cocok untuk tahun berapapun --}}
-    <p class="max-w-2xl text-sm leading-relaxed text-gray-100 opacity-90">
-        Pondok Pesantren Al-Mardliyyah resmi membuka pendaftaran santri baru. Bergabunglah bersama kami untuk pendidikan Islam yang berkualitas dan berakhlak mulia.
-    </p>
+        {{-- NAMA PERIODE DINAMIS --}}
+        @if($periodeAktif)
+            <div class="inline-block bg-[#C6A75E] text-white px-4 py-1.5 rounded-full text-sm font-bold mb-4 shadow-md tracking-wide">
+                {{ $periodeAktif->nama_periode }}
+            </div>
+        @endif
+
+        <p class="max-w-2xl text-base leading-relaxed opacity-90 text-gray-100">
+            Pondok Pesantren Al-Mardliyyah resmi membuka pendaftaran santri baru. Bergabunglah bersama kami untuk pendidikan Islam yang berkualitas dan berakhlak mulia.
+        </p>
+
+    </div>
 </div>
 
 <section class="bg-white py-16">

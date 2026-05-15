@@ -7,16 +7,24 @@
 @section('content')
 
 {{-- ================= HERO SECTION ================= --}}
-<div id="hero" class="bg-[#1E5631] text-white py-28" data-aos="fade-down" data-aos-duration="1000">
-    <div class="max-w-6xl mx-auto px-6">
-        <p class="text-sm text-gray-300 mb-3">Beranda > Program Pendidikan</p>
-        <h1 class="text-4xl font-bold mb-4 leading-tight">
+<div id="hero" class="bg-[#1E5631] text-white px-6 md:px-20 py-20"
+     data-aos="fade-down" data-aos-duration="1000">
+
+    <div class="max-w-6xl mx-auto">
+
+        <p class="text-sm mb-4 opacity-80 text-white">
+            Beranda > Program Pendidikan
+        </p>
+
+        <h1 class="text-4xl font-bold mb-4 text-white leading-tight">
             Program Pendidikan Pondok Pesantren <br>
             Al-Mardliyyah
         </h1>
-        <p class="text-base text-gray-200 max-w-2xl leading-relaxed">
+
+        <p class="max-w-2xl text-base leading-relaxed opacity-90 text-gray-100">
             Program pendidikan yang mendukung pembelajaran agama, pendidikan formal, dan pembinaan santri secara komprehensif.
         </p>
+
     </div>
 </div>
 
