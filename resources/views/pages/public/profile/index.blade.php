@@ -96,10 +96,10 @@
             <div data-aos="fade-up">
                 <h3 class="text-2xl font-bold text-[#1e4d2b] mb-4">Latar Belakang Berdirinya Pondok</h3>
                 <p>
-                    Berawal dari keprihatinan mendalam terhadap kondisi pendidikan Islam di tahun 1980-an, sekelompok ulama dan tokoh masyarakat berinisiatif mendirikan sebuah lembaga pendidikan yang mampu mencetak generasi muslim yang tidak hanya kuat dalam ilmu agama, namun juga memiliki wawasan luas dan kesiapan menghadapi tantangan zaman.
+                    Pondok Pesantren Al-Mardliyyah atau juga dikenal dengan sebutan “Pondok Demangan” merupakan salah satu lembaga pendidikan Islam yang berada di Kota Madiun, lebih tepatnya di Jl. H. Moch Noer RT.01/RW.01, Kelurahan Demangan, Kecamatan Taman, Kota Madiun. Pondok pesantren ini didirikan oleh KH. Agus Mushoffa Izzuddin pada tanggal 27 Rajab 1431 H atau bertepatan dengan tahun 2010 M.
                 </p>
                 <p class="mt-4">
-                    Di tengah minimnya lembaga pendidikan Islam yang menggabungkan kurikulum klasik pesantren dengan pendidikan modern, lahirlah gagasan untuk mendirikan Pondok Pesantren Al-Mardliyyah sebagai wadah pembentukan karakter generasi muda yang berakhlakul karimah dan memiliki kompetensi akademik yang unggul.
+                    Pendirian pondok pesantren ini, dilatarbelakangi oleh keinginan kuat dari KH. Agus Mushoffa Izzuddin untuk mendirikan pesantren berbasis tahfidzul qur’an sebagai wadah bagi istrinya, Ibu Nyai Hj. Siti Alfiyah yang merupakan seorang hafidul qur’an untuk mengamalkan dan menyebarkan ilmu al-qur’an yang beliau miliki.
                 </p>
             </div>
 
@@ -108,16 +108,9 @@
             {{-- Awal Berdiri --}}
             <div data-aos="fade-up">
                 <h3 class="text-2xl font-bold text-[#1e4d2b] mb-4">Awal Berdiri</h3>
-                <p>
-                    Pondok Pesantren Al-Mardliyyah atau juga dikenal dengan sebutan "Pondok Demangan" merupakan salah satu lembaga pendidikan Islam yang berada di Kota Madiun,
-                    lebih tepatnya di Jl. H.Moch Noer RT.01/RW.01, Kelurahan Demangan, Kecamatan Taman, Kota Madiun. Pondok pesantren ini didirikan oleh KH. Agus Mushoffa Izzuddin pada tanggal 27 Rajab 1443 H atau bertepatan dengan tahun 2010 M.
-                </p>
                 <p class="mt-4">
                     Pondok Pesantren Al-Mardliyyah pada awalnya merupakan salah satu dari empat asrama yang berada di bawah naungan Yayasan Pendidikan Islam Mujaddadiyyah. Keempat asrama tersebut
                     adalah Asrama Gen-Q Al-Mujaddadiyyah, asrama Induk Putra, asrama Induk Putri dan asrama Tahfidzul Qur'an Al-Mardliyyah. 
-                </p>
-                <p class="mt-4">
-                    Pendirian pondok pesantren ini, dilatarbelakangi oleh keinginan kuat dari KH. Agus Mushoffa Izzuddin untuk mendirikan pesantren berbasis tahfidzul qur'an sebagai wadah bagi istrinya, Ibu Nyai Hj. Siti Alfiyah yang merupakan seorang hafidul qur’an
                 </p>
             </div>
 
@@ -138,16 +131,16 @@
             <div data-aos="fade-up">
                 <h3 class="text-2xl font-bold text-[#1e4d2b] mb-4">Perkembangan Pondok</h3>
                 <p>
-                    Memasuki era tahun 2000-an, Pondok Pesantren Al-Mardliyyah mengalami transformasi signifikan. Program Tahfidz Al-Qur'an intensif diluncurkan dengan target hafalan 30 juz dalam 3 tahun, menjadikan pondok ini sebagai salah satu pusat tahfidz terkemuka di wilayah Jawa Barat.
+                    Pondok pesantren Al-Mardliyyah pada awalnya merupakan salah satu dari empat asrama yang berada di bawah naungan Yayasan Pendidikan Islam Al-Mujaddadiyyah. Keempat asrama tersebut adalah Asrama Gen-Q Al-Mujaddadiyyah, asrama Induk Putra, asrama Induk Putri dan asrama Tahfidzul Qur’an Al-Mardliyyah. laundry dan pertanian. Serta beberapa kegiatan dalam bidang kesenian seperti: qira’ah, hadrah, muhadharah, barongsai, paduan suara dan juga kaligrafi yang bertujuan mengembangkan potensi, minat dan bakat santri.
                 </p>
                 <p class="mt-4">
-                    Perkembangan pesat terus berlanjut dengan pembangunan berbagai fasilitas modern pada tahun 2010, termasuk asrama baru yang nyaman, ruang kelas berstandar modern, laboratorium komputer, dan perpustakaan digital yang memudahkan santri mengakses literatur keislaman dari berbagai belahan dunia.
+                    Hingga saat ini, tercatat lebih dari 700 santri yang berdomisili dan menimba ilmu di Pondok Pesantren Al-Mardliyyah. Para santri tersebut tidak hanya berasal dari wilayah Pulau Jawa, tetapi juga dari daerah lain di Indonesia seperti Sumatra, Riau, Jambi, Lampung dan Kalimantan. Hal tersebut menunjukkan luasnya cakupan dan kepercayaan masyarakat terhadap eksistensi pondok pesantren ini.
                 </p>
                 <p class="mt-4">
-                    Prestasi gemilang diraih pada tahun 2018 ketika pondok berhasil meraih akreditasi A dari Kementerian Agama RI. Pengakuan ini tidak hanya membuktikan kualitas pendidikan yang tinggi, tetapi juga menjadi motivasi untuk terus meningkatkan standar pembelajaran dan pengajaran.
+                    Seiring berjalannya waktu serta perkembangan yang pesat, baik dari segi jumlah santri maupun cakupan program pendidikan yang diselenggarakan. Berdasarkan Keputusan Direktur Jenderal Pendidikan Islam pada tanggal 11 Mei 2021, Pondok Pesantren Al-Mardliyyah secara resmi diakui dan tercatat di Kementerian Agama Republik Indonesia dengan Nomor Statistik 965, menggunakan nama resmi “Pondok Pesantren Al-Mardliyyah”.
                 </p>
                 <p class="mt-4 font-semibold text-[#1e4d2b]">
-                    Kini, di tahun 2026, Pondok Pesantren Al-Mardliyyah telah berkembang menjadi salah satu pesantren terbesar di Jawa Barat dengan lebih dari 1000 santri aktif dari berbagai daerah di Indonesia. Para santri tidak hanya belajar ilmu agama, tetapi juga mengembangkan keterampilan kewirausahaan, teknologi informasi, dan bahasa asing yang mempersiapkan mereka menghadapi tantangan global.
+                    Meskipun telah berdiri sebagai  yayasan  pendidikan Islam yang mandiri dan tercatat secara resmi, Pondok Pesantren Al-Mardliyyah tetap berada di bawah naungan besar Pondok Pesantren Al-Mujaddadiyyah. Oleh karena itu, secara kelembagaan dan historis, pondok ini masih dikenal oleh masyarakat luas dengan nama Pondok Pesantren Al-Mardliyyah Al-Mujaddadiyyah.
                 </p>
             </div>
 
