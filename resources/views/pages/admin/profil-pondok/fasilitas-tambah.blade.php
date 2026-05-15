@@ -33,10 +33,10 @@
                 <div class="mb-4">
                     <label class="block text-sm mb-2 font-semibold text-[#1E5631]">Upload Gambar</label>
 
-                    <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-[#D9D9D9] rounded cursor-pointer hover:bg-gray-50 transition-all relative overflow-hidden">
-                        
-                        {{-- Preview Image --}}
-                        <img id="previewFasilitasBaru" class="hidden absolute inset-0 w-full h-full object-cover">
+                    <label class="flex flex-col items-center justify-center w-full min-h-[180px] border-2 border-dashed border-[#D9D9D9] rounded cursor-pointer hover:bg-gray-50 transition-all relative overflow-hidden p-3">
+    
+                        <img id="previewFasilitasBaru" 
+                            class="hidden max-h-[250px] max-w-full object-contain rounded">
 
                         <div id="placeholderFasilitasBaru" class="flex flex-col items-center justify-center">
                             <span class="text-sm text-gray-500 font-medium">Drag & Drop gambar</span>

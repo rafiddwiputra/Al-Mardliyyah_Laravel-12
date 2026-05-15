@@ -97,7 +97,7 @@
                         File Gambar Background <span class="text-red-500">*</span>
                     </label>
 
-                    <label class="flex flex-col items-center justify-center w-full h-32 border border-[#D9D9D9] border-dashed rounded cursor-pointer hover:bg-gray-50 transition text-center relative overflow-hidden">
+                    <label class="flex flex-col items-center justify-center w-full h-40 border border-[#D9D9D9] border-dashed rounded cursor-pointer hover:bg-gray-50 transition text-center relative overflow-hidden bg-gray-50">
 
                         <span class="text-[11px] text-gray-400 upload-text">
                             Klik untuk Upload Gambar
@@ -105,7 +105,7 @@
 
                         <p class="text-xs text-green-600 mt-2 file-name hidden z-10 bg-white px-2 py-1 rounded shadow"></p>
 
-                        <img class="preview-image hidden absolute inset-0 w-full h-full object-cover opacity-50">
+                        <img class="preview-image hidden absolute inset-0 w-full h-full object-contain p-2">
 
                         <input type="file" name="gambar" required accept="image/jpeg, image/png, image/jpg" class="hidden file-input">
                     </label>

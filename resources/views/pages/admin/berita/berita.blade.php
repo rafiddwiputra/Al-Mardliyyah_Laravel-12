@@ -156,6 +156,7 @@
         document.getElementById('edit_judul').value = data.judul;
         document.getElementById('edit_deskripsi').value = data.deskripsi;
         document.getElementById('edit_status').value = data.status;
+        document.getElementById('preview_gambar_lama').src = `/${data.gambar}`;
 
         if (data.created_at) {
             // Mengubah format timestamp database ke format date HTML (YYYY-MM-DD)

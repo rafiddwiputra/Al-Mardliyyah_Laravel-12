@@ -16,10 +16,11 @@
                 {{-- INPUT GAMBAR --}}
                 <p class="text-sm font-medium text-gray-700">Gambar Aktivitas</p>
                 <div onclick="document.getElementById('fileInputAktivitas').click()" 
-                     class="border-2 border-dashed border-gray-300 rounded-lg min-h-[160px] flex flex-col items-center justify-center text-gray-400 text-sm cursor-pointer hover:border-[#1E5631] hover:bg-gray-50 transition-all overflow-hidden relative" 
+                     class="border-2 border-dashed border-gray-300 rounded-lg min-h-[180px] flex flex-col items-center justify-center text-gray-400 text-sm cursor-pointer hover:border-[#1E5631] hover:bg-gray-50 transition-all overflow-hidden relative p-3" 
                      id="dropAreaAktivitas">
                     
-                    <img id="imagePreviewAktivitas" class="hidden w-full h-full object-cover absolute inset-0">
+                    <img id="imagePreviewAktivitas" 
+                        class="hidden max-h-[250px] max-w-full object-contain rounded">
 
                     <div id="placeholderAktivitas" class="flex flex-col items-center p-4 text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-2 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">

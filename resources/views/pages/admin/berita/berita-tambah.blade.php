@@ -1,7 +1,7 @@
 <div id="modalTambah"
-    class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden p-4 overflow-y-auto">
 
-    <div class="bg-white rounded-lg border border-[#D9D9D9] w-full max-w-lg shadow-lg overflow-hidden">
+    <div class="bg-white rounded-lg border border-[#D9D9D9] w-full max-w-lg shadow-lg overflow-hidden max-h-[90vh] overflow-y-auto">
 
         <div class="bg-[#1E5631] py-2">
             <h2 class="text-center text-white font-medium text-base">

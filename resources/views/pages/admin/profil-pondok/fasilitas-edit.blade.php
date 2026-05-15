@@ -31,7 +31,9 @@
                     
                     {{-- Preview Gambar Lama --}}
                     <div class="mb-2">
-                        <img id="edit_preview_fasilitas_img" src="" class="w-full h-32 object-cover rounded-lg border border-gray-200">
+                        <img id="edit_preview_fasilitas_img" 
+                            src="" 
+                                class="w-full h-32 object-contain rounded-lg border border-gray-200 bg-gray-50 p-2">
                         <p class="text-[9px] text-gray-400 mt-1 italic">*Biarkan jika tidak ingin mengganti foto</p>
                     </div>
 

@@ -15,12 +15,12 @@
                 {{-- Input Foto --}}
                 <p class="text-sm font-medium text-gray-700">File Foto</p>
                 <div onclick="document.getElementById('fileInput').click()" 
-                     class="border-2 border-dashed border-gray-300 rounded-lg min-h-[160px] flex flex-col items-center justify-center text-gray-400 text-sm cursor-pointer hover:border-[#1E5631] hover:bg-gray-50 transition-all overflow-hidden relative" 
+                     class="border-2 border-dashed border-gray-300 rounded-lg min-h-[220px] flex flex-col items-center justify-center text-gray-400 text-sm cursor-pointer hover:border-[#1E5631] hover:bg-gray-50 transition-all overflow-hidden relative bg-gray-50"
                      id="dropArea">
                     
                     {{-- Elemen Preview Gambar --}}
-                    <img id="imagePreview" class="hidden w-full h-full object-cover absolute inset-0">
-
+                    <img id="imagePreview" 
+                        class="hidden max-h-[220px] max-w-full object-contain rounded absolute inset-0 m-auto">
                     {{-- Placeholder saat kosong --}}
                     <div id="placeholderContent" class="flex flex-col items-center p-4 text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-2 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">

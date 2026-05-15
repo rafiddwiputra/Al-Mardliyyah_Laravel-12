@@ -16,9 +16,10 @@
                 {{-- Preview Gambar --}}
                 <p class="text-sm font-medium text-gray-700">Preview Gambar</p>
                 <div onclick="document.getElementById('editFileAktivitas').click()" 
-                     class="border border-gray-300 rounded-lg h-40 flex items-center justify-center overflow-hidden bg-gray-50 cursor-pointer relative">
+                    class="border border-gray-300 rounded-lg min-h-[180px] flex items-center justify-center overflow-hidden bg-gray-50 cursor-pointer relative p-3">
 
-                    <img id="editImagePreviewAktivitas" class="w-full h-full object-cover">
+                    <img id="editImagePreviewAktivitas" 
+                        class="max-h-[250px] max-w-full object-contain rounded">
 
                 </div>
 

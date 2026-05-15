@@ -15,10 +15,10 @@
 
                 <p class="text-sm font-medium text-gray-700">Preview Gambar</p>
                 <div onclick="document.getElementById('editFileInput').click()" 
-                     class="border border-gray-300 rounded-lg h-40 flex items-center justify-center text-gray-400 text-sm overflow-hidden bg-gray-50 cursor-pointer hover:border-[#1E5631] transition-all relative">
-                    
-                    {{-- Preview Gambar Baru atau Lama --}}
-                    <img id="editImagePreview" class="w-full h-full object-cover">
+                    class="border border-gray-300 rounded-lg min-h-[180px] flex items-center justify-center text-gray-400 text-sm overflow-hidden bg-gray-50 cursor-pointer hover:border-[#1E5631] transition-all relative p-3">
+    
+                <img id="editImagePreview" 
+                    class="max-h-[250px] max-w-full object-contain rounded">
                     
                     <div class="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 flex items-center justify-center transition-opacity">
                         <span class="text-white text-xs bg-[#1E5631] px-3 py-1 rounded-full">Ganti Foto</span>
