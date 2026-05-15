@@ -19,19 +19,23 @@ class AdminDataPendaftarController extends Controller
     public function index(Request $request)
     {
         // 1. Ambil semua daftar periode untuk ditampilkan di Dropdown
-        $listPeriode = \App\Models\Public\PeriodePendaftaran::orderBy('tanggal_mulai', 'desc')->get();
+         $listPeriode = \App\Models\Public\PeriodePendaftaran::orderBy('tanggal_mulai', 'desc')->get();
         
         // BARU: Ambil semua program pendidikan untuk Dropdown
-        $listProgram = \App\Models\Public\ProgramPendidikan::where('nama_kategori', 'Lembaga Pendidikan')->get();
+         $listProgram = \App\Models\Public\ProgramPendidikan::where('nama_kategori', 'Lembaga Pendidikan')->get();
 
-        // 2. Siapkan Query Dasar
+             // DEFAULT PERIODE TERBARU
+        $periodeId = $request->has('periode_id')
+        ? $request->periode_id
+        : ($listPeriode->first()->id_periode ?? null);
+
+         // QUERY DASAR
         $query = PendaftaranSantri::with(['ortu', 'user', 'program', 'periode']);
 
-        // 3. LOGIKA FILTER
-        // Filter Periode
-        if ($request->filled('periode_id')) {
-            $query->where('id_periode', $request->periode_id);
+        if ($periodeId) {
+            $query->where('id_periode', $periodeId);
         }
+
 
         // Filter Status
         if ($request->filled('status')) {

@@ -20,24 +20,28 @@
         <!-- SUB CARD SEARCH -->
        <!-- SUB CARD SEARCH & FILTER -->
        <!-- SUB CARD SEARCH & FILTER -->
-<form method="GET" action="{{ route('admin.pendaftar') }}" class="flex-1 w-full flex flex-col xl:flex-row gap-3 mr-4">
+<form method="GET" action="{{ route('admin.pendaftar') }}" class="flex-1 w-full flex flex-wrap gap-3 mr-4">
     
             <!-- DROPDOWN FILTER PERIODE -->
             <select name="periode_id" 
                 onchange="this.form.submit()" 
-                class="px-4 py-2 text-sm border border-gray-300 rounded-lg bg-white outline-none focus:ring-2 focus:ring-[#1E5631] text-gray-600 cursor-pointer min-w-[200px]">
+                class="w-full sm:w-[200px] px-4 py-2 text-sm border border-gray-300 rounded-lg bg-white outline-none focus:ring-2 focus:ring-[#1E5631] text-gray-600 cursor-pointer">
                 <option value="">Semua Periode / Tahun</option>
-                @foreach($listPeriode as $p)
-                    <option value="{{ $p->id_periode }}" {{ request('periode_id') == $p->id_periode ? 'selected' : '' }}>
-                        {{ $p->nama_periode }}
-                    </option>
-                @endforeach
+
+            @foreach($listPeriode as $p)
+                <option value="{{ $p->id_periode }}"
+                    {{ request()->has('periode_id')
+                        ? (request('periode_id') == $p->id_periode ? 'selected' : '')
+                        : (($listPeriode->first()->id_periode ?? '') == $p->id_periode ? 'selected' : '') }}>
+                    {{ $p->nama_periode }}
+                </option>
+            @endforeach
             </select>
 
             <!-- DROPDOWN BARU: FILTER PROGRAM PENDIDIKAN -->
             <select name="program_id" 
                 onchange="this.form.submit()" 
-                class="px-4 py-2 text-sm border border-gray-300 rounded-lg bg-white outline-none focus:ring-2 focus:ring-[#1E5631] text-gray-600 min-w-[200px]">
+                class="w-full sm:w-[200px] px-4 py-2 text-sm border border-gray-300 rounded-lg bg-white outline-none focus:ring-2 focus:ring-[#1E5631] text-gray-600">
                 <option value="">Semua Program / Jenjang</option>
                 @foreach($listProgram as $prog)
                     <option value="{{ $prog->id }}" {{ request('program_id') == $prog->id ? 'selected' : '' }}>
@@ -49,7 +53,7 @@
             <!-- FILTER STATUS -->
     <select name="status"
         onchange="this.form.submit()"
-        class="px-4 py-2 text-sm border border-gray-300 rounded-lg bg-white outline-none focus:ring-2 focus:ring-[#1E5631] text-gray-600 min-w-[170px]">
+        class="w-full sm:w-[170px] px-4 py-2 text-sm border border-gray-300 rounded-lg bg-white outline-none focus:ring-2 focus:ring-[#1E5631] text-gray-600">
 
         <option value="">Semua Status</option>
 

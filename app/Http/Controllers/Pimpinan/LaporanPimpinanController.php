@@ -13,51 +13,80 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class LaporanPimpinanController extends Controller
 {
     public function index(Request $request)
-    {
-        $listPeriode = PeriodePendaftaran::orderBy('tanggal_mulai', 'desc')->get();
+{
+    $listPeriode = PeriodePendaftaran::orderBy('tanggal_mulai', 'desc')->get();
 
-        $periodeId = $request->periode_id ?? ($listPeriode->first()->id_periode ?? null);
-        $periodeAktif = $listPeriode->where('id_periode', $periodeId)->first();
+    $listProgram = ProgramPendidikan::where('nama_kategori', 'lembaga Pendidikan')->get();
 
-        $query = PendaftaranSantri::where('id_periode', $periodeId);
+    $periodeId = $request->periode_id ?? ($listPeriode->first()->id_periode ?? null);
+    $periodeAktif = $listPeriode->where('id_periode', $periodeId)->first();
 
-        $ringkasan = [
-            'total' => (clone $query)->count(),
-            'baru' => (clone $query)->where('status', 'diproses')->count(),
-            'diterima' => (clone $query)->where('status', 'diterima')->count(),
-            'ditolak' => (clone $query)->where('status', 'ditolak')->count(),
-        ];
+    // QUERY DASAR
+    $query = PendaftaranSantri::with('program')
+        ->where('id_periode', $periodeId);
 
-        $rekapProgram = ProgramPendidikan::where('nama_kategori', 'lembaga Pendidikan')
-            ->withCount([
-            'pendaftar as total' => function($q) use ($periodeId) { 
-                $q->where('id_periode', $periodeId); 
+    // FILTER PROGRAM
+    if ($request->filled('program_id')) {
+        $query->where('program_id', $request->program_id);
+    }
+
+    // FILTER STATUS
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
+    }
+
+    // SEARCH NAMA / SMART ID
+    if ($request->filled('search')) {
+
+    $search = $request->search;
+
+    $query->where(function ($q) use ($search) {
+
+        $q->where('nama_lengkap', 'like', '%' . $search . '%')
+          ->orWhere('id', 'like', '%' . $search . '%');
+
+    });
+}
+
+    // RINGKASAN
+    $ringkasan = [
+        'total' => (clone $query)->count(),
+        'baru' => (clone $query)->where('status', 'diproses')->count(),
+        'diterima' => (clone $query)->where('status', 'diterima')->count(),
+        'ditolak' => (clone $query)->where('status', 'ditolak')->count(),
+    ];
+
+    // REKAP PROGRAM
+    $rekapProgram = ProgramPendidikan::where('nama_kategori', 'lembaga Pendidikan')
+        ->withCount([
+            'pendaftar as total' => function($q) use ($periodeId) {
+                $q->where('id_periode', $periodeId);
             },
-            'pendaftar as diterima' => function($q) use ($periodeId) { 
-                $q->where('id_periode', $periodeId)->where('status', 'diterima'); 
+            'pendaftar as diterima' => function($q) use ($periodeId) {
+                $q->where('id_periode', $periodeId)
+                  ->where('status', 'diterima');
             },
-            'pendaftar as ditolak' => function($q) use ($periodeId) { 
-                $q->where('id_periode', $periodeId)->where('status', 'ditolak'); 
+            'pendaftar as ditolak' => function($q) use ($periodeId) {
+                $q->where('id_periode', $periodeId)
+                  ->where('status', 'ditolak');
             },
         ])->get();
 
-        $pendaftarTerbaru = PendaftaranSantri::with('program')
-            ->where('id_periode', $periodeId)
-            ->latest()
-            ->take(5)
-            ->get();
+    // DATA PENDAFTAR
+    $pendaftarTerbaru = $query->latest()->get();
 
-        $tanggalCetak = Carbon::now()->format('d/m/Y');
+    $tanggalCetak = Carbon::now()->format('d/m/Y');
 
-        return view('pages.pimpinan.laporan', compact(
-            'listPeriode', 
-            'periodeAktif', 
-            'ringkasan', 
-            'rekapProgram', 
-            'pendaftarTerbaru',
-            'tanggalCetak'
-        ));
-    }
+    return view('pages.pimpinan.laporan', compact(
+        'listPeriode',
+        'listProgram',
+        'periodeAktif',
+        'ringkasan',
+        'rekapProgram',
+        'pendaftarTerbaru',
+        'tanggalCetak'
+    ));
+}
 
     // ================= FUNGSI EXPORT PDF (MENGGUNAKAN TEMPLATE KARTU) =================
     public function exportPDF(Request $request)
