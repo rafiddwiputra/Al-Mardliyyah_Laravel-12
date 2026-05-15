@@ -61,7 +61,7 @@
     </div>
 
     <!-- CARD -->
-    <div class="max-w-2xl mx-auto bg-white p-12 rounded border border-[#D9D9D9]">
+    <div class="max-w-2xl mx-auto bg-white p-12 rounded border border-[#D9D9D9] mb-20">
 
         <div class="flex justify-center mb-6">
             <span class="bg-[#F8CFCF] text-red-600 px-6 py-2 rounded text-sm font-semibold">
@@ -99,7 +99,7 @@
 
             <div class="flex justify-center mt-6">
                 <a href="{{ url('/kontak') }}" 
-                class="bg-[#1E5631] text-white px-6 py-2 rounded text-sm font-semibold inline-block hover:bg-[#17472a] transition shadow-sm">
+                class="bg-[#1E5631] text-white px-8 py-3 rounded font-semibold hover:bg-[#b8954d] hover:shadow-lg hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300">
                 Hubungi Admin
                 </a>
             </div>

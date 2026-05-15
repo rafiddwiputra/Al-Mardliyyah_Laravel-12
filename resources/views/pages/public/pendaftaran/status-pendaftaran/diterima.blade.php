@@ -61,7 +61,7 @@
     </div>
 
     <!-- CARD -->
-    <div class="max-w-2xl mx-auto bg-white p-12 rounded border border-[#D9D9D9]">
+    <div class="max-w-2xl mx-auto bg-white p-12 rounded border border-[#D9D9D9] mb-20">
 
         <div class="flex justify-center mb-6">
             <span class="bg-[#1E5631] text-white px-6 py-2 rounded text-sm font-semibold">
@@ -88,7 +88,7 @@
         @if(strtolower($data->status ?? '') === 'diterima')
         <div class="mt-6 flex justify-center">
             <a href="{{ route('user.cetak-bukti') }}" target="_blank" 
-               class="bg-[#1E5631] text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-green-800 transition shadow-md flex items-center gap-2">
+               class="bg-[#1E5631] text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-[#17472a] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 shadow-md flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>

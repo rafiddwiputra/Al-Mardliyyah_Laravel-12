@@ -61,7 +61,7 @@
     </div>
 
     <!-- CARD -->
-    <div class="max-w-2xl mx-auto bg-white p-12 rounded border border-[#D9D9D9]">
+    <div class="max-w-2xl mx-auto bg-white p-12 rounded border border-[#D9D9D9] mb-20">
 
         <!-- STATUS -->
         <div class="flex justify-center mb-6">
@@ -98,7 +98,7 @@
         <!-- BUTTON EDIT -->
         <div class="flex justify-center mt-6">
             <a href="{{ route('formulir') }}"
-                class="bg-[#C6A75E] text-white px-6 py-2 rounded text-sm font-semibold">
+                class="bg-[#b8954d] text-white px-8 py-3 rounded font-semibold hover:bg-[#1E5631] hover:shadow-lg hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-300">
                 Edit Data
             </a>
         </div>

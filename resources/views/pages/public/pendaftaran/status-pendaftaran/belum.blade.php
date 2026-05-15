@@ -61,11 +61,25 @@
     </div>
 
     <!-- CARD -->
-    <div class="max-w-2xl mx-auto bg-white p-12 rounded border border-[#D9D9D9]">
+    <div class="max-w-2xl mx-auto bg-white p-12 rounded border border-[#D9D9D9] mb-10">
 
         <div class="text-center">
 
-            <div class="text-6xl text-gray-300 mb-4">📄</div>
+            <div class="w-24 h-24 bg-[#E8F2EC] rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+    
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-12 h-12 text-[#1E5631]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.8"
+                        d="M9 12h6m-6 4h6M8 4h5l5 5v11a1 1 0 01-1 1H8a1 1 0 01-1-1V5a1 1 0 011-1z"/>
+                </svg>
+
+            </div>
 
             <h3 class="text-3xl font-bold text-gray-700 mb-2">
                 Belum Ada Pendaftaran
@@ -76,7 +90,7 @@
             </p>
 
             <a href="/pendaftaran"
-                class="bg-[#C6A75E] text-white px-8 py-3 rounded font-semibold">
+                class="bg-[#C6A75E] hover:bg-[#b8954f] text-white px-8 py-3 rounded-lg font-semibold shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 inline-block">
                 Mulai Pendaftaran
             </a>
 

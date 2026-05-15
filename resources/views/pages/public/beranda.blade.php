@@ -81,8 +81,9 @@
     </button>
 
 @endif
-            <a href="{{ route('profile') }}" class="w-full sm:w-auto text-center border-2 border-white text-white px-8 py-3.5 rounded-lg font-bold shadow-lg hover:bg-white hover:text-[#1E5631] transition uppercase text-sm md:text-base backdrop-blur-sm bg-white/10">
-                Lihat Profil
+            <a href="{{ route('profile') }}" 
+                class="w-full sm:w-auto text-center border-2 border-white text-white px-8 py-3.5 rounded-lg font-bold shadow-lg hover:bg-white hover:text-[#1E5631] hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 uppercase text-sm md:text-base backdrop-blur-sm bg-white/10">
+                    Lihat Profil
             </a>
         </div>
     </div>
@@ -110,7 +111,7 @@
             </p>
 
             <a href="{{ route('profile') }}" 
-               class="inline-block bg-[#1E5631] text-white px-6 py-2 rounded-lg shadow hover:bg-[#17472a] transition">
+               class="inline-block bg-[#1E5631] text-white px-6 py-2 rounded-lg shadow-lg hover:bg-[#17472a] hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
                 Selengkapnya
             </a>
         </div>
@@ -128,7 +129,7 @@
 {{-- VISI --}}
 <section class="pt-12 md:pt-16 pb-6 bg-gray-50">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-        <h2 class="text-xl md:text-2xl font-bold text-[#1E5631] mb-5" data-aos="fade-up">Visi & Misi</h2>
+        <h2 class="text-lg md:text-xl font-semibold text-[#1E5631] mb-8 uppercase tracking-wider" data-aos="fade-up">Visi & Misi</h2>
 
         <div class="mb-4 text-left" data-aos="fade-up" data-aos-duration="800">
             <div class="bg-gradient-to-r from-[#1E5631] to-[#2E8B57] text-white p-6 md:p-8 rounded-lg border-l-4 md:border-l-8 border-[#C6A75E] shadow-lg">
@@ -143,11 +144,11 @@
 </section>
 
 {{-- MISI --}}
-<section class="py-5 bg-gray-50">
+<section class="py-12 md:pb-20 bg-gray-50">
     <div class="max-w-5xl mx-auto px-4 sm:px-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 text-left">
             {{-- Misi Cards: Berurutan munculnya dengan delay --}}
-            <div class="bg-white p-5 md:p-6 rounded-lg shadow border-t-4 border-[#1E5631]" data-aos="fade-up" data-aos-delay="100">
+            <div class="bg-white p-5 md:p-6 rounded-xl shadow-md border-t-4 border-[#1E5631] hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
                 <div class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-[#C6A75E] rounded-full mb-3 md:mb-4">
                     <span class="text-[#1E5631] font-bold text-sm md:text-base">1</span>
                 </div>
@@ -157,7 +158,7 @@
                 </p>
             </div>
 
-            <div class="bg-white p-5 md:p-6 rounded-lg shadow border-t-4 border-[#1E5631]" data-aos="fade-up" data-aos-delay="200">
+            <div class="bg-white p-5 md:p-6 rounded-lg shadow border-t-4 border-[#1E5631] hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
                 <div class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-[#C6A75E] rounded-full mb-3 md:mb-4">
                     <span class="text-[#1E5631] font-bold text-sm md:text-base">2</span>
                 </div>
@@ -167,7 +168,7 @@
                 </p>
             </div>
 
-            <div class="bg-white p-5 md:p-6 rounded-lg shadow border-t-4 border-[#1E5631] sm:col-span-2 md:col-span-1" data-aos="fade-up" data-aos-delay="300">
+            <div class="bg-white p-5 md:p-6 rounded-xl shadow-md border-t-4 border-[#1E5631] hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
                 <div class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-[#C6A75E] rounded-full mb-3 md:mb-4">
                     <span class="text-[#1E5631] font-bold text-sm md:text-base">3</span>
                 </div>
@@ -181,22 +182,22 @@
 </section>
 
 {{-- DIVIDER --}}
-<div class="flex items-center justify-center mt-12 md:mt-16 mb-4 md:mb-6" data-aos="zoom-in" data-aos-duration="800">
+<div class="flex items-center justify-center" data-aos="zoom-in" data-aos-duration="800">
     <div class="h-[2px] w-20 md:w-56 bg-[#C6A75E]"></div>
     <div class="w-2 h-2 bg-[#C6A75E] mx-3 md:mx-4 rotate-45 shrink-0"></div>
     <div class="h-[2px] w-20 md:w-56 bg-[#C6A75E]"></div>
 </div>
 
 {{-- PROGRAM --}}
-<section class="pt-4 md:pt-6 pb-12 md:pb-16">
+<section class="pt-12 md:pt-16 pb-16 md:pb-20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-        <h2 class="text-lg md:text-xl font-semibold text-[#1E5631] mb-8 md:mb-10 text-center" data-aos="fade-up">
+        <h2 class="text-lg md:text-xl font-semibold text-[#1E5631] mb-8 uppercase tracking-wider" data-aos="fade-up">
             Program Pendidikan
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 justify-items-center">
             @forelse($programs as $item)
                 {{-- Diubah dari w-64 menjadi fleksibel mengikuti layar agar pas di HP --}}
-                <div class="bg-white rounded-xl shadow-md overflow-hidden w-full max-w-[280px] sm:max-w-full hover:-translate-y-2 transition-transform duration-300" 
+                <div class="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden w-full max-w-[280px] sm:max-w-full hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group"
                      data-aos="fade-up" data-aos-delay="{{ ($loop->index % 3) * 150 }}"> 
                     
                     <div class="h-3 w-full bg-[#1E5631] rounded-t-2xl"></div>
@@ -204,8 +205,7 @@
                     <div class="p-6 md:p-8 flex-grow">
 
                         {{-- Icon --}}
-                        <div class="w-14 h-14 md:w-16 md:h-16 bg-[#E8F2EC] rounded-2xl flex items-center justify-center mb-5 md:mb-6 mx-auto group-hover:scale-110 transition-transform">
-
+                        <div class="w-14 h-14 md:w-16 md:h-16 bg-[#E8F2EC] rounded-2xl flex items-center justify-center mb-5 md:mb-6 mx-auto group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 class="w-8 h-8 md:w-9 md:h-9 text-[#1E5631]"
                                 fill="none"
@@ -242,17 +242,17 @@
 </section>
 
 {{-- DIVIDER --}}
-<div class="flex items-center justify-center my-12 md:my-16" data-aos="zoom-in" data-aos-duration="800">
+<div class="flex items-center justify-center" data-aos="zoom-in" data-aos-duration="800">
     <div class="h-[2px] w-20 md:w-56 bg-[#C6A75E]"></div>
     <div class="w-2 h-2 bg-[#C6A75E] mx-3 md:mx-4 rotate-45 shrink-0"></div>
     <div class="h-[2px] w-20 md:w-56 bg-[#C6A75E]"></div>
 </div>
 
 {{-- BERITA --}}
-<section class="pb-16 bg-gray-50">
+<section class="pt-12 md:pt-16 pb-16 bg-gray-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
 
-        <h2 class="text-center text-2xl font-bold mb-12 text-[#1E5631]" data-aos="fade-up">
+        <h2 class="text-lg text-center md:text-xl font-semibold text-[#1E5631] mb-8 uppercase tracking-wider" data-aos="fade-up">
             Berita Terbaru
         </h2>
 
@@ -338,7 +338,7 @@
 
         <div class="mt-14 flex justify-center" data-aos="fade-up">
             <a href="{{ route('berita') }}"
-               class="bg-[#1E5631] hover:bg-[#153d22] text-white px-8 py-3 rounded-xl font-bold shadow-lg transition-all active:scale-95">
+               class="inline-block bg-[#1E5631] text-white px-6 py-2 rounded-lg shadow-lg hover:bg-[#17472a] hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
                 Lihat Semua Berita
             </a>
         </div>
@@ -347,24 +347,24 @@
 </section>
 
 {{-- DIVIDER --}}
-<div class="flex items-center justify-center my-12 md:my-16" data-aos="zoom-in" data-aos-duration="800">
+<div class="flex items-center justify-center" data-aos="zoom-in" data-aos-duration="800">
     <div class="h-[2px] w-20 md:w-56 bg-[#C6A75E]"></div>
     <div class="w-2 h-2 bg-[#C6A75E] mx-3 md:mx-4 rotate-45 shrink-0"></div>
     <div class="h-[2px] w-20 md:w-56 bg-[#C6A75E]"></div>
 </div>
 
 {{-- GALERI --}}
-<div class="pb-16">
+<div class="pt-12 md:pt-16 pb-16">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
 
-        <h2 class="text-lg md:text-xl font-semibold text-[#1E5631] mb-8 md:mb-10 text-center uppercase tracking-wider" data-aos="fade-up">
+        <h2 class="text-lg md:text-xl font-semibold text-[#1E5631] mb-8 uppercase tracking-wider" data-aos="fade-up">
             Galeri Kegiatan
         </h2>
 
         {{-- Menggunakan grid-cols-2 di HP agar foto tidak terlalu besar/memakan layar --}}
         <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
             @forelse($galeris as $g)
-                <div class="overflow-hidden rounded-xl md:rounded-[1.5rem] shadow-sm border border-gray-100 group aspect-square md:aspect-video bg-gray-50"
+                <div class="overflow-hidden rounded-xl md:rounded-[1.5rem] shadow-sm border border-gray-100 group aspect-square md:aspect-video bg-gray-50 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
                      data-aos="zoom-in" data-aos-delay="{{ ($loop->index % 3) * 100 }}">
                     <img src="{{ Str::startsWith($g->gambar, 'http') ? $g->gambar : asset($g->gambar) }}" 
                          alt="{{ $g->judul }}"
@@ -378,8 +378,9 @@
         </div>
 
         <div class="mt-10 md:mt-12 flex justify-center" data-aos="fade-up">
-            <a href="{{ route('galeri') }}" class="bg-[#1E5631] text-white px-6 md:px-8 py-3 rounded-xl text-sm md:text-base font-bold hover:bg-[#17472a] shadow-lg hover:shadow-xl transition-all duration-300">
-                Lihat Galeri Lengkap
+            <a href="{{ route('galeri') }}" 
+                class="inline-block bg-[#1E5631] text-white px-6 py-2 rounded-lg shadow-lg hover:bg-[#17472a] hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
+                    Lihat Galeri Lengkap
             </a>
         </div>
 

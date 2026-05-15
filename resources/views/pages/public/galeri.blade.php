@@ -85,9 +85,9 @@
     <div class="max-w-6xl mx-auto">
         
         <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="800">
-            <span class="bg-[#D8E6E0] text-[#1E5631] text-[10px] font-extrabold px-4 py-1.5 rounded-full uppercase tracking-widest">
-                Kegiatan Unggulan
-            </span>
+            <div class="inline-block bg-[#D8E6E0] px-5 py-2 rounded-lg mb-4">
+                <span class="text-[#1E5631] text-sm font-semibold uppercase tracking-wide">Kegiatan Unggulan</span>
+            </div>
             <h2 class="text-3xl md:text-4xl font-bold mt-6 text-[#1E5631] tracking-tight text-center">
                 Aktivitas Keseharian Santri
             </h2>

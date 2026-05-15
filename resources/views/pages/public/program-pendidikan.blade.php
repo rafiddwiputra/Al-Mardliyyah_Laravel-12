@@ -57,7 +57,7 @@
             @if(isset($programs['lembaga pendidikan']))
                 @foreach($programs['lembaga pendidikan'] as $item)
                 {{-- Efek fade-up berurutan dari bawah ke atas --}}
-                <div class="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col group"
+                <div class="bg-white rounded-2xl shadow-sm overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col group"
                     data-aos="fade-up" data-aos-delay="{{ ($loop->index % 3) * 150 }}">
                     
                     <div class="h-3 w-full bg-[#1E5631] rounded-t-2xl"></div>
@@ -110,7 +110,7 @@
             @if(isset($programs['program pendidikan']))
                 @foreach($programs['program pendidikan'] as $item)
                 {{-- Efek zoom-in bergantian --}}
-                <div class="bg-white rounded-[2rem] p-10 border border-gray-100 shadow-sm border-l-8 border-l-[#1E5631] flex flex-col md:flex-row items-center gap-8 group hover:shadow-xl transition-all duration-500"
+                <div class="bg-white rounded-[2rem] p-10 border border-gray-100 shadow-sm border-l-8 border-l-[#1E5631] flex flex-col md:flex-row items-center gap-8 group hover:-translate-y-2 hover:shadow-2xl transition-all duration-500"
                     data-aos="zoom-in" data-aos-delay="{{ ($loop->index % 2) * 200 }}">
 
                     <div class="w-20 h-20 bg-[#E8F2EC] rounded-2xl shadow-sm flex items-center justify-center flex-shrink-0">

@@ -72,7 +72,7 @@
 
     <div class="text-center mb-24">
         <a href="{{ route('berita') }}"
-           class="inline-flex items-center gap-3 bg-[#1E5631] hover:bg-[#153d22] text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg active:scale-95">
+           class="inline-block bg-[#1E5631] text-white px-6 py-2 rounded-lg shadow-lg hover:bg-[#17472a] hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
             <span class="text-lg">←</span> Kembali ke Berita
         </a>
     </div>

@@ -106,7 +106,7 @@
             @foreach($beritaPopuler as $index => $populer)
             <div onclick="window.location='{{ route('berita.detail', $populer->id) }}'"
      data-aos="zoom-in" data-aos-delay="{{ ($index % 3) * 150 }}" data-aos-duration="600"
-     class="cursor-pointer bg-white border border-gray-50 rounded-2xl p-4 flex gap-4 shadow-sm hover:shadow-md transition group">
+     class="cursor-pointer bg-white border border-gray-50 rounded-2xl p-4 flex gap-4 shadow-sm hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group">
 
                 <img src="{{ Str::startsWith($populer->gambar, 'http') ? $populer->gambar : asset($populer->gambar) }}"
                      class="w-20 h-20 object-cover rounded-xl shrink-0">

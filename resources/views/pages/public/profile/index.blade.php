@@ -155,7 +155,9 @@
     <div class="max-w-6xl mx-auto px-6">
         {{-- Header Fasilitas --}}
         <div class="text-center mb-20" data-aos="fade-up">
-            <span class="bg-[#e2ede5] text-[#1e4d2b] px-4 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest mb-4 inline-block">Sarana & Prasarana</span>
+            <div class="inline-block bg-[#D8E6E0] px-5 py-2 rounded-lg mb-4">
+                <span class="text-[#1E5631] text-sm font-semibold uppercase tracking-wide">Sarana & Prasarana</span>
+            </div>
             <h2 class="text-3xl md:text-4xl font-bold text-[#1e4d2b] mb-4">Fasilitas Pondok</h2>
             <p class="text-gray-500 max-w-2xl mx-auto text-base">Fasilitas lengkap dan modern untuk mendukung pembelajaran optimal</p>
         </div>
