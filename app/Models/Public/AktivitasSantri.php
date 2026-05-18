@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class AktivitasSantri extends Model
 {
     protected $table = 'aktivitas_santri';
-    protected $fillable = ['nama_aktivitas', 'gambar', 'deskripsi', 'created_by', 'updated_by'];
+    protected $fillable = ['nama_aktivitas', 'gambar', 'deskripsi'];
 
-    public function creator(): BelongsTo { return $this->belongsTo(User::class, 'created_by'); }
+    public function creator(): BelongsTo { return $this->belongsTo(User::class, ); }
 
-    public function updater(): BelongsTo { return $this->belongsTo(User::class, 'updated_by'); }
+    public function updater(): BelongsTo { return $this->belongsTo(User::class,); }
 }

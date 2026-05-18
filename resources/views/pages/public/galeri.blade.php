@@ -42,34 +42,40 @@
         </div>
     </div>
 
-    {{-- Grid Galeri --}}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        @forelse($visibleGaleris as $index => $item)
-        {{-- Card Galeri: Animasi fade-up secara berurutan dengan menggunakan sisa bagi $index untuk efek delay --}}
-        <div class="group bg-white rounded-xl shadow-[0_3px_15px_rgb(0,0,0,0.06)] border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-500"
-             data-aos="fade-up" data-aos-delay="{{ ($index % 3) * 150 }}" data-aos-duration="800">
+    {{-- Grid Card Galeri --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+             @forelse($visibleGaleris as $index => $item)
             
-            <div class="w-full h-72 overflow-hidden relative">
-                <img src="{{ Str::startsWith($item->gambar, 'http') ? $item->gambar : asset($item->gambar) }}"
-                     alt="{{ $item->judul }}"
-                     onclick="openModal(this.src)"
-                     class="w-full h-full object-cover transition duration-700 cursor-pointer group-hover:scale-105">
+            <div class="bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden group flex flex-col h-full"
+                 data-aos="fade-up" data-aos-delay="{{ ($loop->index % 3) * 150 }}">
                 
-                <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
-            </div>
+                {{-- PERUBAHAN PENTING: Tambahkan cursor-pointer dan fungsi onclick="openModal()" di sini --}}
+                <div class="relative w-full h-64 overflow-hidden shrink-0 cursor-pointer" onclick="openModal('{{ asset($item->gambar) }}')">
+                    <img src="{{ asset($item->gambar) }}" alt="{{ $item->judul }}" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                         
+                    {{-- Efek overlay tipis yang elegan saat di-hover --}}
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+                        {{-- Tambahan Opsional: Icon Kaca Pembesar agar User tahu ini bisa diklik --}}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                </div>
 
-            <div class="p-6">
-                <h3 class="text-lg font-bold text-[#1E5631] leading-tight hover:text-[#164227] transition-colors cursor-pointer">
-                    {{ $item->judul }}
-                </h3>
+                <div class="p-6 flex flex-col flex-grow justify-center text-center">
+                    <h3 class="text-[#1E5631] font-bold text-lg leading-tight line-clamp-2 group-hover:text-[#c9a76d] transition-colors">
+                        {{ $item->judul }}
+                    </h3>
+                </div>
+                
             </div>
+            @empty
+                <div class="col-span-3 py-10 text-center text-gray-400">Belum ada foto galeri.</div>
+            @endforelse
         </div>
-        @empty
-        <div class="col-span-full py-24 text-center text-gray-400 italic font-medium bg-gray-50 rounded-xl border-2 border-dashed border-gray-100">
-            Belum ada dokumentasi foto untuk kategori ini.
-        </div>
-        @endforelse
-    </div>
+
+
 
     @if($page == 1 && $total > $perPage)
     <div class="text-center mt-16" data-aos="fade-up" data-aos-duration="600">
@@ -96,33 +102,75 @@
             </p>
         </div>
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            @forelse($aktivitas as $index => $akt)
-            {{-- Animasi fade-up berurutan pada Card Aktivitas --}}
-            <div class="bg-white rounded-[2rem] shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-2 group flex flex-col h-full"
-                 data-aos="fade-up" data-aos-delay="{{ ($index % 4) * 150 }}" data-aos-duration="800">
+        {{-- Grid Card Aktivitas Santri --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @foreach($aktivitas as $item)
+            
+            {{-- PERUBAHAN 1: Pembungkus utama disamakan persis dengan Berita & Fasilitas (pakai h-full & flex-col) --}}
+            <div class="bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden group flex flex-col h-full"
+                 data-aos="fade-up" data-aos-delay="{{ ($loop->index % 3) * 150 }}">
                 
-                <img src="{{ $akt->gambar ? (Str::startsWith($akt->gambar, 'http') ? $akt->gambar : asset($akt->gambar)) : 'https://picsum.photos/400/300' }}" 
-                     class="w-full h-44 object-cover rounded-[1.5rem] mb-4 cursor-pointer" 
-                     onclick="openModal(this.src)">
-                
-                <div class="px-4 pb-4 flex flex-col flex-grow">
-                    <h4 class="font-bold text-xl text-[#1E5631] mb-2 leading-tight uppercase">
-                        {{ $akt->nama_aktivitas }}
-                    </h4>
-                    <p class="text-gray-500 text-sm leading-relaxed line-clamp-3 mt-1">
-                        {{ $akt->deskripsi }}
-                    </p>
+                {{-- PERUBAHAN 2: Gambar dibuat Full-bleed (tanpa padding putih), tinggi disamakan h-56 --}}
+                <div class="relative w-full h-56 overflow-hidden shrink-0">
+                    <img src="{{ asset($item->gambar) }}" alt="{{ $item->judul }}" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                         
+                    {{-- Efek overlay tipis elegan saat di-hover --}}
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
                 </div>
+
+                {{-- PERUBAHAN 3: Area Teks menggunakan flex-grow agar mendesak ruang kosong ke bawah --}}
+                <div class="p-6 flex flex-col flex-grow text-left">
+                    
+                    {{-- Judul dibatasi maksimal 2 baris (line-clamp-2). 
+                         Aku tambahkan class 'uppercase' karena di gambarmu judulnya menggunakan huruf kapital semua --}}
+                    {{-- Hapus uppercase, tracking-wide, dan line-clamp-2 --}}
+<h3 class="text-[#1E5631] font-bold text-lg mb-3 leading-tight group-hover:text-[#c9a76d] transition-colors">
+    {{ $item->nama_aktivitas }}
+</h3>
+                    
+                    {{-- Deskripsi dibatasi paksa maksimal 4 baris persis seperti halaman Fasilitas --}}
+                    {{-- Bungkus dengan relative untuk efek scroll dan gradasi --}}
+<div class="relative mt-auto border-t border-gray-50 pt-3">
+    {{-- Hapus line-clamp, gunakan max-h-32 dan custom-scrollbar --}}
+    <div class="text-gray-500 text-sm leading-relaxed max-h-32 overflow-y-auto pr-3 pb-6 text-justify custom-scrollbar">
+        {{ strip_tags($item->deskripsi) }}
+    </div>
+
+    <style>
+    /* Styling untuk Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 4px; /* Dibuat sedikit lebih tipis (4px) khusus untuk dalam Card agar lebih manis */
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f8fafc; 
+        border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1; 
+        border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #1E5631; 
+    }
+    .custom-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: #cbd5e1 #f8fafc;
+    }
+</style>
+    
+    {{-- Efek Kabut Putih (Fade) di bawah agar pengguna HP tahu bisa di-scroll --}}
+    <div class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+</div>
+                    
+                </div>
+                
             </div>
-            @empty
-            <div class="col-span-full text-center text-gray-400 italic">
-                Data aktivitas santri sedang disiapkan.
-            </div>
-            @endforelse
+            @endforeach
         </div>
     </div>
 </div>
+
 
 {{-- Modal Gambar --}}
 <div id="imageModal" onclick="closeModal()" class="fixed inset-0 bg-black/90 hidden z-[9999] items-center justify-center p-4 backdrop-blur-sm transition-all duration-300">

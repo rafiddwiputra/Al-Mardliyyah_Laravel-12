@@ -29,14 +29,20 @@
 </div>
 
 {{-- ================= STICKY TAB MENU ================= --}}
-<div class="bg-white border-b sticky top-20 z-40" data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
-    <div id="tab-menu" class="max-w-6xl mx-auto px-6 flex justify-center gap-4 py-3 text-sm">
-        <a href="#lembaga" class="tab-link text-[#333333] px-3 py-2 hover:text-[#1E5631] transition-all font-medium">
+{{-- PERBAIKAN 1: top-16 untuk HP (agar nempel), dan md:top-20 untuk Laptop --}}
+<div class="bg-white border-b sticky top-16 md:top-20 z-40" data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
+    
+    {{-- PERBAIKAN 2: Perkecil gap (gap-2), perkecil teks (text-xs), dan pasang overflow-x-auto agar bisa digeser ke samping kalau layarnya sangat sempit --}}
+    <div id="tab-menu" class="max-w-6xl mx-auto px-4 flex justify-center gap-2 md:gap-4 py-2 md:py-3 text-xs md:text-sm overflow-x-auto no-scrollbar">
+        
+        {{-- PERBAIKAN 3: Tambahkan whitespace-nowrap agar teks tidak patah menjadi 2 baris --}}
+        <a href="#lembaga" class="tab-link text-[#333333] px-3 py-2 whitespace-nowrap hover:text-[#1E5631] transition-all font-medium">
             Lembaga Pendidikan
         </a>
-        <a href="#program" class="tab-link text-[#333333] px-3 py-2 hover:text-[#1E5631] transition-all font-medium">
+        <a href="#program" class="tab-link text-[#333333] px-3 py-2 whitespace-nowrap hover:text-[#1E5631] transition-all font-medium">
             Program Unggulan
         </a>
+        
     </div>
 </div>
 
@@ -57,13 +63,13 @@
             @if(isset($programs['lembaga pendidikan']))
                 @foreach($programs['lembaga pendidikan'] as $item)
                 {{-- Efek fade-up berurutan dari bawah ke atas --}}
-                <div class="bg-white rounded-2xl shadow-sm overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col group"
+                <div class="bg-white rounded-lg  shadow-sm overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col group"
                     data-aos="fade-up" data-aos-delay="{{ ($loop->index % 3) * 150 }}">
                     
-                    <div class="h-3 w-full bg-[#1E5631] rounded-t-2xl"></div>
+                    <div class="h-3 w-full bg-[#1E5631] rounded-t-lg"></div>
                     <div class="p-8 flex-grow text-center">
 
-                        <div class="w-16 h-16 bg-[#E8F2EC] rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform">
+                        <div class="w-16 h-16 bg-[#E8F2EC] rounded-lg  flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform">
 
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 class="w-9 h-9 text-[#1E5631]"
@@ -80,9 +86,16 @@
                         </div>
 
                         <h3 class="text-[#1E5631] font-bold text-xl mb-3">{{ $item->nama_program }}</h3>
-                        <div class="text-sm text-[#4B5563] leading-relaxed max-h-48 overflow-y-auto pr-2 text-justify no-scrollbar">
-                            {!! nl2br(e($item->deskripsi)) !!}
-                        </div>
+
+{{-- PERUBAHAN: Bungkus dengan relative dan tambahkan efek gradasi putih --}}
+<div class="relative">
+    {{-- Hapus no-scrollbar, ganti ke custom-scrollbar, tambah pb-6 --}}
+    <div class="text-sm text-[#4B5563] leading-relaxed max-h-48 overflow-y-auto pr-3 pb-6 text-justify custom-scrollbar">
+        {!! nl2br(e($item->deskripsi)) !!}
+    </div>
+    {{-- Efek Kabut Putih di bawah --}}
+    <div class="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent pointer-events-none rounded-b-lg"></div>
+</div>
                     </div>
                 </div>
                 @endforeach
@@ -110,10 +123,10 @@
             @if(isset($programs['program pendidikan']))
                 @foreach($programs['program pendidikan'] as $item)
                 {{-- Efek zoom-in bergantian --}}
-                <div class="bg-white rounded-[2rem] p-10 border border-gray-100 shadow-sm border-l-8 border-l-[#1E5631] flex flex-col md:flex-row items-center gap-8 group hover:-translate-y-2 hover:shadow-2xl transition-all duration-500"
+                <div class="bg-white rounded-lg p-10 border border-gray-100 shadow-sm border-l-8 border-l-[#1E5631] flex flex-col md:flex-row items-center gap-8 group hover:-translate-y-2 hover:shadow-2xl transition-all duration-500"
                     data-aos="zoom-in" data-aos-delay="{{ ($loop->index % 2) * 200 }}">
 
-                    <div class="w-20 h-20 bg-[#E8F2EC] rounded-2xl shadow-sm flex items-center justify-center flex-shrink-0">
+                    <div class="w-20 h-20 bg-[#E8F2EC] rounded-lg shadow-sm flex items-center justify-center flex-shrink-0">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="w-10 h-10 text-[#1E5631]"
                             fill="none"
@@ -129,11 +142,18 @@
 
                     <div class="text-left">
                         <h3 class="text-[#1E5631] font-extrabold text-2xl mb-3 leading-tight">
-                            {{ $item->nama_program }}
-                        </h3>
-                        <div class="text-gray-500 text-base leading-relaxed max-h-48 overflow-y-auto pr-2 text-justify no-scrollbar">
-                            {!! nl2br(e($item->deskripsi)) !!}
-                        </div>
+    {{ $item->nama_program }}
+</h3>
+
+{{-- PERUBAHAN: Bungkus dengan relative dan tambahkan efek gradasi putih --}}
+<div class="relative">
+    {{-- Hapus no-scrollbar, ganti ke custom-scrollbar, tambah pb-6 --}}
+    <div class="text-gray-500 text-base leading-relaxed max-h-48 overflow-y-auto pr-3 pb-6 text-justify custom-scrollbar">
+        {!! nl2br(e($item->deskripsi)) !!}
+    </div>
+    {{-- Efek Kabut Putih di bawah --}}
+    <div class="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent pointer-events-none rounded-b-lg"></div>
+</div>
                     </div>
                 </div>
                 @endforeach
@@ -146,27 +166,31 @@
 
 {{-- ================= SCRIPTS & STYLES ================= --}}
 <style>
-    html { scroll-behavior: smooth; }
-    section, #hero { scroll-margin-top: 80px; }
+    /* Styling untuk Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px; /* Ketebalan scrollbar */
+    }
     
-    html { 
-        scroll-behavior: smooth; 
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f8fafc; /* Warna jalur background scrollbar (abu-abu sangat terang) */
+        border-radius: 10px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1; /* Warna tuas scrollbar (abu-abu kalem) */
+        border-radius: 10px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #1E5631; /* Warna saat scrollbar disentuh/di-hover (Hijau Pondok) */
     }
 
-    section, #hero { 
-        scroll-margin-top: 80px; 
-    }
-
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-
-    .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
+    /* Dukungan untuk browser Firefox */
+    .custom-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: #cbd5e1 #f8fafc;
     }
 </style>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const tabs = document.querySelectorAll('.tab-link');

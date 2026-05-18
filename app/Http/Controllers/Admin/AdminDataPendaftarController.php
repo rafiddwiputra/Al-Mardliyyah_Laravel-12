@@ -10,8 +10,7 @@ use App\Models\PendaftaranSantri;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\DataPendaftar;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use App\Exports\LaporanPimpinanExport; // Gunakan Export milik Pimpinan
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminDataPendaftarController extends Controller
@@ -35,7 +34,6 @@ class AdminDataPendaftarController extends Controller
         if ($periodeId) {
             $query->where('id_periode', $periodeId);
         }
-
 
         // Filter Status
         if ($request->filled('status')) {
@@ -130,6 +128,7 @@ class AdminDataPendaftarController extends Controller
         return back()->with('success', 'Status pendaftaran berhasil diperbarui!');
     }
 
+    // ================= FUNGSI EXPORT EXCEL YANG SUDAH DIOPTIMASI =================
     public function exportExcel(Request $request)
     {
         // Siapkan Query Dasar
@@ -146,115 +145,14 @@ class AdminDataPendaftarController extends Controller
             $query->where('program_id', $request->program_id);
         }
 
-        // Ambil datanya
-        $data = $query->get();
+        // Ambil datanya (tambahkan latest() agar urutan sama dengan tabel)
+        $data = $query->latest()->get();
 
-        $filename = "data_pendaftar.csv";
+        // Penamaan file dinamis berdasarkan tanggal
+        $namaFile = 'Data_Pendaftar_Admin_' . \Carbon\Carbon::now()->format('d-m-Y') . '.xlsx';
 
-        $headers = [
-            "Content-type" => "text/csv",
-            "Content-Disposition" => "attachment; filename=$filename",
-            "Pragma" => "no-cache",
-            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-            "Expires" => "0"
-        ];
-
-       $callback = function () use ($data) {
-            $file = fopen('php://output', 'w');
-
-            // HEADER KOLOM
-            fputcsv($file, [
-                'ID',
-                'Nama',
-                'NISN',
-                'NIK',
-                'Tempat Lahir',
-                'Tanggal Lahir',
-                'No KK',
-                'Jenis Kelamin',
-                'Sekolah Asal',
-                'Program',
-                'Sumber Informasi',
-
-                'Ukuran Baju Putra',
-                'Ukuran Celana Putra',
-                'Ukuran Baju Putri',
-                'Ukuran Rok Putri',
-
-                'Tanggal Daftar',
-                'Status',
-
-                // AYAH
-                'Nama Ayah',
-                'NIK Ayah',
-                'Tanggal Lahir Ayah',
-                'Pekerjaan Ayah',
-                'Pendidikan Ayah',
-
-                // IBU
-                'Nama Ibu',
-                'NIK Ibu',
-                'Tanggal Lahir Ibu',
-                'Pekerjaan Ibu',
-                'Pendidikan Ibu',
-
-                // UMUM
-                'No HP',
-                'Penghasilan',
-                'Alamat',
-                'Kode Pos'
-            ]);
-
-            // DATA
-            foreach ($data as $item) {
-                fputcsv($file, [
-                    // 'PSB' . str_pad($item->id, 3, '0', STR_PAD_LEFT),
-                    $item->smart_id,
-                    $item->nama_lengkap,
-                    $item->nisn,
-                    $item->nik,
-                    $item->tempat_lahir,
-                    $item->tanggal_lahir,
-                    $item->nomor_kk,
-                    $item->jenis_kelamin,
-                    $item->sekolah_asal,
-                    $item->program->nama_program ?? '-',
-                    $item->sumber_informasi,
-
-                    $item->ukuran_baju_putra,
-                    $item->ukuran_celana_putra,
-                    $item->ukuran_baju_putri,
-                    $item->ukuran_rok_putri,
-
-                    $item->created_at ? $item->created_at->format('d/m/Y') : '-',
-                    ucfirst($item->status ?? 'diproses'),
-
-                    // AYAH
-                    $item->ortu->nama_ayah ?? '-',
-                    $item->ortu->nik_ayah ?? '-',
-                    $item->ortu?->tanggal_lahir_ayah ?? '-',
-                    $item->ortu->pekerjaan_ayah ?? '-',
-                    $item->ortu->pendidikan_terakhir_ayah ?? '-',
-
-                    // IBU
-                    $item->ortu->nama_ibu ?? '-',
-                    $item->ortu->nik_ibu ?? '-',
-                    $item->ortu?->tanggal_lahir_ibu ?? '-',
-                    $item->ortu->pekerjaan_ibu ?? '-',
-                    $item->ortu->pendidikan_terakhir_ibu ?? '-',
-
-                    // UMUM
-                    $item->ortu->no_hp ?? '-',
-                    $item->ortu->penghasilan_ortu ?? '-',
-                    $item->ortu->alamat ?? '-',
-                    $item->ortu->kode_pos ?? '-',
-                ]);
-            }
-
-            fclose($file);
-        };
-
-        return response()->stream($callback, 200, $headers);
+        // Panggil class Export milik Pimpinan
+        return Excel::download(new LaporanPimpinanExport($data), $namaFile);
     }
 
     public function exportPDF(Request $request)
@@ -316,5 +214,4 @@ class AdminDataPendaftarController extends Controller
         // Jika ingin langsung auto-download, ganti stream() menjadi download()
         return $pdf->stream('Bukti_Pendaftaran_' . $data->nama_lengkap . '.pdf');
     }
-    
 }

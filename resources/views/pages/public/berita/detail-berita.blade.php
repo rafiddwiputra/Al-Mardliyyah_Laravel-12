@@ -59,16 +59,59 @@
 
     <div class="mb-12">
         <img src="{{ Str::startsWith($berita->gambar, 'http') ? $berita->gambar : asset($berita->gambar) }}"
-             class="w-full h-auto max-h-[600px] object-cover rounded-[2.5rem] shadow-2xl border-4 border-white">
+             class="w-full h-auto max-h-[600px] object-cover rounded-lg shadow-2xl border-4 border-white">
     </div>
 
-    {{-- 
-        Gunakan {!! !!} agar jika nanti di Admin kamu pakai Text Editor (CKEditor/TinyMCE), 
-        format HTML seperti Bold, Italic, atau List tetap muncul dengan benar.
-    --}}
-    <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed mb-20">
-        {!! nl2br($berita->deskripsi) !!}
+    <div class="ckeditor-content text-gray-700 leading-relaxed mb-20 text-justify">
+        {!! $berita->deskripsi !!}
     </div>
+    
+    <style>
+        .ckeditor-content ul {
+            list-style-type: disc !important;
+            padding-left: 1.5rem !important;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .ckeditor-content ol {
+            list-style-type: decimal !important;
+            padding-left: 1.5rem !important;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .ckeditor-content li {
+            margin-bottom: 0.35rem;
+        }
+        
+        .ckeditor-content p {
+            margin-bottom: 0.25rem;; 
+        }
+
+        .ckeditor-content p:empty, 
+        .ckeditor-content p:has(br):not(:has(> :not(br))) {
+            display: none;
+        }
+        
+        .ckeditor-content blockquote {
+            border-left: 4px solid #1E5631;
+            padding: 0.75rem 1.2rem;
+            background-color: #f8fafc;
+            font-style: italic;
+            margin-top: 1.2rem;
+            margin-bottom: 1.2rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            color: #475569;
+        }
+
+        .ckeditor-content h2, .ckeditor-content h3 {
+            font-weight: bold;
+            color: #1E5631;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+    </style>
 
     <div class="text-center mb-24">
         <a href="{{ route('berita') }}"
@@ -91,7 +134,7 @@
             {{-- Variabel $beritaTerkait dikirim dari BeritaController --}}
             @foreach($beritaTerkait as $item)
             <div onclick="window.location='{{ route('berita.detail', $item->id) }}'"
-     class="bg-white border border-gray-100 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer group">
+     class="bg-white border border-gray-100 rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer group">
 
                 <div class="h-48 overflow-hidden relative">
                     <img src="{{ Str::startsWith($item->gambar, 'http') ? $item->gambar : asset($item->gambar) }}"

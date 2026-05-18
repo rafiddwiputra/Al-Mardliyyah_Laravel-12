@@ -9,6 +9,8 @@ use App\Models\Public\PeriodePendaftaran;
 use App\Models\Public\ProgramPendidikan;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\LaporanPimpinanExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanPimpinanController extends Controller
 {
@@ -91,41 +93,72 @@ class LaporanPimpinanController extends Controller
     // ================= FUNGSI EXPORT PDF (MENGGUNAKAN TEMPLATE KARTU) =================
     public function exportPDF(Request $request)
     {
+        // 1. Tangkap semua parameter filter
         $periodeId = $request->periode_id;
+        $programId = $request->program_id;
+        $status = $request->status;
+
         $periodeAktif = $periodeId ? PeriodePendaftaran::where('id_periode', $periodeId)->first() : null;
 
-        $data = PendaftaranSantri::with(['program', 'ortu'])
-            ->when($periodeId, function($query) use ($periodeId) {
-                return $query->where('id_periode', $periodeId);
-            })->latest()->get();
+        // 2. Build Query dengan menyertakan SEMUA FILTER (Persis seperti tampilan tabel)
+        $query = PendaftaranSantri::with(['program', 'ortu']);
 
-        $pdf = Pdf::loadView('pages.admin.data-pendaftar.pdf', compact('data', 'periodeAktif'));
+        if ($periodeId) {
+            $query->where('id_periode', $periodeId);
+        }
+
+        if ($programId) {
+            $query->where('program_id', $programId);
+        }
+
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        $data = $query->latest()->get();
+
+        // 3. Siapkan variabel label untuk ditampilkan di Header PDF
+        $namaProgram = $programId 
+                        ? ProgramPendidikan::find($programId)->nama_program ?? 'Semua Program' 
+                        : 'Semua Program';
+                        
+        $namaPeriode = $periodeAktif ? $periodeAktif->nama_periode : 'Semua Periode';
+        
+        // PERBAIKAN ERROR: Menambahkan variabel $statusAktif
+        $statusAktif = $status ? ucfirst($status) : 'Semua Status';
+
+        // 4. Masukkan semua variabel ke dalam compact()
+        $pdf = Pdf::loadView('pages.admin.data-pendaftar.pdf', compact(
+            'data', 
+            'periodeAktif', 
+            'namaProgram', 
+            'namaPeriode', 
+            'statusAktif'
+        ));
+        
         $pdf->setPaper('A4', 'portrait'); 
 
-        // PERBAIKAN: Hilangkan garis miring (/) dari nama periode agar tidak error saat jadi nama file
+        // 5. Nama file aman
         $namaPeriodeAman = $periodeAktif ? str_replace(['/', '\\'], '-', $periodeAktif->nama_periode) : 'Semua_Periode';
         $namaFile = 'Laporan_Pendaftar_' . $namaPeriodeAman . '.pdf';
         
         return $pdf->download($namaFile);
     }
 
-    // ================= FUNGSI EXPORT EXCEL =================
+    // ================= FUNGSI EXPORT EXCEL (VERSI XLSX) =================
     public function exportExcel(Request $request)
     {
         $periodeId = $request->periode_id;
-        $periodeAktif = $periodeId ? PeriodePendaftaran::where('id_periode', $periodeId)->first() : null;
+        $periodeAktif = $periodeId ? \App\Models\Public\PeriodePendaftaran::where('id_periode', $periodeId)->first() : null;
 
-        $pendaftar = PendaftaranSantri::with(['program'])
+        $pendaftar = \App\Models\PendaftaranSantri::with(['program', 'ortu'])
             ->when($periodeId, function($query) use ($periodeId) {
                 return $query->where('id_periode', $periodeId);
             })->latest()->get();
 
-        // PERBAIKAN: Hilangkan garis miring (/) dari nama periode
         $namaPeriodeAman = $periodeAktif ? str_replace(['/', '\\'], '-', $periodeAktif->nama_periode) : 'Semua_Periode';
-        $namaFile = 'Laporan_Pendaftar_' . $namaPeriodeAman . '.xls';
+        $namaFile = 'Laporan_Pendaftar_' . $namaPeriodeAman . '.xlsx';
 
-        return response(view('pages.pimpinan.export-excel', compact('pendaftar', 'periodeAktif')))
-            ->header('Content-Type', 'application/vnd-ms-excel')
-            ->header('Content-Disposition', 'attachment; filename="' . $namaFile . '"');
+        return Excel::download(new LaporanPimpinanExport($pendaftar), $namaFile);
     }
 }

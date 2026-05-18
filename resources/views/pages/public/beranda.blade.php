@@ -148,7 +148,7 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 text-left">
             {{-- Misi Cards: Berurutan munculnya dengan delay --}}
-            <div class="bg-white p-5 md:p-6 rounded-xl shadow-md border-t-4 border-[#1E5631] hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+            <div class="bg-white p-5 md:p-6 rounded-lg  shadow-md border-t-4 border-[#1E5631] hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
                 <div class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-[#C6A75E] rounded-full mb-3 md:mb-4">
                     <span class="text-[#1E5631] font-bold text-sm md:text-base">1</span>
                 </div>
@@ -168,7 +168,7 @@
                 </p>
             </div>
 
-            <div class="bg-white p-5 md:p-6 rounded-xl shadow-md border-t-4 border-[#1E5631] hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+            <div class="bg-white p-5 md:p-6 rounded-lg  shadow-md border-t-4 border-[#1E5631] hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
                 <div class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-[#C6A75E] rounded-full mb-3 md:mb-4">
                     <span class="text-[#1E5631] font-bold text-sm md:text-base">3</span>
                 </div>
@@ -364,7 +364,7 @@
         {{-- Menggunakan grid-cols-2 di HP agar foto tidak terlalu besar/memakan layar --}}
         <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
             @forelse($galeris as $g)
-                <div class="overflow-hidden rounded-xl md:rounded-[1.5rem] shadow-sm border border-gray-100 group aspect-square md:aspect-video bg-gray-50 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
+                <div class="overflow-hidden rounded-lg shadow-sm border border-gray-100 group aspect-square md:aspect-video bg-gray-50 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
                      data-aos="zoom-in" data-aos-delay="{{ ($loop->index % 3) * 100 }}">
                     <img src="{{ Str::startsWith($g->gambar, 'http') ? $g->gambar : asset($g->gambar) }}" 
                          alt="{{ $g->judul }}"

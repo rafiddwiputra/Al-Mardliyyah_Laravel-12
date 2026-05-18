@@ -6,37 +6,42 @@ use App\Http\Controllers\Controller;
 use App\Models\PendaftaranSantri;
 use Illuminate\Http\Request;
 use App\Models\Public\PeriodePendaftaran;
+use Illuminate\Support\Facades\DB; // Tambahkan ini untuk fungsi perhitungan grafik
 
 class AdminDashboardController extends Controller
 {
     public function index(Request $request)
     {
-        // LIST PERIODE UNTUK DROPDOWN
         $listPeriode = PeriodePendaftaran::orderBy('tanggal_mulai', 'desc')->get();
 
-        // ================= REVISI DOSEN =================
-        // Jika tidak ada parameter 'periode_id' di URL (artinya admin baru buka dashboard tanpa klik filter)
         if (!$request->has('periode_id')) {
-            // Cari periode yang sedang buka/aktif (asumsi kolom status = 1)
             $periodeAktif = PeriodePendaftaran::where('status', 1)->first();
             
             if ($periodeAktif) {
-                // Suntikkan ID Periode Aktif ke dalam Request. 
-                // Ini membuat Blade otomatis menganggap periode ini sedang di-select.
                 $request->merge(['periode_id' => $periodeAktif->id_periode]);
             }
         }
-        // =================================================
-
-        // QUERY DASAR
+   
         $query = PendaftaranSantri::with(['program', 'periode']);
 
-        // FILTER PERIODE
-        // Jika admin memilih "Semua Periode / Tahun", value-nya akan kosong dan request->filled() bernilai false.
-        // Jika bernilai false, filter tidak dijalankan sehingga memunculkan semua data.
         if ($request->filled('periode_id')) {
             $query->where('id_periode', $request->periode_id);
         }
+
+        // ================= BARU: LOGIKA DATA GRAFIK SUMBER INFORMASI =================
+        // ================= BARU: LOGIKA DATA GRAFIK SUMBER INFORMASI =================
+        $sumberData = (clone $query)
+            ->select('sumber_informasi', DB::raw('count(*) as total'))
+            ->groupBy('sumber_informasi')
+            ->get();
+        
+        $chartLabels = $sumberData->pluck('sumber_informasi');
+        $chartValues = $sumberData->pluck('total');
+
+        // Cari yang paling banyak dan paling sedikit
+        $sumberTerbanyak = $sumberData->sortByDesc('total')->first();
+        $sumberTersedikit = $sumberData->sortBy('total')->first();
+        // =============================================================================
 
         // TOTAL
         $total = (clone $query)->count();
@@ -68,7 +73,11 @@ class AdminDashboardController extends Controller
             'diterima',
             'ditolak',
             'terbaru',
-            'listPeriode'
+            'listPeriode',
+            'chartLabels', // Kirim label ke Blade
+            'chartValues',  // Kirim angka total ke Blade
+            'sumberTerbanyak',
+            'sumberTersedikit'
         ));
     }
 }

@@ -23,12 +23,17 @@ class AdminBeritaController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi dengan Pesan Error Bahasa Indonesia
         $request->validate([
             'judul'     => 'required|string|max:255',
-            'gambar'    => 'required|image|mimes:jpeg,png,jpg|max:2048', 
+            'gambar'    => 'required|image|mimes:jpeg,png,jpg,webp|max:2048', 
             'deskripsi' => 'required',
             'tanggal'   => 'required|date',
             'status'    => 'required|in:draft,publish',
+        ], [
+            'gambar.max'   => 'Gagal! Ukuran gambar berita tidak boleh lebih dari 2 MB.',
+            'gambar.mimes' => 'Gagal! Format gambar harus berupa JPG, JPEG, PNG, atau WEBP.',
+            'gambar.image' => 'File yang diunggah harus berupa gambar!',
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -41,7 +46,7 @@ class AdminBeritaController extends Controller
 
         Berita::create([
             'judul'      => $request->judul,
-            'gambar'     => $path_gambar,
+            'gambar'     => $path_gambar ?? null,
             'deskripsi'  => $request->deskripsi,
             'status'     => $request->status,
             'created_at' => $request->tanggal,
@@ -62,12 +67,17 @@ class AdminBeritaController extends Controller
     {
         $berita = Berita::findOrFail($id);
 
+        // Validasi dengan Pesan Error Bahasa Indonesia
         $request->validate([
             'judul'     => 'required|string|max:255',
-            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg|max:2048', 
+            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048', 
             'deskripsi' => 'required',
             'tanggal'   => 'required|date',
             'status'    => 'required|in:draft,publish',
+        ], [
+            'gambar.max'   => 'Gagal! Ukuran gambar berita tidak boleh lebih dari 2 MB.',
+            'gambar.mimes' => 'Gagal! Format gambar harus berupa JPG, JPEG, PNG, atau WEBP.',
+            'gambar.image' => 'File yang diunggah harus berupa gambar!',
         ]);
 
         $data = [
