@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Pimpinan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash; // Wajib untuk enkripsi password
+use Illuminate\Support\Facades\Hash; 
 
 class AdminManagementController extends Controller
 {

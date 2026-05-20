@@ -31,7 +31,7 @@
 </div>
 
 {{-- ================= TAB NAVIGATION ================= --}}
-<div class="bg-white border-b sticky top-20 z-30 shadow-sm" 
+<div class="bg-white border-b sticky top-14 md:top-20 z-30 shadow-sm" 
      x-data="{ 
         activeTab: 'sejarah',
         scrollTo(id) {
@@ -87,7 +87,7 @@
         {{-- Hero Image Sejarah --}}
         <div class="mb-16" data-aos="zoom-in" data-aos-duration="1000">
             <div class="rounded-lg  overflow-hidden shadow-xl border-8 border-white">
-                <img src="{{ asset('images/1985.png') }}" alt="Pembangunan Pondok" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                <img src="{{ asset('images/sejarah.jpg') }}" alt="Foto Pondok" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
             </div>
         </div>
 

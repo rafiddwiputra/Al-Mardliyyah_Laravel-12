@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('berita', function (Blueprint $table) {
             $table->integer('id')->autoIncrement();
-            $table->string('judul', 130); 
+            $table->string('judul', 100); 
             $table->string('gambar', 255)->nullable();
             $table->text('deskripsi')->nullable(); 
             $table->date('tanggal_publish')->nullable();

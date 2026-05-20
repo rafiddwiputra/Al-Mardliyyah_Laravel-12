@@ -13,13 +13,8 @@ class AdminGaleriController extends Controller
 {
     public function index()
     {
-        // 1. Filter: Hanya ambil data yang kategorinya BUKAN 'Banner'
         $galeris = Galeri::where('kategori', '!=', 'Banner')->latest()->get();
-
-         // Tambahan untuk aktivitas santri
         $aktivitas = AktivitasSantri::latest()->get();
-        
-        // Kategori untuk dropdown di form (Tanpa Banner)
         $categories = ['Kegiatan', 'Fasilitas', 'Prestasi', 'Lingkungan'];
         
         return view('pages.admin.galeri.admin-galeri', compact('galeris', 'aktivitas', 'categories'));
@@ -28,7 +23,7 @@ class AdminGaleriController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required|string|max:50', // 2. Sesuaikan dengan panjang di EER (30 karakter)
+            'judul' => 'required|string|max:100', 
             'kategori' => 'required|in:Kegiatan,Fasilitas,Prestasi,Lingkungan', 
             'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
@@ -49,7 +44,6 @@ class AdminGaleriController extends Controller
                 'judul' => $request->judul,
                 'kategori' => $request->kategori, 
                 'gambar' => $pathSimpan,
-                // 3. 'created_by' DIHAPUS karena tabel sudah tidak punya kolom ini
             ]);
 
             return redirect()->back()->with('success', 'Foto galeri berhasil ditambahkan!');
@@ -63,7 +57,7 @@ class AdminGaleriController extends Controller
         $galeri = Galeri::findOrFail($id);
 
         $request->validate([
-            'judul' => 'required|string|max:50', // Sesuaikan dengan panjang di EER
+            'judul' => 'required|string|max:100', 
             'kategori' => 'required|in:Kegiatan,Fasilitas,Prestasi,Lingkungan',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
@@ -74,7 +68,6 @@ class AdminGaleriController extends Controller
         ];
 
         if ($request->hasFile('gambar')) {
-            // Hapus gambar lama jika ada
             if (File::exists(public_path($galeri->gambar))) {
                 File::delete(public_path($galeri->gambar));
             }

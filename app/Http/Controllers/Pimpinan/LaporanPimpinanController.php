@@ -93,14 +93,10 @@ class LaporanPimpinanController extends Controller
     // ================= FUNGSI EXPORT PDF (MENGGUNAKAN TEMPLATE KARTU) =================
     public function exportPDF(Request $request)
     {
-        // 1. Tangkap semua parameter filter
         $periodeId = $request->periode_id;
         $programId = $request->program_id;
         $status = $request->status;
-
         $periodeAktif = $periodeId ? PeriodePendaftaran::where('id_periode', $periodeId)->first() : null;
-
-        // 2. Build Query dengan menyertakan SEMUA FILTER (Persis seperti tampilan tabel)
         $query = PendaftaranSantri::with(['program', 'ortu']);
 
         if ($periodeId) {
@@ -116,18 +112,12 @@ class LaporanPimpinanController extends Controller
         }
 
         $data = $query->latest()->get();
-
-        // 3. Siapkan variabel label untuk ditampilkan di Header PDF
         $namaProgram = $programId 
                         ? ProgramPendidikan::find($programId)->nama_program ?? 'Semua Program' 
                         : 'Semua Program';
                         
         $namaPeriode = $periodeAktif ? $periodeAktif->nama_periode : 'Semua Periode';
-        
-        // PERBAIKAN ERROR: Menambahkan variabel $statusAktif
         $statusAktif = $status ? ucfirst($status) : 'Semua Status';
-
-        // 4. Masukkan semua variabel ke dalam compact()
         $pdf = Pdf::loadView('pages.admin.data-pendaftar.pdf', compact(
             'data', 
             'periodeAktif', 
@@ -138,7 +128,6 @@ class LaporanPimpinanController extends Controller
         
         $pdf->setPaper('A4', 'portrait'); 
 
-        // 5. Nama file aman
         $namaPeriodeAman = $periodeAktif ? str_replace(['/', '\\'], '-', $periodeAktif->nama_periode) : 'Semua_Periode';
         $namaFile = 'Laporan_Pendaftar_' . $namaPeriodeAman . '.pdf';
         

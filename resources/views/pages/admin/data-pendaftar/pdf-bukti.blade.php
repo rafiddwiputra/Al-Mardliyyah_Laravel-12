@@ -39,7 +39,7 @@
         .tabel-data th, .tabel-data td { border: 1px solid #000; padding: 4px 8px; vertical-align: top; }
         .col-no { width: 5%; text-align: center; }
         .col-label { width: 35%; }
-        .col-value { width: 60%; text-transform: uppercase; } 
+        .col-value { width: 60%; } 
 
         .inner-table { width: 100%; border: none !important; }
         .inner-table td { border: none !important; padding: 1px 0 !important; }
@@ -66,10 +66,11 @@
     </div>
 
     {{-- JUDUL SURAT --}}
-    <div class="judul-surat">
+   <div class="judul-surat">
         <p>BUKTI PENDAFTARAN PPDB</p>
         <p>PONDOK PESANTREN AL MARDLIYYAH</p>
-        <p>TAHUN PELAJARAN {{ \Carbon\Carbon::now()->format('Y') }}/{{ \Carbon\Carbon::now()->addYear()->format('Y') }}</p>
+        {{-- Mengambil nama periode langsung dari database dan dijadikan huruf besar semua --}}
+        <p>{{ strtoupper($data->periode->nama_periode ?? 'PERIODE PENDAFTARAN') }}</p>
     </div>
 
     <p style="margin-bottom: 4px; font-size: 11pt;">Data Pendaftar : <strong>{{ strtoupper($data->nama_lengkap) }}</strong></p>
@@ -172,7 +173,7 @@
 
     {{-- FOOTER --}}
     <div class="footer-text">
-        Selamat! Anda telah berhasil mendaftar PPDB Online PP Al Mardliyyah Kota Madiun Tahun Pelajaran {{ \Carbon\Carbon::now()->format('Y') }}/{{ \Carbon\Carbon::now()->addYear()->format('Y') }} <strong>TAHAP 1</strong>
+        Selamat! Anda telah berhasil mendaftar PPDB Online Pondok Pesantren Al-Mardliyyah Kota Madiun untuk <strong>{{ $data->periode->nama_periode ?? 'periode ini' }}</strong>.
     </div>
 
 </body>

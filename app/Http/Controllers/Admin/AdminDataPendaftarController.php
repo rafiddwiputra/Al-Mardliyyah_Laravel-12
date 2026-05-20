@@ -197,7 +197,7 @@ class AdminDataPendaftarController extends Controller
 
     public function cetakBukti($id)
     {
-        // 1. Ambil data santri beserta relasinya
+        // 1. Ambil data santri beserta relasinya (Sudah pas dengan yang dibutuhkan di blade)
         $data = PendaftaranSantri::with(['user', 'ortu', 'program', 'periode'])->findOrFail($id);
 
         // 2. Pastikan hanya yang berstatus "diterima" yang bisa dicetak
@@ -205,13 +205,11 @@ class AdminDataPendaftarController extends Controller
             return redirect()->back()->with('error', 'Bukti pendaftaran hanya bisa dicetak untuk santri yang sudah diterima.');
         }
 
-        // 3. Render view ke dalam PDF
-        // Kita letakkan file blade-nya di dalam folder yang sama dengan view admin pendaftar
-        $pdf = Pdf::loadView('pages.admin.data-pendaftar.pdf', compact('data'))
+        // 3. PERBAIKAN UTAMA: Arahkan dari 'pdf' ke file baru 'pdf-bukti'
+        $pdf = Pdf::loadView('pages.admin.data-pendaftar.pdf-bukti', compact('data'))
           ->setPaper('a4', 'portrait');
 
         // 4. Gunakan stream() agar file terbuka di tab baru (bisa di-preview sebelum di-download)
-        // Jika ingin langsung auto-download, ganti stream() menjadi download()
         return $pdf->stream('Bukti_Pendaftaran_' . $data->nama_lengkap . '.pdf');
     }
 }

@@ -16,6 +16,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\CustomVerifyEmail;
 
 // Disesuaikan: phone diganti no_hp, lalu ditambahkan photo dan status
 #[Fillable(['nama', 'email', 'password', 'role', 'no_hp', 'photo', 'status', 'email_verified_at'])]
@@ -56,5 +57,10 @@ class User extends Authenticatable implements MustVerifyEmail
     // Disesuaikan: Relasi pendaftaran santri diaktifkan menggunakan users_id
     public function pendaftaranSantri() {
         return $this->hasOne(\App\Models\PendaftaranSantri::class, 'users_id');
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new CustomVerifyEmail);
     }
 }

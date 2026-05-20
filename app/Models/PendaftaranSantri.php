@@ -55,33 +55,26 @@ class PendaftaranSantri extends Model
         return $this->belongsTo(ProgramPendidikan::class, 'program_id');
     }
 
-    // Relasi ke tabel Periode Pendaftaran
     public function periode(): BelongsTo
     {
         return $this->belongsTo(PeriodePendaftaran::class, 'id_periode', 'id_periode');
     }
 
-    // ================= FITUR SMART ID (ACCESSOR) =================
+    // =================  ID  =================
     public function getSmartIdAttribute()
     {
         $tahun = '0000';
         $kodeGelombang = '';
 
-        // Cek apakah santri ini terhubung dengan suatu periode pendaftaran
         if ($this->periode) {
-            // 1. Ambil Tahun dari tanggal mulai periode
             $tahun = \Carbon\Carbon::parse($this->periode->tanggal_mulai)->format('Y');
             
-            // 2. Deteksi kata "Gelombang X" dari nama periode
             if (preg_match('/Gelombang\s+(\d+)/i', $this->periode->nama_periode, $matches)) {
                 $kodeGelombang = '-G' . $matches[1];
             }
         }
 
-        // 3. Format ID Asli (Auto Increment database) menjadi 3 digit (contoh: 1 jadi 001)
         $nomorUrut = str_pad($this->id, 3, '0', STR_PAD_LEFT);
-
-        // 4. Gabungkan semuanya menjadi Smart ID
         return 'PSB-' . $tahun . $kodeGelombang . '-' . $nomorUrut;
     }
 }

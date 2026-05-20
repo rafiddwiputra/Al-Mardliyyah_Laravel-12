@@ -4,8 +4,7 @@
 
 <div class="max-w-6xl mx-auto py-12 px-4">
 
-<!-- STEP PROGRESS -->
-<div class="flex items-center justify-between mb-16 px-10">
+<div class="flex items-center justify-between mb-20 md:mb-16 px-2 sm:px-6 md:px-10">
 
     @php
             $steps = [
@@ -21,15 +20,15 @@
                 
                 {{-- GARIS PENGHUBUNG --}}
                 @if($number != 4)
-                    <div class="absolute top-5 left-1/2 w-full h-[3px] -z-0 
+                    <div class="absolute top-4 md:top-5 left-1/2 w-full h-[3px] -z-0 
                         {{ $number < 4 ? 'bg-[#1e4d2b]' : 'bg-gray-200' }}">
                     </div>
                 @endif
 
-                {{-- BULATAN --}}
+                {{-- BULATAN (Responsif mengecil di HP) --}}
                 <div class="z-10 flex flex-col items-center">
                     <div class="
-                        w-11 h-11 flex items-center justify-center rounded-full text-lg font-bold shadow-sm
+                        w-8 h-8 md:w-11 md:h-11 flex items-center justify-center rounded-full text-sm md:text-lg font-bold shadow-sm
                         {{ $number <= 4 
                             ? 'bg-[#1e4d2b] text-white' 
                             : ($number == 4 
@@ -40,7 +39,8 @@
                         {{ $number }}
                     </div>
 
-                    <span class="text-xs mt-3 font-bold text-gray-700 text-center absolute -bottom-8 w-max">
+                    {{-- LABEL TEKS (Responsif wrap di HP) --}}
+                    <span class="text-[10px] md:text-xs mt-2 md:mt-3 font-bold text-gray-700 text-center absolute -bottom-8 md:-bottom-8 w-16 sm:w-20 md:w-max leading-tight break-words">
                         {{ $label }}
                     </span>
                 </div>
@@ -50,45 +50,44 @@
 </div>
 </div>
 
-    <!-- TITLE -->
-    <div class="text-center mb-8">
-        <h2 class="text-3xl font-bold text-[#1E5631]">
+    <div class="text-center mb-8 px-4">
+        <h2 class="text-2xl md:text-3xl font-bold text-[#1E5631]">
             Status Pendaftaran
         </h2>
-        <p class="text-gray-500">
+        <p class="text-sm md:text-base text-gray-500 mt-2">
             Informasi Pendaftaran Anda
         </p>
     </div>
 
-    <!-- CARD -->
-    <div class="max-w-2xl mx-auto bg-white p-12 rounded border border-[#D9D9D9] mb-20">
+    <div class="max-w-2xl mx-auto bg-white p-6 md:p-12 rounded-xl border border-[#D9D9D9] mb-20 shadow-sm">
 
         <div class="flex justify-center mb-6">
-            <span class="bg-[#1E5631] text-white px-6 py-2 rounded text-sm font-semibold">
+            <span class="bg-[#1E5631] text-white px-6 py-2 rounded-lg text-sm font-semibold shadow-sm">
                 Diterima
             </span>
         </div>
 
         <div class="pb-4 border-b">
-            <p class="text-sm text-gray-500 mb-1">Nama Calon Santri</p>
-            <p>{{ $data->nama_lengkap }}</p>
+            <p class="text-xs md:text-sm text-gray-500 mb-1">Nama Calon Santri</p>
+            <p class="font-medium text-gray-800">{{ $data->nama_lengkap }}</p>
         </div>
 
         <div class="py-4 border-b">
-            <p class="text-sm text-gray-500 mb-1">Program Pendidikan Pilihan</p>
-            <p>{{ $data->program->nama_program ?? '-' }}</p>
+            <p class="text-xs md:text-sm text-gray-500 mb-1">Program Pendidikan Pilihan</p>
+            <p class="font-medium text-gray-800">{{ $data->program->nama_program ?? '-' }}</p>
         </div>
 
         <div class="py-4 border-b">
-            <p class="text-sm text-gray-500 mb-1">Tanggal Pendaftaran</p>
-            <p>{{ $data->created_at->format('d F Y') }}</p>
+            <p class="text-xs md:text-sm text-gray-500 mb-1">Tanggal Pendaftaran</p>
+            <p class="font-medium text-gray-800">{{ $data->created_at->format('d F Y') }}</p>
         </div>
 
-       {{-- Ubah $pendaftaran menjadi $data --}}
+       {{-- Logika PDF tidak diubah --}}
         @if(strtolower($data->status ?? '') === 'diterima')
-        <div class="mt-6 flex justify-center">
+        <div class="mt-8 flex justify-center">
+            {{-- Tombol dibuat melebar penuh di HP (w-full) dan flex justify-center --}}
             <a href="{{ route('user.cetak-bukti') }}" target="_blank" 
-               class="bg-[#1E5631] text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-[#17472a] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 shadow-md flex items-center gap-2">
+               class="w-full md:w-auto flex justify-center items-center gap-2 bg-[#1E5631] text-white px-6 py-3 md:py-3.5 rounded-lg text-sm md:text-base font-semibold hover:bg-[#17472a] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 shadow-md">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
@@ -97,13 +96,11 @@
         </div>
         @endif
 
-        <div class="bg-[#F5F5F5] rounded p-4 mt-6">
-            <p class="text-gray-500 text-sm text-center">
-                Selamat! Pendaftaran Anda telah diterima. Silahkan cek email Anda untuk informasi lebih lanjut mengenai tahap selanjutnya.
+        <div class="bg-[#F8FAFC] rounded-lg border border-gray-100 p-4 mt-6">
+            <p class="text-gray-600 text-xs md:text-sm text-center leading-relaxed">
+                Selamat! Pendaftaran Anda telah diterima. Silakan cek email Anda untuk informasi lebih lanjut mengenai tahap selanjutnya.
             </p>
         </div>
-
-        
 
     </div>
 

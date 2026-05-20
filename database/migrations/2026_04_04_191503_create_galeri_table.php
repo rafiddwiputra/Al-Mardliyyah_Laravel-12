@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('galeri', function (Blueprint $table) {
             $table->id();
             $table->string('gambar', 255);
-            $table->string('judul', 50);
+            $table->string('judul', 100);
             $table->enum('kategori', ['Kegiatan', 'Fasilitas', 'Prestasi', 'Lingkungan', 'Banner']);
             $table->timestamps();
         });

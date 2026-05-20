@@ -29,28 +29,58 @@
         Bergabunglah dengan ribuan santri kami dan mulai perjalanan pendidikan Anda di Pondok Pesantren Al-Mardliyyah
     </p>
 
-    {{-- CTA LOGIKA SAMA --}}
+    {{-- CTA LOGIKA SAMA (DIUPDATE DENGAN LOGIKA PINTAR) --}}
     @if($status)
         @auth
-            <a href="{{ route('formulir') }}"
+            @php
+                $ctaRoute = route('formulir'); // Default
+                $ctaLabel = 'Lanjutkan Pendaftaran';
+                
+                if (Auth::user()->role === 'admin' || Auth::user()->role === 'pimpinan') {
+                    $ctaRoute = route('admin.dashboard');
+                    $ctaLabel = 'Masuk ke Dashboard';
+                } elseif (Auth::user()->role === 'calon_santri') {
+                    $data = \App\Models\PendaftaranSantri::where('users_id', Auth::id())->first();
+                    
+                    if (!$data) {
+                        $ctaRoute = route('formulir');
+                        $ctaLabel = 'Lanjutkan Pendaftaran';
+                    } elseif (
+                        empty($data->foto_santri) || $data->foto_santri == '-' ||
+                        empty($data->akta_kelahiran) || $data->akta_kelahiran == '-' ||
+                        empty($data->kartu_keluarga) || $data->kartu_keluarga == '-' ||
+                        empty($data->ktp_ayah) || $data->ktp_ayah == '-' ||
+                        empty($data->ktp_ibu) || $data->ktp_ibu == '-'
+                    ) {
+                        $ctaRoute = route('upload.dokumen');
+                        $ctaLabel = 'Lanjutkan Pendaftaran';
+                    } else {
+                        $ctaRoute = route('status.pendaftaran');
+                        $ctaLabel = 'Cek Status Pendaftaran';
+                    }
+                }
+            @endphp
+
+            <a href="{{ $ctaRoute }}"
                class="bg-[#C6A75E] text-white px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
-                Lanjutkan Pendaftaran
+                {{ $ctaLabel }}
             </a>
         @else
-
-    @if(Request::is('pendaftaran'))
-        <a href="{{ route('register') }}"
-           class="bg-[#C6A75E] text-white px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
-            Daftar Sekarang
-        </a>
+            {{-- Jika belum login --}}
+            @if(Request::is('pendaftaran'))
+                <a href="{{ route('register') }}"
+                   class="bg-[#C6A75E] text-white px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
+                    Daftar Sekarang
+                </a>
+            @else
+                <a href="{{ route('pendaftaran') }}"
+                   class="bg-[#C6A75E] text-white px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
+                    Daftar Sekarang
+                </a>
+            @endif
+        @endauth
     @else
-        <a href="{{ route('pendaftaran') }}"
-           class="bg-[#C6A75E] text-white px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
-            Daftar Sekarang
-        </a>
-    @endif
-    @endauth
-    @else
+        {{-- Jika pendaftaran ditutup --}}
         <button onclick="bukaPopupTutup()"
             class="bg-[#C6A75E] text-white px-8 py-3 rounded-lg font-bold inline-block hover:bg-[#b59650] transition shadow-lg animate-heartbeat">
             Daftar Sekarang

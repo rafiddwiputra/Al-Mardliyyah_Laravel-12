@@ -9,7 +9,7 @@
         data-aos="fade-down"
         data-aos-duration="1000">
             <div class="max-w-6xl mx-auto px-6">
-                <div class="bg-gradient-to-b from-[#F5F9F7] to-white rounded-2xl py-20 text-center shadow-sm">
+                <div class="bg-gradient-to-b from-[#F5F9F7] to-white rounded-lg py-20 text-center shadow-sm">
 
                     <h1 class="text-5xl font-extrabold text-[#1E5631] mb-6"
                         data-aos="zoom-in"
@@ -56,13 +56,13 @@
                 <div class="flex flex-wrap justify-center gap-6">
 
                     <!-- ALAMAT -->
-                    <div class="w-full md:w-80 group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
+                    <div class="w-full md:w-80 group bg-white border border-gray-100 rounded-lg p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
                         data-aos="zoom-in"
                         data-aos-delay="100">
 
                         {{-- GAMBAR MAPS --}}
                         <a href="https://maps.app.goo.gl/t1K41PeTNDuQY9dHA" target="_blank" rel="noopener noreferrer"
-                            class="block relative rounded-xl overflow-hidden group border border-gray-100 shadow mb-4">
+                            class="block relative rounded-lg overflow-hidden group border border-gray-100 shadow mb-4">
 
                             <div class="w-full h-28 bg-[#52795b] relative overflow-hidden flex items-center justify-center">
                                 <img src="{{ asset('images/maps.png') }}" alt="Peta Lokasi Pondok"
@@ -90,12 +90,12 @@
                     </div>
 
                     <!-- EMAIL -->
-                    <div class="w-full md:w-80 group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
+                    <div class="w-full md:w-80 group bg-white border border-gray-100 rounded-lg p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
                         data-aos="zoom-in"
                         data-aos-delay="100">
 
                         {{-- ICON EMAIL --}}
-                        <div class="w-full h-28 mb-4 flex items-center justify-center rounded-xl border border-gray-100 bg-white shadow-sm overflow-hidden">
+                        <div class="w-full h-28 mb-4 flex items-center justify-center rounded-lg border border-gray-100 bg-white shadow-sm overflow-hidden">
 
                             <div class="group-hover:scale-110 transition-all duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -146,95 +146,91 @@
             data-aos="fade-up"
             data-aos-duration="1000">
 
-            <!-- BADGE -->
-            <div class="text-center mb-6">
-                <div class="inline-block bg-[#D8E6E0] px-4 py-2 rounded mb-4">
-                    <span class="text-[#1E5631] text-sm font-semibold uppercase tracking-wide">
-                        Media Sosial
-                    </span>
+            {{-- TAMBAHKAN PEMBUNGKUS px-6 DI SINI AGAR SAMA DENGAN SECTION LAINNYA --}}
+            <div class="max-w-6xl mx-auto px-6">
+
+                <div class="text-center mb-6">
+                    <div class="inline-block bg-[#D8E6E0] px-4 py-2 rounded mb-4">
+                        <span class="text-[#1E5631] text-sm font-semibold uppercase tracking-wide">
+                            Media Sosial
+                        </span>
+                    </div>
+
+                    <h3 class="text-3xl font-bold text-[#1E5631] mb-3">
+                        Ikuti Kami
+                    </h3>
+
+                    <p class="text-gray-500 max-w-xl mx-auto">
+                        Dapatkan informasi terbaru seputar kegiatan dan program pondok melalui media sosial resmi kami.
+                    </p>
                 </div>
 
-                <!-- JUDUL -->
-                <h3 class="text-3xl font-bold text-[#1E5631] mb-3">
-                    Ikuti Kami
-                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
 
-                <!-- DESKRIPSI -->
-                <p class="text-gray-500 max-w-xl mx-auto">
-                    Dapatkan informasi terbaru seputar kegiatan dan program pondok melalui media sosial resmi kami.
-                </p>
-            </div>
+                    <a href="https://www.instagram.com/almardliyyah.demangan" target="_blank"
+                    class="w-full group bg-white border border-gray-100 rounded-lg p-4 md:p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
+                        data-aos="fade-up"
+                        data-aos-delay="100">
 
-            <!-- CONTENT -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                        <div class="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white flex items-center justify-center rounded-xl group-hover:scale-110 transition">
+                            <svg class="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M7.75 2C4.574 2 2 4.574 2 7.75v8.5C2 19.426 4.574 22 7.75 22h8.5C19.426 22 22 19.426 22 16.25v-8.5C22 4.574 19.426 2 16.25 2h-8.5zm0 2h8.5A3.75 3.75 0 0 1 20 7.75v8.5A3.75 3.75 0 0 1 16.25 20h-8.5A3.75 3.75 0 0 1 4 16.25v-8.5A3.75 3.75 0 0 1 7.75 4zm8.75 1.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
+                            </svg>
 
-                <!-- INSTAGRAM -->
-                <a href="https://www.instagram.com/almardliyyah.demangan" target="_blank"
-                class="w-full group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
-                    data-aos="fade-up"
-                    data-aos-delay="100">
+                        </div>
 
-                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white flex items-center justify-center rounded-xl group-hover:scale-110 transition">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M7.75 2C4.574 2 2 4.574 2 7.75v8.5C2 19.426 4.574 22 7.75 22h8.5C19.426 22 22 19.426 22 16.25v-8.5C22 4.574 19.426 2 16.25 2h-8.5zm0 2h8.5A3.75 3.75 0 0 1 20 7.75v8.5A3.75 3.75 0 0 1 16.25 20h-8.5A3.75 3.75 0 0 1 4 16.25v-8.5A3.75 3.75 0 0 1 7.75 4zm8.75 1.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
-                        </svg>
+                        <h4 class="font-bold text-[#1E5631] text-sm md:text-base">Instagram</h4>
+                        {{-- Hapus truncate jika ingin teks memanjang, biarkan truncate agar rapi di HP --}}
+                        <p class="text-xs md:text-sm text-gray-500 mt-1 truncate px-2">@almardliyyah.demangan</p>
+                    </a>
 
-                    </div>
+                    <a href="https://www.facebook.com/share/18MpGAx7LZ/" target="_blank"
+                    class="w-full group bg-white border border-gray-100 rounded-lg p-4 md:p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
+                        data-aos="fade-up"
+                        data-aos-delay="200">
 
-                    <h4 class="font-bold text-[#1E5631]">Instagram</h4>
-                    <p class="text-sm text-gray-500 mt-1">@almardliyyah.demangan</p>
-                </a>
+                        <div class="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 bg-blue-600 text-white flex items-center justify-center rounded-xl group-hover:scale-110 transition">
+                            <svg class="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </div>
 
-                <!-- FACEBOOK -->
-                <a href="https://www.facebook.com/share/18MpGAx7LZ/" target="_blank"
-                class="w-full group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
-                    data-aos="fade-up"
-                    data-aos-delay="200">
+                        <h4 class="font-bold text-[#1E5631] text-sm md:text-base">Facebook</h4>
+                        <p class="text-xs md:text-sm text-gray-500 mt-1 truncate px-2">Al-Mardliyyah</p>
+                    </a>
 
-                    <div class="w-16 h-16 mx-auto mb-4 bg-blue-600 text-white flex items-center justify-center rounded-xl group-hover:scale-110 transition">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
-                    </div>
+                    <a href="https://www.tiktok.com/@almardliyyah" target="_blank"
+                    class="w-full group bg-white border border-gray-100 rounded-lg p-4 md:p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
+                        data-aos="fade-up"
+                        data-aos-delay="300">
 
-                    <h4 class="font-bold text-[#1E5631]">Facebook</h4>
-                    <p class="text-sm text-gray-500 mt-1">Al-Mardliyyah</p>
-                </a>
+                        <div class="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 bg-black text-white flex items-center justify-center rounded-xl group-hover:scale-110 transition">
+                            <svg class="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v8.75c-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72v4.44c-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36V.02z"/>
+                            </svg>
+                        </div>
 
-                <!-- TIKTOK -->
-                <a href="https://www.tiktok.com/@almardliyyah" target="_blank"
-                class="w-full group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
-                    data-aos="fade-up"
-                    data-aos-delay="300">
+                        <h4 class="font-bold text-[#1E5631] text-sm md:text-base">TikTok</h4>
+                        <p class="text-xs md:text-sm text-gray-500 mt-1 truncate px-2">@almardliyyah</p>
+                    </a>
 
-                    <div class="w-16 h-16 mx-auto mb-4 bg-black text-white flex items-center justify-center rounded-xl group-hover:scale-110 transition">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v8.75c-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72v4.44c-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36V.02z"/>
-                        </svg>
-                    </div>
+                    <a href="https://youtube.com/@al-mardliyyah448" target="_blank"
+                    class="w-full group bg-white border border-gray-100 rounded-lg p-4 md:p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
+                        data-aos="fade-up"
+                        data-aos-delay="400">
 
-                    <h4 class="font-bold text-[#1E5631]">TikTok</h4>
-                    <p class="text-sm text-gray-500 mt-1">@almardliyyah</p>
-                </a>
+                        <div class="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 bg-red-600 text-white flex items-center justify-center rounded-xl group-hover:scale-110 transition">
+                            <svg class="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93-.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.5₀₂-5.8₁₄zM9.545 ₁₅.₅₆₈V8.43₂L₁₅.8₁₈ ₁₂l-6.₂7₃ ₃.₅₆₈z"/>
+                            </svg>
+                        </div>
 
-                <!-- YOUTUBE -->
-                <a href="https://youtube.com/@al-mardliyyah448" target="_blank"
-                class="w-full group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
-                    data-aos="fade-up"
-                    data-aos-delay="400">
+                        <h4 class="font-bold text-[#1E5631] text-sm md:text-base">YouTube</h4>
+                        <p class="text-xs md:text-sm text-gray-500 mt-1 truncate px-2">Al-Mardliyyah</p>
+                    </a>
 
-                    <div class="w-16 h-16 mx-auto mb-4 bg-red-600 text-white flex items-center justify-center rounded-xl group-hover:scale-110 transition">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93-.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                        </svg>
-                    </div>
-
-                    <h4 class="font-bold text-[#1E5631]">YouTube</h4>
-                    <p class="text-sm text-gray-500 mt-1">Al-Mardliyyah</p>
-                </a>
-
-            </div>
-
+                </div>
+            </div> {{-- Penutup div max-w-6xl mx-auto px-6 --}}
         </div>
         
         {{-- ================= KONTAK PENDAFTARAN ================= --}}
@@ -278,7 +274,7 @@
                             $linkWhatsApp = 'https://wa.me/' . $nomorBersih;
                         @endphp
 
-                        <div class="w-full md:w-80 group bg-white border border-gray-100 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
+                        <div class="w-full md:w-80 group bg-white border border-gray-100 rounded-lg p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 text-center"
                             data-aos="zoom-in" data-aos-delay="{{ $loop->iteration * 150 }}" data-aos-duration="800">
                             
                             <div class="w-16 h-16 mx-auto mb-6 bg-[#25D366] text-white flex items-center justify-center rounded-2xl {{ $loop->iteration % 2 == 0 ? '-rotate-3' : 'rotate-3' }} group-hover:rotate-0 transition-transform duration-300 shadow-lg">

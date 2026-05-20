@@ -13,7 +13,7 @@ class GaleriController extends Controller
     {
         $kategoriAktif = $request->query('kategori', 'semua');
         $page = $request->query('page', 1);
-        $perPage = 3; 
+        $perPage = 4; 
 
         $categories = ['Kegiatan', 'Fasilitas', 'Prestasi', 'Lingkungan'];
         
@@ -27,7 +27,9 @@ class GaleriController extends Controller
 
         $allGaleris = $query->orderBy('created_at', 'desc')->get();
         $total = $allGaleris->count();
-        $visibleGaleris = ($page > 1) ? $allGaleris : $allGaleris->take($perPage);
+        
+        // PERUBAHAN UTAMA: Kirimkan semua galeri hasil query agar bisa disembunyikan/ditampilkan oleh JavaScript
+        $visibleGaleris = $allGaleris;
 
         return view('pages.public.galeri', compact(
             'visibleGaleris', 

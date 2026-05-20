@@ -4,8 +4,7 @@
 
 <div class="max-w-6xl mx-auto py-12 px-4">
 
-<!-- STEP PROGRESS -->
-<div class="flex items-center justify-between mb-16 px-10">
+<div class="flex items-center justify-between mb-20 md:mb-16 px-2 sm:px-6 md:px-10">
 
     @php
             $steps = [
@@ -21,15 +20,15 @@
                 
                 {{-- GARIS PENGHUBUNG --}}
                 @if($number != 4)
-                    <div class="absolute top-5 left-1/2 w-full h-[3px] -z-0 
+                    <div class="absolute top-4 md:top-5 left-1/2 w-full h-[3px] -z-0 
                         {{ $number < 4 ? 'bg-[#1e4d2b]' : 'bg-gray-200' }}">
                     </div>
                 @endif
 
-                {{-- BULATAN --}}
+                {{-- BULATAN (Responsif mengecil di HP) --}}
                 <div class="z-10 flex flex-col items-center">
                     <div class="
-                        w-11 h-11 flex items-center justify-center rounded-full text-lg font-bold shadow-sm
+                        w-8 h-8 md:w-11 md:h-11 flex items-center justify-center rounded-full text-sm md:text-lg font-bold shadow-sm
                         {{ $number <= 3 
                             ? 'bg-[#1e4d2b] text-white' 
                             : ($number == 4 
@@ -40,7 +39,8 @@
                         {{ $number }}
                     </div>
 
-                    <span class="text-xs mt-3 font-bold text-gray-700 text-center absolute -bottom-8 w-max">
+                    {{-- LABEL TEKS (Responsif wrap di HP) --}}
+                    <span class="text-[10px] md:text-xs mt-2 md:mt-3 font-bold text-gray-700 text-center absolute -bottom-8 md:-bottom-8 w-16 sm:w-20 md:w-max leading-tight break-words">
                         {{ $label }}
                     </span>
                 </div>
@@ -50,20 +50,17 @@
 </div>
 </div>
 
-<!-- TITLE -->
-<div class="text-center mb-8">
-    <h2 class="text-3xl font-bold text-[#1E5631]">
+<div class="text-center mb-8 px-4">
+    <h2 class="text-2xl md:text-3xl font-bold text-[#1E5631]">
         Upload Dokumen Persyaratan
     </h2>
-    <p class="text-gray-500">
+    <p class="text-sm md:text-base text-gray-500 mt-2">
         Langkah 3 : Lengkapi dokumen yang diperlukan untuk proses verifikasi
     </p>
 </div>
 
-<!-- CONTENT -->
-<div class="max-w-2xl mx-auto pb-12">
+<div class="max-w-2xl mx-auto pb-12 px-4">
 
-    <!-- PROGRESS BAR -->
     <div class="bg-white border rounded-xl p-5 mb-6 shadow-sm">
         <p class="text-sm font-semibold text-[#1E5631] mb-3">Progress Upload</p>
         <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
@@ -118,22 +115,20 @@
         @foreach($dokumen as $index => $item)
         <div class="bg-white border rounded-xl p-6 shadow-sm">
 
-            <!-- TITLE -->
             <div class="flex items-start gap-3 mb-4">
-                <div class="w-5 h-5 bg-[#1E5631] rounded-md mt-1"></div>
+                <div class="w-5 h-5 bg-[#1E5631] rounded-md mt-1 shrink-0"></div>
 
                 <div>
                     <p class="text-sm font-semibold text-[#1E5631]">
                         {{ $item['judul'] }}
                     </p>
-                    <p class="text-xs text-gray-400">
+                    <p class="text-xs text-gray-400 mt-0.5">
                         {{ $item['format'] }}
                     </p>
                 </div>
             </div>
 
-            <!-- INPUT FILE -->
-            <label class="w-full border border-gray-200 rounded-lg p-6 flex flex-col items-center justify-center text-gray-400 cursor-pointer hover:border-[#2F855A] transition bg-gray-50">
+            <label class="w-full border border-gray-200 rounded-lg p-6 flex flex-col items-center justify-center text-center text-gray-400 cursor-pointer hover:border-[#2F855A] transition bg-gray-50">
 
                 <svg xmlns="http://www.w3.org/2000/svg" 
                      class="w-7 h-7 mb-2 text-gray-400" 
@@ -155,8 +150,8 @@
                 @endphp
 
                 @if($file && $file != '-')
-                    <p class="text-green-600 text-sm mb-2">
-                        Sudah upload
+                    <p class="text-green-600 text-sm mb-2 mt-2 font-semibold">
+                        ✓ Sudah diupload
                     </p>
 
                 <a href="{{ asset('images/'.$file) }}" target="_blank"
@@ -172,11 +167,10 @@
         </div>
         @endforeach
 
-        <!-- BUTTON -->
-        <div class="text-center pt-4">
+        <div class="text-center pt-6">
             <button type="submit"
-                class="bg-[#C6A75E] text-white px-8 py-2 rounded-lg font-semibold hover:bg-[#b8954d] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-                Kirim
+                class="w-full md:w-auto bg-[#C6A75E] text-white px-12 py-3 rounded-lg font-semibold hover:bg-[#b8954d] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                Kirim Dokumen
             </button>
         </div>
 

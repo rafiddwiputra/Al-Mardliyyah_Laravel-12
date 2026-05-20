@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('video_pondok', function (Blueprint $table) {
             $table->id();
 
-            $table->string('judul', 150);
+            $table->string('judul', 100);
             $table->text('deskripsi');
 
             $table->string('thumbnail')->nullable(); 

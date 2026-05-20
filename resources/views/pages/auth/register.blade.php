@@ -65,8 +65,8 @@
     {{-- ================= CARD FORM ================= --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 max-w-5xl mx-auto">
 
-        <form action="{{ route('register.store') }}" method="POST">
-            @csrf
+        <form id="formRegister" method="POST" action="{{ route('register') }}" onsubmit="showLoading()">
+        @csrf
 
             {{-- GRID FORM --}}
             <div class="grid md:grid-cols-2 gap-x-12 gap-y-6">
@@ -207,10 +207,19 @@
 
                 {{-- BUTTON & LOGIN --}}
                 <div class="flex flex-col items-center justify-center gap-3">
-                    <button type="submit"
+                    <button type="submit" id="btnSubmit"
                         class="w-full bg-[#c9a76d] hover:bg-[#b5955e] transition text-white font-bold
-                               py-3.5 rounded-lg shadow-sm text-lg">
-                        Daftar Akun
+                               py-3.5 rounded-lg shadow-sm text-lg flex items-center justify-center gap-2">
+                        
+                        {{-- Teks Tombol (diberi ID agar bisa diubah JS) --}}
+                        <span id="btnText">Daftar Akun</span>
+
+                        {{-- Icon Muter-muter (Spinner) SVG Tailwind - Awalnya disembunyikan dengan class 'hidden' --}}
+                        <svg id="btnSpinner" class="hidden w-5 h-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+
                     </button>
                     
                     <div class="text-sm text-gray-700">
@@ -228,7 +237,7 @@
 </div>
 
 <style>
-    /* Hilangkan icon bawaan browser */
+    
     input[type="password"]::-ms-reveal,
     input[type="password"]::-ms-clear {
         display: none;
@@ -257,7 +266,6 @@
 
             if (isHidden) {
 
-                // mata normal
                 eyeIcon.innerHTML = `
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -270,7 +278,6 @@
 
             } else {
 
-                // mata dicoret
                 eyeIcon.innerHTML = `
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M13.875 18.825A10.05 10.05 0 0112 19
@@ -293,6 +300,17 @@
         'toggleConfirmPassword',
         'confirmEyeIcon'
     );
+
+    function showLoading() {
+       
+        const btn = document.getElementById('btnSubmit');
+        const text = document.getElementById('btnText');
+        const spinner = document.getElementById('btnSpinner');
+        text.classList.add('hidden');
+        spinner.classList.remove('hidden');
+        btn.disabled = true;
+        btn.classList.add('opacity-80', 'cursor-not-allowed');
+    }
 
 </script>
 
