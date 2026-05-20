@@ -2,17 +2,19 @@
 
 @section('content')
 
-<div class="max-w-6xl mx-auto py-12 px-4">
+{{-- Container Utama yang memberikan jarak aman (px-4 sm:px-6) --}}
+<div class="max-w-6xl mx-auto py-12 px-4 sm:px-6">
 
-<div class="flex items-center justify-between mb-20 md:mb-16 px-2 sm:px-6 md:px-10">
+    <div class="flex items-center justify-between mb-20 md:mb-16 px-2 sm:px-6 md:px-10">
 
-    @php
+        @php
             $steps = [
                 1 => 'Buat Akun',              
                 2 => 'Isi Formulir',
                 3 => 'Upload Dokumen',
                 4 => 'Status Pendaftaran'
             ];
+            $currentStep = 4;
         @endphp
 
         @foreach($steps as $number => $label)
@@ -47,8 +49,9 @@
             </div>
         @endforeach
 
-</div>
-</div>
+    </div>
+
+    {{-- Tag </div> penyusup yang membuat desain berantakan sudah DIHAPUS dari sini --}}
 
     <div class="text-center mb-8 px-4">
         <h2 class="text-2xl md:text-3xl font-bold text-[#1E5631]">
@@ -82,10 +85,9 @@
             <p class="font-medium text-gray-800">{{ $data->created_at->format('d F Y') }}</p>
         </div>
 
-       {{-- Logika PDF tidak diubah --}}
         @if(strtolower($data->status ?? '') === 'diterima')
         <div class="mt-8 flex justify-center">
-            {{-- Tombol dibuat melebar penuh di HP (w-full) dan flex justify-center --}}
+            {{-- Tombol PDF dibuat melebar penuh di HP (w-full) --}}
             <a href="{{ route('user.cetak-bukti') }}" target="_blank" 
                class="w-full md:w-auto flex justify-center items-center gap-2 bg-[#1E5631] text-white px-6 py-3 md:py-3.5 rounded-lg text-sm md:text-base font-semibold hover:bg-[#17472a] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 shadow-md">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -104,6 +106,6 @@
 
     </div>
 
-</div>
+</div> 
 
 @endsection

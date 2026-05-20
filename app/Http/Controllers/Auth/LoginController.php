@@ -5,10 +5,41 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Public\PeriodePendaftaran;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 { 
+    /**
+     * TAMPILKAN HALAMAN LOGIN
+     */
+    public function showLoginForm()
+    {
+        // 1. Cek periode aktif di database
+        $periodeAktif = PeriodePendaftaran::where('status', 1)->orderBy('tanggal_mulai', 'asc')->first();
+        
+        $statusPendaftaran = false;
 
+        // 2. Cek apakah tanggal hari ini masuk dalam rentang buka pendaftaran
+        if ($periodeAktif && $periodeAktif->tanggal_mulai && $periodeAktif->tanggal_selesai) {
+            $hariIni = Carbon::now();
+            $mulai = Carbon::parse($periodeAktif->tanggal_mulai)->startOfDay();
+            $selesai = Carbon::parse($periodeAktif->tanggal_selesai)->endOfDay();
+            
+            if ($hariIni->between($mulai, $selesai)) {
+                $statusPendaftaran = true; // Pendaftaran BUKA
+            }
+        }
+
+        // 3. Kirim status aslinya ke view login
+        return view('pages.auth.login-global', [
+            'status' => $statusPendaftaran
+        ]);
+    }
+
+    /**
+     * PROSES OTENTIKASI (SATPAM UTAMA)
+     */
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
@@ -57,6 +88,9 @@ class LoginController extends Controller
         ])->onlyInput('email');
     }
 
+    /**
+     * KELUAR SISTEM
+     */
     public function logout(Request $request)
     {
         Auth::logout();
@@ -64,4 +98,4 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
-} 
+}

@@ -86,7 +86,7 @@
 
         {{-- Hero Image Sejarah --}}
         <div class="mb-16" data-aos="zoom-in" data-aos-duration="1000">
-            <div class="rounded-lg  overflow-hidden shadow-xl border-8 border-white">
+            <div class="rounded-lg overflow-hidden shadow-xl border-8 border-white">
                 <img src="{{ asset('images/sejarah.jpg') }}" alt="Foto Pondok" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
             </div>
         </div>
@@ -110,19 +110,18 @@
             {{-- Awal Berdiri --}}
             <div data-aos="fade-up">
                 <h3 class="text-2xl font-bold text-[#1e4d2b] mb-4">Awal Berdiri</h3>
-                <p class="mt-4">
-                    Pondok Pesantren Al-Mardliyyah pada awalnya merupakan salah satu dari empat asrama yang berada di bawah naungan Yayasan Pendidikan Islam Mujaddadiyyah. Keempat asrama tersebut
-                    adalah Asrama Gen-Q Al-Mujaddadiyyah, asrama Induk Putra, asrama Induk Putri dan asrama Tahfidzul Qur'an Al-Mardliyyah. 
+                <p>
+                    Pondok pesantren Al-Mardliyyah pada awalnya merupakan salah satu dari empat asrama yang berada di bawah naungan Yayasan Pendidikan Islam Al-Mujaddadiyyah. Keempat asrama tersebut adalah Asrama Gen-Q Al-Mujaddadiyyah, asrama Induk Putra, asrama Induk Putri dan asrama Tahfidzul Qur’an Al-Mardliyyah.
                 </p>
             </div>
 
-            {{-- Quote Box --}}
+            {{-- Quote Box Visi KH. Ahmad Mardliyyah --}}
             <div class="bg-[#FAFAFA] border-l-4 border-[#c9a76d] p-8 rounded-r-lg my-12 shadow-sm" data-aos="fade-right" data-aos-duration="1000">
                 <svg class="w-10 h-10 text-[#c9a76d] opacity-30 mb-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M14.017 21L14.017 18C14.017 16.899 14.899 16 16 16H19C19.103 16 19.204 16.007 19.303 16.022C19.123 13.945 18.027 12.65 16.195 12.147C15.639 11.996 15.222 11.517 15.148 10.941C15.074 10.365 15.353 9.81 15.834 9.511C18.231 8.019 20.301 8.52 21.684 11.124C22.42 12.518 22.75 14.301 22.75 16.5C22.75 19.011 20.914 21 18.75 21H14.017ZM1.25 21L1.25 18C1.25 16.899 2.131 16 3.232 16H6.232C6.335 16 6.436 16.007 6.535 16.022C6.355 13.945 5.259 12.65 3.427 12.147C2.871 11.996 2.454 11.517 2.38 10.941C2.306 10.365 2.585 9.81 3.066 9.511C5.463 8.019 7.533 8.52 8.916 11.124C9.652 12.518 9.982 14.301 9.982 16.5C9.982 19.011 8.146 21 5.982 21H1.25Z" />
                 </svg>
                 <p class="text-xl md:text-2xl font-bold text-[#1e4d2b] italic leading-tight">
-                    "Mencetak generasi berakhlak mulia dan berilmu, yang mampu memberikan manfaat bagi agama, bangsa, dan negara"
+                    "Mencetak generasi berakhlak mulia and berilmu, yang mampu memberikan manfaat bagi agama, bangsa, dan negara"
                 </p>
                 <p class="mt-4 text-gray-500 font-semibold">— Visi KH. Ahmad Mardliyyah</p>
             </div>
@@ -133,7 +132,7 @@
             <div data-aos="fade-up">
                 <h3 class="text-2xl font-bold text-[#1e4d2b] mb-4">Perkembangan Pondok</h3>
                 <p>
-                    Pondok pesantren Al-Mardliyyah pada awalnya merupakan salah satu dari empat asrama yang berada di bawah naungan Yayasan Pendidikan Islam Al-Mujaddadiyyah. Keempat asrama tersebut adalah Asrama Gen-Q Al-Mujaddadiyyah, asrama Induk Putra, asrama Induk Putri dan asrama Tahfidzul Qur’an Al-Mardliyyah. laundry dan pertanian. Serta beberapa kegiatan dalam bidang kesenian seperti: qira’ah, hadrah, muhadharah, barongsai, paduan suara dan juga kaligrafi yang bertujuan mengembangkan potensi, minat dan bakat santri.
+                    Selain program utama tahfidzul qur’an, Pondok Pesantrean Al-Mardliyyah juga mengembangkan kurikulum pendidikannya dengan menambahkan sejumlah program unggulan seperti: pengajaran Bahasa Arab, kajian kitab-kitab kuning dan ekstra Bahasa Inggris. Disamping itu, Pondok Pesantren Al-Mardliyyah juga mengintegrasikan beberapa kegiatan entrepreneurship untuk melatih keterampilan dan kemandirian santri dalam berbagai bidang antara lain: tata boga, menjahit, laundry dan pertanian. Serta beberapa kegiatan dalam bidang kesenian seperti: qira’ah, hadrah, muhadharah, barongsai, paduan suara dan juga kaligrafi yang bertujuan mengembangkan potensi, minat dan bakat santri.
                 </p>
                 <p class="mt-4">
                     Hingga saat ini, tercatat lebih dari 700 santri yang berdomisili dan menimba ilmu di Pondok Pesantren Al-Mardliyyah. Para santri tersebut tidak hanya berasal dari wilayah Pulau Jawa, tetapi juga dari daerah lain di Indonesia seperti Sumatra, Riau, Jambi, Lampung dan Kalimantan. Hal tersebut menunjukkan luasnya cakupan dan kepercayaan masyarakat terhadap eksistensi pondok pesantren ini.
@@ -142,7 +141,7 @@
                     Seiring berjalannya waktu serta perkembangan yang pesat, baik dari segi jumlah santri maupun cakupan program pendidikan yang diselenggarakan. Berdasarkan Keputusan Direktur Jenderal Pendidikan Islam pada tanggal 11 Mei 2021, Pondok Pesantren Al-Mardliyyah secara resmi diakui dan tercatat di Kementerian Agama Republik Indonesia dengan Nomor Statistik 965, menggunakan nama resmi “Pondok Pesantren Al-Mardliyyah”.
                 </p>
                 <p class="mt-4 font-semibold text-[#1e4d2b]">
-                    Meskipun telah berdiri sebagai  yayasan  pendidikan Islam yang mandiri dan tercatat secara resmi, Pondok Pesantren Al-Mardliyyah tetap berada di bawah naungan besar Pondok Pesantren Al-Mujaddadiyyah. Oleh karena itu, secara kelembagaan dan historis, pondok ini masih dikenal oleh masyarakat luas dengan nama Pondok Pesantren Al-Mardliyyah Al-Mujaddadiyyah.
+                    Meskipun telah berdiri sebagai yayasan pendidikan Islam yang mandiri dan tercatat secara resmi, Pondok Pesantren Al-Mardliyyah tetap berada di bawah naungan besar Pondok Pesantren Al-Mujaddadiyyah. Oleh karena itu, secara kelembagaan dan historis, pondok ini masih dikenal oleh masyarakat luas dengan nama Pondok Pesantren Al-Mardliyyah Al-Mujaddadiyyah.
                 </p>
             </div>
 

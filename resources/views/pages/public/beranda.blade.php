@@ -136,7 +136,11 @@
                 Latar Belakang <br> <span class="text-[#1E5631]">Berdirinya Pondok</span>
             </h2>
             <p class="text-gray-600 mb-8 leading-relaxed text-base text-justify md:text-left">
-                Berawal dari keprihatinan mendalam terhadap kondisi pendidikan Islam di tahun 1980-an, sekelompok ulama dan tokoh masyarakat berinisiatif mendirikan sebuah lembaga pendidikan yang mampu mencetak generasi muslim yang unggul, berakhlak mulia, dan berwawasan luas.
+                Pondok Pesantren Al-Mardliyyah, atau yang lebih dikenal masyarakat sebagai “Pondok Demangan”, didirikan secara resmi pada tahun 2010 M oleh KH. Agus Mushoffa Izzuddin. Kehadiran pesantren ini bermula dari niat mulia beliau untuk memfasilitasi sang istri, Ibu Nyai Hj. Siti Alfiyah, dalam mengamalkan dan menyiarkan ilmu Al-Qur'an melalui asrama khusus Tahfidzul Qur'an.
+
+                Dalam perjalanannya, pondok yang bernaung di bawah Yayasan Pendidikan Islam Al-Mujaddadiyyah ini berkembang sangat pesat. Tidak hanya berfokus pada hafalan Al-Qur'an, Al-Mardliyyah kini memadukan kajian kitab kuning dengan program kewirausahaan (entrepreneurship) dan pengembangan bakat, demi mencetak kader pemimpin yang tangguh, berkarakter, dan siap terjun ke masyarakat.
+
+                Kini, kepercayaan umat dari berbagai penjuru Nusantara—mulai dari Pulau Jawa, Sumatra, hingga Kalimantan—telah menjadikan pesantren ini rumah bagi lebih dari 700 santri untuk menimba ilmu dan membangun peradaban Islam yang Radhiyatan Mardliyyah.
             </p>
             <a href="{{ route('profile') }}" 
                class="inline-block bg-white text-[#1E5631] border-2 border-[#1E5631] px-8 py-3 rounded-lg font-bold shadow-sm hover:bg-[#1E5631] hover:text-white hover:-translate-y-1 transition-all duration-300">

@@ -197,6 +197,10 @@ class PendaftaranController extends Controller
                 'sumber_informasi' => $request->sumber_informasi == 'Other'
                     ? $request->sumber_informasi_lainnya
                     : $request->sumber_informasi,
+                'ukuran_baju_putra' => $request->ukuran_baju_putra,
+                'ukuran_celana_putra' => $request->ukuran_celana_putra,
+                'ukuran_baju_putri' => $request->ukuran_baju_putri,
+                'ukuran_rok_putri' => $request->ukuran_rok_putri,
                 'foto_santri' => '-',
                 'akta_kelahiran' => '-',
                 'kartu_keluarga' => '-',

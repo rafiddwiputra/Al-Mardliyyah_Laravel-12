@@ -8,9 +8,35 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
+use Carbon\Carbon;
+use App\Models\Public\PeriodePendaftaran;
 
 class RegisterController extends Controller
 {
+
+    public function showRegistrationForm()
+    {
+        $periodeAktif = PeriodePendaftaran::where('status', 1)->orderBy('tanggal_mulai', 'asc')->first();
+        
+        $statusPendaftaran = false;
+
+        if ($periodeAktif && $periodeAktif->tanggal_mulai && $periodeAktif->tanggal_selesai) {
+            $hariIni = Carbon::now();
+            $mulai = Carbon::parse($periodeAktif->tanggal_mulai)->startOfDay();
+            $selesai = Carbon::parse($periodeAktif->tanggal_selesai)->endOfDay();
+            
+            if ($hariIni->between($mulai, $selesai)) {
+                $statusPendaftaran = true; 
+            }
+        }
+
+        if (!$statusPendaftaran) {
+            return redirect()->route('login')->with('error', 'Mohon maaf, pendaftaran saat ini sedang tidak dibuka.');
+        }
+
+        return view('pages.auth.register');
+    }
+
     public function store(Request $request)
     {
         $request->validate([

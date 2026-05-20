@@ -34,23 +34,27 @@ use App\Http\Controllers\Pimpinan\LaporanPimpinanController;
 use App\Http\Controllers\Pimpinan\PimpinanEditProfilController;
 use App\Http\Controllers\Pimpinan\PimpinanDashboardController;
 
+
 // ================== DEBUG ==================
 Route::get('/debug-login', function () {
     return auth()->check() ? 'SUDAH LOGIN' : 'BELUM LOGIN';
 });
 
 // ================= REGISTER DAN LOGIN (AUTH) =================
-Route::get('/register', function () {
-    return view('pages.auth.register');
-})->middleware('guest')->name('register'); 
+
+// Register diarahkan ke Controller (pastikan RegisterController punya method showRegistrationForm)
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])
+    ->middleware('guest')
+    ->name('register'); 
 
 Route::post('/register', [RegisterController::class, 'store'])
     ->name('register.store')
     ->middleware('guest');
 
-Route::get('/login', function () {
-    return view('pages.auth.login-global'); 
-})->name('login')->middleware('guest');
+// Login sekarang diarahkan ke LoginController, BUKAN lagi menggunakan function() langsung
+Route::get('/login', [LoginController::class, 'showLoginForm'])
+    ->name('login')
+    ->middleware('guest');
 
 Route::post('/login', [LoginController::class, 'authenticate'])
     ->name('login.authenticate')
@@ -63,7 +67,6 @@ Route::post('/logout', [LoginController::class, 'logout'])
 // ================= Suatu Kondisi Pendaftaran =================
 Route::get('/redirect-pendaftaran', [RedirectPendaftaranController::class, 'index'])
     ->name('redirect.pendaftaran');
-
 
 // ================= EMAIL VERIFICATION =================
 
