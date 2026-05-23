@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         // Opsional: Kamu juga bisa sekalian membuatkan satu akun Admin awal di sini
         User::create([
             'nama' => 'Admin Utama',
-            'email' => 'centa@al-mardliyyah.com',
+            'email' => 'ppdbalmardliyyah@gmail.com',
             'password' => Hash::make('admin123'), 
             'no_hp' => '089876543210',
             'role' => 'admin', 
