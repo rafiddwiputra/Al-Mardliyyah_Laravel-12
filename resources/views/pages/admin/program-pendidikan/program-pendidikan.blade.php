@@ -3,7 +3,6 @@
 @section('content')
 
 {{-- ================= TOAST NOTIFICATION CONTAINER ================= --}}
-{{-- Container dibuat 'fixed' di pojok kanan atas, menimpa elemen lain (z-[9999]) --}}
 <div id="toast-container" class="fixed top-5 right-5 z-[9999] flex flex-col gap-3 items-end pointer-events-none">
     
     @if(session('success'))
@@ -79,21 +78,30 @@
     </div>
 
     {{-- ================= SECTION 1: LEMBAGA PENDIDIKAN ================= --}}
-    {{-- Menyesuaikan dengan string persis dari nilai ENUM di database --}}
     @if(isset($programs['lembaga pendidikan']))
     <div class="border border-[#D9D9D9] rounded mb-6 overflow-hidden bg-white">
 
-        <div class="bg-gradient-to-r from-[#1E5631] to-[#43C463] px-8 py-5">
-            <h2 class="text-white font-bold text-[18px]">
-                Daftar Lembaga Pendidikan
-            </h2>
+        {{-- HEADER 3 KOLOM --}}
+        {{-- Dihapus px-5, py-4, dan items-center agar border bisa mentok atas bawah --}}
+        <div class="bg-gradient-to-r from-[#1E5631] to-[#43C463] grid grid-cols-12">
+            <div class="col-span-6 md:col-span-7 p-5 pr-4 flex items-center">
+                <h2 class="text-white font-bold text-[18px]">Daftar Lembaga Pendidikan</h2>
+            </div>
+            <div class="col-span-3 md:col-span-2 flex items-center justify-center border-l border-white/40 py-4">
+                <span class="text-white font-bold text-[16px]">Status</span>
+            </div>
+            <div class="col-span-3 md:col-span-3 flex items-center justify-center border-l border-white/40 py-4 px-2">
+                <span class="text-white font-bold text-[16px]">Aksi</span>
+            </div>
         </div>
 
         <div class="divide-y divide-[#D9D9D9]">
             @foreach($programs['lembaga pendidikan'] as $program)
-            <div class="flex justify-between items-center px-5 py-4 hover:bg-gray-50 transition">
+            {{-- Dihapus items-center di sini agar border-l bisa lurus stretch --}}
+            <div class="grid grid-cols-12 hover:bg-gray-50 transition duration-150">
 
-                <div>
+                {{-- KOLOM 1: INFO PROGRAM --}}
+                <div class="col-span-6 md:col-span-7 p-5 pr-4 flex flex-col justify-center">
                     <h3 class="font-semibold text-[16px] text-black">
                         {{ $program->nama_program }}
                     </h3>
@@ -102,8 +110,21 @@
                     </p>
                 </div>
 
-                <div class="flex gap-3 shrink-0">
-                    {{-- Perhatikan parameter ke-4: mengirimkan string kategori, bukan ID --}}
+                {{-- KOLOM 2: STATUS --}}
+                <div class="col-span-3 md:col-span-2 flex items-center justify-center border-l border-[#D9D9D9] py-4">
+                    @if(strtolower($program->status) === 'aktif')
+                        <span class="bg-green-100 text-green-700 text-xs font-bold px-4 py-1.5 rounded border border-green-200">
+                            Aktif
+                        </span>
+                    @else
+                        <span class="bg-red-100 text-red-700 text-xs font-bold px-4 py-1.5 rounded border border-red-200">
+                            Nonaktif
+                        </span>
+                    @endif
+                </div>
+
+                {{-- KOLOM 3: AKSI --}}
+                <div class="col-span-3 md:col-span-3 flex flex-col xl:flex-row justify-center items-center gap-3 border-l border-[#D9D9D9] py-4 px-2">
                     <button onclick="openEditProgramModal(
                         {{ $program->id }},
                         '{{ addslashes($program->nama_program) }}',
@@ -111,12 +132,12 @@
                         '{{ $program->nama_kategori }}', 
                         '{{ $program->status }}'
                     )"
-                    class="bg-[#BFDBFE] text-[#1D4ED8] px-6 py-2 rounded text-sm font-medium hover:bg-blue-300 transition">
+                    class="bg-[#BFDBFE] text-[#1D4ED8] w-20 px-0 py-2 rounded text-sm font-medium hover:bg-blue-300 transition">
                         Edit
                     </button>
 
                     <button onclick="openHapusProgramModal({{ $program->id }}, '{{ addslashes($program->nama_program) }}')"
-                        class="bg-[#FECACA] text-[#B91C1C] px-6 py-2 rounded text-sm font-medium hover:bg-red-300 transition">
+                        class="bg-[#FECACA] text-[#B91C1C] w-20 px-0 py-2 rounded text-sm font-medium hover:bg-red-300 transition">
                         Hapus
                     </button>
                 </div>
@@ -132,17 +153,25 @@
     @if(isset($programs['program pendidikan']))
     <div class="border border-[#D9D9D9] rounded mb-6 overflow-hidden bg-white">
 
-        <div class="bg-gradient-to-r from-[#1E5631] to-[#43C463] px-8 py-5">
-            <h2 class="text-white font-bold text-[18px]">
-                Daftar Program Pendidikan (Ekstrakurikuler/Unggulan)
-            </h2>
+        {{-- HEADER 3 KOLOM --}}
+        <div class="bg-gradient-to-r from-[#1E5631] to-[#43C463] grid grid-cols-12">
+            <div class="col-span-6 md:col-span-7 p-5 pr-4 flex items-center">
+                <h2 class="text-white font-bold text-[18px]">Daftar Program Pendidikan (Ekstrakurikuler)</h2>
+            </div>
+            <div class="col-span-3 md:col-span-2 flex items-center justify-center border-l border-white/40 py-4">
+                <span class="text-white font-bold text-[16px]">Status</span>
+            </div>
+            <div class="col-span-3 md:col-span-3 flex items-center justify-center border-l border-white/40 py-4 px-2">
+                <span class="text-white font-bold text-[16px]">Aksi</span>
+            </div>
         </div>
 
         <div class="divide-y divide-[#D9D9D9]">
             @foreach($programs['program pendidikan'] as $program)
-            <div class="flex justify-between items-center px-5 py-4 hover:bg-gray-50 transition">
+            <div class="grid grid-cols-12 hover:bg-gray-50 transition duration-150">
 
-                <div>
+                {{-- KOLOM 1: INFO PROGRAM --}}
+                <div class="col-span-6 md:col-span-7 p-5 pr-4 flex flex-col justify-center">
                     <h3 class="font-semibold text-[16px] text-black">
                         {{ $program->nama_program }}
                     </h3>
@@ -151,7 +180,21 @@
                     </p>
                 </div>
 
-                <div class="flex gap-3 shrink-0">
+                {{-- KOLOM 2: STATUS --}}
+                <div class="col-span-3 md:col-span-2 flex items-center justify-center border-l border-[#D9D9D9] py-4">
+                    @if(strtolower($program->status) === 'aktif')
+                        <span class="bg-green-100 text-green-700 text-xs font-bold px-4 py-1.5 rounded border border-green-200">
+                            Aktif
+                        </span>
+                    @else
+                        <span class="bg-red-100 text-red-700 text-xs font-bold px-4 py-1.5 rounded border border-red-200">
+                            Nonaktif
+                        </span>
+                    @endif
+                </div>
+
+                {{-- KOLOM 3: AKSI --}}
+                <div class="col-span-3 md:col-span-3 flex flex-col xl:flex-row justify-center items-center gap-3 border-l border-[#D9D9D9] py-4 px-2">
                     <button onclick="openEditProgramModal(
                         {{ $program->id }},
                         '{{ addslashes($program->nama_program) }}',
@@ -159,12 +202,12 @@
                         '{{ $program->nama_kategori }}',
                         '{{ $program->status }}'
                     )"
-                    class="bg-[#BFDBFE] text-[#1D4ED8] px-6 py-2 rounded text-sm font-medium hover:bg-blue-300 transition">
+                    class="bg-[#BFDBFE] text-[#1D4ED8] w-20 px-0 py-2 rounded text-sm font-medium hover:bg-blue-300 transition">
                         Edit
                     </button>
 
                     <button onclick="openHapusProgramModal({{ $program->id }}, '{{ addslashes($program->nama_program) }}')"
-                        class="bg-[#FECACA] text-[#B91C1C] px-6 py-2 rounded text-sm font-medium hover:bg-red-300 transition">
+                        class="bg-[#FECACA] text-[#B91C1C] w-20 px-0 py-2 rounded text-sm font-medium hover:bg-red-300 transition">
                         Hapus
                     </button>
                 </div>
@@ -215,23 +258,23 @@ function closeHapusProgramModal() {
     document.getElementById('modalHapusProgram').classList.add('hidden');
 }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        const toasts = document.querySelectorAll('.toast-alert');
-        
-        toasts.forEach(function(toast, index) {
+document.addEventListener("DOMContentLoaded", function() {
+    const toasts = document.querySelectorAll('.toast-alert');
+    
+    toasts.forEach(function(toast, index) {
+        setTimeout(function() {
+            toast.classList.remove('translate-x-full', 'opacity-0');
+            toast.classList.add('translate-x-0', 'opacity-100');
+        }, 100 + (index * 150)); 
+        setTimeout(function() {
+            toast.classList.remove('translate-x-0', 'opacity-100');
+            toast.classList.add('translate-x-full', 'opacity-0');
             setTimeout(function() {
-                toast.classList.remove('translate-x-full', 'opacity-0');
-                toast.classList.add('translate-x-0', 'opacity-100');
-            }, 100 + (index * 150)); 
-            setTimeout(function() {
-                toast.classList.remove('translate-x-0', 'opacity-100');
-                toast.classList.add('translate-x-full', 'opacity-0');
-                setTimeout(function() {
-                    toast.remove();
-                }, 500);
-            }, 4000); 
-        });
+                toast.remove();
+            }, 500);
+        }, 4000); 
     });
+});
 
 </script>
 

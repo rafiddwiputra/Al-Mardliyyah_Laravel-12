@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pimpinan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash; // ✅ INI WAJIB DITAMBAHKAN UNTUK ENKRIPSI PASSWORD
 
 class PimpinanEditProfilController extends Controller
 {
@@ -36,5 +37,30 @@ class PimpinanEditProfilController extends Controller
         $user->save();
 
         return back()->with('success', 'Profil berhasil diperbarui');
+    }
+
+    // ✅ INI ADALAH FUNGSI BARU UNTUK MENGGANTI PASSWORD
+    public function updatePassword(Request $request)
+    {
+        // 1. Validasi input form
+        $request->validate([
+            'password_lama' => ['required', 'current_password'], // Memastikan password lama benar
+            'password_baru' => ['required', 'min:8', 'confirmed'], // Memastikan password baru cocok
+        ], [
+            'password_lama.current_password' => 'Password saat ini yang Anda masukkan salah.',
+            'password_baru.min' => 'Password baru minimal harus 8 karakter.',
+            'password_baru.confirmed' => 'Konfirmasi password baru tidak cocok.'
+        ]);
+
+        // 2. Ambil data pimpinan yang sedang login
+        $user = Auth::user();
+        
+        // 3. Update dan Enkripsi password baru ke database
+        $user->update([
+            'password' => Hash::make($request->password_baru)
+        ]);
+
+        // 4. Kembali ke halaman sebelumnya dengan pesan sukses
+        return back()->with('success', 'Password berhasil diperbarui!');
     }
 }

@@ -33,11 +33,12 @@
                 
                 <input type="file" name="gambar" id="fileInput" class="hidden" required onchange="previewImage(this)">
 
-                {{-- Input Judul --}}
+                {{-- Input Judul (Dirubah: Tambah maxlength dan teks keterangan) --}}
                 <div>
                     <label class="text-sm font-medium text-gray-700">Nama Kegiatan / Judul Foto</label>
-                    <input type="text" name="judul" required placeholder="Contoh: Sholat Berjamaah"
+                    <input type="text" name="judul" required maxlength="100" placeholder="Contoh: Sholat Berjamaah"
                         class="w-full mt-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#1E5631] focus:border-[#1E5631] transition-all">
+                    <p class="text-[10px] text-gray-400 italic mt-1">*Maksimal 100 karakter.</p>
                 </div>
 
                 {{-- Input Kategori (Sekarang pakai standard Select Dropdown statis) --}}
@@ -99,5 +100,4 @@ function previewImage(input) {
 }
 
 // Catatan: Fungsi openModal & closeModal sudah ada di admin-galeri.blade.php
-</script>
 </script>

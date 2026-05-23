@@ -100,7 +100,7 @@
 
             <!-- BUTTON -->
             <button class="text-sm font-semibold text-white bg-[#1E5631] border border-[#1E5631] px-4 py-2 rounded-lg hover:bg-[#C3A771] hover:border-[#C3A771] transition duration-200 shadow-sm">
-                Export
+                Ekspor
             </button>
 
             <!-- DROPDOWN WRAPPER -->

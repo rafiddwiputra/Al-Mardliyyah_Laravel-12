@@ -48,7 +48,7 @@
 
             {{-- Bagian Konten --}}
             <div class="p-6 flex flex-col flex-grow">
-                <h3 class="font-bold text-lg text-gray-800 mb-3 leading-tight group-hover:text-[#1E5631] transition-colors line-clamp-2">
+                <h3 class="font-bold text-lg text-gray-800 mb-3 leading-tight group-hover:text-[#1E5631] transition-colors line-clamp-4">
                     {{ $berita->judul }}
                 </h3>
 

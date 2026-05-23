@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         // Membuat akun Pimpinan (Super Admin)
         User::create([
             'nama' => 'Pimpinan Pondok',
-            'email' => 'talisca@al-mardliyyah.com',
+            'email' => 'ppalmardliyyah.office@gmail.com',
             'password' => Hash::make('admin123'), // Silakan ganti passwordnya nanti
             'no_hp' => '081234567890',
             'role' => 'pimpinan', 

@@ -16,7 +16,7 @@
         {{-- Teks Arab dirubah ke Indonesia & dibuat responsif --}}
         <p class="text-gray-700 text-sm md:text-lg font-medium px-2">Satu langkah lagi untuk menyelesaikan pendaftaran</p>
     </div>
-
+    
     {{-- Card Container diberi p-6 di HP agar memberikan ruang yang ideal --}}
     <div class="w-full max-w-md bg-white border border-gray-300 rounded-xl p-6 md:p-8 shadow-sm text-center">
         

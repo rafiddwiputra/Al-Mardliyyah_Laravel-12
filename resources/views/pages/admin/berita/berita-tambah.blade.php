@@ -7,7 +7,7 @@
 
         <div class="bg-[#1E5631] py-2">
             <h2 class="text-center text-white font-medium text-base">
-                Tambah Berita {{-- FIX #2: Judul yang benar --}}
+                Tambah Berita
             </h2>
         </div>
 
@@ -18,14 +18,12 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
-                        <label class="block text-sm text-[#000000] mb-1">Judul Berita</label>
-                        {{-- FIX #4: Tidak ada $berita, pakai old() saja --}}
-                        <input type="text" name="judul" required value="{{ old('judul') }}"
-                            class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none">
-                        @error('judul')
-                            <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+    <label class="block text-sm font-medium text-gray-700 mb-1">Judul Berita</label>
+    
+    <input type="text" name="judul" required maxlength="100" placeholder="Masukkan judul berita..."
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#1E5631] focus:border-[#1E5631] transition-all">
+    <p class="text-[10px] text-gray-400 italic mt-1">*Maksimal 100 karakter.</p>
+</div>
 
                     <div>
                         <label class="block text-sm text-[#000000] mb-1">Status</label>

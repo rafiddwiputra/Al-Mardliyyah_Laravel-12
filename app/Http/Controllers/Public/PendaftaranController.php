@@ -10,6 +10,7 @@ use App\Models\DataOrtu;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PendaftaranController extends Controller
 {
@@ -236,13 +237,20 @@ class PendaftaranController extends Controller
             '*.mimes' => 'Format harus PDF/JPG/PNG!',
         ]);
 
-        $upload = function ($file, $folder) {
+       $upload = function ($file, $folder) {
             if (!$file) return null;
-            $nama = time().'_'.$file->getClientOriginalName();
-            $file->move(public_path('images/'.$folder), $nama);
-            return $folder.'/'.$nama;
-        };
+            
+            // Keamanan nama file (Biar tidak error karena spasi)
+            $namaAsli = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $ekstensi = $file->getClientOriginalExtension();
+            $nama = time() . '_' . \Illuminate\Support\Str::slug($namaAsli) . '.' . $ekstensi;
 
+            // Path yang benar (Sesuai arahan Claude untuk Laravel 12)
+            $file->storeAs('dokumen/' . $folder, $nama, 'local');
+            
+            return 'dokumen/' . $folder . '/' . $nama;
+        };
+        
         $santri->update([
             'foto_santri' => $request->file('foto_santri') ? $upload($request->file('foto_santri'), 'foto') : $santri->foto_santri,
             'akta_kelahiran' => $request->file('akta_kelahiran') ? $upload($request->file('akta_kelahiran'), 'akta') : $santri->akta_kelahiran,

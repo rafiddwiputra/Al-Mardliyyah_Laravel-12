@@ -14,7 +14,7 @@
                 Pondok Pesantren
             </span>
             <span class="text-gray-700 font-medium text-[10px] sm:text-xs md:text-lg leading-tight">
-                Al-Mardliyyah
+                Al-Mardliyyah Demangan
             </span>
         </div>
     </a>
@@ -79,7 +79,7 @@
                           transition-all duration-300 ease-in-out whitespace-nowrap
                           hover:bg-[#174427] hover:scale-105 hover:shadow-lg hover:-translate-y-0.5
                           active:scale-95 active:shadow-inner flex items-center justify-center">
-                    Login
+                    Masuk
                 </a>
             @endguest
 

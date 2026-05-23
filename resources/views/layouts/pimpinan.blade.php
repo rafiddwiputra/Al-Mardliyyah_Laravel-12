@@ -127,7 +127,7 @@
                         d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V5m-6 14h6a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
 
-                Logout
+                Keluar
             </button>
 
         </form>

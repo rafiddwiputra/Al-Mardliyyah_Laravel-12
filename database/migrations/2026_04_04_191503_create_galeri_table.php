@@ -12,7 +12,14 @@ return new class extends Migration
             $table->id();
             $table->string('gambar', 255);
             $table->string('judul', 100);
-            $table->enum('kategori', ['Kegiatan', 'Fasilitas', 'Prestasi', 'Lingkungan', 'Banner']);
+            $table->enum('kategori', [
+                'Kegiatan Pembelajaran Santri', 
+                'Kegiatan Ibadah Santri', 
+                'Ekstrakulikuler', 
+                'Event', 
+                'Kegiatan Santri', 
+                'Prestasi'
+            ]);
             $table->timestamps();
         });
     }

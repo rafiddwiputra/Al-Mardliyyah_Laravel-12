@@ -9,7 +9,8 @@ class AdminProgramController extends Controller
 {
     public function programPendidikan()
     {
-        $programs = ProgramPendidikan::where('status', 'aktif')
+        // PERBAIKAN: Menghapus where('status', 'aktif') agar semua data tampil di admin
+        $programs = ProgramPendidikan::orderBy('created_at', 'desc')
             ->get()
             ->groupBy('nama_kategori');
 
@@ -59,9 +60,17 @@ class AdminProgramController extends Controller
 
     public function destroy($id)
     {
-        $program = ProgramPendidikan::findOrFail($id);
-        $program->delete();
+        try {
+            $program = ProgramPendidikan::findOrFail($id);
+            $program->delete();
 
-        return redirect()->back()->with('success', 'Data berhasil dihapus');
+            return redirect()->back()->with('success', 'Data berhasil dihapus');
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == "23000") {
+                return redirect()->back()->with('error', 'Gagal! Program ini tidak dapat dihapus karena sudah dipilih oleh calon santri. Silakan ubah statusnya menjadi Nonaktif.');
+            }
+            return redirect()->back()->with('error', 'Terjadi kesalahan sistem saat mencoba menghapus data.');
+        }
     }
 }

@@ -14,13 +14,14 @@
             <form action="{{ route('admin.profil.fasilitas.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                <div class="mb-4">
-                    <label class="block text-sm mb-1 font-semibold text-[#1E5631]">Nama Fasilitas</label>
-                    {{-- Tambahkan name="nama_fasilitas" --}}
-                    <input type="text" name="nama_fasilitas" required
-                        class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:ring-1 focus:ring-[#1E5631] outline-none" 
-                        placeholder="Contoh: Gedung Serbaguna">
-                </div>
+                <div class="mb-4"> 
+    <label class="block text-sm font-medium text-gray-700 mb-1">Nama Fasilitas</label>
+
+    <input type="text" name="nama_fasilitas" required maxlength="100" placeholder="Contoh: Gedung Serbaguna"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#1E5631] focus:border-[#1E5631] transition-all">
+    
+    <p class="text-[10px] text-gray-400 italic mt-1">*Maksimal 100 karakter.</p>
+</div>
 
                 <div class="mb-4">
                     <label class="block text-sm mb-1 font-semibold text-[#1E5631]">Deskripsi</label>

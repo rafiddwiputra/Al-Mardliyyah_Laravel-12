@@ -89,7 +89,7 @@
                 {{-- PASSWORD --}}
                 <div class="space-y-2">
                     <label class="block text-sm font-bold text-gray-800">
-                        Password <span class="text-red-500">*</span>
+                        Kata Sandi <span class="text-red-500">*</span>
                     </label>
 
                     <div class="relative">
@@ -152,7 +152,7 @@
                 {{-- KONFIRMASI PASSWORD --}}
                 <div class="space-y-2">
                     <label class="block text-sm font-bold text-gray-800">
-                        Konfirmasi Password <span class="text-red-500">*</span>
+                        Konfirmasi Kata Sandi <span class="text-red-500">*</span>
                     </label>
 
                     <div class="relative">
@@ -163,7 +163,7 @@
                             name="password_confirmation"
                             autocomplete="new-password"
                             class="w-full border border-gray-200 rounded-lg px-4 py-3 pr-12 text-sm md:text-base bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#1e4d2b] transition"
-                            placeholder="Ulangi password"
+                            placeholder="Ulangi kata sandi"
                             required
                         >
 
@@ -227,7 +227,7 @@
                     
                     <div class="text-xs md:text-sm text-gray-700 mt-2">
                         Sudah punya akun? 
-                        <a href="{{ route('login') }}" class="font-bold text-[#1e4d2b] hover:underline">Login</a>
+                        <a href="{{ route('login') }}" class="font-bold text-[#1e4d2b] hover:underline">Masuk</a>
                     </div>
                 </div>
 

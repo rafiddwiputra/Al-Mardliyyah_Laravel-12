@@ -141,10 +141,10 @@
                                 class="bg-blue-100 text-blue-600 px-4 py-1.5 rounded font-bold mr-2 hover:bg-blue-200 transition-colors focus:outline-none">
                                 Edit
                             </button>
-                            <button type="button" onclick="openDeleteModal('{{ $item->id }}', '{{ $item->judul }}')"
-                                class="bg-red-100 text-red-600 px-4 py-1.5 rounded font-bold hover:bg-red-200 transition-colors focus:outline-none">
-                                Hapus
-                            </button>
+                            <button type="button" onclick='openDeleteGaleriModal(@json($item->id), @json($item->judul))'
+    class="bg-red-100 text-red-600 px-4 py-1.5 rounded font-bold hover:bg-red-200 transition-colors focus:outline-none">
+    Hapus
+</button>
                         </div>
                     </td>
                 </tr>
@@ -261,11 +261,14 @@
 @include('pages.admin.aktivitas.aktivitas-edit')
 @include('pages.admin.aktivitas.aktivitas-hapus')
 
-
 <script>
     // Fungsi Open & Close Modal
     function openModal(id) {
         const modal = document.getElementById(id);
+        if(!modal) {
+            console.error("Oops! Modal dengan ID '" + id + "' tidak ditemukan.");
+            return;
+        }
         modal.classList.remove('hidden');
         modal.classList.add('flex');
         setTimeout(() => { modal.classList.add('opacity-100'); }, 10);
@@ -273,6 +276,7 @@
 
     function closeModal(id) {
         const modal = document.getElementById(id);
+        if(!modal) return;
         modal.classList.remove('opacity-100');
         setTimeout(() => {
             modal.classList.add('hidden');
@@ -280,7 +284,7 @@
         }, 300);
     }
 
-    // KHUSUS EDIT
+    // KHUSUS EDIT GALERI
     function openEditModal(data) {
         document.getElementById('edit_judul').value = data.judul;
         document.getElementById('edit_kategori').value = data.kategori;
@@ -292,11 +296,19 @@
         openModal('editModal');
     }
 
-    // KHUSUS HAPUS
-    function openDeleteModal(id, judul) {
-        document.getElementById('hapus_judul_text').innerText = judul;
-        document.getElementById('formHapusGaleri').action = `/admin/galeri/destroy/${id}`;
-        openModal('deleteModal');
+    // KHUSUS HAPUS GALERI
+   // KHUSUS HAPUS GALERI
+    function openDeleteGaleriModal(id, judul) {
+        // 1. Pastikan nama judul masuk ke dalam text
+        const textElement = document.getElementById('hapus_judul_text');
+        if (textElement) textElement.innerText = judul;
+
+        // 2. Tembakkan URL ke form action (Sesuai dengan routes web.php kamu)
+        const formHapus = document.getElementById('formHapusGaleri');
+        if (formHapus) formHapus.action = `/admin/galeri/destroy/${id}`;
+
+        // 3. Buka modalnya
+        openModal('deleteGaleriModal');
     }
 
     // FILTER KATEGORI UNTUK TABEL
@@ -325,22 +337,22 @@
     }
 
     document.addEventListener("DOMContentLoaded", function() {
-            const toasts = document.querySelectorAll('.toast-alert');
-            
-            toasts.forEach(function(toast, index) {
+        const toasts = document.querySelectorAll('.toast-alert');
+        
+        toasts.forEach(function(toast, index) {
+            setTimeout(function() {
+                toast.classList.remove('translate-x-full', 'opacity-0');
+                toast.classList.add('translate-x-0', 'opacity-100');
+            }, 100 + (index * 150)); 
+            setTimeout(function() {
+                toast.classList.remove('translate-x-0', 'opacity-100');
+                toast.classList.add('translate-x-full', 'opacity-0');
                 setTimeout(function() {
-                    toast.classList.remove('translate-x-full', 'opacity-0');
-                    toast.classList.add('translate-x-0', 'opacity-100');
-                }, 100 + (index * 150)); 
-                setTimeout(function() {
-                    toast.classList.remove('translate-x-0', 'opacity-100');
-                    toast.classList.add('translate-x-full', 'opacity-0');
-                    setTimeout(function() {
-                        toast.remove();
-                    }, 500);
-                }, 4000); 
-            });
+                    toast.remove();
+                }, 500);
+            }, 4000); 
         });
+    });
 </script>
 
 <script>
@@ -381,14 +393,12 @@ function openEditAktivitasModal(data) {
     openModal('editAktivitasModal');
 }
 
+// KHUSUS HAPUS AKTIVITAS
 function openDeleteAktivitasModal(id, nama) {
     const form = document.getElementById('formHapusAktivitas');
-
     form.action = `/admin/aktivitas-santri/destroy/${id}`;
-
     document.getElementById('hapus_nama_aktivitas').innerText = nama;
-
-    openModal('deleteAktivitasModal');
+    openModal('deleteAktivitasModal'); // <-- Dirubah ke deleteAktivitasModal
 }
 </script>
 

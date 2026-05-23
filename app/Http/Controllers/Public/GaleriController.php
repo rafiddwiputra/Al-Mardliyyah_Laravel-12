@@ -15,7 +15,15 @@ class GaleriController extends Controller
         $page = $request->query('page', 1);
         $perPage = 4; 
 
-        $categories = ['Kegiatan', 'Fasilitas', 'Prestasi', 'Lingkungan'];
+        // PERUBAHAN UTAMA: Sesuaikan list kategori dengan permintaan pondok
+        $categories = [
+            'Kegiatan Pembelajaran Santri',
+            'Kegiatan Ibadah Santri',
+            'Ekstrakulikuler',
+            'Event',
+            'Kegiatan Santri',
+            'Prestasi'
+        ];
         
         $aktivitas = AktivitasSantri::orderBy('created_at', 'asc')->get();
     
@@ -28,7 +36,7 @@ class GaleriController extends Controller
         $allGaleris = $query->orderBy('created_at', 'desc')->get();
         $total = $allGaleris->count();
         
-        // PERUBAHAN UTAMA: Kirimkan semua galeri hasil query agar bisa disembunyikan/ditampilkan oleh JavaScript
+        // Kirimkan semua galeri hasil query agar bisa disembunyikan/ditampilkan oleh JavaScript
         $visibleGaleris = $allGaleris;
 
         return view('pages.public.galeri', compact(

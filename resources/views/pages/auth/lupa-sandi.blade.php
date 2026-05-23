@@ -8,7 +8,7 @@
         <img src="{{ asset('images/logo-1.png') }}" alt="Logo Pondok Pesantren" class="w-36 h-36 mx-auto mb-5 object-contain">
         
         <div class="inline-block bg-[#E6F0EB] text-[#1a5336] font-bold px-8 py-2 rounded-md mb-4 text-sm">
-            Lupa Password
+            Lupa Kata Sandi
         </div>
         <p class="text-gray-700 text-lg font-medium">Masukkan email أنت untuk mereset kata sandi</p>
     </div>
@@ -43,7 +43,7 @@
         </form>
 
         <div class="text-center text-sm text-gray-600 mt-4">
-            Ingat password Anda? <a href="{{ route('login') }}" class="font-bold text-gray-900 hover:underline">Kembali ke Login</a>
+            Ingat Kata Sandi Anda? <a href="{{ route('login') }}" class="font-bold text-gray-900 hover:underline">Kembali ke Masuk</a>
         </div>
     </div>
 </div>

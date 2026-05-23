@@ -178,7 +178,7 @@
                 {{-- PERUBAHAN 3: Bagian Konten menggunakan p-6 dan flex-grow --}}
                 <div class="p-6 flex flex-col flex-grow text-left">
                     {{-- Judul dibatasi maksimal 2 baris agar jika panjang, tidak merusak layout --}}
-                    <h3 class="text-[#1E5631] font-bold text-xl mb-3 leading-tight line-clamp-2">
+                    <h3 class="text-[#1E5631] font-bold text-xl mb-3 leading-tight line-clamp-5">
                         {{ $f->nama_fasilitas }}
                     </h3>
                     

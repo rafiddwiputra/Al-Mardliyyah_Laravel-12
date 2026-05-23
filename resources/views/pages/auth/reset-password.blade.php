@@ -7,7 +7,7 @@
     <div class="text-center mb-8 mt-8">
         <img src="{{ asset('images/logo-1.png') }}" alt="Logo Pondok Pesantren" class="w-36 h-36 mx-auto mb-5 object-contain">
         <div class="inline-block bg-[#E6F0EB] text-[#1a5336] font-bold px-8 py-2 rounded-md mb-4 text-sm">
-            Buat Password Baru
+            Buat Kata Sandi Baru
         </div>
         <p class="text-gray-700 text-lg font-medium">Silakan buat kata sandi baru untuk akun أنت</p>
     </div>
@@ -32,7 +32,7 @@
 
             <div class="mb-5">
     <label for="password" class="block text-sm font-bold text-gray-900 mb-2">
-        Password Baru <span class="text-red-600">*</span>
+        Kata Sandi Baru <span class="text-red-600">*</span>
     </label>
 
     <div class="relative">
@@ -76,7 +76,7 @@
 
             <div class="mb-6">
     <label for="password_confirmation" class="block text-sm font-bold text-gray-900 mb-2">
-        Konfirmasi Password <span class="text-red-600">*</span>
+        Konfirmasi Kata Sandi <span class="text-red-600">*</span>
     </label>
 
     <div class="relative">
@@ -116,7 +116,7 @@
 
             <button type="submit" 
                 class="w-full bg-[#C3A771] text-white font-bold text-lg py-3 rounded-md hover:bg-[#b09664] transition duration-200">
-                Simpan Password Baru
+                Simpan Kata Sandi Baru
             </button>
         </form>
     </div>

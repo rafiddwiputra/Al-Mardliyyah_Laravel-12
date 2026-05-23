@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Public\AktivitasSantri;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str; // Tambahkan ini untuk fitur nama file aman
 
 class AdminAktivitasSantriController extends Controller
 {
@@ -13,26 +14,28 @@ class AdminAktivitasSantriController extends Controller
     {
         $request->validate([
             'nama_aktivitas' => 'required|string|max:255',
-            'deskripsi' => 'required',
-            'gambar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'deskripsi'      => 'required',
+            'gambar'         => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $file = $request->file('gambar');
-        $namaFile = time().'_'.$file->getClientOriginalName();
+        // Keamanan: Bersihkan nama file asli dari spasi dan karakter aneh
+        $namaAsli = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $ekstensi = $file->getClientOriginalExtension();
+        $namaFile = time() . '_' . Str::slug($namaAsli) . '.' . $ekstensi;
 
         $folder = public_path('uploads/aktivitas');
 
         if (!File::isDirectory($folder)) {
-            File::makeDirectory($folder, 0777, true, true);
+            File::makeDirectory($folder, 0755, true, true);
         }
 
         $file->move($folder, $namaFile);
 
         AktivitasSantri::create([
             'nama_aktivitas' => $request->nama_aktivitas,
-            'deskripsi' => $request->deskripsi,
-            'gambar' => 'uploads/aktivitas/'.$namaFile,
-            // 'created_by' => auth()->id(),
+            'deskripsi'      => $request->deskripsi,
+            'gambar'         => 'uploads/aktivitas/' . $namaFile,
         ]);
 
         return back()->with('success', 'Aktivitas berhasil ditambahkan');
@@ -44,13 +47,13 @@ class AdminAktivitasSantriController extends Controller
 
         $request->validate([
             'nama_aktivitas' => 'required|string|max:255',
-            'deskripsi' => 'required',
+            'deskripsi'      => 'required',
+            'gambar'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
         ]);
 
         $updateData = [
             'nama_aktivitas' => $request->nama_aktivitas,
-            'deskripsi' => $request->deskripsi,
-            'updated_by' => auth()->id(),
+            'deskripsi'      => $request->deskripsi,
         ];
 
         if ($request->hasFile('gambar')) {
@@ -60,10 +63,14 @@ class AdminAktivitasSantriController extends Controller
             }
 
             $file = $request->file('gambar');
-            $namaFile = time().'_'.$file->getClientOriginalName();
+            // Sama seperti store, bersihkan nama file
+            $namaAsli = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $ekstensi = $file->getClientOriginalExtension();
+            $namaFile = time() . '_' . Str::slug($namaAsli) . '.' . $ekstensi;
+            
             $file->move(public_path('uploads/aktivitas'), $namaFile);
 
-            $updateData['gambar'] = 'uploads/aktivitas/'.$namaFile;
+            $updateData['gambar'] = 'uploads/aktivitas/' . $namaFile;
         }
 
         $data->update($updateData);

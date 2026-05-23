@@ -303,11 +303,20 @@
     ];
     @endphp
 
-    <div class="space-y-3">
+   <div class="space-y-3">
 @foreach($dokumen as $doc)
 
 @php
-$filePath = $doc['file'] ? asset('images/'.$doc['file']) : null;
+$filePath = null;
+if ($doc['file'] && $doc['file'] !== '-') {
+    $parts = explode('/', $doc['file']);
+    $folder = $parts[1] ?? null;
+    $nama = $parts[2] ?? null;
+    if ($folder && $nama) {
+        // ✅ Gunakan route admin
+        $filePath = route('admin.dokumen.show', ['folder' => $folder, 'nama' => $nama]);
+    }
+}
 @endphp
 
 <div 
@@ -319,22 +328,19 @@ $filePath = $doc['file'] ? asset('images/'.$doc['file']) : null;
         ? 'bg-gray-50 hover:bg-gray-100 cursor-pointer' 
         : 'bg-gray-100 opacity-60 cursor-not-allowed' }}">
 
-    <!-- LEFT -->
     <div class="flex items-center gap-3">
         <div class="bg-[#1E5631] text-white text-[10px] px-2 py-1 rounded">
-            {{ Str::contains($doc['file'], '.pdf') ? 'PDF' : 'IMG' }}
+            {{ Str::contains(strtolower($doc['file']), '.pdf') ? 'PDF' : 'IMG' }}
         </div>
 
         <p class="text-sm text-gray-700">
             {{ $doc['nama'] }}
-
             @if(!$filePath)
                 <span class="text-red-500 text-xs">(Belum upload)</span>
             @endif
         </p>
     </div>
 
-    <!-- RIGHT -->
     <p class="text-xs text-[#1E5631] font-medium">
         {{ $filePath 
             ? $data->updated_at->format('d M Y - H:i') 
@@ -344,7 +350,6 @@ $filePath = $doc['file'] ? asset('images/'.$doc['file']) : null;
 </div>
 
 @endforeach
-</div>
 </div>
 
 <div class="flex justify-between items-center mt-6">
@@ -400,11 +405,14 @@ function openModal(file) {
 
     const lowerFile = file.toLowerCase();
 
+    // 🚀 TRIK CACHE BUSTER: Tambahkan timestamp agar browser dipaksa memuat ulang dari server
+    const freshUrl = file + '?t=' + new Date().getTime();
+
     if (lowerFile.endsWith('.pdf')) {
-        pdf.src = file;
+        pdf.src = freshUrl;
         pdf.classList.remove('hidden');
     } else {
-        img.src = file;
+        img.src = freshUrl;
         img.classList.remove('hidden');
     }
 
@@ -416,6 +424,10 @@ function closeModal() {
     const modal = document.getElementById('fileModal');
     modal.classList.add('hidden');
     modal.classList.remove('flex');
+    
+    // Kosongkan src saat ditutup agar memori browser bersih
+    document.getElementById('modalImage').src = '';
+    document.getElementById('modalPDF').src = '';
 }
 </script>
 

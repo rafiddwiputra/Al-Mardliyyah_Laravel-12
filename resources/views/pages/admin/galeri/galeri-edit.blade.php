@@ -26,12 +26,14 @@
                 </div>
 
                 <input type="file" name="gambar" id="editFileInput" class="hidden" onchange="previewEditImage(this)">
-                <p class="text-[10px] text-gray-400 italic text-center">*Kosongkan jika tidak ingin mengubah foto</p>
+                <p class="text-[10px] text-gray-400 italic text-center">Abaikan jika tidak mengganti foto</p>
 
+                {{-- BAGIAN YANG DIRUBAH: Tambah maxlength dan Helper Text --}}
                 <div>
                     <label class="text-sm font-medium text-gray-700">Nama Kegiatan/Foto</label>
-                    <input type="text" name="judul" id="edit_judul" required
+                    <input type="text" name="judul" id="edit_judul" maxlength="100" required
                         class="w-full mt-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#1E5631]">
+                    <p class="text-[10px] text-gray-400 italic mt-1">*Maksimal 100 karakter.</p>
                 </div>
 
                 {{-- Input Kategori (Sekarang pakai standard Select Dropdown statis) --}}
@@ -77,7 +79,4 @@ function previewEditImage(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-
-// Script kustom dropdown (toggleEditKategori, pilihEditKategori, dll) 
-// sudah dihapus karena tidak diperlukan lagi oleh tag <select> HTML.
 </script>

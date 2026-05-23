@@ -8,7 +8,7 @@
         <img src="{{ asset('images/logo-1.png') }}" alt="Logo Pondok Pesantren Al-Mardliyyah" class="w-28 h-28 md:w-36 md:h-36 mx-auto mb-4 md:mb-5 object-contain">
         
         <div class="inline-block bg-[#E6F0EB] text-[#1a5336] font-bold px-6 md:px-8 py-2 rounded-md mb-3 md:mb-4 text-xs md:text-sm">
-            Login Akun
+            Masuk Akun
         </div>
         
         <p class="text-gray-700 text-sm md:text-lg font-medium px-2">Masuk ke Akun yang sudah Anda daftarkan sebelumnya</p>
@@ -34,7 +34,7 @@
             {{-- Input Password --}}
             <div class="mb-3">
                 <label for="password" class="block text-sm font-bold text-gray-900 mb-2">
-                    Password <span class="text-red-600">*</span>
+                    Kata Sandi <span class="text-red-600">*</span>
                 </label>
 
                 <div class="relative">
@@ -45,7 +45,7 @@
                         id="password" 
                         name="password"
                         autocomplete="new-password"
-                        placeholder="Masukkan password Anda"
+                        placeholder="Masukkan kata sandi Anda"
                         required
                         class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-md text-sm md:text-base focus:outline-none focus:ring-1 focus:ring-[#1a5336] focus:border-[#1a5336] @error('password') border-red-500 @enderror"
                     >
@@ -93,7 +93,7 @@
             {{-- Tombol Login --}}
             <button type="submit" 
                 class="w-full bg-[#C3A771] text-white font-bold text-base md:text-lg py-3 rounded-md hover:bg-[#b09664] hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300">
-                Login
+                Masuk
             </button>
         </form>
 

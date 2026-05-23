@@ -20,22 +20,28 @@
     </div>
 </div>
 
-<div class="max-w-6xl mx-auto py-16 px-0 md:px-6">
+<div class="max-w-6xl mx-auto pt-6 pb-16 md:pt-10 md:pb-16 px-0 md:px-6">
 
     {{-- ================= FILTER KATEGORI ================= --}}
-    <div class="mb-10 md:mb-16 w-full max-w-6xl mx-auto px-0 md:px-6" data-aos="zoom-in" data-aos-duration="800">
-        <div class="w-full bg-white rounded-none md:rounded-2xl border-b md:border border-gray-100 md:border-gray-50 shadow-none md:shadow-[0_8px_30px_rgb(0,0,0,0.08)] py-3 px-4 md:py-4 md:px-6 flex justify-start md:justify-center items-center gap-3 md:gap-6 overflow-x-auto custom-scrollbar relative -mt-16 z-20">
+    <div class="mb-10 md:mb-12 w-full max-w-6xl mx-auto px-4 md:px-0" data-aos="fade-up" data-aos-duration="800">
+        
+        {{-- Menggunakan flex-wrap untuk PC agar turun ke bawah jika penuh, dan overflow-x-auto untuk HP --}}
+        <div class="flex md:flex-wrap justify-start md:justify-center items-center gap-2 md:gap-3 overflow-x-auto pb-2 md:pb-0 hide-scroll">
             
             <a href="{{ route('galeri', ['kategori' => 'semua']) }}"
-               class="whitespace-nowrap shrink-0 text-sm md:text-base font-bold capitalize transition-all duration-300 text-center
-                      {{ $kategoriAktif == 'semua' ? 'bg-[#1E5631] text-white px-6 py-2.5 md:px-8 md:py-3 rounded-xl shadow-md' : 'text-gray-600 hover:text-[#1E5631] px-4 py-2.5 md:px-4 md:py-3' }}">
+               class="whitespace-nowrap shrink-0 text-sm md:text-base font-semibold capitalize transition-all duration-300 px-6 py-2.5 rounded-xl border
+                      {{ $kategoriAktif == 'semua' 
+                         ? 'bg-[#1E5631] border-[#1E5631] text-white shadow-md' 
+                         : 'bg-white border-gray-200 text-gray-500 hover:border-[#1E5631] hover:text-[#1E5631] hover:bg-[#f2f7f4]' }}">
                 Semua
             </a>
 
             @foreach($categories as $cat)
             <a href="{{ route('galeri', ['kategori' => $cat]) }}"
-               class="whitespace-nowrap shrink-0 text-sm md:text-base font-bold capitalize transition-all duration-300 text-center
-                      {{ $kategoriAktif == $cat ? 'bg-[#1E5631] text-white px-6 py-2.5 md:px-8 md:py-3 rounded-xl shadow-md' : 'text-gray-600 hover:text-[#1E5631] px-4 py-2.5 md:px-4 md:py-3' }}">
+               class="whitespace-nowrap shrink-0 text-sm md:text-base font-semibold capitalize transition-all duration-300 px-6 py-2.5 rounded-xl border
+                      {{ $kategoriAktif == $cat 
+                         ? 'bg-[#1E5631] border-[#1E5631] text-white shadow-md' 
+                         : 'bg-white border-gray-200 text-gray-500 hover:border-[#1E5631] hover:text-[#1E5631] hover:bg-[#f2f7f4]' }}">
                 {{ $cat }}
             </a>
             @endforeach
@@ -66,7 +72,7 @@
 
             {{-- Judul Teks (Rata Kiri, Ukuran Font Sesuai Device HP/PC) --}}
             <div class="p-3 md:p-5 flex flex-col flex-grow justify-start text-left border-t border-gray-50">
-                <h3 class="text-[#1E5631] font-bold text-xs sm:text-sm md:text-base leading-snug line-clamp-3 group-hover:text-[#4a855d] transition-colors">
+                <h3 class="text-[#1E5631] font-bold text-xs sm:text-sm md:text-base leading-snug line-clamp-5 group-hover:text-[#4a855d] transition-colors">
                     {{ $item->judul }}
                 </h3>
             </div>
@@ -119,17 +125,14 @@
             <div class="bg-white border border-gray-100 rounded-lg shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden group flex flex-col h-full"
                  data-aos="fade-up" data-aos-delay="{{ ($loop->index % 3) * 150 }}">
                 
-                <div class="relative w-full h-72 overflow-hidden shrink-0 border-b border-gray-100">
-                    {{-- LAYERS 1: Gambar Latar Belakang Blur --}}
-                    <img src="{{ asset($item->gambar) }}" alt="" 
-                         class="absolute inset-0 w-full h-full object-cover scale-150 blur-lg opacity-30 transform transition-transform duration-700 group-hover:scale-[1.6]">
-
-                    {{-- LAYERS 2: Gambar Asli di Tengah --}}
-                    <img src="{{ asset($item->gambar) }}" alt="{{ $item->judul }}" 
-                         class="relative z-10 w-full h-full object-contain p-2 transition-transform duration-700 group-hover:scale-105">
-                         
-                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 z-20"></div>
-                </div>
+                <div class="relative w-full h-72 overflow-hidden shrink-0 border-b border-gray-100 bg-gray-100">
+    
+    {{-- LAYERS: Gambar Asli Memenuhi Kotak (Style Berita) --}}
+    <img src="{{ asset($item->gambar) }}" alt="{{ $item->nama_aktivitas }}" 
+         class="relative z-10 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+         
+    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 z-20"></div>
+</div>
 
                 <div class="p-6 flex flex-col flex-grow text-left">
                     <h3 class="text-[#1E5631] font-bold text-lg mb-3 leading-tight group-hover:text-[#c9a76d] transition-colors">
@@ -163,7 +166,18 @@
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #1E5631; }
     .custom-scrollbar { scrollbar-width: thin; scrollbar-color: #cbd5e1 #f8fafc; }
+
+    /* Utility untuk menyembunyikan scrollbar bawaan browser tapi tetap bisa di-scroll */
+    .hide-scroll::-webkit-scrollbar { 
+        display: none; 
+    }
+    .hide-scroll { 
+        -ms-overflow-style: none; 
+        scrollbar-width: none; 
+    }
 </style>
+
+
 
 <script>
     // 1. FUNGSI LOGIKA TOMBOL MUAT LEBIH BANYAK / SEDIKIT

@@ -239,10 +239,9 @@
 </section>
 
 {{-- ================= PROGRAM PENDIDIKAN ================= --}}
-<section class="py-20 md:py-28 bg-white">
+<section class="py-20 md:py-28 bg-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-6 text-center">
         
-        <div class="max-w-6xl mx-auto px-6 text-center">
         <div class="inline-block bg-[#D8E6E0] px-5 py-2 rounded-lg mb-4" data-aos="fade-up">
             <span class="text-[#1E5631] text-sm font-semibold uppercase tracking-wide">Pendidikan</span>
         </div>
@@ -250,31 +249,37 @@
             Program Pendidikan
         </h2>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
+        {{-- Grid disesuaikan agar sama dengan halaman program (md:grid-cols-3) --}}
+        <div class="grid md:grid-cols-3 gap-8">
             @forelse($programs as $item)
-                <div class="bg-white rounded-lg shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] border border-gray-50 overflow-hidden w-full max-w-[320px] sm:max-w-full hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group flex flex-col"
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col group"
                      data-aos="fade-up" data-aos-delay="{{ ($loop->index % 3) * 150 }}"> 
                     
-                    <div class="h-1.5 w-full bg-[#C6A75E]"></div>
+                    {{-- Aksen atas --}}
+                    <div class="h-3 w-full bg-[#1E5631] rounded-t-lg"></div>
 
-                    <div class="p-8 flex-grow flex flex-col items-center">
-                        <div class="w-16 h-16 bg-[#F8FAFC] rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-[#1E5631] transition-all duration-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-[#1E5631] group-hover:text-white transition-colors duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.253" />
+                    <div class="p-8 flex-grow text-center">
+                        {{-- Ikon --}}
+                        <div class="w-16 h-16 bg-[#E8F2EC] rounded-lg flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-[#1E5631]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.253" />
                             </svg>
                         </div>
 
-                        <h3 class="text-gray-800 font-bold text-lg mb-4 text-center group-hover:text-[#1E5631] transition-colors">
-                            {{ $item->nama_program }}
-                        </h3>
+                        {{-- Judul --}}
+                        <h3 class="text-[#1E5631] font-bold text-xl mb-3">{{ $item->nama_program }}</h3>
 
-                        <div class="text-sm text-gray-500 leading-relaxed text-center overflow-y-auto no-scrollbar flex-grow">
-                            {{ Str::limit(strip_tags($item->deskripsi), 120) }}
+                        {{-- Deskripsi dengan scrollbar kustom & efek kabut --}}
+                        <div class="relative">
+                            <div class="text-sm text-[#4B5563] leading-relaxed max-h-48 overflow-y-auto pr-3 pb-6 text-justify custom-scrollbar">
+                                {!! nl2br(e($item->deskripsi)) !!}
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent pointer-events-none rounded-b-lg"></div>
                         </div>
                     </div>
                 </div>
             @empty
-                <div class="col-span-full text-center text-gray-400 italic text-sm py-10">
+                <div class="col-span-full py-10 text-gray-400 italic text-sm">
                     Belum ada program pendidikan yang dipublikasikan.
                 </div>
             @endforelse
@@ -307,13 +312,12 @@
                 <div class="relative overflow-hidden aspect-square bg-gray-100 shrink-0 border-b border-gray-100">
                     
                     <img src="{{ $news->gambar ? (Str::startsWith($news->gambar, 'http') ? $news->gambar : asset($news->gambar)) : asset('images/berita-default.jpg') }}"
-                         {{-- 2. Kembalikan ke object-cover agar gambar mengisi penuh/full menempel ke tepi bingkai --}}
                          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                          
                 </div>
 
                 <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="font-bold text-lg text-gray-800 mb-3 leading-tight group-hover:text-[#1E5631] transition-colors line-clamp-2">
+                    <h3 class="font-bold text-lg text-gray-800 mb-3 leading-tight group-hover:text-[#1E5631] transition-colors line-clamp-5">
                         {{ $news->judul }}
                     </h3>
 

@@ -12,11 +12,14 @@
             @method('PUT')
             <div class="p-5 space-y-4">
                 {{-- NAMA FASILITAS --}}
-                <div>
-                    <label class="block text-xs font-bold text-[#1E5631] mb-1 uppercase">Nama Fasilitas</label>
-                    <input type="text" name="nama_fasilitas" id="edit_nama_fasilitas" required
-                        class="w-full border border-[#D9D9D9] rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-[#2D7FF9] outline-none">
-                </div>
+                <div class="mb-4">
+    <label class="block text-sm font-medium text-gray-700 mb-1">Nama Fasilitas</label>
+    
+    <input type="text" name="nama_fasilitas" id="edit_nama_fasilitas" required maxlength="100"
+        class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#1E5631] focus:border-[#1E5631] transition-all">
+
+    <p class="text-[10px] text-gray-400 italic mt-1">*Maksimal 100 karakter.</p>
+</div>
 
                 {{-- DESKRIPSI --}}
                 <div>

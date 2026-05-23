@@ -3,7 +3,6 @@
 @section('content')
 
 {{-- ================= TOAST NOTIFICATION CONTAINER ================= --}}
-{{-- Container dibuat 'fixed' di pojok kanan atas, menimpa elemen lain (z-[9999]) --}}
 <div id="toast-container" class="fixed top-5 right-5 z-[9999] flex flex-col gap-3 items-end pointer-events-none">
     
     @if(session('success'))
@@ -61,157 +60,118 @@
 <div class="p-6">
 
     <div class="mb-6 flex justify-between items-start">
-    
         <div>
-            <h1 class="text-2xl font-bold text-[#1E5631]">
-                Profil Saya
-            </h1>
-            <p class="text-sm text-gray-500">
-                Kelola informasi akun pimpinan
-            </p>
+            <h1 class="text-2xl font-bold text-[#1E5631]">Profil Saya</h1>
+            <p class="text-sm text-gray-500">Kelola informasi akun pimpinan</p>
         </div>
-
     </div>
 
-    <div class="border border-[#D9D9D9] rounded p-6">
+    <div class="grid md:grid-cols-2 gap-6">
+        
+        {{-- ================= FORM 1: INFORMASI AKUN ================= --}}
+        <div class="border border-[#D9D9D9] rounded p-6 bg-white">
+           <form action="{{ route('pimpinan.profil.update') }}" method="POST" enctype="multipart/form-data">
+                @csrf
 
-       <form action="{{ route('pimpinan.profil.update') }}" method="POST" enctype="multipart/form-data">
-            @csrf
+                <div class="flex flex-col items-center text-center mb-8">
+                    <div id="previewContainer" class="w-20 h-20 rounded-full overflow-hidden mb-3 bg-gray-100 flex items-center justify-center border border-gray-200">
+                        @if($user->foto)
+                            <img id="previewImage" src="{{ asset('storage/' . $user->foto) }}" class="w-full h-full object-cover">
+                        @else
+                            <img id="previewImage" src="" class="w-full h-full object-cover hidden">
+                            <div id="defaultIcon" class="w-full h-full bg-[#1E5631] flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.121 17.804A9 9 0 1118.879 17.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                        @endif
+                    </div>
 
-            <div class="flex flex-col items-center text-center mb-8">
+                    <h3 class="text-sm font-semibold text-[#1E5631]">{{ $user->nama }}</h3>
+                    <p class="text-xs text-gray-500 mb-3">{{ $user->email }}</p>
 
-                <div id="previewContainer"
-    class="w-20 h-20 rounded-full overflow-hidden mb-3 bg-gray-100 flex items-center justify-center border border-gray-200">
-
-    @if($user->foto)
-        <img id="previewImage"
-            src="{{ asset('storage/' . $user->foto) }}"
-            class="w-full h-full object-cover">
-    @else
-        <img id="previewImage"
-            src=""
-            class="w-full h-full object-cover hidden">
-
-        <div id="defaultIcon"
-            class="w-full h-full bg-[#1E5631] flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                class="w-8 h-8 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.5"
-                    d="M5.121 17.804A9 9 0 1118.879 17.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-        </div>
-    @endif
-</div>
-
-<h3 class="text-sm font-semibold text-[#1E5631]">
-    {{ $user->nama }}
-</h3>
-
-<p class="text-xs text-gray-500 mb-3">
-    {{ $user->email }}
-</p>
-
-<input type="file"
-    name="foto"
-    id="fotoInput"
-    accept="image/*"
-    class="hidden">
-
-<label for="fotoInput"
-    class="flex items-center gap-2 bg-[#1E5631] text-white text-xs px-3 py-1.5 rounded cursor-pointer hover:bg-green-800 transition">
-
-    <svg xmlns="http://www.w3.org/2000/svg"
-        class="w-4 h-4"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor">
-
-        <path stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            d="M3 7h2l2-3h6l2 3h2a2 2 0 012 2v8a2 2 0 01-2 2H3a2 2 0 01-2-2V9a2 2 0 012-2z"/>
-
-        <circle cx="12" cy="13" r="3"/>
-    </svg>
-
-    Pilih Foto
-</label>
-</div>
-
-            <div>
-                <h2 class="text-[#1E5631] font-semibold mb-4">
-                    Informasi Akun
-                </h2>
-
-                <div class="mb-4">
-                    <label class="block text-xs text-black mb-1">
-                        Nama Lengkap
+                    <input type="file" name="foto" id="fotoInput" accept="image/*" class="hidden">
+                    <label for="fotoInput" class="flex items-center gap-2 bg-[#1E5631] text-white text-xs px-3 py-1.5 rounded cursor-pointer hover:bg-green-800 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7h2l2-3h6l2 3h2a2 2 0 012 2v8a2 2 0 01-2 2H3a2 2 0 01-2-2V9a2 2 0 012-2z"/>
+                            <circle cx="12" cy="13" r="3"/>
+                        </svg>
+                        Pilih Foto
                     </label>
-                    <input type="text" name="nama"
-                        value="{{ $user->nama }}"
-                        class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#1E5631]">
-                </div>
-
-                <div class="mb-4">
-                    <label class="block text-xs text-black mb-1">
-                        Nomor HP
-                    </label>
-                    <input type="text" name="no_hp"
-                        value="{{ $user->no_hp }}"
-                        class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#1E5631]">
                 </div>
 
                 <div>
-                    <label class="block text-xs text-black mb-1">
-                        Email
-                    </label>
-                    <input type="email"
-                        value="{{ $user->email }}"
-                        readonly
-                        class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none bg-gray-100 cursor-not-allowed">
+                    <h2 class="text-[#1E5631] font-semibold mb-4">Informasi Akun</h2>
+
+                    <div class="mb-4">
+                        <label class="block text-xs text-black mb-1">Nama Lengkap</label>
+                        <input type="text" name="nama" value="{{ $user->nama }}" class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#1E5631]">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-xs text-black mb-1">Nomor HP</label>
+                        <input type="text" name="no_hp" value="{{ $user->no_hp }}" class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#1E5631]">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-black mb-1">Email</label>
+                        <input type="email" value="{{ $user->email }}" readonly class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none bg-gray-100 cursor-not-allowed">
+                    </div>
                 </div>
 
-            </div>
+                <div class="flex justify-end mt-6">
+                    <button type="submit" class="px-4 py-2 text-sm bg-[#1E5631] text-white rounded hover:bg-green-800 transition w-full md:w-auto">
+                        Simpan Profil
+                    </button>
+                </div>
+            </form>
+        </div>
 
-            <div class="flex justify-end gap-2 mt-6">
-                <button type="button" class="px-4 py-2 text-sm bg-gray-200 rounded text-gray-700 hover:bg-gray-300 transition">
-                    Batal
-                </button>
+        {{-- ================= FORM 2: GANTI PASSWORD ================= --}}
+        <div class="border border-[#D9D9D9] rounded p-6 bg-white h-fit">
+            <h2 class="text-[#1E5631] font-semibold mb-4">Ganti Password</h2>
+            
+            <form action="{{ route('pimpinan.profil.update-password') }}" method="POST">
+                @csrf
+                
+                <div class="mb-4">
+                    <label class="block text-xs text-black mb-1">Password Saat Ini</label>
+                    <input type="password" name="password_lama" required class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#1E5631]" placeholder="Masukkan password saat ini">
+                </div>
 
-                <button type="submit" class="px-4 py-2 text-sm bg-[#1E5631] text-white rounded hover:bg-green-800 transition">
-                    Simpan Perubahan
-                </button>
-            </div>
-        </form>
+                <div class="mb-4">
+                    <label class="block text-xs text-black mb-1">Password Baru</label>
+                    <input type="password" name="password_baru" required class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#1E5631]" placeholder="Minimal 8 karakter">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-xs text-black mb-1">Konfirmasi Password Baru</label>
+                    <input type="password" name="password_baru_confirmation" required class="w-full border border-[#D9D9D9] rounded px-3 py-2 text-sm focus:outline-none focus:border-[#1E5631]" placeholder="Ketik ulang password baru">
+                </div>
+
+                <div class="flex justify-end mt-6">
+                    <button type="submit" class="px-4 py-2 text-sm border border-[#1E5631] text-[#1E5631] rounded hover:bg-[#1E5631] hover:text-white transition w-full md:w-auto">
+                        Perbarui Password
+                    </button>
+                </div>
+            </form>
+        </div>
 
     </div>
-
 </div>
 
-{{-- ================= SCRIPT ANIMASI TOAST ================= --}}
+{{-- ================= SCRIPT ANIMASI TOAST & PREVIEW FOTO ================= --}}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const toasts = document.querySelectorAll('.toast-alert');
-        
         toasts.forEach(function(toast, index) {
-            // 1. Efek Slide-In (Melesat masuk dari kanan)
-            // Diberi jeda sedikit agar halus
             setTimeout(function() {
                 toast.classList.remove('translate-x-full', 'opacity-0');
                 toast.classList.add('translate-x-0', 'opacity-100');
             }, 100 + (index * 150)); 
-
-            // 2. Efek Slide-Out (Keluar otomatis setelah 4 detik)
             setTimeout(function() {
                 toast.classList.remove('translate-x-0', 'opacity-100');
                 toast.classList.add('translate-x-full', 'opacity-0');
-                
-                // 3. Hapus bersih dari HTML setelah animasi selesai (500ms)
                 setTimeout(function() {
                     toast.remove();
                 }, 500);
@@ -219,40 +179,25 @@
         });
     });
 
-    // ================= PREVIEW FOTO =================
     document.getElementById('fotoInput').addEventListener('change', function(e) {
-
         const file = e.target.files[0];
-
         if (!file) return;
-
-        // Maksimal 1 MB
         const maxSize = 1024 * 1024;
-
         if (file.size > maxSize) {
             alert('Ukuran foto maksimal 1 MB');
-
             e.target.value = '';
-
             return;
         }
-
         const reader = new FileReader();
-
         reader.onload = function(event) {
-
             const previewImage = document.getElementById('previewImage');
             const defaultIcon = document.getElementById('defaultIcon');
-
             previewImage.src = event.target.result;
-
             previewImage.classList.remove('hidden');
-
             if (defaultIcon) {
                 defaultIcon.classList.add('hidden');
             }
         };
-
         reader.readAsDataURL(file);
     });
 </script>

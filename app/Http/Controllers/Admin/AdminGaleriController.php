@@ -15,16 +15,26 @@ class AdminGaleriController extends Controller
     {
         $galeris = Galeri::where('kategori', '!=', 'Banner')->latest()->get();
         $aktivitas = AktivitasSantri::latest()->get();
-        $categories = ['Kegiatan', 'Fasilitas', 'Prestasi', 'Lingkungan'];
+        
+        // PERUBAHAN 1: Sesuaikan list kategori untuk ditampilkan di tombol filter dan dropdown Admin
+        $categories = [
+            'Kegiatan Pembelajaran Santri', 
+            'Kegiatan Ibadah Santri', 
+            'Ekstrakulikuler', 
+            'Event', 
+            'Kegiatan Santri', 
+            'Prestasi'
+        ];
         
         return view('pages.admin.galeri.admin-galeri', compact('galeris', 'aktivitas', 'categories'));
     }
 
     public function store(Request $request)
     {
+        // PERUBAHAN 2: Sesuaikan validasi kategori agar menerima daftar kategori baru
         $request->validate([
             'judul' => 'required|string|max:100', 
-            'kategori' => 'required|in:Kegiatan,Fasilitas,Prestasi,Lingkungan', 
+            'kategori' => 'required|in:Kegiatan Pembelajaran Santri,Kegiatan Ibadah Santri,Ekstrakulikuler,Event,Kegiatan Santri,Prestasi', 
             'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
@@ -56,9 +66,10 @@ class AdminGaleriController extends Controller
     {
         $galeri = Galeri::findOrFail($id);
 
+        // PERUBAHAN 3: Sesuaikan validasi kategori juga untuk fitur Edit
         $request->validate([
             'judul' => 'required|string|max:100', 
-            'kategori' => 'required|in:Kegiatan,Fasilitas,Prestasi,Lingkungan',
+            'kategori' => 'required|in:Kegiatan Pembelajaran Santri,Kegiatan Ibadah Santri,Ekstrakulikuler,Event,Kegiatan Santri,Prestasi',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
