@@ -15,7 +15,7 @@
     </div>
 
     <div class="w-full max-w-md bg-white border border-gray-300 rounded-xl p-6 md:p-8 shadow-sm">
-        <form method="POST" action="{{ route('login.authenticate') }}">
+        <form method="POST" action="{{ route('login.authenticate') }}" id="form-login">
             @csrf
 
             {{-- Input Email --}}
@@ -91,9 +91,9 @@
             </div>
 
             {{-- Tombol Login --}}
-            <button type="submit" 
-                class="w-full bg-[#C3A771] text-white font-bold text-base md:text-lg py-3 rounded-md hover:bg-[#b09664] hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300">
-                Masuk
+            <button type="submit" id="btn-login"
+                 class="w-full flex justify-center items-center bg-[#C3A771] text-white font-bold text-base md:text-lg py-3 rounded-md hover:bg-[#b09664] hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300">
+                 Masuk
             </button>
         </form>
 
@@ -205,6 +205,23 @@
             }
         });
     }
+</script>
+
+<script>
+    document.getElementById('form-login').addEventListener('submit', function() {
+        let btn = document.getElementById('btn-login');
+    
+        btn.disabled = true;
+        btn.classList.add('opacity-70', 'cursor-not-allowed');
+        btn.classList.remove('hover:-translate-y-0.5', 'hover:shadow-lg'); // Matikan efek terbang saat loading
+        
+        btn.innerHTML = `
+            <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+        `;
+    });
 </script>
 
 @endsection
