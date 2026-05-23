@@ -49,16 +49,16 @@
         </div>
     </div>
 
-    {{-- ================= GRID GALERI (2 KOLOM DI HP) ================= --}}
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 px-4 md:px-0">
+   {{-- ================= GRID GALERI (GAMBAR MEMANJANG, TEKS RINGKAS) ================= --}}
+    <div class="grid md:grid-cols-3 gap-6 md:gap-8 px-4 md:px-0">
         
         @forelse($visibleGaleris as $index => $item)
-        {{-- Logika JavaScript: Otomatis menyembunyikan item ke-5 (index >= 4) ke atas di awal --}}
-        <div class="galeri-item {{ $index >= 4 ? 'hidden' : '' }} bg-white border border-gray-100 rounded-lg shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden group flex flex-col h-full"
+        {{-- Logika JavaScript: Otomatis menyembunyikan item ke-7 (index >= 6) ke atas agar pas 2 baris --}}
+        <div class="galeri-item {{ $index >= 3 ? 'hidden' : '' }} bg-white border border-gray-100 rounded-lg shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden group flex flex-col h-full"
              data-aos="fade-up" data-aos-delay="{{ ($loop->index % 3) * 150 }}">
             
-            {{-- Gambar (Proporsi Luas 4:3) --}}
-            <div class="relative w-full aspect-[4/3] overflow-hidden shrink-0 cursor-pointer" onclick="openModal('{{ asset($item->gambar) }}')">
+            {{-- Gambar (Diatur agar lebih memanjang ke bawah dengan proporsi 4:5) --}}
+            <div class="relative w-full aspect-[4/5] overflow-hidden shrink-0 cursor-pointer" onclick="openModal('{{ asset($item->gambar) }}')">
                 <img src="{{ asset($item->gambar) }}" alt="{{ $item->judul }}" 
                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                      
@@ -70,9 +70,9 @@
                 </div>
             </div>
 
-            {{-- Judul Teks (Rata Kiri, Ukuran Font Sesuai Device HP/PC) --}}
-            <div class="p-3 md:p-5 flex flex-col flex-grow justify-start text-left border-t border-gray-50">
-                <h3 class="text-[#1E5631] font-bold text-xs sm:text-sm md:text-base leading-snug line-clamp-5 group-hover:text-[#4a855d] transition-colors">
+            {{-- Judul Teks (Ruang kosong dibuang, tinggi menyesuaikan teks secara alami) --}}
+            <div class="p-4 md:p-5 flex flex-col justify-center text-left border-t border-gray-50 bg-white">
+                <h3 class="text-[#1E5631] font-bold text-sm md:text-base leading-snug line-clamp-3 group-hover:text-[#4a855d] transition-colors">
                     {{ $item->judul }}
                 </h3>
             </div>
@@ -84,17 +84,18 @@
 
     </div>
 
+    </div>
+
     {{-- ================= TOMBOL MUAT (VERSI JAVASCRIPT INSTAN) ================= --}}
-    @if(count($visibleGaleris) > 4)
-    <div class="text-center mt-16 flex flex-wrap justify-center items-center gap-4" data-aos="fade-up" data-aos-duration="600">
+    @if(count($visibleGaleris) > 3)
+    {{-- Mengubah mt-16 menjadi mt-24 dan menambahkan mb-8 agar jarak atas-bawah lebih lega --}}
+    <div class="text-center mt-24 mb-8 flex flex-wrap justify-center items-center gap-4" data-aos="fade-up" data-aos-duration="600">
         
-        {{-- Tombol Muat Lebih Sedikit (Muncul belakangan saat galeri terbuka semua) --}}
         <button id="btnLoadLess" onclick="tampilkanLebihSedikit()"
            class="hidden bg-white border-2 border-[#1E5631] text-[#1E5631] hover:bg-[#1E5631] hover:text-white px-8 md:px-10 py-2.5 md:py-3 rounded-xl font-bold transition-all shadow-sm hover:shadow-lg text-sm md:text-base active:scale-95">
             &larr; Muat Lebih Sedikit
         </button>
 
-        {{-- Tombol Muat Lebih Banyak (Muncul di awal jika data lebih dari 4) --}}
         <button id="btnLoadMore" onclick="tampilkanSemua()"
            class="bg-[#1E5631] hover:bg-[#153d22] border-2 border-[#1E5631] text-white px-8 md:px-10 py-2.5 md:py-3 rounded-xl font-bold transition-all shadow-md hover:shadow-lg text-sm md:text-base active:scale-95">
             Muat Lebih Banyak &rarr;
@@ -197,10 +198,10 @@
     function tampilkanLebihSedikit() {
         let items = document.querySelectorAll('.galeri-item');
         
-        // Kunci kembali item ke-5 dan seterusnya
+        // Kunci kembali item ke-4 dan seterusnya
         items.forEach((item, index) => {
-            if (index >= 4) {
-                item.classList.add('hidden'); // INI KODE YANG BENAR
+            if (index >= 3) { // <--- UBAH ANGKA INI JADI 3
+                item.classList.add('hidden'); 
             }
         });
 
