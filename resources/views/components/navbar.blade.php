@@ -1,14 +1,13 @@
 {{-- Navbar tetap di atas dengan sticky top-0 --}}
 <nav class="bg-white py-3 px-4 md:py-4 md:px-8 flex items-center justify-between border-b border-gray-100 sticky top-0 z-50 shadow-sm relative">
     
-    {{-- 1. BAGIAN KIRI: LOGO & NAMA PONDOK --}}
     <a href="/" class="flex items-center gap-2 md:gap-3 group shrink-0">
         {{-- Logo --}}
         <img src="{{ asset('images/logo-pondok.png') }}"
              alt="Logo Al-Mardliyyah" 
              class="w-10 h-10 md:w-14 md:h-14 object-contain transition-transform group-hover:scale-105">
         
-        {{-- Teks Bertumpuk (Ukuran disesuaikan untuk HP agar tidak kepanjangan) --}}
+       
         <div class="flex flex-col justify-center">
             <span class="text-[#1E5631] font-bold text-xs sm:text-sm md:text-xl leading-tight">
                 Pondok Pesantren
@@ -18,11 +17,8 @@
             </span>
         </div>
     </a>
-
-    {{-- 2. BAGIAN KANAN: MENU LINKS + LOGIN + HAMBURGER --}}
     <div class="flex items-center gap-3 md:gap-8">
         
-        {{-- MENU NAVIGASI (Hanya berisi Link, disembunyikan di HP) --}}
         <ul id="nav-menu" class="hidden md:flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8 text-sm font-medium text-gray-600 absolute md:static top-full left-0 w-full md:w-auto bg-white md:bg-transparent shadow-lg md:shadow-none px-6 py-6 md:p-0 border-b md:border-none border-gray-100 z-40 transition-all duration-300">
             <li>
                 <a href="/" class="relative pb-1 block group {{ Request::is('/') ? 'text-[#1e4d2b] font-bold' : 'hover:text-[#1e4d2b] transition-colors duration-300' }}">

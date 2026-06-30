@@ -20,13 +20,13 @@
 <body>
     <div class="container">
         <div class="header">
-            {{-- Pastikan APP_URL di .env sudah benar (contoh: http://127.0.0.1:8000) agar gambar muncul --}}
-            <img src="{{ rtrim(config('app.url'), '/') }}/images/logo-pondok.png" alt="Logo Al-Mardliyyah">
+            <img src="{{ asset('images/logo-pondok.png') }}" alt="Logo Al-Mardliyyah">
             <h1>Pondok Pesantren<br>Al-Mardliyyah</h1>
         </div>
         
         <div class="content">
-            <h2>Assalamu'alaikum, {{ $notifiable->name }}!</h2>
+            {{-- Variabel pemanggil nama sudah diubah menjadi 'nama' --}}
+            <h2>Assalamu'alaikum, {{ $notifiable->nama }}!</h2>
             <p>Terima kasih telah mendaftar di sistem Pendaftaran Santri Baru Pondok Pesantren Al-Mardliyyah.</p>
             <p>Untuk alasan keamanan dan agar Anda dapat melanjutkan proses pengisian formulir pendaftaran, silakan verifikasi alamat email Anda dengan menekan tombol di bawah ini:</p>
             

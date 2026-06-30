@@ -13,18 +13,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Membuat akun Pimpinan (Super Admin)
+        // Akun Login Sebagai Pimpinan Pondok (Super Admin)
         User::create([
             'nama' => 'Pimpinan Pondok',
             'email' => 'ppalmardliyyah.office@gmail.com',
-            'password' => Hash::make('admin123'), // Silakan ganti passwordnya nanti
+            'password' => Hash::make('admin123'), 
             'no_hp' => '081234567890',
             'role' => 'pimpinan', 
             'status_user' => 'aktif',
-            'email_verified_at' => now(), // Agar tidak kena cegat verifikasi email
+            'email_verified_at' => now(), 
         ]);
         
-        // Opsional: Kamu juga bisa sekalian membuatkan satu akun Admin awal di sini
+        // Akun Login Sebagai Admin
         User::create([
             'nama' => 'Admin Utama',
             'email' => 'ppdbalmardliyyah@gmail.com',

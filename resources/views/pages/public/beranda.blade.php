@@ -93,27 +93,25 @@
                         }
                     @endphp
 
-                    {{-- Tombol Hero Dinamis --}}
                     <a href="{{ $heroRoute }}"
                        class="w-full sm:w-auto text-center bg-[#C6A75E] text-white px-8 py-3 rounded-lg font-bold shadow-lg hover:bg-[#b59650] transition inline-block">
                         {{ $heroLabel }}
                     </a>
                 @else
-                    {{-- Tombol jika belum login --}}
+                    
                     <a href="{{ route('pendaftaran') }}"
                        class="w-full sm:w-auto text-center bg-[#C6A75E] text-white px-8 py-3 rounded-lg font-bold shadow-lg hover:bg-[#b59650] transition inline-block">
                         Daftar Sekarang
                     </a>
                 @endauth
             @else
-                {{-- Tombol jika pendaftaran ditutup --}}
+               
                 <button onclick="bukaPopupTutup()"
                     class="w-full sm:w-auto text-center bg-[#C6A75E] text-white px-8 py-3 rounded-lg font-bold shadow-lg hover:bg-[#b59650] transition inline-block">
                     Daftar Sekarang
                 </button>
             @endif
 
-            {{-- Tombol Lihat Profil (Disesuaikan bentuknya agar serasi dengan tombol di sebelahnya) --}}
             <a href="{{ route('profile') }}" 
                 class="w-full sm:w-auto text-center border-2 border-white/80 text-white px-8 py-3 rounded-lg font-bold hover:bg-white hover:text-[#1E5631] transition-all inline-block backdrop-blur-md bg-white/5">
                 Lihat Profil
@@ -126,8 +124,6 @@
 {{-- ================= LEMBAGA PENDIDIKAN ================= --}}
 <section class="py-20 md:py-28 bg-white overflow-hidden relative">
     <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-        
-        {{-- TEKS (Berada di kiri pada laptop, di bawah pada HP) --}}
         <div data-aos="fade-right" data-aos-duration="1000" class="order-2 md:order-1 text-center md:text-left z-10">
             <div class="inline-block bg-[#D8E6E0] px-5 py-2 rounded-lg mb-4">
                 <span class="text-[#1E5631] text-sm font-semibold uppercase tracking-wide">Tentang Pondok</span>
@@ -150,21 +146,13 @@
 
         {{-- GAMBAR --}}
         <div class="relative z-10 order-1 md:order-2 flex justify-center md:justify-end" data-aos="fade-left" data-aos-duration="1000">
-            
-            {{-- Wrapper luar untuk mengontrol ukuran maksimal agar tidak memanjang mengikuti tinggi teks --}}
             <div class="relative w-full max-w-sm">
-                
-                {{-- Bingkai Foto Utama --}}
                 <div class="rounded-2xl overflow-hidden shadow-2xl border-[6px] border-white relative z-10 aspect-[4/5] bg-gray-100">
                     <img src="{{ asset('images/sejarah.jpg') }}" 
                          alt="Gedung Pondok Pesantren" 
                          class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
                 </div>
-                
-                {{-- Kotak aksen offset modern (warna emas/kuning kalem) --}}
                 <div class="absolute -bottom-6 -left-6 md:-bottom-6 md:-right-6 w-full h-full bg-[#E5D7B7] rounded-2xl z-0 shadow-lg border border-white/50"></div>
-                
-                {{-- Elemen dekoratif tambahan (Opsional, titik-titik kecil) --}}
                 <div class="absolute -top-4 -right-4 md:-left-4 z-20 opacity-30 pointer-events-none">
                     <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -249,27 +237,23 @@
             Program Pendidikan
         </h2>
 
-        {{-- Grid disesuaikan agar sama dengan halaman program (md:grid-cols-3) --}}
         <div class="grid md:grid-cols-3 gap-8">
             @forelse($programs as $item)
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col group"
                      data-aos="fade-up" data-aos-delay="{{ ($loop->index % 3) * 150 }}"> 
                     
-                    {{-- Aksen atas --}}
                     <div class="h-3 w-full bg-[#1E5631] rounded-t-lg"></div>
 
                     <div class="p-8 flex-grow text-center">
-                        {{-- Ikon --}}
+                      
                         <div class="w-16 h-16 bg-[#E8F2EC] rounded-lg flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-[#1E5631]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.253" />
                             </svg>
                         </div>
 
-                        {{-- Judul --}}
+                        
                         <h3 class="text-[#1E5631] font-bold text-xl mb-3">{{ $item->nama_program }}</h3>
-
-                        {{-- Deskripsi dengan scrollbar kustom & efek kabut --}}
                         <div class="relative">
                             <div class="text-sm text-[#4B5563] leading-relaxed max-h-48 overflow-y-auto pr-3 pb-6 text-justify custom-scrollbar">
                                 {!! nl2br(e($item->deskripsi)) !!}
@@ -371,12 +355,10 @@
                 <div class="relative overflow-hidden rounded-lg shadow-sm group aspect-square md:aspect-[4/3] bg-gray-100 cursor-pointer"
                      data-aos="zoom-in" data-aos-delay="{{ ($loop->index % 3) * 100 }}">
                      
-                    {{-- KEMBALIKAN object-contain menjadi object-cover agar gambar melebar full --}}
                     <img src="{{ Str::startsWith($g->gambar, 'http') ? $g->gambar : asset($g->gambar) }}" 
                          alt="{{ $g->judul }}"
                          class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110">
                          
-                    {{-- Overlay Hitam saat dihover --}}
                     <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-50 group-hover:scale-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -399,7 +381,6 @@
     </div>    
 </section>
 
-{{-- ================= SCRIPTS & POPUP ================= --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const sliderContainer = document.getElementById('slider-container');
@@ -421,11 +402,10 @@
                 taglineElement.style.opacity = 1;
             }, 500); 
 
-        }, 5000); // Diperlambat sedikit jadi 5 detik agar lebih elegan
+        }, 5000); 
     });
 </script>
 
-{{-- POPUP PENDAFTARAN DITUTUP (Desain Baru dengan Backdrop Blur) --}}
 <div id="popupTutup" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-50 transition-opacity opacity-0 duration-300">
     <div id="popupContent" class="bg-white p-8 rounded-lg text-center max-w-sm w-[90%] shadow-2xl transform scale-95 transition-transform duration-300">
         <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-5">
@@ -447,7 +427,6 @@
 </div>
 
 <style>
-/* Utilities */
 .no-scrollbar::-webkit-scrollbar {
     display: none;
 }
@@ -461,15 +440,16 @@
 function bukaPopupTutup() {
     const popup = document.getElementById('popupTutup');
     const content = document.getElementById('popupContent');
-    
+
     popup.classList.remove('hidden');
-    // Memaksa browser melakukan reflow sebelum menambahkan opacity
+    popup.classList.add('flex');
+    
     void popup.offsetWidth; 
     
     popup.classList.remove('opacity-0');
     content.classList.remove('scale-95');
     content.classList.add('scale-100');
-    document.body.style.overflow = 'hidden'; // Kunci scroll belakang
+    document.body.style.overflow = 'hidden'; 
 }
 
 function tutupPopup() {
@@ -482,8 +462,9 @@ function tutupPopup() {
     
     setTimeout(() => {
         popup.classList.add('hidden');
-        document.body.style.overflow = 'auto'; // Buka kunci scroll
-    }, 300); // Waktu yang sama dengan duration-300
+        popup.classList.remove('flex');
+        document.body.style.overflow = 'auto'; 
+    }, 300); 
 }
 </script>
 

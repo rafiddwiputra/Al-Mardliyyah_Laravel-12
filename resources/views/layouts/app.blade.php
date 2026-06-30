@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="{{ asset('images/logo-pondok.png') }}" type="image/png">
     <meta charset="UTF-8">
     <title>@yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
@@ -27,18 +30,16 @@
         }
     </style>
 
+<!-- Kode ini berfungsi untuk menentukan tampilan dan perilaku halaman web, termasuk ikon dan font -->
 </head>
 <body class="bg-white">
 
-    {{-- Navbar --}}
     @include('components.navbar')
 
-    {{-- Content --}}
     <main>
         @yield('content')
     </main>
 
-    {{-- Footer --}}
     @include('components.footer', ['showCTA' => $showCTA ?? false])
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
